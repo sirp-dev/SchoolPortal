@@ -1,0 +1,180 @@
+﻿@model IEnumerable<SchoolPortal.Web.Models.Entities.Finance>
+@using SchoolPortal.Web.Areas.Service
+
+
+@{
+    ViewBag.Title = "Credit";
+}
+
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box" style="padding:7px;">
+            <div class="box-header" style="margin-bottom:15px;">
+                <h3 class="box-title"><i class="fa fa-fw fa-file-text-o"></i> My Payments</h3>
+
+                @*<div class="box-tools">
+                @Html.ActionLink("Generate Payment Invoice", "GenerateInvoice", null, new { @class = "btn btn-primary", style = "padding: 7px;" })
+            </div>*@
+                @if (TempData["success"] != null)
+                {
+                    <div class="alert alert-success alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                        @TempData["success"]
+                    </div>
+                }
+
+                @if (TempData["error"] != null)
+                {
+                    <div class="alert alert-success alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                        @TempData["error"]
+                    </div>
+                }
+            </div>
+            <div class="box-body table-responsive no-padding" style="margin-bottom:20px;">
+
+                <table class="table table-bordered">
+                    <tr>
+                        <th colspan="2">Payment Status</th>
+                    </tr>
+                    <tr>
+                        <th>Total Fees</th>
+                        <td>@ViewBag.totalFee</td>
+                    </tr>
+                    <tr>
+                        <th>Paid Fees</th>
+                        <td>@ViewBag.FeePaid</td>
+                    </tr>
+                    <tr>
+                        <th>Balance</th>
+                        <td>@ViewBag.FeeBalance</td>
+                    </tr>
+                </table>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+
+
+                <table id="example1" class="table table-bordered table-hover" border="1">
+
+                    <thead>
+                        <tr class="bg-primary">
+                            <th>S/N</th>
+                            <th>Date</th>
+                            <th>Ref No</th>
+                            <th>
+                                Title
+                            </th>
+                            <th>Amount</th>
+                            <th>Source</th>
+                            <th>Balance</th>
+
+                            <th>
+                                Status
+                            </th>
+                            <th></th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            int sno = 0;
+                        }
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @{ sno++; }
+                                    @sno
+                                </td>
+                                <td>@item.Date.ToString("dd-MM-yyyy")</td>
+                                <td>
+                                    @item.ReferenceId
+                                </td>
+                                <td>
+                                    @item.Title
+
+                                </td>
+
+                                <td>&#8358;@string.Format("{0:C}", item.Amount).Replace(".00", "").Replace("$", "")</td>
+                                <td>@item.FinanceSource</td>
+                                <td>&#8358;@string.Format("{0:C}", item.Balance).Replace(".00", "").Replace("$", "")</td>
+
+                                <td>
+                                    @if (item.TransactionStatus == SchoolPortal.Web.Models.Entities.TransactionStatus.CompletePayment)
+                                    {
+                                        <span style="font-weight:900;" class="text-success">@item.TransactionStatus</span>
+
+                                    }
+                                    else if (item.TransactionStatus == SchoolPortal.Web.Models.Entities.TransactionStatus.PartPayment)
+                                    {
+                                        <span style="font-weight:900;" class="text-warning">@item.TransactionStatus</span>
+
+                                    }
+                                    else if (item.TransactionStatus == SchoolPortal.Web.Models.Entities.TransactionStatus.Cancel)
+                                    {
+                                        <span style="font-weight:900;" class="text-danger">@item.TransactionStatus</span>
+
+                                    }
+                                    else
+                                    {
+                                        <span style="font-weight:900;" class="">@item.TransactionStatus</span>
+
+                                    }
+
+                                </td>
+
+                                <td>
+
+                                    @Html.ActionLink("Details", "PaymentInfo", new { id = item.Id }, new { @class = "text-color-success btn-xs btn btn-success" })
+
+
+
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+</div>
+
+
+
+
+@section Style {
+
+    <link rel="stylesheet" href="http://v1.exwhyzee.ng/admin/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+}
+
+@section Scripts {
+    <!-- DataTables -->
+    <script src="http://v1.exwhyzee.ng/admin/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="http://v1.exwhyzee.ng/admin/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+
+}
+
+@section Scripts2 {
+    <script>
+        $(function () {
+            $('#example1').DataTable()
+            $('#example2').DataTable({
+                'paging': true,
+                'lengthChange': false,
+                'searching': false,
+                'ordering': true,
+                'info': true,
+                'autoWidth': false
+            })
+        })
+    </script>
+}
+
+
+

@@ -1,0 +1,82 @@
+﻿@model SchoolPortal.Web.Models.Entities.GradingDetails
+
+@{
+    ViewBag.Title = "EditGrade";
+}
+
+<div class="row">
+    <!-- left column -->
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <!-- general form elements -->
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Edit Grade</h3>
+            </div>
+            @using (Html.BeginForm())
+            {
+                @*@Html.AntiForgeryToken()*@
+
+                <div class="box-body">
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.Id)
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.GradingId, "GradingId", htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+                            @Html.DropDownList("GradingId", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.GradingId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.UpperLimit, htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+                            @Html.EditorFor(model => model.UpperLimit, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.UpperLimit, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.LowerLimit, htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+                            @Html.EditorFor(model => model.LowerLimit, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.LowerLimit, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Grade, htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+                            @Html.EditorFor(model => model.Grade, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Grade, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Remark, htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+                            @Html.EditorFor(model => model.Remark, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Remark, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                        <a href="javascript: history.back()" class="btn btn-default">Cancel</a>
+                    </div>
+
+            }
+        </div>
+
+    </div>
+    <div class="col-md-3"></div>
+
+</div>
+
+
+
+@section Scripts {
+        
+}

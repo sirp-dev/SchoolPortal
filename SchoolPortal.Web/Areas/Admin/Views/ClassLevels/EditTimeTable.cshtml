@@ -1,0 +1,146 @@
+﻿@model SchoolPortal.Web.Models.Entities.TimeTable
+
+@{
+    ViewBag.Title = "EditTimeTable";
+}
+
+<div class="row">
+    <!-- left column -->
+    <div class="col-md-12">
+        <!-- general form elements -->
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Edit Time Table</h3>
+                @if (TempData["error"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                        @Html.Raw(TempData["error"])
+                    </div>
+                }
+            </div>
+            @using (Html.BeginForm())
+            {
+                @*@Html.AntiForgeryToken()*@
+
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.Id)
+                @Html.HiddenFor(model => model.ClassLevelId)
+                @Html.HiddenFor(model => model.Monday)
+                @Html.HiddenFor(model => model.Tuesday)
+                @Html.HiddenFor(model => model.Wednessday)
+                @Html.HiddenFor(model => model.Thursday)
+                @Html.HiddenFor(model => model.Friday)
+                @Html.HiddenFor(model => model.Name)
+                <div class="box-body table-responsive no-padding">
+                    <table class="table table-hover">
+                        <tr>
+                            <td>Days/Time</td>
+                            <td>@Html.EditorFor(model => model.Time6_7, new { htmlAttributes = new { @class = "" } })</td>
+                            <td>@Html.EditorFor(model => model.Time7_8, new { htmlAttributes = new { @class = "" } })</td>
+                            <td>@Html.EditorFor(model => model.Time8_9, new { htmlAttributes = new { @class = "" } })</td>
+                            <td>@Html.EditorFor(model => model.Time9_10, new { htmlAttributes = new { @class = "" } })</td>
+                            <td>@Html.EditorFor(model => model.Time10_11, new { htmlAttributes = new { @class = "" } })</td>
+                            <td>@Html.EditorFor(model => model.Time11_12, new { htmlAttributes = new { @class = "" } })</td>
+                            <td>@Html.EditorFor(model => model.Time12_13, new { htmlAttributes = new { @class = "" } })</td>
+                            <td>@Html.EditorFor(model => model.Time13_14, new { htmlAttributes = new { @class = "" } })</td>
+                            <td>@Html.EditorFor(model => model.Time14_15, new { htmlAttributes = new { @class = "" } })</td>
+                            <td>@Html.EditorFor(model => model.Time15_16, new { htmlAttributes = new { @class = "" } })</td>
+                            <td>@Html.EditorFor(model => model.Time16_17, new { htmlAttributes = new { @class = "" } })</td>
+                            <td>@Html.EditorFor(model => model.Time17_18, new { htmlAttributes = new { @class = "" } })</td>
+                        </tr>
+                        <tr>
+                            <td> @Model.Monday</td>
+                            <td>@Html.EditorFor(model => model.M6_7, new { htmlAttributes = new { @class = "" } })</td>
+                            <td>@Html.EditorFor(model => model.M7_8, new { htmlAttributes = new { @class = "" } })</td>
+                            <td>@Html.EditorFor(model => model.M8_9, new { htmlAttributes = new { @class = "" } })</td>
+                            <td>@Html.EditorFor(model => model.M9_10, new { htmlAttributes = new { @class = "" } })</td>
+                            <td>@Html.EditorFor(model => model.M10_11, new { htmlAttributes = new { @class = "" } })</td>
+                            <td>@Html.EditorFor(model => model.M11_12, new { htmlAttributes = new { @class = "" } })</td>
+                            <td>@Html.EditorFor(model => model.M12_13, new { htmlAttributes = new { @class = "" } })</td>
+                            <td>@Html.EditorFor(model => model.M13_14, new { htmlAttributes = new { @class = "" } })</td>
+                            <td>@Html.EditorFor(model => model.M14_15, new { htmlAttributes = new { @class = "" } })</td>
+                            <td>@Html.EditorFor(model => model.M15_16, new { htmlAttributes = new { @class = "" } })</td>
+                            <td>@Html.EditorFor(model => model.M16_17, new { htmlAttributes = new { @class = "" } })</td>
+                            <td>@Html.EditorFor(model => model.M17_18, new { htmlAttributes = new { @class = "" } })</td>
+                        </tr>
+                        <tr>
+                            <td> @Model.Tuesday</td>
+                            <td>@Html.EditorFor(model => model.T6_7, new { htmlAttributes = new { @class = "" } })</td>
+                            <td>@Html.EditorFor(model => model.T7_8, new { htmlAttributes = new { @class = "" } })</td>
+                            <td>@Html.EditorFor(model => model.T8_9, new { htmlAttributes = new { @class = "" } })</td>
+                            <td>@Html.EditorFor(model => model.T9_10, new { htmlAttributes = new { @class = "" } })</td>
+                            <td>@Html.EditorFor(model => model.T10_11, new { htmlAttributes = new { @class = "" } })</td>
+                            <td>@Html.EditorFor(model => model.T11_12, new { htmlAttributes = new { @class = "" } })</td>
+                            <td>@Html.EditorFor(model => model.T12_13, new { htmlAttributes = new { @class = "" } })</td>
+                            <td>@Html.EditorFor(model => model.T13_14, new { htmlAttributes = new { @class = "" } })</td>
+                            <td>@Html.EditorFor(model => model.T14_15, new { htmlAttributes = new { @class = "" } })</td>
+                            <td>@Html.EditorFor(model => model.T15_16, new { htmlAttributes = new { @class = "" } })</td>
+                            <td>@Html.EditorFor(model => model.T16_17, new { htmlAttributes = new { @class = "" } })</td>
+                            <td>@Html.EditorFor(model => model.T17_18, new { htmlAttributes = new { @class = "" } })</td>
+                        </tr>
+                        <tr>
+
+                            <td> @Model.Wednessday</td>
+                            <td>@Html.EditorFor(model => model.W6_7, new { htmlAttributes = new { @class = "" } })</td>
+                            <td>@Html.EditorFor(model => model.W7_8, new { htmlAttributes = new { @class = "" } })</td>
+                            <td>@Html.EditorFor(model => model.W8_9, new { htmlAttributes = new { @class = "" } })</td>
+                            <td>@Html.EditorFor(model => model.W9_10, new { htmlAttributes = new { @class = "" } })</td>
+                            <td>@Html.EditorFor(model => model.W10_11, new { htmlAttributes = new { @class = "" } })</td>
+                            <td>@Html.EditorFor(model => model.W11_12, new { htmlAttributes = new { @class = "" } })</td>
+                            <td>@Html.EditorFor(model => model.W12_13, new { htmlAttributes = new { @class = "" } })</td>
+                            <td>@Html.EditorFor(model => model.W13_14, new { htmlAttributes = new { @class = "" } })</td>
+                            <td>@Html.EditorFor(model => model.W14_15, new { htmlAttributes = new { @class = "" } })</td>
+                            <td>@Html.EditorFor(model => model.W15_16, new { htmlAttributes = new { @class = "" } })</td>
+                            <td>@Html.EditorFor(model => model.W16_17, new { htmlAttributes = new { @class = "" } })</td>
+                            <td>@Html.EditorFor(model => model.W17_18, new { htmlAttributes = new { @class = "" } })</td>
+                        </tr>
+                        <tr>
+
+                            <td> @Model.Thursday</td>
+                            <td>@Html.EditorFor(model => model.Th6_7, new { htmlAttributes = new { @class = "" } })</td>
+                            <td>@Html.EditorFor(model => model.Th7_8, new { htmlAttributes = new { @class = "" } })</td>
+                            <td>@Html.EditorFor(model => model.Th8_9, new { htmlAttributes = new { @class = "" } })</td>
+                            <td>@Html.EditorFor(model => model.Th9_10, new { htmlAttributes = new { @class = "" } })</td>
+                            <td>@Html.EditorFor(model => model.Th10_11, new { htmlAttributes = new { @class = "" } })</td>
+                            <td>@Html.EditorFor(model => model.Th11_12, new { htmlAttributes = new { @class = "" } })</td>
+                            <td>@Html.EditorFor(model => model.Th12_13, new { htmlAttributes = new { @class = "" } })</td>
+                            <td>@Html.EditorFor(model => model.Th13_14, new { htmlAttributes = new { @class = "" } })</td>
+                            <td>@Html.EditorFor(model => model.Th14_15, new { htmlAttributes = new { @class = "" } })</td>
+                            <td>@Html.EditorFor(model => model.Th15_16, new { htmlAttributes = new { @class = "" } })</td>
+                            <td>@Html.EditorFor(model => model.Th16_17, new { htmlAttributes = new { @class = "" } })</td>
+                            <td>@Html.EditorFor(model => model.Th17_18, new { htmlAttributes = new { @class = "" } })</td>
+                        </tr>
+                        <tr>
+                            <td> @Model.Friday</td>
+                            <td>@Html.EditorFor(model => model.F6_7, new { htmlAttributes = new { @class = "" } })</td>
+                            <td>@Html.EditorFor(model => model.F7_8, new { htmlAttributes = new { @class = "" } })</td>
+                            <td>@Html.EditorFor(model => model.F8_9, new { htmlAttributes = new { @class = "" } })</td>
+                            <td>@Html.EditorFor(model => model.F9_10, new { htmlAttributes = new { @class = "" } })</td>
+                            <td>@Html.EditorFor(model => model.F10_11, new { htmlAttributes = new { @class = "" } })</td>
+                            <td>@Html.EditorFor(model => model.F11_12, new { htmlAttributes = new { @class = "" } })</td>
+                            <td>@Html.EditorFor(model => model.F12_13, new { htmlAttributes = new { @class = "" } })</td>
+                            <td>@Html.EditorFor(model => model.F13_14, new { htmlAttributes = new { @class = "" } })</td>
+                            <td>@Html.EditorFor(model => model.F14_15, new { htmlAttributes = new { @class = "" } })</td>
+                            <td>@Html.EditorFor(model => model.F15_16, new { htmlAttributes = new { @class = "" } })</td>
+                            <td>@Html.EditorFor(model => model.F16_17, new { htmlAttributes = new { @class = "" } })</td>
+                            <td>@Html.EditorFor(model => model.F17_18, new { htmlAttributes = new { @class = "" } })</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <a href="javascript: history.back()" class="btn btn-default">Cancel</a>
+                </div>
+
+            }
+        </div>
+        </div>
+    </div>
+
+            @section Scripts {
+                    @**@
+            }

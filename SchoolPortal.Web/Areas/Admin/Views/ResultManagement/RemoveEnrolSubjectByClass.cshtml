@@ -1,0 +1,123 @@
+﻿
+@{
+    ViewBag.Title = "Update Enrolled Subject";
+    int n = 0;
+}
+
+
+<div class="row">
+    <!-- left column -->
+
+    <div class="col-md-12">
+        <!-- general form elements -->
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Remove Enrolled Subjects in Class</h3>
+                @if (TempData["error"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                        @TempData["error"]
+                    </div>
+                }
+                @if (TempData["success"] != null)
+                {
+                    <div class="alert alert-success alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                        @TempData["success"]
+                    </div>
+                }
+            </div>
+            @using (Html.BeginForm())
+            {
+                @*@Html.AntiForgeryToken()*@
+
+                <div class="box-body">
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="row">
+                        <div class="col-md-6"> 
+                            <div class="form-group">
+                                <label>Class</label>
+                                <div class="">
+                                    @Html.DropDownList("ClassLevelId", ViewBag.ClassLevelId as List<SelectListItem>, "Select a class", new { id = "classesId", @class = "form-control" })
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Subject</label>
+                                <div class="">
+                                    <select id="Subject" name="SubjectId" class="form-control"></select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+                <div class="box-footer">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button type="submit" class="btn btn-primary">Remove Enrolled Subjects</button>
+                            <a href="javascript: history.back()" class="btn btn-default">Cancel</a>
+                        </div>
+                    </div>
+
+                </div>
+
+            }
+        </div>
+
+
+
+    </div>
+</div>
+<style>
+    #studentRecord tr, td, th {
+        padding: 2px !important;
+    }
+</style>
+
+
+
+
+@section Scripts {
+    <script src="http://v1.exwhyzee.ng/admin/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="http://v1.exwhyzee.ng/admin/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+    
+    @*<script type="text/javascript" src="http://ajax.cdnjs.com/ajax/libs/json2/20110223/json2.js"></script>*@
+    <script src="http://v1.exwhyzee.ng/Content/angular/json2.js"></script>
+    
+    <script type="text/jscript">
+        $(function () {
+            $('#classesId').change(function () {
+                $.getJSON('/EventsControl/SubjectByClass/' + $('#classesId').val(), function (data) {
+                    var items = '<option>Select a Subject</option>';
+                    console.log(data);
+                    console.log("check");
+                    $.each(data, function (i, local) {
+                        items += "<option value='" + local.Value + "'>" + local.Text + "</option>";
+                    });
+                    $('#Subject').html(items);
+                    console.log(items);
+                    console.log("check 2");
+                });
+            });
+        });
+    </script>
+}
+
+
+
+
+
+
+

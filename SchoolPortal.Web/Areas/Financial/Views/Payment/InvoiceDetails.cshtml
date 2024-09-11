@@ -1,0 +1,223 @@
+﻿@model IEnumerable<SchoolPortal.Web.Models.Entities.FinanceInitializer>
+@using SchoolPortal.Web.Areas.Service
+@{
+    ViewBag.Title = "Details";
+}
+
+<!-- Content Header (Page header) -->
+<!--<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Invoice</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">-->
+@*<li class="breadcrumb-item"><a href="#">Home</a></li>*@
+<!--<li class="breadcrumb-item active">Invoice</li>
+            </ol>
+        </div>
+    </div>
+</div>-->
+<!-- /.container-fluid -->
+<!--</section>-->
+<style>
+    address {
+        margin-bottom: 20px;
+        font-style: normal;
+        line-height: 1.12857143;
+        font-size: 12px;
+    }
+</style>
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+
+                <div class="box-header with-border">
+                    @if (TempData["warning"] != null)
+                    {
+                        <div class="alert alert-danger alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                            @TempData["warning"]<br />
+                            @TempData["error1"]
+                        </div>
+                    }
+                    @if (TempData["success"] != null)
+                    {
+                        <div class="alert alert-success alert-dismissable">
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            <strong>@Html.Raw(TempData["success"])</strong>
+                        </div>
+                    }
+                </div>
+
+
+                <!-- Main content -->
+                <div class="invoice p-3 mb-3">
+                    <!-- title row -->
+                    <div class="row">
+                        <div class="col-12">
+                            <h5>
+                                <i class="fa fa-globe"></i> @ViewBag.set.SchoolName Payment of Fees
+                            </h5>
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                    <!-- info row -->
+                    <div class="row invoice-info">
+                        <div class="alert alert-danger alert-dismissable" style="padding: 5px; margin-bottom: 8px;">
+                            <strong>Kindly Confirm the student Email Before Continuation.</strong>
+                        </div>
+                        @*<div class="col-sm-4 invoice-col">
+            Account Information
+
+            @if (ViewBag.bank.Count == 1)
+            {
+                foreach (var i in ViewBag.bank)
+                {
+                    <address>
+                        <strong>Bank Name: </strong>@i.BankName<br>
+                        <strong>Account Name: </strong>@i.AccountName<br>
+                        <strong>Account Number: </strong>@i.BankAccountNumber<br>
+                        <strong>Account Type: </strong>@i.AccountType<br>
+
+                    </address>
+                }
+            }
+            else if (ViewBag.bank.Count == 2)
+            {
+                foreach (var i in ViewBag.bank)
+                {
+                    <address>
+                        <strong>Bank Name: </strong>@i.BankName<br>
+                        <strong>Account Name: </strong>@i.AccountName<br>
+                        <strong>Account Number: </strong>@i.BankAccountNumber<br>
+                        <strong>Account Type: </strong>@i.AccountType<br>
+
+                    </address>
+                }
+
+            }
+            else if (ViewBag.bank.Count == 3)
+            {
+                foreach (var i in ViewBag.bank.Take(3))
+                {
+                    <address>
+                        <strong>Bank Name: </strong>@i.BankName<br>
+                        <strong>Account Name: </strong>@i.AccountName<br>
+                        <strong>Account Number: </strong>@i.BankAccountNumber<br>
+                        <strong>Account Type: </strong>@i.AccountType<br>
+
+                    </address>
+                }
+
+            }
+
+
+        </div>*@
+                        <!-- /.col -->
+                        <div class="col-sm-6 invoice-col">
+                            Student Information
+                            <address>
+                                <strong>
+                                    @ViewBag.stdName.StudentProfile.user.Surname @ViewBag.stdName.StudentProfile.user.FirstName @ViewBag.stdName.StudentProfile.user.OtherName
+
+                                </strong><br>
+                                @ViewBag.pro.user.ContactAddress<br>
+                                Phone: @ViewBag.pro.user.Phone<br>
+                                Email: @ViewBag.pro.user.Email
+                            </address>
+                        </div>
+                        <!-- /.col -->
+                        @*<div class="col-sm-6 invoice-col">
+            <b>Invoice No: @Model.InvoiceNumber</b> <br>
+            <b>Amount:</b><span style="font-weight:900;font-size:15px;"> &#8358;@string.Format("{0:C}", Model.Amount).Replace(".00", "").Replace("$", "")</span>
+        </div>*@
+                        <!-- /.col -->
+                    </div>
+                    <!-- /.row -->
+                    <!-- Table row -->
+                    <div class="row">
+                        <div class="col-12 table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Total Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var i in Model)
+                                    {
+                                        <tr>
+                                            <td>@i.Income.Title</td>
+                                            <td>&#8358;@string.Format("{0:C}", i.Amount).Replace(".00", "").Replace("$", "")</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td style=""><b style="text-align:right;">Total</b></td>
+                                        <td><b>&#8358;@string.Format("{0:C}", Model.Sum(x=>x.Amount)).Replace(".00", "").Replace("$", "")</b></td>
+                                       
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                    <!-- /.row -->
+
+                    <div class="row">
+                        <!-- accepted payments column -->
+                        <div class="col-6">
+                            <p class="lead">Payment Methods:</p>
+                            <img src="http://v1.exwhyzee.ng/Content/PaymentImage/visa.png" alt="Visa" />
+                            <img src="http://v1.exwhyzee.ng/Content/PaymentImage/mastercard.png" alt="Mastercard" />
+
+                            <p class="text-muted well well-sm shadow-none" style="margin-top: 10px;">
+                                <ul>
+                                    <li>To make payment by cash print the invoice and take it to your school Financial department for further processing</li>
+                                    <li>
+                                        To make back payment copy or print the account statement of the school also print the invoice take it to the bank <br />
+                                        and payment come back and upload the image of the teller
+                                    </li>
+                                    <li>To make online payment click on the button which will take to a page to enter your card details</li>
+                                </ul>
+
+                            </p>
+                        </div>
+                        <!-- /.col -->
+                        @*<div class="col-6">
+                            <p class="lead">Generated Date @Model.Date.ToString("dd-MMM-yyyy hh:mm:tt")</p>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <tr>
+                                        <th>Total Amount:</th>
+                                        <td>#@Model.Amount</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>*@
+                        <!-- /.col -->
+                    </div>
+                    <!-- /.row -->
+                    <!-- this row will not appear when printing -->
+                    <div class="row no-print">
+                        <div class="col-12">
+                           
+                                    <a href="@Url.Action("PayNow", "Payment", new { sessionid = ViewBag.ssid, area = "Financial" })" class="btn btn-success float-right">
+                                        <i class="fa fa-credit-card"></i>
+                                        Pay Online
+                                    </a>
+                                   
+                        </div>
+                    </div>
+                </div>
+                <!-- /.invoice -->
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</section>

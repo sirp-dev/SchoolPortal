@@ -1,0 +1,160 @@
+﻿@model SchoolPortal.Web.Models.Entities.WebsiteSettings
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <!-- left column -->
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <!-- general form elements -->
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">New Setting/Theme</h3>
+            </div>
+            @using (Html.BeginForm("Create", "WebsiteSettings", null, FormMethod.Post, new { id = "", enctype = "multipart/form-data" }))
+            {
+                @*@Html.AntiForgeryToken()*@
+
+            <div class="box-body">
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                @*<div class="form-group">
+            @Html.LabelFor(model => model.PortalUrl, htmlAttributes: new { @class = "control-label" })
+            <div class="">
+                @Html.EditorFor(model => model.PortalUrl, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PortalUrl, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.WebsiteUrl, htmlAttributes: new { @class = "control-label" })
+            <div class="">
+                @Html.EditorFor(model => model.WebsiteUrl, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.WebsiteUrl, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+                <div style="color:#ffffff !important;">
+                    @*<span style="height:20px;width:50px;background-color:#5eafcf;padding:10px 30px;">Theme 1</span>
+            <span style="height:20px;width:50px;background-color:#f2184f;padding:10px 30px;">Theme 1</span>
+            <br /> <br /> <br />
+            <span style="height:20px;width:50px;background-color:#ffa500;padding:10px 30px;">Theme 2</span>
+            <span style="height:20px;width:50px;background-color:#ffa500;padding:10px 30px;">Theme 2</span>
+            <br /> <br /> <br />
+            <span style="height:20px;width:50px;background-color:#c58208;padding:10px 30px;">Theme 3</span>
+            <span style="height:20px;width:50px;background-color:#c58208;padding:10px 30px;">Theme 3</span>
+            <br /> <br /> <br />
+            <span style="height:20px;width:50px;background-color:#263247;padding:10px 30px;">Theme 4</span>
+            <span style="height:20px;width:50px;background-color:#263247;padding:10px 30px;">Theme 4</span>*@
+                </div> <br /> <br />
+
+                <div class="form-group">
+                    <label>Website Logo</label>
+                    <div class="">
+                        <input type="file" name="upload" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Website Icon</label>
+                    <div class="">
+                        <input type="file" name="icon" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Layout, htmlAttributes: new { @class = "control-label" })
+                    <div class="">
+                        <select class="form-control" name="Layout">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                        @Html.ValidationMessageFor(model => model.Layout, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                @*<div class="form-group">
+            @Html.LabelFor(model => model.Slider, htmlAttributes: new { @class = "control-label" })
+            <div class="">
+                <select class="form-control" name="Slider">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                </select>
+                @Html.ValidationMessageFor(model => model.Slider, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.AboutUs, htmlAttributes: new { @class = "control-label" })
+            <div class="">
+                <select class="form-control" name="AboutUs">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                </select>
+                @Html.ValidationMessageFor(model => model.AboutUs, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.EventAndNews, htmlAttributes: new { @class = "control-label" })
+            <div class="">
+                <select class="form-control" name="EventAndNews">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                </select>
+                @Html.ValidationMessageFor(model => model.EventAndNews, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ContactUs, htmlAttributes: new { @class = "control-label" })
+            <div class="">
+                <select class="form-control" name="ContactUs">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                </select>
+                @Html.ValidationMessageFor(model => model.ContactUs, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ShowBlogInHome, htmlAttributes: new { @class = "control-label" })
+
+                    @Html.EditorFor(model => model.ShowBlogInHome)
+                    @Html.ValidationMessageFor(model => model.ShowBlogInHome, "", new { @class = "text-danger" })
+
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ShowHallOfFameInHome, htmlAttributes: new { @class = "control-label" })
+
+                    @Html.EditorFor(model => model.ShowHallOfFameInHome)
+                    @Html.ValidationMessageFor(model => model.ShowHallOfFameInHome, "", new { @class = "text-danger" })
+
+                </div>
+
+            </div>
+
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <a href="javascript: history.back()" class="btn btn-default">Cancel</a>
+                </div>
+
+                }
+            </div>
+
+    </div>
+    <div class="col-md-3"></div>
+
+</div>
+

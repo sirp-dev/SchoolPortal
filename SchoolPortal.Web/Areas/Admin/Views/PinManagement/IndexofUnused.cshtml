@@ -1,0 +1,112 @@
+﻿
+@model PagedList.IPagedList<SchoolPortal.Web.Models.Entities.PinCodeModel>
+@using PagedList.Mvc;
+@using SchoolPortal.Web.Areas.Service
+<link href="http://v1.exwhyzee.ng/Content/PagedList.css" rel="stylesheet" />
+@{
+    ViewBag.Title = "Index of Unused";
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box panel-primary">
+
+            <div class="box-header">
+                <h3 class="box-title"><i class="fa fa-fw fa-lock"></i> Pin Management <i>UNUSED CARD</i>  (@Model.Count() / @ViewBag.countUn)</h3>
+
+            </div>
+
+
+            @Html.Action("_CardAnalysis", "PinManagement")
+
+            <div class="row">
+
+                <div class="col-md-6" style="padding-left:0px;">
+                    @using (Html.BeginForm())
+                    {
+
+                        <div class="input-group" style="margin-left:10px;">
+                            <div class="input-group-btn">
+                                <button type="submit" class="btn btn-primary">Search</button>
+                            </div>
+                            <!-- /btn-group -->
+                            <input type="text" name="SearchString" value="@ViewBag.CurrentFilter" class="form-control" placeholder="Search...">
+                        </div>
+
+                    }
+                </div>
+                <div class="col-md-6" style="padding-right:5px;">
+                    <div class="btn-group pull-right">
+                        @Html.ActionLink("Used Card", "Index", null, new { @class = "btn btn-success" })
+                        @Html.ActionLink("Unnsed Card", "IndexofUnused", null, new { @class = "btn btn-warning" })
+                        @Html.ActionLink("All card", "IndexofAll", null, new { @class = "btn btn-primary" })
+                    </div>
+                </div>
+            </div>
+
+            <br />
+            <!-- /.box-header -->
+            <div class="box-body table-responsive border-table">
+
+
+                <br />
+
+                <table border="1" class="table table-bordered table-hover">
+
+                    <tr>
+                        <th>
+                            PIN NUMBER
+                        </th>
+                        <th>
+                            SERIAL NUMBER
+                        </th>
+                        <th>
+                            USAGE
+                        </th>
+
+                        <th style="text-transform:uppercase;">
+                            @GeneralService.StudentorPupil() PIN
+                        </th>
+
+                        <th></th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                xxxxxxxxxxxx
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.SerialNumber)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Usage)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.StudentPin)
+                            </td>
+
+                            <td>
+                                @Html.ActionLink("Card Info", "Details", new { id = item.Id }, new { @class = "btn btn-primary" })
+
+                            </td>
+                        </tr>
+                    }
+                </table>
+                <div class="container text-center page" style="margin-left:auto;margin-right:auto;">
+
+                    <p>Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount</p>
+
+                    @Html.PagedListPager(Model, page => Url.Action("IndexofUnused",
+    new { page }))
+                </div>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+        <!-- /.box -->
+    </div>
+    <!-- /.col -->
+</div>

@@ -1,0 +1,115 @@
+﻿@model SchoolPortal.Web.Models.Entities.CategoryPage
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="row">
+    <!-- left column -->
+    <div class="col-md-12">
+        <!-- general form elements -->
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">New Style/ HeadTag/ Footer/  Page</h3>
+
+
+
+            </div>
+            <div class="box-body">
+                <p>for head tag: "menu description" is HeadTagContent </p>
+                <p>for head style "menu description" is HeadStylesheet and sortorder is 105</p>
+                <p>for footer js "menu description" is HeadStylesheet and sortorder is 155</p>
+                <p>for menu "menu description" is HeadStylesheet and sortorder is 1020</p>
+                <p>for slider js "menu description" is HeadStylesheet and sortorder is 10002</p>
+                <p>for slider css "menu description" is HeadStylesheet and sortorder is 10001</p>
+                <p>for blog css "menu description" is HeadStylesheet and sortorder is 2005</p>
+                <p>for blog js "menu description" is HeadStylesheet and sortorder is 2055</p>
+                <p>for blog details css "menu description" is HeadStylesheet and sortorder is 2555</p>
+                <p>for modal "menu description" is HeadStylesheet and sortorder is 3055</p>
+
+            </div>
+                @using (Html.BeginForm())
+                {
+                    @*@Html.AntiForgeryToken()*@
+
+                    <div class="box-body">
+
+                        <div class="">
+
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label" })
+                                <div class="">
+                                    @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.MenuDescription, htmlAttributes: new { @class = "control-label" })
+                                <div class="">
+                                    @Html.EnumDropDownListFor(model => model.MenuDescription, htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.MenuDescription, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.SortOrder, htmlAttributes: new { @class = "control-label" })
+                                <div class="">
+                                    @Html.EditorFor(model => model.SortOrder, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.SortOrder, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.Label("Note: if Menu Description is Dropdown. you dont need to enter the content", htmlAttributes: new { @class = "control-label" })
+
+                            </div>
+
+
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.ContentHome, htmlAttributes: new { @class = "control-label" })
+                                <div class="">
+                                    <textarea name="ContentHome" class="form-control" rows="10">
+            
+</textarea>
+
+                                    @Html.ValidationMessageFor(model => model.ContentHome, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Publish, htmlAttributes: new { @class = "control-label" })
+                                <div class="">
+                                    @Html.EnumDropDownListFor(model => model.Publish, htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Publish, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                        <a href="javascript: history.back()" class="btn btn-default">Cancel</a>
+                    </div>
+
+
+
+                }
+            </div>
+        </div>
+</div>
+
+
+@section Scripts2 {
+
+        @**@
+   
+}
+

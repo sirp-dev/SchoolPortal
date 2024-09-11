@@ -1,0 +1,49 @@
+﻿@model SchoolPortal.Web.Models.Dtos.NotificationDto
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<div class="row">
+
+    <div class="col-md-12">
+        <div class="box box-primary">
+            <div class="box-header">
+                <h2>School Notification Message Settings</h2>
+            </div>
+            <div class="box-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+
+                        <tr>
+                            <th>Title</th>
+                            <td>@Model.Title</td>
+                        </tr>
+                        <tr>
+                            <th>Notification Message</th>
+                            <td>@Html.Raw(Model.Message)</td>
+                        </tr>
+
+                        <tr>
+                            <th>Show Modal</th>
+                            <td>@Html.CheckBoxFor(model => model.ShowModal)</td>
+                        </tr>
+
+                        <tr>
+                            <th>Show Marque</th>
+                            <td>@Html.CheckBoxFor(model => model.ShowMarque)</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="box-footer">
+                @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary" })
+                <a href="javascript: history.back()" class="btn btn-default">Cancel</a>
+            </div>
+        </div>
+        <!-- Custom Tabs (Pulled to the right) -->
+        <!-- nav-tabs-custom -->
+    </div>
+    <!-- /.col -->
+</div>

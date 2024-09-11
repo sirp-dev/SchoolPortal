@@ -1,0 +1,47 @@
+﻿@model SchoolPortal.Web.Models.Dtos.SettingLayoutDto
+@using SchoolPortal.Web.Areas.Service  
+
+<div class="user-panel">
+    <div class="pull-left image">
+      
+        @if (Model.Image != null)
+        {
+            <img src="data:image/jpg;base64,@(Convert.ToBase64String(Model.Image))" class="img-circle img-responsive" />
+
+        }
+        else
+        {
+            <img src="http://v1.exwhyzee.ng/admin/dist/img/avatar5.jpg" class="img-circle img-responsive" />
+
+        }
+    </div>
+    <div class="pull-left info">
+        <p>@User.Identity.Name
+            
+        </p>
+        @using SchoolPortal.Web.Areas.Service
+        <p style="text-wrap:normal;">
+            @if (User.IsInRole("Admin"))
+            {
+                <span>(Admin)</span>
+            }
+            @if (User.IsInRole("Staff"))
+            {
+                <span>(Staff)</span>
+            }
+            @if (User.IsInRole("Student"))
+            {
+                <span>(@GeneralService.StudentorPupil())</span>
+            }
+            @if (User.IsInRole("SuperAdmin"))
+            {
+                <span>(Super Admin)</span>
+            }
+            @if (User.IsInRole("FormTeacher"))
+            {
+                <span>(Form Teacher)</span>
+            }
+        </p>
+      
+    </div>
+</div>

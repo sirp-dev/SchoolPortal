@@ -1,0 +1,33 @@
+﻿
+@{
+    ViewBag.Title = "ContentView";
+    Layout = "~/Areas/Admin/Views/Shared/_DescView.cshtml";
+}
+
+<h2>ContentView</h2>
+
+@model SchoolPortal.Web.Models.Entities.CategoryPage
+
+
+@if (Model != null)
+{
+    @Html.Raw(Model.Content)
+
+
+}
+
+@section HeadArea {
+
+    @Html.Raw(ViewBag.taghead)
+    @Html.Raw(ViewBag.styletag)
+
+}
+
+@section FooterArea {
+
+    @Html.Raw(ViewBag.jstag)
+}
+
+
+
+

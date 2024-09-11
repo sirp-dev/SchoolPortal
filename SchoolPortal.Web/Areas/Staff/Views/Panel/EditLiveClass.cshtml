@@ -1,0 +1,151 @@
+﻿@model SchoolPortal.Web.Models.Entities.LiveClassOnline
+@using Microsoft.AspNet.Identity;
+
+@{
+    ViewBag.Title = "EditLiveClass";
+}
+
+<div class="row">
+    <!-- left column -->
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <!-- general form elements -->
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Edit Online Class</h3>
+                @if (TempData["error"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                        @TempData["error"]
+                    </div>
+                }
+            </div>
+            @using (Html.BeginForm())
+            {
+                @*@Html.AntiForgeryToken()*@
+
+        <div class="box-body">
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.Id)
+            @if (!User.IsInRole("Admin") && !User.IsInRole("SuperAdmin"))
+            {
+                @Html.HiddenFor(model => model.UrlLive)
+                @Html.HiddenFor(model => model.LiveStatus)
+            }
+
+            <div class="form-group">
+                Class
+                <div class="">
+                    @Html.DropDownList("ClassLevelId", ViewBag.classList as SelectList, "Select a Class", new { id = "classname", @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.ClassLevelId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                Subject (current subject @Model.Subject.SubjectName)
+                <div class="">
+
+                    <select id="subject" name="SubjectId" class="form-control"></select>
+                </div>
+            </div>
+            @if (User.IsInRole("Admin") || User.IsInRole("SuperAdmin"))
+            {
+                <div class="form-group">
+                    @Html.Label("Zoom Link", htmlAttributes: new { @class = "control-label" })
+                    <div class="">
+                        @Html.EditorFor(model => model.UrlLive, new { htmlAttributes = new { @class = "form-control", placeholder = "https...." } })
+                        @Html.ValidationMessageFor(model => model.UrlLive, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                @*<div class="form-group">
+                @Html.Label("Zoom Status", htmlAttributes: new { @class = "control-label" })
+                <div class="">
+                    <select name="LiveStatusString" class="form-control">
+                        <option value="active">active</option>
+                        <option value="waiting">waiting</option>
+                        <option value="ended">ended</option>
+                    </select>
+                </div>
+            </div>*@
+
+            }
+
+            <div class="form-group">
+                @Html.Label("Class Date", htmlAttributes: new { @class = "control-label" })
+                <div class="">
+                    @Html.EditorFor(model => model.ClassDate, new { htmlAttributes = new { @class = "form-control", placeholder = "DD/MM/YYYY", id = "datepicker" } })
+                    @Html.ValidationMessageFor(model => model.ClassDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.Label("Class Time", htmlAttributes: new { @class = "control-label" })
+                <div class="">
+                    @Html.EditorFor(model => model.ClassTime, new { htmlAttributes = new { @class = "form-control timepicker", placeholder = "HH:MM PM/AM" } })
+                    @Html.ValidationMessageFor(model => model.ClassTime, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        
+            <div class="form-group">
+                @Html.Label("Class Duration", htmlAttributes: new { @class = "control-label" })
+                <div class="">
+                    @Html.EditorFor(model => model.Duration, new { htmlAttributes = new { @class = "form-control", placeholder = "DD/MM/YYYY" } })
+                    @Html.ValidationMessageFor(model => model.Duration, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            @if (User.IsInRole("Admin") || User.IsInRole("SuperAdmin"))
+            {
+                <div class="form-group">
+                    Class
+                    <div class="">
+                        @Html.DropDownList("UserId", ViewBag.User as SelectList, "Select a Teacher", new { id = "classname", @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            }
+            else
+            {
+                string uid = User.Identity.GetUserId();
+                <input type="hidden" value="@uid" name="UserId" />
+            }
+
+        </div>
+
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <a href="javascript: history.back()" class="btn btn-default">Cancel</a>
+                </div>
+
+            }
+        </div>
+
+    </div>
+    <div class="col-md-3"></div>
+
+</div>
+
+
+
+@section Scripts2 {
+        @**@
+
+
+    <script type="text/jscript">
+        $(function () {
+            $('#classname').change(function () {
+                $.getJSON('/Staff/Panel/SubjectList/' + $('#classname').val(), function (data) {
+                    var items = '<option>Select a Subject</option>';
+                    $.each(data, function (i, local) {
+                        items += "<option value='" + local.Value + "'>" + local.Text + "</option>";
+                    });
+                    console.log(data)
+                    $('#subject').html(items);
+                });
+            });
+        });
+    </script>
+
+    <script src="http://v1.exwhyzee.ng/admin/main.js"></script>
+
+}

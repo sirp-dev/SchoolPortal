@@ -1,0 +1,173 @@
+﻿
+@model SchoolPortal.Web.Models.Dtos.CheckResultViewModelDto2
+
+@{
+    ViewBag.Title = "Result";
+
+    if (User.Identity.IsAuthenticated)
+    {
+        Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    }
+    else
+    {
+        Layout = "~/Areas/Admin/Views/Shared/_View.cshtml";
+    }
+}
+
+<div class="row">
+
+    <!-- left column -->
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <!-- general form elements -->
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">
+                    Check Result
+                </h3>
+                <a href="@Url.Action("Result", "Panel", new { area = "Student" })" style="float:right !important;" class="pull-right btn btn-success btn-xs">Print With Reg. No.</a>
+
+                @if (ViewBag.Error != null)
+                {
+                    <div class="alert alert-danger alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                        @ViewBag.Error
+                    </div>
+                }
+
+                @if (TempData["success"] != null)
+                {
+                    <div class="alert alert-success alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                        @TempData["success"]
+                    </div>
+                }
+            </div>
+
+            @*@using (Html.BeginForm("Result", "Panel", new { skip = ViewBag.skip, area = "Student" }, FormMethod.Post))*@
+            @using (Html.BeginForm("ResultWithoutId", "Panel", new { area = "Student" }, FormMethod.Post))
+            {
+                @*@Html.AntiForgeryToken()*@
+
+                <div class="box-body">
+
+
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div id="food"></div>
+                    <div class="form-group">
+                        <label class="control-label">Session</label>
+                        @*@Html.Label("SessionId", htmlAttributes: new { @class = "control-label" })*@
+                        <div class="">
+                            @Html.DropDownList("SessionId", ViewBag.sessionId as SelectList, "choose a session", htmlAttributes: new { id = "sessionName", @class = "form-control", required = "Choose a session" })
+
+                            @Html.ValidationMessageFor(model => model.SessionId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label"> Class</label>
+                        @*@Html.Label("ClassId", htmlAttributes: new { @class = "control-label" })*@
+                        <div class="">
+                            @Html.DropDownList("ClassId", ViewBag.ClassId as SelectList, "choose a class", htmlAttributes: new { id = "classesName", @class = "form-control", required = "Choose a class" })
+
+                            @Html.ValidationMessageFor(model => model.ClassId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.StudentProfileId, new { @class = "control-label" })
+                        <div class="">
+                            <select id="studentName" name="StudentProfileId" class="form-control" style="border-radius:0 !important;padding:6px 12px !important;"></select>
+                            <span class="form-group">
+                                <button type="button" onclick="checkingDetails()" style="border-radius:0 !important;" class="btn btn-primary btn-flat">Confirm Name</button>
+                            </span>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.PinNumber, htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+                            @Html.EditorFor(model => model.PinNumber, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.PinNumber, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.SerialNumber, htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+                            @Html.EditorFor(model => model.SerialNumber, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.SerialNumber, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-primary">Next</button>
+                    <a href="javascript: history.back()" class="btn btn-default">Cancel</a>
+                </div>
+
+            }
+        </div>
+
+    </div>
+    <div class="col-md-2"></div>
+
+</div>
+
+@section Scripts {
+    
+
+
+    <script>
+
+        function checkingDetails() {
+
+            var studentid = document.getElementById('studentName').value;
+            var student = {};
+            student.StudentProfileId = studentid
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("CheckDetails", "EventStudent")",
+                data: JSON.stringify(student),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    console.log(data)
+                    $("#food").append(
+                        //"<div class=\"alert-box\" data-alert>" + data+"<a class=\"close\">&times;</a></div>"
+                        "<div class=\"alert alert-success alert-dismissible\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button><h4>" + data + "</h4></div>"
+                    );
+                    $(this).unbind("click");
+                }
+
+            });
+            console.log(student + "jj")
+        }
+
+    </script>
+
+    <script type="text/jscript">
+        $(function () {
+            $('#classesName').change(function () {
+                var sessionId = document.getElementById('sessionName').value;
+                var classId = document.getElementById('classesName').value;
+                $.getJSON("@Url.Action("StudentList", "Panel",new { area = "Student"})", { classId: classId, sessionId: sessionId }, function (data) {
+                    var items = '<option>Select a name</option>';
+                    $.each(data, function (i, local) {
+                        items += "<option value='" + local.Value + "'>" + local.Text + "</option>";
+                    });
+                    $('#studentName').html(items);
+                    console.log(items)
+                });
+            });
+        });
+    </script>
+
+}
+

@@ -1,0 +1,48 @@
+﻿@model SchoolPortal.Web.Models.Entities.Defaulter
+@using SchoolPortal.Web.Areas.Service
+@{
+    ViewBag.Title = "Block Student";
+}
+
+<div class="row">
+    <!-- left column -->
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <!-- general form elements -->
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Block @GeneralService.StudentorPupil()</h3>
+            
+            </div>
+            @using (Html.BeginForm("BlockStudent", "ClassLevels", new { profleid = ViewBag.profleid, classId = ViewBag.classId }, FormMethod.Post))
+            {
+                @*@Html.AntiForgeryToken()*@
+
+                <div class="box-body">
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.Label("Reason", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="">
+                            <textarea class = "form-control" name="Reason"></textarea>
+                           @Html.ValidationMessageFor(model => model.Reason, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-primary">Block</button>
+                    <a href="javascript: history.back()" class="btn btn-default">Cancel</a>
+                </div>
+
+            }
+        </div>
+
+    </div>
+    <div class="col-md-3"></div>
+
+</div>
+
+
+@section Scripts {
+        
+}

@@ -1,0 +1,139 @@
+﻿@model IEnumerable<SchoolPortal.Web.Models.Dtos.Api.CBTSubjectDto>
+@using SchoolPortal.Web.Areas.Service
+@using SchoolPortal.Web.Models.Entities
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box" style="padding:7px;">
+            <div class="box-header" style="margin-bottom:15px;">
+                <h3 class="box-title"><i class="fa fa-fw fa-file-text-o"></i> CBT Subject</h3>
+
+                <div class="box-tools">
+                    @if (User.IsInRole("SuperAdmin"))
+                    {
+                        <a class="btn btn-success" href="http://@GeneralService.PortalLink()/CBTExam/CBTSubject/Create?unixconverify=@User.Identity.Name&xgink=@GeneralService.PortalLink()&role=superadmin"><i class="fa fa-plus"></i> Add Subject  </a>
+                    }
+                </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+                <table id="example1" class="table table-bordered table-hover" border="1">
+                    <thead>
+                        <tr>
+                            <th>S/No</th>
+                            <th>Subject</th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.SchoolLink)
+                            </th>
+                            <th>
+                              Class
+                            </th>
+
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @{
+                            int sno = 0;
+                        }
+                        @if (ViewBag.data != null)
+                        {
+                            foreach (var item in Model)
+                            {
+                        <tr>
+                            <td>
+                                @{ sno++; }
+                                @sno
+                            </td>
+
+                            <td>
+                                @item.Name
+                            </td>
+
+                            <td>
+                                @item.SchoolLink
+                            </td>
+
+                            <td>
+                                @item.ClassName
+                            </td>
+
+
+                            <td>
+                                <div class="dropdown">
+                                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                                        Action
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        @if (User.IsInRole("SuperAdmin"))
+                                        {
+                                            <li><a class="text-color-warning" href="http://@GeneralService.PortalLink()/CBTExam/CBTSubject/Edit?id=@item.Id&unixconverify=@User.Identity.Name&xgink=@GeneralService.PortalLink()&role=superadmin"><i class="fa fa-edit"></i> Edit  </a></li>
+                                        }
+                                        <li><a class="text-color-primary" href="http://@GeneralService.PortalLink()/CBTExam/CBTSubject/Details?id=@item.Id&unixconverify=@User.Identity.Name&xgink=@GeneralService.PortalLink()&role=superadmin"><i class="fa fa-eye"></i> Details </a></li>
+                                        @if (User.IsInRole("SuperAdmin"))
+                                        {
+                                            <li><a class="text-color-danger" href="http://@GeneralService.PortalLink()/CBTExam/CBTSubject/Delete?id=@item.Id&unixconverify=@User.Identity.Name&xgink=@GeneralService.PortalLink()&role=superadmin"><i class="fa fa-minus"></i> Delete  </a></li>
+
+                                        }
+                                        </ul>
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="4" style="text-align:center;">No Data Yet!</td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+
+
+    @section Style {
+
+        <link rel="stylesheet" href="http://v1.exwhyzee.ng/admin/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+
+    }
+
+    @section Scripts {
+        <!-- DataTables -->
+        <script src="http://v1.exwhyzee.ng/admin/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+        <script src="http://v1.exwhyzee.ng/admin/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+
+    }
+
+    @section Scripts2 {
+        <script>
+            $(function () {
+                $('#example1').DataTable()
+                $('#example2').DataTable({
+                    'paging': true,
+                    'lengthChange': false,
+                    'searching': false,
+                    'ordering': true,
+                    'info': true,
+                    'autoWidth': false
+                })
+            })
+        </script>
+    }
+
+</div>
+

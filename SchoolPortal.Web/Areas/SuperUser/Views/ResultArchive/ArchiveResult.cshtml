@@ -1,0 +1,84 @@
+﻿@model IEnumerable<SchoolPortal.Web.Models.Entities.ClassLevel>
+@using SchoolPortal.Web.Areas.Service
+
+@{
+    ViewBag.Title = "Result Archive";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    int sn = 0;
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box" style="padding:7px;">
+            <div class="box-header" style="margin-bottom:15px;">
+                <h3 class="box-title"><i class="fa fa-fw fa-file-text-o"></i> Result Archive Management</h3>
+                <a href="@Url.Action("Index","ResultArchive",new {area="SuperUser"})" class="btn btn-success">Archived Result</a>
+
+                @if (TempData["Error"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <strong>@TempData["Error"]</strong>
+                    </div>
+                }
+
+                @if (TempData["success"] != null)
+                {
+                    <div class="alert alert-success alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <strong>@TempData["success"]</strong>
+                    </div>
+                }
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+
+                <table id="example1" class="table table-bordered table-hover" border="1">
+
+                    <thead>
+                        <tr>
+                            <th>S/N</th>
+                            <th>
+                                Classes
+                            </th>
+                           
+                            <th>Sessions</th>
+                            <th>Action</th>
+
+                        </tr>
+                       
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                        <tr>
+                            @{sn++;}
+                            <td>@sn</td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ClassName)
+                            </td>
+                           
+                            @using (Html.BeginForm("ArchiveResult", "ResultArchive", null, FormMethod.Post))
+                            {
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                <input type="text" name="classId" value="@item.Id" hidden="hidden" />
+                                <td>
+                                    @Html.DropDownList("sessId", ViewBag.sessionId as SelectList, "choose a session", htmlAttributes: new { @class = "form-control", required = "Choose a session" })
+
+                                </td>
+                               
+                                <td>
+                                    <button type="submit" class="btn btn-primary">Archive</button>
+                                </td>
+
+                            }
+
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+

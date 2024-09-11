@@ -1,0 +1,104 @@
+﻿@model IEnumerable<SchoolPortal.Web.Models.Entities.Enrollment>
+
+@{
+    ViewBag.Title = "FetchUserEnrollment";
+}
+
+
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box" style="padding:7px;">
+            <div class="box-header" style="margin-bottom:15px;">
+                <h3 class="box-title"><i class="fa fa-fw fa-file-text-o"></i>Enrollment  Management</h3>
+                @Model.Count() total
+
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+                <table id="exampe1" class="table table-bordered table-hover" border="1">
+
+                    <thead>
+                        <tr>
+                            <th>S/n</th>
+                            <th>
+                                Profile Id
+                            </th>
+
+                            <th>
+                                reg no.
+                            </th>
+                            <th>name</th>
+                            <th>username</th>
+                            <th>session result</th>
+                            <th>sesion</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            int sno = 0;
+                            sno++;
+                        }
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @sno
+                                </td>
+                                <td>
+                                    @item.StudentProfileId
+                                </td>
+
+                                <td>
+                                    @item.StudentProfile.StudentRegNumber
+                                </td>
+                                <td>@item.StudentProfile.user.Surname @item.StudentProfile.user.FirstName @item.StudentProfile.user.OtherName</td>
+                                <td>@item.StudentProfile.user.UserName</td>
+                                <td>Av. @item.AverageScore | Cu. @item.CummulativeAverageScore</td>
+                                <td>
+                                    @*@Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                                        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })*@
+                                    @item.Session.SessionYear \ @item.Session.Term
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+</div>
+
+
+
+
+@section Style {
+
+    <link rel="stylesheet" href="http://v1.exwhyzee.ng/admin/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+}
+
+@section Scripts {
+    <!-- DataTables -->
+    <script src="http://v1.exwhyzee.ng/admin/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="http://v1.exwhyzee.ng/admin/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+
+}
+
+@section Scripts2 {
+    <script>
+        $(function () {
+            $('#example1').DataTable()
+            $('#example2').DataTable({
+                'paging': true,
+                'lengthChange': false,
+                'searching': false,
+                'ordering': true,
+                'info': true,
+                'autoWidth': false
+            })
+        })
+    </script>
+}

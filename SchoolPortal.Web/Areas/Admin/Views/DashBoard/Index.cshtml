@@ -1,0 +1,161 @@
+﻿@using SchoolPortal.Web.Areas.Service
+@model PagedList.IPagedList<SchoolPortal.Web.Models.Entities.Help>
+@using PagedList.Mvc;
+<link href="http://v1.exwhyzee.ng/Content/PagedList.css" rel="stylesheet" />
+@{
+    ViewBag.Title = "Index";
+}
+
+<section class="content">
+
+
+    @Html.Action("_Dashboard", "Dashboard", new { area = "Admin" })
+    @if (TempData["error"] != null)
+    {
+        <div class="alert alert-danger alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>@TempData["error"]</strong>
+        </div>
+    }
+    @if (TempData["success"] != null)
+    {
+        <div class="alert alert-success alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>@TempData["success"]</strong>
+        </div>
+    }
+    @if (TempData["Report"] != null)
+    {
+        <div class="alert alert-info alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>@TempData["Report"]</strong>
+        </div>
+    }
+    <div class="row">
+
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="" style="padding:0 10px;">
+
+                    <div class="" style="padding:10px;">
+                        <strong><i class="fa fa-question-circle"></i> Help</strong>
+                        <a href="@Url.Action("Calender", "Dashboard", new { area = "Admin" })">
+
+                            <img src="http://v1.exwhyzee.ng/img/toogle-white.png" />
+                        </a>
+                        <strong> Calender <i class="fa fa-calendar"></i></strong>
+                    </div>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /. box -->
+        </div>
+
+        <!-- /.col -->
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    @using (Html.BeginForm("Index", "Dashboard", null, FormMethod.Post, new { @class = "" }))
+                    {
+
+                        <div class="input-group" style="margin-left:10px;">
+                            <div class="input-group-btn">
+                                <button type="submit" class="btn btn-primary">Search any help</button>
+                            </div>
+                            <!-- /btn-group -->
+                            <input type="text" name="SearchString" class="form-control" value="@ViewBag.CurrentFilter" placeholder="Search any thing about iSkool">
+                        </div>
+
+                    }
+                    @if (ViewBag.CurrentFilter != null)
+                    {
+                        <p style="margin-top:20px;">Search Result on: @ViewBag.CurrentFilter  <a target="_blank" href="http://support.esp.exwhyzee.ng/" class="btn btn-primary btn-sm">Can't find result. click for more</a></p>
+
+                    }
+                </div>
+
+                <div class="box-body">
+                    <div class="table-responsive">
+                        <table class="table no-margin">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>type</th>
+                                    <th>Useful</th>
+
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.OrderByDescending(x => x.SortOrder))
+                                {
+                                    <tr>
+                                        <td><a href="@item.HelpUrl" target="_blank">@item.Title</a></td>
+
+                                        <td>
+                                            @if (item.Type == SchoolPortal.Web.Models.Entities.HelpType.Document)
+                                            {
+                                                <span class="label label-info">Document</span>
+                                            }
+                                            else if (item.Type == SchoolPortal.Web.Models.Entities.HelpType.Video)
+                                            {
+                                                <span class="label label-warning">video</span>
+                                            }
+
+                                        </td>
+                                        <td>
+                                            <span class="label label-success">100%</span>
+                                        </td>
+                                    </tr>
+                                }
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.table-responsive -->
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer clearfix">
+
+
+
+                    <div class="container text-center page" style="margin-left:auto;margin-right:auto;">
+
+                        <p>Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount</p>
+
+                        @Html.PagedListPager(Model, page => Url.Action("Index",
+                     new { page }))
+                    </div>
+                </div>
+
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /. box -->
+        <!-- /.col -->
+    </div>
+
+    <!-- /.row -->
+</section>
+
+@using SchoolPortal.Web.Areas.Service
+@{
+
+    string url = HttpContext.Current.Request.Url.AbsoluteUri;
+
+    Logger.log(User.Identity.Name, url.ToString());
+
+}
+@section Style {
+
+}
+
+@section Scripts {
+
+}
+
+@section Scripts2 {
+
+}
+

@@ -1,0 +1,243 @@
+﻿@model SchoolPortal.Web.Models.RegisterViewModel
+@using SchoolPortal.Web.Areas.Service
+@{
+
+    ViewBag.Title = "New " + GeneralService.StudentorPupil();
+}
+@using SchoolPortal.Web.Areas.Service
+
+
+<div class="row">
+    <!-- left column -->
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <!-- general form elements -->
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">New @GeneralService.StudentorPupil()</h3>
+                @if (TempData["error"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                        @TempData["error"]<br />
+                        @TempData["error1"]
+                    </div>
+                }
+                @if (TempData["success"] != null)
+                {
+                    <div class="alert alert-success alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <strong>@Html.Raw(TempData["success"])</strong>
+                    </div>
+                }
+            </div>
+            @using (Html.BeginForm("New", "ClassLevels", FormMethod.Post, new { @class = "", role = "form", enctype = "multipart/form-data" }))
+            {
+                @*@Html.AntiForgeryToken()*@
+
+
+                <div class="box-body">
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <input type="text" name="classId" value="@ViewBag.ClassLevelId.Id" hidden="hidden" />
+                    <div class="form-group">
+                        @Html.Label("Choose a class for new student", new { @class = "control-label" })
+                        <div class="">
+                            <input type="text" name="" value="@ViewBag.ClassLevelId.ClassName" class="form-control" />
+
+                            @*     @Html.DropDownList("classId", ViewBag.ClassLevelId as SelectList, "Choose", new { @class = "", required = "required" })*@
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Username, new { @class = "control-label" })
+                        <div class="">
+                            @Html.TextBoxFor(m => m.Username, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Email, new { @class = "control-label" })
+                        <div class="">
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Password, new { @class = "control-label" })
+                        <div class="">
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "control-label" })
+                        <div class="">
+                            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Surname, new { @class = "control-label" })
+                        <div class="">
+                            @Html.TextBoxFor(m => m.Surname, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.FirstName, new { @class = "control-label" })
+                        <div class="">
+                            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.OtherName, new { @class = "control-label" })
+                        <div class="">
+                            @Html.TextBoxFor(m => m.OtherName, new { @class = "form-control" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.DateOfBirth, new { @class = "control-label" })
+                        <div class="">
+                            @Html.TextBoxFor(m => m.DateOfBirth, new { @class = "form-control", id = "datepicker1", placeholder = "month/day/year", required = "required" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("Gender", htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+                            <select name="Gender" class="form-control" required="required">
+                                <option value=" "> Select Gender </option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </select>
+                            @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Religion, new { @class = "control-label" })
+                        <div class="">
+                            @Html.TextBoxFor(m => m.Religion, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.ContactAddress, new { @class = "control-label" })
+                        <div class="">
+                            @Html.TextBoxFor(m => m.ContactAddress, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.City, new { @class = "control-label" })
+                        <div class="">
+                            @Html.TextBoxFor(m => m.City, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Phone, new { @class = "control-label" })
+                        <div class="">
+                            @Html.TextBoxFor(m => m.Phone, new { @class = "form-control", placeholder = "", type = "number" })
+                            <div id="error"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.StateOfOrigin, new { @class = "control-label" })
+                        <div class="">
+                            @Html.DropDownList("StateOfOrigin", ViewBag.StateOfOrigin as SelectList, "Select a State", new { id = "StateOfOrigin", @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.LocalGov, new { @class = "control-label" })
+                        <div class="">
+                            <select id="LGA" name="LocalGov" class="form-control"></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Nationality, new { @class = "control-label" })
+                        <div class="">
+                            @Html.TextBoxFor(m => m.Nationality, new { @class = "form-control" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.Label("Last School Attended", new { @class = "control-label" })
+                        <div class="">
+                            @Html.TextBox("LastSchoolAttended", null, new { @class = "form-control" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.Label("Parent/Guidian Name", new { @class = "control-label" })
+                        <div class="">
+                            @Html.TextBox("ParentName", null, new { @class = "form-control" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.Label("Parent/Guidian Phone Number", new { @class = "control-label" })
+                        <div class="">
+                            @Html.TextBox("ParentPhone", null, new { @class = "form-control", required = "required" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("Parent/Guidian Occupation", new { @class = "control-label" })
+                        <div class="">
+                            @Html.TextBox("ParentOccupation", null, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("Parent/Guidian Address", new { @class = "control-label" })
+                        <div class="">
+                            @Html.TextBox("ParentAddress", null, new { @class = "form-control" })
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="form-group">
+                        @Html.Label("Passport", new { @class = "control-label" })
+                        <div class="">
+                            <input type="file" name="upload" class="form-control" accept=".jpg,.jpeg,.png" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-primary">Create</button>
+                    <a href="javascript: history.back()" class="btn btn-default">Cancel</a>
+                </div>
+
+            }
+        </div>
+
+    </div>
+    <div class="col-md-2"></div>
+
+</div>
+
+@using SchoolPortal.Web.Areas.Service
+@{
+
+    string url = HttpContext.Current.Request.Url.AbsoluteUri;
+    Logger.log(User.Identity.Name, url.ToString());
+
+}
+@section Scripts {
+        @**@
+
+    <script type="text/jscript">
+        $(function () {
+            $('#StateOfOrigin').change(function () {
+                $.getJSON('/ClassLevels/LgaList/' + $('#StateOfOrigin').val(), function (data) {
+                    var items = '<option>Select a Local Government</option>';
+                    $.each(data, function (i, local) {
+                        items += "<option value='" + local.Value + "'>" + local.Text + "</option>";
+                    });
+                    $('#LGA').html(items);
+                });
+            });
+        });
+    </script>
+
+    <script src="http://v1.exwhyzee.ng/admin/main.js"></script>
+}
+
+
+
+

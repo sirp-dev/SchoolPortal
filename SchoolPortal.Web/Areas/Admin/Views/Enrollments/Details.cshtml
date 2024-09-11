@@ -1,0 +1,58 @@
+﻿@model SchoolPortal.Web.Models.Entities.Enrollment
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Enrollment</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ClassLevel.ClassName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ClassLevel.ClassName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Session.Term)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Session.Term)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AverageScore)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AverageScore)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CummulativeAverageScore)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CummulativeAverageScore)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

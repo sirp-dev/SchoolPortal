@@ -1,0 +1,60 @@
+﻿@model SchoolPortal.Web.Models.Dtos.Api.CBTSubjectDto
+@using SchoolPortal.Web.Areas.Service
+@{
+    ViewBag.Title = "Subject Detail";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+        <div class="box box-default">
+            <div class="box-header with-border">
+
+                <h3 class="box-title">Subject Details</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="table-responsive">
+                            <table class="table table-success table-bordered" style="background-color:#3c8dbc; color:#ffffff;">
+                                <tr>
+                                    <th>Class</th>
+                                    <td>@Model.ClassName</td>
+                                </tr>
+
+                                <tr>
+                                    <th>Subject</th>
+                                    <td>@Model.Name</td>
+                                </tr>
+                                <tr>
+                                    <th>School Link</th>
+                                    <td>@Model.SchoolLink</td>
+                                </tr>
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @if (User.IsInRole("SuperAdmin"))
+            {
+                <div class="box-footer">
+                    <a class="btn btn-primary" href="http://@GeneralService.PortalLink()/CBTExam/CBTSubject/Edit?id=@Model.Id&unixconverify=@User.Identity.Name&xgink=@GeneralService.PortalLink()&role=superadmin"><i class="fa fa-edit"></i> Edit  </a>
+                    <a href="javascript: history.back()" class="btn btn-default">Cancel</a>
+                </div>
+            }
+
+            </div>
+        <!-- /.box -->
+    </div>
+    <!-- /.col -->
+
+
+    <div class="col-md-1"></div>
+
+</div>
+

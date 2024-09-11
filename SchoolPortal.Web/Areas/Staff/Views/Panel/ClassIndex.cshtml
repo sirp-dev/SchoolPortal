@@ -1,0 +1,49 @@
+﻿@model IEnumerable<SchoolPortal.Web.Models.Entities.ClassLevel>
+@using SchoolPortal.Web.Areas.Service
+@{
+    ViewBag.Title = "ClassLevel";
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box" style="padding:7px;">
+            <div class="box-header" style="margin-bottom:15px;">
+                <h3 class="box-title"><i class="fa fa-fw fa-file-text-o"></i>Class</h3>
+
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+                <table class="table table-hover">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ClassName)
+                        </th>
+
+                        <th></th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ClassName)
+                            </td>
+
+                            <td>
+                                @Html.ActionLink(GeneralService.StudentorPupil() + "s", "StudentsInClass", new { id = item.Id }, new { @class = "btn btn-primary" })
+                                @Html.ActionLink("Class Details", "Details", "ClassLevels", new { id = item.Id, area = "Admin" }, new { @class = "btn btn-primary" })
+                                @Html.ActionLink("Subjects", "ClassSubject", "Panel", new { classId = item.Id }, new { @class = "btn btn-primary" })
+                                @*@Html.ActionLink("Add New Assignment", "AddAssignment", new { classId = item.Id }, new { @class = "btn btn-primary pull-right" })*@
+                                
+
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+</div>

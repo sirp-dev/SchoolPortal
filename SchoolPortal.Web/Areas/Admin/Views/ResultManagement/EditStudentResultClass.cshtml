@@ -1,0 +1,365 @@
+﻿
+@model IEnumerable<SchoolPortal.Web.Models.Entities.EnrolledSubject>
+@using SchoolPortal.Web.Areas.Service
+@{ViewBag.Title = "EditStudentResultClass";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    int sn = 0;
+}
+
+
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box" style="padding:7px;">
+            <div class="box-header" style="margin-bottom:15px;">
+                <h2 class="box-title"><i class="fa fa-fw fa-file-text-o"></i> Results For </h2><small></small>
+                <span class="pull-right">
+
+                </span>
+            </div>
+            <div class="box-header">
+                @if (TempData["error"] != null)
+                {<div class="alert alert-danger">
+                        <p>@TempData["error"]</p>
+                    </div>
+                }
+                @if (TempData["success"] != null)
+                {
+                    <div class="alert alert-success">
+                        <p>@TempData["success"]</p>
+                    </div>
+                }
+                @if (TempData["msg"] != null)
+                {
+                    <div class="alert alert-success">
+                        <p>@TempData["msg"]</p>
+                    </div>
+                }
+
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+                <table class="table table-hover">
+                    @{
+                        var checkPrint = GeneralService.IsPrintOutThree();
+                    }
+                    <tr>
+                        <th>S/N</th>
+                        <th>id</th>
+                        <th>enrol Id</th>
+                        <th>enrol</th>
+                        <th>class</th>
+                        <th>
+                            Subject
+                        </th>
+                        @if (checkPrint == true)
+                        {
+                            <th>
+                                @Html.DisplayNameFor(model => model.Project)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ClassExercise)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.TestScore)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.TestScore2)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Assessment)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.TotalCA)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ExamScore)
+                            </th>
+
+                            <th>
+                                @Html.DisplayNameFor(model => model.TotalScore)
+                            </th>
+                        }
+                        else
+                        {
+                            if (GeneralService.EnabledProjectScore() == true)
+                            {
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Project)
+                                </th>
+                            }
+                            if (GeneralService.EnabledTestScore() == true)
+                            {
+                                <th>
+                                    @Html.DisplayNameFor(model => model.TestScore)
+                                </th>
+                            }
+
+                            if (GeneralService.EnabledTestScore2() == true)
+                            {
+                                <th>
+                                    @Html.DisplayNameFor(model => model.TestScore2)
+                                </th>
+                            }
+
+                            if (GeneralService.EnabledClassExerciseScore() == true)
+                            {
+
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ClassExercise)
+                                </th>
+                            }
+
+                            if (GeneralService.EnabledAssessmentScore() == true)
+                            {
+
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Assessment)
+                                </th>
+                            }
+                            <th>
+                                @Html.DisplayNameFor(model => model.TotalCA)
+                            </th>
+                            if (GeneralService.EnabledExamScore() == true)
+                            {
+
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ExamScore)
+                                </th>
+                            }
+
+
+
+                            <th>
+                                @Html.DisplayNameFor(model => model.TotalScore)
+                            </th>
+                        }
+
+
+
+                        <th></th>
+                    </tr>
+
+                    @foreach (var item in Model.OrderByDescending(x => x.Enrollments.StudentProfile.user.Surname).ThenBy(x => x.Subject.SubjectName).ThenBy(x => x.Id))
+                    {
+                        <tr>
+                            @{sn++;}
+                            <td>@sn</td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Id)
+
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.EnrollmentId)
+
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Enrollments.StudentProfile.user.Surname)
+                                @Html.DisplayFor(modelItem => item.Enrollments.StudentProfile.user.FirstName)
+                                @Html.DisplayFor(modelItem => item.Enrollments.StudentProfile.user.OtherName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Enrollments.ClassLevel.ClassName)
+                            </td>
+                            <td>
+                                @item.Subject.SubjectName ||
+                                @item.Subject.Id
+                            </td>
+                            @if (checkPrint == true)
+                            {
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Project)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ClassExercise)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TestScore)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TestScore2)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Assessment)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TotalCA)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ExamScore)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TotalScore)
+                                </td>
+                            }
+                            else
+                            {
+                                if (GeneralService.EnabledProjectScore() == true)
+                                {
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Project)
+                                    </td>
+                                }
+                                if (GeneralService.EnabledTestScore() == true)
+                                {
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TestScore)
+                                    </td>
+                                }
+
+                                if (GeneralService.EnabledTestScore2() == true)
+                                {
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TestScore2)
+                                    </td>
+                                }
+
+                                if (GeneralService.EnabledClassExerciseScore() == true)
+                                {
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ClassExercise)
+                                    </td>
+                                }
+
+                                if (GeneralService.EnabledAssessmentScore() == true)
+                                {
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Assessment)
+                                    </td>
+                                }
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TotalCA)
+                                </td>
+
+                                if (GeneralService.EnabledExamScore() == true)
+                                {
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ExamScore)
+                                    </td>
+                                }
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TotalScore)
+                                </td>
+                            }
+
+
+
+                            <td>
+                                @if (User.IsInRole("SuperAdmin") || User.IsInRole("Delettor") || User.IsInRole("Admin"))
+                                {
+                                    @Html.ActionLink("remove", "RemoveEnrolsub", new { id = item.Id }, new { @class = "btn btn-primary" })
+
+                                }
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            </div>
+            <!-- /.box-body -->
+            <div class="box-body">
+                <div class="panel btn-primary" style="padding:10px;">
+                    <span class="pull-right">
+                        @Html.ActionLink("Back to Class List", "Students", new { sessId = ViewBag.SessionId, classId = ViewBag.ClassId }, new { @class = "btn btn-default" })
+
+                    </span>
+                    <h2 style="border-bottom:1px dotted #ffffff;" class="page-header">Average: [@ViewBag.Sum]</h2>
+                    <p>Position:  @ViewData["Position"] out of @ViewBag.TotalStudents</p>
+
+                </div>
+            </div>
+        </div>
+        <!-- /.box -->
+    </div>
+</div>
+
+
+
+@section Scripts {
+        @**@
+    @*<script type="text/javascript" src="http://ajax.cdnjs.com/ajax/libs/json2/20110223/json2.js"></script>*@
+    <script src="http://v1.exwhyzee.ng/Content/angular/json2.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            //Remove the dummy row if data present.
+            if ($("#studentRecord tr").length > 2) {
+                $("#studentRecord tr:eq(1)").remove();
+            }
+        });
+        function AppendRow(row, studentRecordId, subjectId, enrollmentId, gradingOption, testScore, examScore) {
+            //Bind id.
+            $(".studentRecordId", row).find("span").html(studentRecordId);
+            $(".subjectId", row).find("span").html(subjectId);
+            $(".enrollmentId", row).find("span").html(enrollmentId);
+            $(".gradingOption", row).find("span").html(gradingOption);
+
+
+            //Bind TestScore.
+            $(".TestScore", row).find("span").html(TestScore);
+            $(".TestScore", row).find("input").val(TestScore);
+
+            //Bind Country.
+            $(".ExamScore", row).find("span").html(ExamScore);
+            $(".ExamScore", row).find("input").val(ExamScore);
+            $("#studentRecord").append(row);
+        };
+
+
+
+        //Edit event handler.
+        $("body").on("click", "#studentRecord .Edit", function () {
+            var row = $(this).closest("tr");
+            $("td", row).each(function () {
+                if ($(this).find("input").length > 0) {
+                    $(this).find("input").show();
+                    $(this).find("span").hide();
+                }
+            });
+            row.find(".Update").show();
+            row.find(".Cancel").show();
+            row.find(".Delete").hide();
+            $(this).hide();
+        });
+
+        //Update event handler.
+        $("body").on("click", "#studentRecord .Update", function () {
+            var row = $(this).closest("tr");
+            $("td", row).each(function () {
+                if ($(this).find("input").length > 0) {
+                    var span = $(this).find("span");
+                    var input = $(this).find("input");
+                    span.html(input.val());
+                    span.show();
+                    input.hide();
+                }
+            });
+            row.find(".Edit").show();
+            row.find(".Delete").show();
+            row.find(".Cancel").hide();
+            $(this).hide();
+
+            var student = {};
+            student.Id = row.find(".studentRecordId").find("span").html();
+            student.SubjectId = row.find(".subjectId").find("span").html();
+            student.EnrollmentId = row.find(".enrollmentId").find("span").html();
+            student.GradingOption = row.find(".gradingOption").find("span").html();
+            student.TestScore = row.find(".TestScore").find("span").html();
+            student.ExamScore = row.find(".ExamScore").find("span").html();
+            console.log(student)
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("UpdateScore", "Panel", new { area = "Staff" })",
+                data: JSON.stringify(student),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json"
+            });
+        });
+
+    </script>
+}
+

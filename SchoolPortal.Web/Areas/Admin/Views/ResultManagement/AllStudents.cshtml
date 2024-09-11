@@ -1,0 +1,93 @@
+﻿@model IEnumerable<SchoolPortal.Web.Models.Entities.StudentProfile>
+
+@{
+    ViewBag.Title = "AllStudents";
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box" style="padding:7px;">
+            <div class="box-header" style="margin-bottom:15px;">
+                <h3 class="box-title" style="font-weight:900;"><i class="fa fa-fw fa-file-text-o"></i> Comprehensive Student List</h3>
+                <h3 class="box-title" style="font-weight:900;">Session (@ViewBag.sname)</h3>
+                <h3 class="box-title" style="font-weight:900;">Class (@ViewBag.cname)</h3>
+
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <div class="table-responsive">
+                    <table id="example1" class="table table-bordered table-hover" border="1">
+                        <tr>
+                            <th>S/N</th>
+                            <th>Username</th>
+                            <th>Full Name</th>
+                            <th>Registration Number</th>
+                            <th></th>
+                        </tr>
+                        @{int sno = 0;
+                        }
+                        @foreach (var students in Model)
+                        {
+
+                            <tr>
+                                @{ sno++; }
+
+                                <td>@sno</td>
+                                <td>@students.user.UserName</td>
+                                <td>@students.user.Surname @students.user.FirstName @students.user.OtherName</td>
+                                <td>@students.StudentRegNumber</td>
+
+                                <td>
+                                   @* @Html.ActionLink("Enroll", "EnrollStudentList", "Enrollments", new { id = students.Id, ClassLevelId = ViewBag.classid, SessionId = ViewBag.sessid }, new { @class = "" })*@
+                                    <a href="@Url.Action("EnrollStudentList", "Enrollments", new { id = students.Id, ClassLevelId = ViewBag.classid, SessionId = ViewBag.sessid })" target="_blank">Enroll</a>
+                                    @*@using (Html.BeginForm("EnrollStudentList", "Enrollments", new { id = students.Id, ClassLevelId = ViewBag.classid, SessionId = ViewBag.sessid }, FormMethod.Post))
+                                    {
+
+
+                                        <button type="submit" class="btn btn-primary">Enroll </button>
+
+                                    }*@
+                                </td>
+
+                            </tr>
+
+
+
+                        }
+                    </table>
+                    <br clear="all" style="page-break-before:always !important;" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Style {
+
+    <link rel="stylesheet" href="http://v1.exwhyzee.ng/admin/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+}
+
+@section Scripts {
+    <!-- DataTables -->
+    <script src="http://v1.exwhyzee.ng/admin/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="http://v1.exwhyzee.ng/admin/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+
+}
+
+@section Scripts2 {
+    <script>
+        $(function () {
+            $('#example1').DataTable()
+            $('#example2').DataTable({
+                'paging': true,
+                'lengthChange': false,
+                'searching': false,
+                'ordering': true,
+                'info': true,
+                'autoWidth': false
+            })
+        })
+    </script>
+}
+

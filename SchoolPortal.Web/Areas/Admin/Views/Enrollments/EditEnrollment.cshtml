@@ -1,0 +1,65 @@
+﻿@model SchoolPortal.Web.Models.Entities.Enrollment
+
+@{
+    ViewBag.Title = "EditEnrollment";
+}
+
+<h2>EditEnrollment</h2>
+
+@using (Html.BeginForm())
+{
+    @*@Html.AntiForgeryToken()*@
+    
+<div class="form-horizontal">
+    <h4>Enrollment</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.ClassLevelId)
+    @Html.HiddenFor(model => model.StudentProfileId)
+    @Html.HiddenFor(model => model.SessionId)
+
+
+
+
+    @Model.ClassLevel.ClassName <br />
+    @Model.Session.SessionYear /  @Model.Session.Term <br />
+
+    @Model.StudentProfile.user.Surname  @Model.StudentProfile.user.FirstName  @Model.StudentProfile.user.OtherName
+    
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.AverageScore, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.AverageScore, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.AverageScore, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.CummulativeAverageScore, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.CummulativeAverageScore, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.CummulativeAverageScore, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.EnrollmentRemark, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.EnrollmentRemark, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.EnrollmentRemark, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Save" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

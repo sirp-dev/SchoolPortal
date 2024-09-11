@@ -1,0 +1,159 @@
+﻿
+@model IEnumerable<SchoolPortal.Web.Models.Dtos.EnrollStudentsDto>
+@using PagedList.Mvc;
+@using SchoolPortal.Web.Areas.Service
+<link href="http://v1.exwhyzee.ng/Content/PagedList.css" rel="stylesheet" />
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+
+            <div class="box-header">
+                <span style="color:#337ab7;font-size:30px;"><i class="fa fa-fw fa-users" style="color:#337ab7;"></i>  @GeneralService.StudentorPupil()<span>'s</span> Enrollment </span>
+                Number of @GeneralService.StudentorPupil()<span>s</span>: @Model.Count() / @ViewBag.Total </>
+
+                @if (TempData["success"] != null)
+                {
+                    <div class="alert alert-success alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <strong>@TempData["success"]</strong>
+                    </div>
+                }
+                @if (TempData["error"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <strong>@TempData["error"]</strong>
+                    </div>
+                }
+
+                @*@if (User.IsInRole("SuperAdmin"))
+                {
+                    <a href="@Url.Action("DelAllUnEnrolled", "Enrollments", new { area = "Admin" })"><i class="fa fa-lock"></i> <span>DelAllUnEnrolled</span></a>
+                }*@
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-5">
+                        <h3 class="box-title" style="margin-top:0px;">Un - Enrolled  @GeneralService.StudentorPupil()<span>s</span> (@ViewBag.Total)</h3>
+                    </div>
+
+                    <div class="col-md-5">
+                        @using (Html.BeginForm("Index", "Enrollments", null, FormMethod.Post, new { @class = "" }))
+                        {
+
+                            <div class="input-group" style="margin-left:10px;">
+                                <div class="input-group-btn">
+                                    <button type="submit" class="btn btn-primary">Search</button>
+                                </div>
+                                <!-- /btn-group -->
+                                <input type="text" name="SearchString" class="form-control" value="@ViewBag.CurrentFilter" placeholder="Search...">
+                            </div>
+
+                        }
+                    </div>
+                    <div class="col-md-1"></div>
+                </div>
+
+                <br />
+                <div class="box-body table-responsive no-padding">
+                    <table id="example1" class="table table-bordered table-hover" border="1">
+                        <thead>
+                            <tr>
+
+
+                                <th>
+                                    USERNAME
+                                </th>
+                                <th style="text-transform:uppercase;">
+                                    @GeneralService.StudentorPupil() REG NUMBER
+                                </th>
+                                <th>
+                                    FULLNAME
+                                </th>
+
+                                <th>ACTION</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+
+
+                                    <td>
+                                        @item.UserName
+                                    </td>
+                                    <td>
+                                        @item.StudentRegNumberPin
+                                    </td>
+                                    <td>
+                                        @{
+                                            var fullname = item.Surname + " " + item.FirstName + " " + item.OtherName;
+                                        }
+                                        @fullname
+                                    </td>
+
+                                    <td>
+                                        @Html.ActionLink("Enroll", "EnrollStudent", new { id = item.ProfileId }, new { @class = "btn btn-primary" })
+                                        @if (User.IsInRole("SuperAdmin"))
+                                        {
+                                            
+                                            @Html.ActionLink("Del Enrol", "Delete", new { id = item.ProfileId }, new { @class = "btn btn-primary" })
+                                        @Html.ActionLink("Enroll", "EnrollStudent", new { id = item.ProfileId }, new { @class = "btn btn-primary" })
+
+
+                                        @Html.ActionLink("Del", "DeleteUser", "AdminUser", new { userid = item.UserId, area = "SUperUser" }, new { @class = "btn btn-danger" })
+                                    }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+
+                    </table>
+
+                </div>
+            </div>
+        </div>
+        <!-- /.box-body -->
+    </div>
+    <!-- /.box -->
+    <!-- /.box -->
+</div>
+
+
+
+@section Style {
+
+    <link rel="stylesheet" href="http://v1.exwhyzee.ng/admin/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+}
+
+@section Scripts {
+    <!-- DataTables -->
+    <script src="http://v1.exwhyzee.ng/admin/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="http://v1.exwhyzee.ng/admin/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+
+}
+
+@section Scripts2 {
+    <script>
+        $(function () {
+            $('#example1').DataTable()
+            $('#example2').DataTable({
+                'paging': true,
+                'lengthChange': false,
+                'searching': false,
+                'ordering': true,
+                'info': true,
+                'autoWidth': false
+            })
+        })
+    </script>
+}
+

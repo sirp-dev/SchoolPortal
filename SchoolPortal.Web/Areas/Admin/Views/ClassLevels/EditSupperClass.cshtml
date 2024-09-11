@@ -1,0 +1,94 @@
+﻿
+@{
+    ViewBag.Title = "EditSupperClass";
+}
+
+@model SchoolPortal.Web.Models.Entities.ClassLevel
+
+
+
+<div class="row">
+    <!-- left column -->
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <!-- general form elements -->
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Edit Class</h3>
+                @if (TempData["error"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                        @Html.Raw(TempData["error"])
+                    </div>
+                }
+            </div>
+            @using (Html.BeginForm())
+            {
+                @*@Html.AntiForgeryToken()*@
+
+        <div class="box-body">
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.Id)
+            @Html.HiddenFor(model => model.UserId)
+            @Html.HiddenFor(model => model.SessionId)
+            @Html.HiddenFor(model => model.Passmark)
+            @Html.HiddenFor(model => model.PromotionByTrial)
+            @Html.HiddenFor(model => model.AccessmentScore)
+            @Html.HiddenFor(model => model.ExamScore)
+            @Html.HiddenFor(model => model.Project)
+            @Html.HiddenFor(model => model.ClassExercise)
+            @Html.HiddenFor(model => model.Assessment)
+            @Html.HiddenFor(model => model.ClassExercise)
+            @Html.HiddenFor(model => model.TestScore2)
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ClassName, htmlAttributes: new { @class = "control-label" })
+                <div class="">
+                    @Html.EditorFor(model => model.ClassName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ClassName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+
+            @*<div class="form-group">
+            @Html.LabelFor(model => model.DivideTheSubjectTotalByThisValue, htmlAttributes: new { @class = "control-label" })
+            <div class="">
+                @Html.EditorFor(model => model.DivideTheSubjectTotalByThisValue, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DivideTheSubjectTotalByThisValue, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.UseDivideTheSubjectTotalByThisValue, htmlAttributes: new { @class = "control-label" })
+            <div class="">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.UseDivideTheSubjectTotalByThisValue)
+                    @Html.ValidationMessageFor(model => model.UseDivideTheSubjectTotalByThisValue, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>*@
+
+        </div>
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <a href="javascript: history.back()" class="btn btn-default">Cancel</a>
+                </div>
+
+            }
+        </div>
+
+    </div>
+    <div class="col-md-3"></div>
+
+</div>
+
+
+
+@section Scripts {
+        @**@
+}
+

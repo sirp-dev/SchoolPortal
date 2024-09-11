@@ -1,0 +1,125 @@
+﻿@model SchoolPortal.Web.Models.Entities.TimeTable
+
+@{
+    ViewBag.Title = "TimeTable";
+}
+<div class="row">
+    <!-- left column -->
+    <div class="col-md-12">
+        <!-- general form elements -->
+        <div class="box box-primary">
+            <div class="box-header">
+                <h3 class="box-title">Time Table</h3>
+
+
+            </div>
+            <!-- /.box-header -->
+            <style>
+                .timetable tr td {
+                    border: 1px solid #464646 !important;
+                }
+            </style>
+            <div class="box-body table-responsive no-padding timetable">
+                <table class="table table-hover table-bordered">
+                    <tr>
+                        <td>Days</td>
+                        <td>@Model.Time6_7</td>
+                        <td>@Model.Time7_8</td>
+                        <td>@Model.Time8_9</td>
+                        <td>@Model.Time9_10</td>
+                        <td>@Model.Time10_11</td>
+                        <td>@Model.Time11_12</td>
+                        <td>@Model.Time12_13</td>
+                        <td>@Model.Time13_14</td>
+                        <td>@Model.Time14_15</td>
+                        <td>@Model.Time15_16</td>
+                        <td>@Model.Time16_17</td>
+                        <td>@Model.Time17_18</td>
+                    </tr>
+                    <tr>
+                        <td>@Model.Monday</td>
+                        <td>@Model.M6_7</td>
+                        <td>@Model.M7_8</td>
+                        <td>@Model.M8_9</td>
+                        <td>@Model.M9_10</td>
+                        <td>@Model.M10_11</td>
+                        <td>@Model.M11_12</td>
+                        <td>@Model.M12_13</td>
+                        <td>@Model.M13_14</td>
+                        <td>@Model.M14_15</td>
+                        <td>@Model.M15_16</td>
+                        <td>@Model.M16_17</td>
+                        <td>@Model.M17_18</td>
+                    </tr>
+                    <tr>
+                        <td>@Model.Tuesday</td>
+                        <td>@Model.T6_7</td>
+                        <td>@Model.T7_8</td>
+                        <td>@Model.T8_9</td>
+                        <td>@Model.T9_10</td>
+                        <td>@Model.T10_11</td>
+                        <td>@Model.T11_12</td>
+                        <td>@Model.T12_13</td>
+                        <td>@Model.T13_14</td>
+                        <td>@Model.T14_15</td>
+                        <td>@Model.T15_16</td>
+                        <td>@Model.T16_17</td>
+                        <td>@Model.T17_18</td>
+
+
+                    </tr>
+                    <tr>
+
+                        <td>@Model.Wednessday</td>
+                        <td>@Model.W6_7</td>
+                        <td>@Model.W7_8</td>
+                        <td>@Model.W8_9</td>
+                        <td>@Model.W9_10</td>
+                        <td>@Model.W10_11</td>
+                        <td>@Model.W11_12</td>
+                        <td>@Model.W12_13</td>
+                        <td>@Model.W13_14</td>
+                        <td>@Model.W14_15</td>
+                        <td>@Model.W15_16</td>
+                        <td>@Model.W16_17</td>
+                        <td>@Model.W17_18</td>
+                    </tr>
+                    <tr>
+
+                        <td>@Model.Thursday</td>
+                        <td>@Model.Th6_7</td>
+                        <td>@Model.Th7_8</td>
+                        <td>@Model.Th8_9</td>
+                        <td>@Model.Th9_10</td>
+                        <td>@Model.Th10_11</td>
+                        <td>@Model.Th11_12</td>
+                        <td>@Model.Th12_13</td>
+                        <td>@Model.Th13_14</td>
+                        <td>@Model.Th14_15</td>
+                        <td>@Model.Th15_16</td>
+                        <td>@Model.Th16_17</td>
+                        <td>@Model.Th17_18</td>
+                    </tr>
+                    <tr>
+
+                        <td>@Model.Friday</td>
+                        <td>@Model.F6_7</td>
+                        <td>@Model.F7_8</td>
+                        <td>@Model.F8_9</td>
+                        <td>@Model.F9_10</td>
+                        <td>@Model.F10_11</td>
+                        <td>@Model.F11_12</td>
+                        <td>@Model.F12_13</td>
+                        <td>@Model.F13_14</td>
+                        <td>@Model.F14_15</td>
+                        <td>@Model.F15_16</td>
+                        <td>@Model.F16_17</td>
+                        <td>@Model.F17_18</td>
+                    </tr>
+                </table>
+            </div>
+
+           
+        </div>
+    </div>
+</div>

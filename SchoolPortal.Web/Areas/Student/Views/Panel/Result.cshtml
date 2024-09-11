@@ -1,0 +1,159 @@
+﻿@model SchoolPortal.Web.Models.Dtos.CheckResultViewModelDto
+
+@{
+    ViewBag.Title = "Check Result";
+
+    if (User.Identity.IsAuthenticated)
+    {
+        Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    }
+    else
+    {
+        Layout = "~/Areas/Admin/Views/Shared/_View.cshtml";
+    }
+}
+
+<div class="row">
+
+    <!-- left column -->
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <!-- general form elements -->
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">
+                    Check Result
+                </h3>
+                <a href="@Url.Action("ResultWithoutId", "Panel", new { area = "Student" })" style="float:right !important;" class="pull-right btn btn-danger btn-xs">Print Without Reg. No.</a>
+
+                @if (ViewBag.Error != null)
+                {
+                    <div class="alert alert-danger alert-dismissible" style="margin-top:10px;">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                        @ViewBag.Error
+                    </div>
+                }
+
+                @if (TempData["success"] != null)
+                {
+                    <div class="alert alert-success alert-dismissible" style="margin-top:10px;">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                        @TempData["success"]
+                    </div>
+                }
+            </div>
+
+            @*@using (Html.BeginForm("Result", "Panel", new { skip = ViewBag.skip, area = "Student" }, FormMethod.Post))*@
+            @using (Html.BeginForm("Result", "Panel", new { area = "Student" }, FormMethod.Post))
+            {
+                @*@Html.AntiForgeryToken()*@
+
+                <div class="box-body">
+
+
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div id="food"></div>
+                    <div class="form-group">
+                        <label class="control-label">Session</label>
+                        @*@Html.Label("SessionId", htmlAttributes: new { @class = "control-label" })*@
+                        <div class="">
+                            @Html.DropDownList("SessionId", ViewBag.sessionId as SelectList, "choose a session", htmlAttributes: new { @class = "form-control", required = "Choose a session" })
+
+                            @Html.ValidationMessageFor(model => model.SessionId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    @if (ViewBag.regnumber != null)
+                    {
+                        <div class="form-group">
+                            @Html.Label("Reg Number", htmlAttributes: new { @class = "control-label" })
+                            <div class="">
+                                <input type="text" name="StudentPIN" value="@ViewBag.regnumber" class="form-control" />
+                                @Html.ValidationMessageFor(model => model.StudentPIN, "", new { @class = "text-danger" })
+                            </div>
+
+                        </div>
+                    }
+                    else
+                    {
+                        @Html.Label("Reg Number", htmlAttributes: new { @class = "control-label" })
+
+                        @*<div class="input-group input-group-sm">*@
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="StudentPIN" id="regnumber" style="border-radius:0 !important;padding:6px 12px !important;">
+                            @*<span class="input-group-btn">*@
+                            <span class="form-group">
+                                <button type="button" onclick="checkingReg()" style="border-radius:0 !important;" class="btn btn-primary btn-flat">Confirm Reg. Number</button>
+                            </span>
+                        </div>
+
+                    }
+
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.PinNumber, htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+                            @Html.EditorFor(model => model.PinNumber, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.PinNumber, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.SerialNumber, htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+                            @Html.EditorFor(model => model.SerialNumber, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.SerialNumber, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-primary">Check</button>
+                    <a href="javascript: history.back()" class="btn btn-default">Cancel</a>
+                </div>
+
+            }
+        </div>
+
+    </div>
+    <div class="col-md-2"></div>
+
+</div>
+
+@section Scripts {
+    
+    <script>
+
+        function checkingReg() {
+
+            var number = document.getElementById('regnumber').value;
+            var student = {};
+            student.StudentPIN = number
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("CheckRegNumber", "EventStudent")",
+                data: JSON.stringify(student),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    console.log(data)
+                    $("#food").append(
+                        //"<div class=\"alert-box\" data-alert>" + data+"<a class=\"close\">&times;</a></div>"
+                        "<div class=\"alert alert-success alert-dismissible\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button><h4>" + data + "</h4></div>"
+                    );
+                    $(this).unbind("click");
+                }
+
+            });
+            console.log(student + "jj")
+        }
+
+    </script>
+
+}
+

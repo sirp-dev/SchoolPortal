@@ -1,0 +1,121 @@
+﻿@model IEnumerable<SchoolPortal.Web.Models.Entities.SchoolAccount>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box" style="padding:7px;">
+            <div class="box-header" style="margin-bottom:15px;">
+                <h3 class="box-title"><i class="fa fa-fw fa-file-text-o"></i> School Account Management</h3>
+
+                <div class="box-tools">
+                    @Html.ActionLink("New Account", "Create", null, new { @class = "btn btn-primary", style = "padding: 7px;" })
+                </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+                <table id="example1" class="table table-bordered table-hover" border="1">
+
+                    <thead>
+                        <tr>
+                            <th>S/N</th>
+                           
+                            <th>
+                                Account Purpose
+                            </th>
+                            <th>
+                                Account name
+                            </th>
+                            <th>
+                                Bank Name
+                            </th>
+                            <th> Account Number</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            int sno = 0;
+                        }
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @{ sno++; }
+                                    @sno
+                                </td>
+                                <td>
+                                    @item.AcctPurpose
+
+                                </td>
+                                <td>
+                                    @item.AcctName
+                                </td>
+                                <td>
+                                    @item.BankName
+                                </td>
+                                <td>
+                                    @item.AcctNumber
+                                </td>
+                                <td>
+
+                                    <div class="dropdown">
+                                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                                            Action
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu">
+
+                                            <li class="text-color-warning">@Html.ActionLink("Edit", "Edit", new { id = item.Id }, null)</li>
+                                            <li class="text-color-success">@Html.ActionLink("Details", "Details", new { id = item.Id }, null)</li>
+
+                                            <li class="text-color-danger">@Html.ActionLink("Delete", "Delete", new { id = item.Id }, null)</li>
+
+                                        </ul>
+                                    </div>
+
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+
+
+    @section Style {
+
+        <link rel="stylesheet" href="http://v1.exwhyzee.ng/admin/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+
+    }
+
+    @section Scripts {
+        <!-- DataTables -->
+        <script src="http://v1.exwhyzee.ng/admin/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+        <script src="http://v1.exwhyzee.ng/admin/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+
+    }
+
+    @section Scripts2 {
+        <script>
+        $(function () {
+            $('#example1').DataTable()
+            $('#example2').DataTable({
+                'paging': true,
+                'lengthChange': false,
+                'searching': false,
+                'ordering': true,
+                'info': true,
+                'autoWidth': false
+            })
+        })
+        </script>
+    }
+
+</div>

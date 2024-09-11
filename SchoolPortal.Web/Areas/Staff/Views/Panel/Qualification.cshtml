@@ -1,0 +1,58 @@
+﻿@model IEnumerable<SchoolPortal.Web.Models.Entities.Qualification>
+
+@{
+    ViewBag.Title = "Qualification";
+}
+
+
+
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title">@Html.ActionLink("Add Qualification", "AddQualification", "StaffProfile", new { area = "Admin" }, new { @class = "btn btn-primary" })</h3>
+
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <table class="table table-bordered">
+                    <tr>
+
+                        <th>Name Of Institution</th>
+                        <th>Year Obtained</th>
+                        <th>CertificateObtained</th>
+                        <th>Action</th>
+                    </tr>
+                    @foreach (var item in Model)
+            {
+                        <tr>
+                            <td>@item.NameOfInstitution</td>
+                            <td>@item.YearObtained</td>
+                            <td>@item.CertificateObtained</td>
+                            <td>
+
+                                <div class="dropdown">
+                                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                                        Action
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+
+                                        <li class="text-color-warning">@Html.ActionLink("Edit", "EditQualification", "StaffProfile", new { area = "Admin", id = item.Id }, null)</li>
+                                        <li class="text-color-danger">@Html.ActionLink("Delete", "DeleteQualification", "StaffProfile", new { area = "Admin", id = item.Id }, null)</li>
+
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+
+
+                </table>
+            </div>
+
+        </div>
+
+</div>
+</div>

@@ -1,0 +1,62 @@
+﻿@model SchoolPortal.Web.Models.Entities.Quote
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="row">
+    <!-- left column -->
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <!-- general form elements -->
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Delete Qoute</h3>
+                @if (TempData["error"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                        @TempData["error"]
+                    </div>
+                }
+            </div>
+
+
+            <div class="box-body">
+
+
+                <div>
+
+                    <dl class="dl-horizontal">
+                        <dt>
+                            @Html.DisplayNameFor(model => model.DateDisplayed)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.DateDisplayed)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.QuoteOfTheDay)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.QuoteOfTheDay)
+                        </dd>
+
+                    </dl>
+                </div>
+            </div>
+         
+            <div class="box-footer">
+                @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) 
+                @Html.ActionLink("Back to List", "Index")
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-3"></div>
+
+</div>
+

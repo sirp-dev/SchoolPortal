@@ -1,0 +1,91 @@
+﻿@model SchoolPortal.Web.Models.Dtos.PinInfoDto
+@using SchoolPortal.Web.Areas.Service
+@{
+    ViewBag.Title = "Details";
+}
+
+
+<div class="row">
+    <!-- left column -->
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <!-- general form elements -->
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <div class="pull-right">
+                    <a href="javascript: history.back()" class="btn btn-default">Cancel</a>
+                </div>
+                <h3 class="box-title">Pin Details</h3>
+
+
+            </div>
+
+
+            <div class="box-body table-responsive">
+                <table class="table table-success table-bordered">
+                    <tr>
+                        <th>Pin Number</th>
+                        @if (Model.StudentPin != null)
+                        {
+                            <td>@Html.DisplayFor(model => model.PinNumber)</td>
+                        }
+                        else
+                        {
+                            <td>xxxxxxxxxxxx</td>
+                        }
+
+                    </tr>
+                    <tr>
+                        <th>Serial Number</th>
+                        <td>@Html.DisplayFor(model => model.SerialNumber)</td>
+                    </tr>
+                    <tr>
+                        <th>Batch Number</th>
+                        <td>@Html.DisplayFor(model => model.BatchNumber)</td>
+                    </tr>
+                    <tr>
+                        <th>Usage</th>
+                        <td>@Html.DisplayFor(model => model.Usage)</td>
+                    </tr>
+                    <tr>
+                        <th> @GeneralService.StudentorPupil() Name</th>
+                        <td>@Html.DisplayFor(model => model.StudentFullName)</td>
+                    </tr>
+                    <tr>
+                        <th> @GeneralService.StudentorPupil() Pin</th>
+                        <td>@Html.DisplayFor(model => model.StudentPin)</td>
+                    </tr>
+                    <tr>
+                        <th>Session Used</th>
+                        <td>@Html.DisplayFor(model => model.SessionUsed)</td>
+                    </tr>
+                    <tr>
+                        <th>Printed Status</th>
+                        @if (!GeneralService.CheckPrintedStaus(Model.StudentPin, Model.PinNumber))
+                        {
+                            <td>Not Printed</td>
+                        }
+                        else
+                        {
+                            if (GeneralService.CheckPrintedStaus(Model.StudentPin, Model.PinNumber) == true)
+                            {
+                                <td>Printed</td>
+                            }
+                            else
+                            {
+                                <td>Not Printed</td>
+                            }
+
+                        }
+
+                    </tr>
+
+
+                </table>
+            </div>
+
+        </div>
+    </div>
+    <div class="col-md-4"></div>
+</div>
+

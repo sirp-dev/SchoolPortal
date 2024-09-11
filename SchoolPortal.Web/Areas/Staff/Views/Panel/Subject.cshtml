@@ -1,0 +1,66 @@
+﻿@model IEnumerable<SchoolPortal.Web.Models.Entities.Subject>
+
+@{
+    ViewBag.Title = "Subject";
+    int n = 0;
+}
+
+@*<style>
+    #studentRecord tr, td, th {
+        padding: 2px !important;
+    }
+</style>*@
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box" style="padding:7px;">
+            <div class="box-header" style="margin-bottom:15px;">
+                <h3 class="box-title"><i class="fa fa-fw fa-book"></i> SUBJECTS</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+                <table class="table table-hover table-bordered" id="">
+                    <tr>
+                        <th>S/N</th>
+                        <th>
+                            CLASS
+                        </th>
+                        <th>
+                            SUBJECT
+                        </th>
+
+
+                        <th>ACTION</th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                    <tr>
+                        @{n++;}
+                        <td>@n</td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ClassLevel.ClassName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SubjectName)
+                        </td>
+
+
+                        <td>
+
+                            @*@Html.ActionLink("Details", "ResultIndex", new { sessionId = item.Id, subId = ViewBag.SubjectsId })*@
+                            @Html.ActionLink("Update C.A/Exam", "ResultIndex", new { id = item.Id }, new { @class = "btn btn-mobile btn-primary" })
+                            @*@Html.ActionLink("Assignment", "AssignmentList", new { classId = item.ClassLevelId, subId = item.Id, subjectname = item.SubjectName }, new { @class = "btn btn-primary" })*@
+                            @Html.ActionLink("Assignment", "AssignmentList", new { classId = item.ClassLevelId, subId = item.Id }, new { @class = "btn btn-mobile btn-primary" })
+                            @Html.ActionLink("Lesson Note", "LessonNote", new { subId = item.Id }, new { @class = "btn btn-mobile btn-primary" })
+
+                        </td>
+                    </tr>
+                    }
+                </table>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+</div>

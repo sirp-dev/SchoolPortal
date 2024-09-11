@@ -1,0 +1,6 @@
+﻿@model IEnumerable<SchoolPortal.Web.Models.Entities.CategoryPage>
+
+@foreach (var item in Model)
+{
+    @Html.Raw(item.Content)
+}

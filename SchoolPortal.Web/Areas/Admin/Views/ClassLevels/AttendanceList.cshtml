@@ -1,0 +1,185 @@
+﻿
+@model IEnumerable<SchoolPortal.Web.Models.Dtos.ClassStudentsDto>
+@using System.Data.Entity
+@using SchoolPortal.Web.Areas.Service
+@{
+    ViewBag.Title = "Attendance List";
+    var abc = new SchoolPortal.Web.Models.ApplicationDbContext();
+    //  string url = HttpContext.Current.Request.Url.AbsoluteUri;
+
+    string returnUrl = HttpContext.Current.Request.Url.AbsolutePath;
+
+    // string host = HttpContext.Current.Request.Url.Host;
+}
+
+
+<div class="row">
+    <div class="col-xs-12">
+
+        <div class="box">
+            <div class="box-header">
+                <span style="color:#337ab7;font-size:30px;"><i class="fa fa-fw fa-users" style="color:#337ab7;"></i> @GeneralService.StudentorPupil() in @ViewBag.ClasName</span>   <span style="font-size:15px;">Total @GeneralService.StudentorPupil() [@ViewBag.cunt]  </span>
+
+
+            </div>
+            <div class="box-body">
+                @if (TempData["success"] != null)
+                {
+                    <div class="alert alert-success alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <strong>@TempData["success"]</strong>
+                    </div>
+                }
+                @if (TempData["error"] != null)
+                {
+                    <div class="alert alert-success alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <strong>@TempData["error"]</strong>
+                    </div>
+                }
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive">
+                <table id="example1" class="table table-bordered table-hover" border="1">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>S/N</th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.UserName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.FullName)
+                            </th>
+                            <th>
+                               Registration Number
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.PhoneNumber)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.EmailAddress)
+                            </th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            int sno = 0;
+                        }
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                @item.
+                                <td>
+                                    @using (Html.BeginForm("TakeAttendance", "ClassLevels"))
+                                    {
+                                        <input type="hidden" value="@item.UserId" name="userId" />
+                                        <input type="hidden" value="@item.ProfileId" name="profileId" />
+                                        <input type="hidden" value="@item.ClassId" name="classId" />
+                                        <input type="checkbox" class="minimal" name="ischecked" onclick="this.form.submit();" value="true" checked="@GeneralService.HasTakenAttendance(item.ProfileId, item.EnrollmentId)" />
+
+                                    }
+                                </td>
+                                <td>
+                                    @{ sno++; }
+                                    @sno
+                                </td>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.UserName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.FullName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.StudentRegNumber)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.PhoneNumber)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.EmailAddress)
+                                </td>
+                                <td>
+                                    @{ var check = abc.Defaulters.FirstOrDefault(x => x.ProfileId == item.ProfileId);}
+
+                                    <div class="dropdown">
+                                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                                            Action
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" style="border-left:1px dotted #337ab7;">
+                                            <li class="text-color-success">@Html.ActionLink("Details", "StudentProfile", "StudentProfiles", new { id = item.ProfileId }, null)</li>
+                                            <li class="text-color-danger">@Html.ActionLink("Remove", "RemoveStudent", "Enrollments", new { id = item.EnrollmentId, ReturnUrl = returnUrl }, null)</li>
+
+
+                                            @if (check == null)
+                                            {
+                                                <li class="text-color-warning">
+                                                    @Html.ActionLink("Block" + GeneralService.StudentorPupil(), "BlockStudent", new { profleid = item.ProfileId, classId = item.ClassId })
+                                                </li>
+                                            }
+                                            else
+                                            {
+                                                <li class="text-color-warning">
+                                                    @Html.ActionLink("Unblock" + GeneralService.StudentorPupil(), "UnBlockStudent", new { id = check.Id })
+                                                </li>
+                                            }
+
+                                        </ul>
+                                    </div>
+
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+    <!-- /.col -->
+</div>
+
+
+
+@section Style {
+
+    <link rel="stylesheet" href="http://v1.exwhyzee.ng/admin/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+}
+
+@section Scripts {
+    <!-- DataTables -->
+    <script src="http://v1.exwhyzee.ng/admin/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="http://v1.exwhyzee.ng/admin/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+
+}
+
+@section Scripts2 {
+    <script>
+        $(function () {
+            $('#example1').DataTable()
+            $('#example2').DataTable({
+                'paging': true,
+                'lengthChange': false,
+                'searching': false,
+                'ordering': true,
+                'info': true,
+                'autoWidth': false
+            })
+        })
+    </script>
+    <script>
+        //iCheck for checkbox and radio inputs
+        $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+            checkboxClass: 'icheckbox_minimal-blue',
+            radioClass: 'iradio_minimal-blue'
+        })
+
+    </script>
+
+}
+

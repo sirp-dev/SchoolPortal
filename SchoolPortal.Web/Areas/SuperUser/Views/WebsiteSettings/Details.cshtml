@@ -1,0 +1,126 @@
+﻿@model SchoolPortal.Web.Models.Entities.WebsiteSettings
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box" style="padding:7px;">
+            <div class="box-header" style="margin-bottom:15px;">
+                <h3 class="box-title"><i class="fa fa-fw fa-file-text-o"></i> Website Settings Details</h3>
+
+                
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.PortalUrl)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.PortalUrl)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.WebsiteUrl)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.WebsiteUrl)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.WebsiteLogo)
+                    </dt>
+
+                    <dd>
+                        @if (Model.WebsiteLogo != null)
+                        {
+
+                            <img src="data:image/jpg;base64,@(Convert.ToBase64String(Model.WebsiteLogo))" class="img-responsive" style="width:150px;" />
+
+                        }
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.WebsiteIcon)
+                    </dt>
+
+                    <dd>
+                        @if (Model.WebsiteIcon != null)
+                        {
+
+                            <img src="data:image/jpg;base64,@(Convert.ToBase64String(Model.WebsiteIcon))" class="img-responsive" style="width:50px;" />
+
+                        }
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Layout)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Layout)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Slider)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Slider)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.AboutUs)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.AboutUs)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.EventAndNews)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.EventAndNews)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.ContactUs)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.ContactUs)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.ShowBlogInHome)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.ShowBlogInHome)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.ShowHallOfFameInHome)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.ShowHallOfFameInHome)
+                    </dd>
+
+                </dl>
+            </div>
+            <p>
+                @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary" }) |
+                @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
+            </p>
+        </div>
+        </div>
+    </div>
+

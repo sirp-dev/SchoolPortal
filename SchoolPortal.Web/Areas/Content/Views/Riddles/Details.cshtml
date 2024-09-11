@@ -1,0 +1,66 @@
+﻿@model SchoolPortal.Web.Models.Entities.Riddles
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Riddles</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Content)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Content)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserAnswer)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserAnswer)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CorrectAnswer)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CorrectAnswer)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateAnswered)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateAnswered)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TimeCountDown)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TimeCountDown)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,64 @@
+﻿@model SchoolPortal.Web.Models.Entities.Assignment
+
+@{
+    ViewBag.Title = "AssignmentDetail";
+}
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+        <div class="box box-default">
+            <div class="box-header with-border">
+
+                <h3 class="box-title">Assignment Details</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="table-responsive">
+                            <table class="table table-success table-bordered" style="background-color:#3c8dbc; color:#ffffff;">
+                                <tr>
+                                    <th>Session</th>
+                                    <td>@Model.Session.SessionYear - @Model.Session.Term</td>
+                                </tr>
+                                <tr>
+                                    <th>Class</th>
+                                    <td>@Model.ClassLevel.ClassName</td>
+                                </tr>
+                                <tr>
+                                    <th>Subject</th>
+                                    <td>@Model.Subject.SubjectName</td>
+                                </tr>
+                                <tr>
+                                    <th>Title</th>
+                                    <td>@Model.Title</td>
+                                </tr>
+                                <tr>
+                                    <th>Last Submission Date</th>
+                                    <td>@Model.DateSubmitionEnds</td>
+                                </tr>
+                              
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="box-body">
+
+                <div class="container-fluid">
+                    <h3>Question</h3>
+                    <div class="" style="max-height:200px;overflow:scroll;">
+                        @Html.Raw(Model.Description)
+                    </div>
+                </div>
+            </div>
+          
+        </div>
+        <!-- /.box -->
+    </div>
+    <!-- /.col -->
+
+
+    <div class="col-md-1"></div>
+
+</div>

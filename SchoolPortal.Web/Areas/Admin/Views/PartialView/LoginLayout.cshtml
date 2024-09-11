@@ -1,0 +1,15 @@
+﻿@model SchoolPortal.Web.Models.Dtos.SettingsDto
+
+<div class="text-center animated  fadeInDown">
+    @if (Model.Image != null)
+    {
+
+        <img class="text-center logoPad " src="data:image/jpg;base64,@(Convert.ToBase64String(Model.Image))">
+    }
+    else
+    {
+
+    }
+    </div>
+
+<h1 class="text-center text-info animated fadeInDown">WELCOME TO @Model.SchoolName</h1>

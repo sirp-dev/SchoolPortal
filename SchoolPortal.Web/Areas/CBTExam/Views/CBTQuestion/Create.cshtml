@@ -1,0 +1,132 @@
+﻿@model SchoolPortal.Web.Models.Entities.QuestionModel
+
+@{
+    ViewBag.Title = "Create";
+
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section Style {
+
+    <!-- summernote -->
+    <link href="http://v1.exwhyzee.ng/Content/summernote/summernote-bs4.css" rel="stylesheet" />
+}
+
+<div class="row">
+    <!-- left column -->
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+        <!-- general form elements -->
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Add Question</h3>
+                @if (TempData["error"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                        @TempData["error"]
+                    </div>
+                }
+            </div>
+
+            @using (Html.BeginForm("Create", "CBTQuestion", FormMethod.Post, new { role = "form" }))
+            {
+                @*@Html.AntiForgeryToken()*@
+
+                <input type="hidden" name="xgink" value="@ViewBag.xgink" />
+                <input type="hidden" name="unixconverify" value="@ViewBag.unixconverify" />
+                <input type="hidden" name="role" value="@ViewBag.role" />
+                <input type="hidden" name="Session" value="@ViewBag.Session" />
+                <input type="hidden" name="Term" value="@ViewBag.Term" />
+                <input type="hidden" name="classId" value="@ViewBag.classi" />
+               
+
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="box-body">
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ClassName, "Class", htmlAttributes: new { @class = "control-label" })
+                <div class="">
+                    @Html.DropDownListFor(model => model.ClassName, ViewBag.classi as SelectList, "Select a Class", new { id = "Question", @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.ClassName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.SubjectModelId, new { @class = "control-label" })
+                <div class="">
+                    <select id="subject" name="SubjectModelId" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ExamMode, htmlAttributes: new { @class = "control-label" })
+                <div class="">
+                    @Html.EnumDropDownListFor(model => model.ExamMode, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.ExamMode, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            @*<div class="form-group">
+            @Html.LabelFor(model => model.SubjectModelId, "Subject", htmlAttributes: new { @class = "control-label" })
+            <div class="">
+                @Html.DropDownList("SubjectModelId", ViewBag.subject as SelectList, "Select a Subject", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.SubjectModelId, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Name, "Question", htmlAttributes: new { @class = "control-label" })
+                <div class="">
+                    <textarea class="textarea" placeholder="Place some text here" name="Name" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+        </div>
+
+            <div class="box-footer">
+                <button type="submit" class="btn btn-primary">Create</button>
+                <a href="javascript: history.back()" class="btn btn-default">Cancel</a>
+            </div>
+
+            }
+
+        </div>
+
+    </div>
+    <div class="col-md-1"></div>
+
+</div>
+
+
+@section Scripts {
+        
+    <!-- Summernote -->
+    <script src="http://v1.exwhyzee.ng/Content/summernote/summernote-bs4.min.js"></script>
+    <script>
+        $(function () {
+            // Summernote
+            $('.textarea').summernote({ height: 300, minHeight: null, maxHeight: null, focus: !0 })
+        })
+    </script>
+
+    <script type="text/jscript">
+        $(function () {
+            $('#Question').change(function () {
+                $.getJSON('/CBTSubject/SubjectList/' + $('#Question').val(), function (data) {
+                    var items = '<option>Select a Subject</option>';
+                    $.each(data, function (i, local) {
+                        items += "<option value='" + local.Value + "'>" + local.Text + "</option>";
+                    });
+                    $('#subject').html(items);
+                });
+            });
+        });
+    </script>
+
+}

@@ -1,0 +1,43 @@
+﻿@model SchoolPortal.Web.Models.UI.SiteOverrideCSS
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <!-- left column -->
+    <div class="col-md-12">
+        <div class="box box-primary">
+            <div class="box-header">
+                <h3>Site Override CSS</h3>
+            </div>
+            <div class="box-body">
+                <div>
+                    <h4>SiteOverrideCSS</h4>
+                    <hr />
+                    <dl class="dl-horizontal">
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Content)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Content)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Show)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Show)
+                        </dd>
+
+                    </dl>
+                </div>
+                <p>
+                    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+                    @Html.ActionLink("Back to List", "Index")
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

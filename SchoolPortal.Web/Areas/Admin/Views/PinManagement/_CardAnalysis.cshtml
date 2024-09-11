@@ -1,0 +1,42 @@
+﻿<style>
+    #detailstable .table > tbody > tr > td,
+    #detailstable .table > tbody > tr > th,
+    #detailstable .table > tfoot > tr > td,
+    #detailstable .table > tfoot > tr > th,
+    #detailstable .table > thead > tr > td,
+    #detailstable .table > thead > tr > th {
+        padding: 2px 8px;
+        font-size: 12px;
+        font-weight: 800;
+    }
+</style>
+<div class="box-body">
+    <div class="row">
+        <div class="col-md-5">
+            <div class="table-responsive" id="detailstable">
+                <table class="table table-success table-bordered" style="background-color:; color:#121111;">
+                    <tr>
+                        <th>Total Cards</th>
+                        <td>@ViewBag.allcards</td>
+                    </tr>
+                    <tr>
+                        <th>Total Card(s) Used</th>
+                        <td>@ViewBag.usedcards</td>
+
+                    </tr>
+                    <tr>
+                        <th>Total Card(s) Available</th>
+                        <td>@ViewBag.available</td>
+
+                    </tr>
+                    <tr>
+                        <th>Current Term Used Cards </th>
+                        <td>@ViewBag.currentterm</td>
+                      
+                    </tr>
+                   
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

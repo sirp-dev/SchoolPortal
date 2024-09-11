@@ -1,0 +1,100 @@
+﻿@model IEnumerable<SchoolPortal.Web.Models.Dtos.SubjectListDto>
+
+@{
+    ViewBag.Title = "ClassSubject";
+}
+<style>
+</style>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box" style="padding:7px;">
+            <div class="box-header" style="margin-bottom:15px;">
+                <h3 class="box-title"><i class="fa fa-fw fa-file-text-o"></i> Subjects Offered in </h3>
+                <p>Class: @ViewBag.classinfo.ClassName</p>
+                <p>Form Teacher: @ViewBag.classinfo.FormTeacher</p>
+                <p>Total Subjects: @ViewBag.classinfo.NumberOfSubjects</p>
+
+
+                @if (TempData["error1"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                        @TempData["error1"]
+                    </div>
+                }
+                @if (TempData["msg"] != null)
+                {
+                    <div class="alert alert-success alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                        @TempData["msg"]
+                    </div>
+                }
+                @if (ViewBag.mess != null)
+                {
+                    <div class="alert alert-primary alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                        @ViewBag.mess
+                    </div>
+                }
+
+                @Html.ActionLink("Add New Subject", "AddSubject", new { id = ViewBag.classinfo.Id }, new { @class = "btn btn-primary" })
+                @Html.ActionLink("Back to Class", "Details", new { id = ViewBag.classinfo.Id }, new { @class = "btn btn-primary" })
+
+
+                @if (TempData["success"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                        @TempData["success"]
+                    </div>
+                }
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+                <table id="" class="" border="1">
+
+                    <thead>
+
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.SubjectName)
+                            </th>
+
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+
+                            <tr>
+                                <td style="">
+                                    @Html.DisplayFor(modelItem => item.SubjectName)
+                                </td>
+
+                                <td>
+                                    @if (User.IsInRole("SuperAdmin") || User.IsInRole("Edittor"))
+                                    {
+                                        @Html.ActionLink("Edit", "EditSubject", new { id = item.SubjectId }, new { @class = "btn btn-mobile btn-primary", style = "border-radius:0px;" })
+                                    }
+                                    <br />
+                                    @if (User.IsInRole("SuperAdmin") || User.IsInRole("Delettor"))
+                                    {
+                                        @Html.ActionLink("Delete", "DeleteSubject", new { id = item.SubjectId }, new { @class = "btn btn-mobile btn-primary", style = "border-radius:0px;" })
+
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

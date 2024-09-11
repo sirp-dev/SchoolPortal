@@ -1,0 +1,112 @@
+﻿@model IEnumerable<SchoolPortal.Web.Models.Entities.OnlineZoom>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.HostEmail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MeetingId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MeetingUUId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ClassDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ClassTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Duration)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ClassLevelId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SubjectId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SessionId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ClassPassword)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MeetingType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateCreated)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.HostEmail)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MeetingId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MeetingUUId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ClassDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ClassTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Duration)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ClassLevelId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SubjectId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SessionId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ClassPassword)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MeetingType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateCreated)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+            @Html.ActionLink("api details", "DetailsApi", new { id = item.MeetingId }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+        </td>
+    </tr>
+}
+
+</table>

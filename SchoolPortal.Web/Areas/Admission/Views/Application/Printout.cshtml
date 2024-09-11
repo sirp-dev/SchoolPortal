@@ -1,0 +1,290 @@
+﻿@model SchoolPortal.Web.Models.Dtos.StudentDataDto
+@using SchoolPortal.Web.Areas.Service
+@{
+    ViewBag.Title = "Printout";
+    if (User.Identity.IsAuthenticated)
+    {
+        Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    }
+    else
+    {
+        Layout = "~/Areas/Admin/Views/Shared/_View.cshtml";
+    }
+}
+
+
+
+<div>
+
+    <div class="row">
+
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header">
+                    <h2>Application Details</h2>
+                </div>
+                <div class="box-body text-center" style="border-bottom:1.5px solid #3c8dbc" ;>
+                    <div class="" style="">
+                        @if (Model.Image != null)
+                        {
+                            <img src="data:image/jpg;base64,@(Convert.ToBase64String(Model.Image))" class="img-circle img-responsive" style="margin-left:auto;margin-right:auto;max-height:300px;max-width:300px;" />
+
+                        }
+                        else
+                        {
+                            <img src="" class="img-circle img-responsive" style="margin-left:auto;margin-right:auto;max-height:300px;max-width:300px;" />
+
+                        }
+                    </div>
+                    <h3>@Model.Surname @Model.FirstName @Model.OtherNames</h3>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="box box-primary">
+                            <div class="box-header">
+                                <h3 class="box-title">@GeneralService.StudentorPupil() Information</h3>
+
+
+                            </div>
+                            <!-- /.box-header -->
+                            <div class="box-body" style="padding:10px;">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <dl class="dl-horizontal">
+                                            <dt>
+                                                @Html.DisplayNameFor(model => model.RegistrationNumber)
+                                            </dt>
+
+                                            <dd>
+                                                @Html.DisplayFor(model => model.RegistrationNumber)
+                                            </dd>
+
+                                            <dt>
+                                                @Html.DisplayNameFor(model => model.Surname)
+                                            </dt>
+
+                                            <dd>
+                                                @Html.DisplayFor(model => model.Surname)
+                                            </dd>
+
+                                            <dt>
+                                                @Html.DisplayNameFor(model => model.FirstName)
+                                            </dt>
+
+                                            <dd>
+                                                @Html.DisplayFor(model => model.FirstName)
+                                            </dd>
+
+                                            <dt>
+                                                @Html.DisplayNameFor(model => model.OtherNames)
+                                            </dt>
+
+                                            <dd>
+                                                @Html.DisplayFor(model => model.OtherNames)
+                                            </dd>
+
+                                            <dt>
+                                                @Html.DisplayNameFor(model => model.DateOfBirth)
+                                            </dt>
+
+                                            <dd>
+                                                @Model.DateOfBirth.GetValueOrDefault().ToString("dd MMM, yyyy")
+                                            </dd>
+
+                                            <dt>
+                                                @Html.DisplayNameFor(model => model.LastPrimarySchoolAttended)
+                                            </dt>
+
+                                            <dd>
+                                                @Html.DisplayFor(model => model.LastPrimarySchoolAttended)
+                                            </dd>
+
+                                            <dt>
+                                                @Html.DisplayNameFor(model => model.Religion)
+                                            </dt>
+
+                                            <dd>
+                                                @Html.DisplayFor(model => model.Religion)
+                                            </dd>
+
+                                            <dt>
+                                                @Html.DisplayNameFor(model => model.NameOfParents)
+                                            </dt>
+
+                                            <dd>
+                                                @Html.DisplayFor(model => model.NameOfParents)
+                                            </dd>
+
+                                            <dt>
+                                                @Html.DisplayNameFor(model => model.ParentsAddress)
+                                            </dt>
+
+                                            <dd>
+                                                @Html.DisplayFor(model => model.ParentsAddress)
+                                            </dd>
+
+                                            <dt>
+                                                @Html.DisplayNameFor(model => model.PhoneNumberOfParents)
+                                            </dt>
+
+                                            <dd>
+                                                @Html.DisplayFor(model => model.PhoneNumberOfParents)
+                                            </dd>
+
+                                            <dt>
+                                                @Html.DisplayNameFor(model => model.OccupationOfParents)
+                                            </dt>
+
+                                            <dd>
+                                                @Html.DisplayFor(model => model.OccupationOfParents)
+                                            </dd>
+
+                                            <dt>
+                                                @Html.DisplayNameFor(model => model.PermanentHomeAddress)
+                                            </dt>
+
+                                            <dd>
+                                                @Html.DisplayFor(model => model.PermanentHomeAddress)
+                                            </dd>
+
+
+                                        </dl>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <dl class="dl-horizontal">
+                                            <dt>
+                                                @Html.DisplayNameFor(model => model.LocalGov)
+                                            </dt>
+
+                                            <dd>
+                                                @Html.DisplayFor(model => model.LocalGov)
+                                            </dd>
+
+                                            <dt>
+                                                @Html.DisplayNameFor(model => model.StateOfOrigin)
+                                            </dt>
+
+                                            <dd>
+                                                @Html.DisplayFor(model => model.StateOfOrigin)
+                                            </dd>
+
+                                            <dt>
+                                                @Html.DisplayNameFor(model => model.Nationality)
+                                            </dt>
+
+                                            <dd>
+                                                @Html.DisplayFor(model => model.Nationality)
+                                            </dd>
+
+                                            <dt>
+                                                @Html.DisplayNameFor(model => model.ExamCenter)
+                                            </dt>
+
+                                            <dd>
+                                                @Html.DisplayFor(model => model.ExamCenter)
+                                            </dd>
+
+                                            <dt>
+                                                @Html.DisplayNameFor(model => model.Disability)
+                                            </dt>
+
+                                            <dd>
+                                                @Html.DisplayFor(model => model.Disability)
+                                            </dd>
+
+                                            <dt>
+                                                @Html.DisplayNameFor(model => model.EmergencyContact)
+                                            </dt>
+
+                                            <dd>
+                                                @Html.DisplayFor(model => model.EmergencyContact)
+                                            </dd>
+
+                                            <dt>
+                                                @Html.DisplayNameFor(model => model.ExamScore)
+                                            </dt>
+
+                                            <dd>
+                                                @Html.DisplayFor(model => model.ExamScore)
+                                            </dd>
+
+                                            <dt>
+                                                @Html.DisplayNameFor(model => model.Remarks)
+                                            </dt>
+
+                                            <dd>
+                                                @Html.DisplayFor(model => model.Remarks)
+                                            </dd>
+
+                                            <dt>
+                                                @Html.DisplayNameFor(model => model.AdmissionNumber)
+                                            </dt>
+
+                                            <dd>
+                                                @Html.DisplayFor(model => model.AdmissionNumber)
+                                            </dd>
+
+                                            <dt>
+                                                @Html.DisplayNameFor(model => model.Status)
+                                            </dt>
+
+                                            <dd>
+                                                @Html.DisplayFor(model => model.Status)
+                                            </dd>
+
+                                            <dt>
+                                                @Html.DisplayNameFor(model => model.DateOfAdmission)
+                                            </dt>
+
+                                            <dd>
+                                                @Html.DisplayFor(model => model.DateOfAdmission)
+                                            </dd>
+
+                                            <dt>
+                                                @Html.DisplayNameFor(model => model.AdmissionOfficer)
+                                            </dt>
+
+                                            <dd>
+                                                @Html.DisplayFor(model => model.AdmissionOfficer)
+                                            </dd>
+
+                                            <dt>
+                                                @Html.DisplayNameFor(model => model.ApplicationDate)
+                                            </dt>
+
+                                            <dd>
+                                                @Html.DisplayFor(model => model.ApplicationDate)
+                                            </dd>
+                                        </dl>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+
+                            <!-- /.box-body -->
+                        </div>
+                        <!-- /.box -->
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="text-center">
+            <button onclick="myFunction()" style="text-align:center;" class="btn btn-primary">Print</button>
+
+        </div>
+        <script type="text/javascript">
+
+            function myFunction() {
+                window.print();
+            }
+
+
+        </script>
+    </div>
+</div>
+

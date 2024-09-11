@@ -1,0 +1,164 @@
+﻿@model PagedList.IPagedList<SchoolPortal.Web.Models.Entities.PinCodeModel>
+@using PagedList.Mvc;
+@using SchoolPortal.Web.Areas.Service
+<link href="http://v1.exwhyzee.ng/Content/PagedList.css" rel="stylesheet" />
+
+@{
+    ViewBag.Title = "Card Upload";
+    int n = 0;
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-xs-12">
+
+        <div class="box-header">
+            @Html.ActionLink("Delete Card Batch", "DeleteCard", "ImportFromExcel", new { area = "SuperUser" }, new { @class = "btn btn-danger" })
+        </div>
+        <div class="box" style="padding:7px;">
+            <div class="box-header" style="margin-bottom:15px;">
+
+                <h3 class="box-title" style="text-transform:uppercase;"><i class="fa fa-fw fa-users"></i> @GeneralService.StudentorPupil()<span>'s</span> LIST</h3>
+                @if (TempData["error"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                        @TempData["error"]
+                    </div>
+                }
+                @if (TempData["msg"] != null)
+                {
+                    <div class="alert alert-success alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                        @TempData["msg"]
+                    </div>
+                }
+            </div>
+            <div class="box-body">
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <div class="">
+                            <div class="">
+
+                                @using (Html.BeginForm("UploadCard", "ImportFromExcel", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                {
+                                    if (TempData["error"] != null)
+                                    {
+                                        <div class="alert alert-danger alert-dismissible">
+                                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                            <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                                            @TempData["error"]
+                                        </div>
+                                    }
+
+                                    <div class="form-group">
+                                        @Html.Label("batchnumber", htmlAttributes: new { @class = "control-label" })
+                                        <div class="">
+                                            <input name="batchnumber" type="text" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <input type="file" class="form-control" name="excelfile" style="margin-bottom:20px;" />
+                                    <input type="submit" value="Upload" class="btn btn-sm btn-primary" style="width:100%;" />
+
+                                }
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+            <div id="divTableDataHolder" class="box-body table-responsive no-padding">
+
+                <table id="default-table" class="table table-hover" border="1">
+                    <thead>
+                        <tr>
+                            <th>
+                                <label>S/No</label>
+                            </th>
+                            <th>
+                                <label>PinNumber</label>
+                            </th>
+                            <th>
+                                <label>SerialNumber</label>
+                            </th>
+                            <th>
+                                <label>Usage</label>
+                            </th>
+                            <th>
+                                <label>EnrollmentId</label>
+                            </th>
+                            <th>
+                                <label>BatchNumber</label>
+                            </th>
+                            <th>
+                                <label>StudentPin</label>
+                            </th>
+                            <th>
+                                <label>DateCreated</label>
+                            </th>
+                            @*<th></th>*@
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            int sno = 0;
+                        }
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @{ sno++; }
+                                    @sno
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.PinNumber)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.SerialNumber)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Usage)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.EnrollmentId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.BatchNumber)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.StudentPin)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DateCreated)
+                                </td>
+                                @*<td></td>*@
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <div class="container text-center page" style="margin-left:auto;margin-right:auto;">
+
+                    <p>Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount</p>
+
+                    @Html.PagedListPager(Model, page => Url.Action("UploadCard",
+    new { page }))
+                </div>
+            </div>
+
+
+
+        </div>
+        <!-- /.box -->
+    </div>
+</div>
+
+

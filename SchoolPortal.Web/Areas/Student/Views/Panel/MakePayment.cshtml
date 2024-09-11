@@ -1,0 +1,284 @@
+﻿@using SchoolPortal.Web.Areas.Service
+
+@{
+    ViewBag.Title = "Fees";
+}
+<style>
+    .fclass {
+        background-color: #3c8dbc !important;
+    }
+
+    .nav-tabs > li > a {
+        margin-right: 2px;
+        line-height: 1.42857143;
+        border: 1px solid #428bca;
+        border-radius: 4px 4px 0 0;
+    }
+
+    .nav > li > a {
+        position: relative;
+        display: block;
+        padding: 4px 15px;
+    }
+</style>
+<!--<div class="row" id="">
+    if (ViewBag.Income.Count > 0)
+    {
+        foreach (var i in ViewBag.Income)
+        {
+            <div class="col-md-4 col-sm-6 col-xs-12">
+
+                <div class="info-box fclass" style="">
+                    <span class="info-box-icon bg-aqua fclass"><i class="fa fa-money"></i></span>
+
+                    <div class="info-box-content" style=" padding: 30px 10px;">
+                        <span class="info-box-text text-white" style="font-weight:900;color:white !important;">i.Description</span>
+                        using (Html.BeginForm("GenerateInvoice", "Payment", new { area = "Financial" }, FormMethod.Post, new { id = "", enctype = "multipart/form-data" }))
+                        {
+                            Html.AntiForgeryToken()
+
+
+                            Html.ValidationSummary(true, "", new { class = "text-danger" })
+                            <input type="hidden" name="PaymentType" value="i.Title" />--
+                           Html.DropDownList("PaymentType", ViewBag.Income as SelectList, "Choose", new { class = "form-control", required = "required" })*
+
+                            <!--<button type="submit" class="btn btn-primary bottom float-right" style="text-align:right;margin-top:20px;background-color:white;color:#3c8dbc;">Continue</button>
+
+
+                        }
+                    </div>-->
+<!-- /.info-box-content -->
+<!--</div>-->
+<!-- /.info-box -->
+<!--</div>
+
+        }
+    }
+    else
+    {
+        <h3>Fees Not Found</h3>
+    }
+</div>-->
+
+
+<div class="row">
+
+    <div class="col-md-12">
+
+        <!-- Custom Tabs (Pulled to the right) -->
+        <div class="nav-tabs-custom">
+
+            <div class="clearfix"></div>
+            <div class="tab-content">
+                <div class="tab-pane active" id="">
+                    <div class="box box-info">
+                        <div class="box-header with-border">
+                            <h2 class="page-header">Student Payment</h2>
+
+                            <div class="pull-right">
+
+                                @*@using (Html.BeginForm("MakePayment", "Panel", null, FormMethod.Get))
+                                {
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            @Html.DropDownList("sessionId", ViewBag.sessionId as SelectList, "choose a session", htmlAttributes: new { @class = "form-control", required = "Choose a session" })
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Change Session</button>
+                                    </div>
+
+                                }*@
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box box-info">
+                      
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Payment List</h3>
+
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <div class="table-responsive">
+                                <table class="table no-margin">
+                                    <thead>
+                                        <tr>
+                                            <th>Title</th>
+                                            <th>Required Amount</th>
+                                            <th>Percent you want to pay (%)</th>
+                                            <th>Am Paying</th>
+                                            <th>Balance</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var i in ViewBag.finance)
+                                        {
+
+
+                                        <tr>
+                                            <td>@i.Income.Title</td>
+                                            <td>
+                                                @if (i.Payall == true)
+                                                {
+                                                    <span>
+                                                        &#8358;@string.Format("{0:C}", i.Amount).Replace(".00", "").Replace("$", "")
+                                                    </span>
+
+                                                }
+                                                else
+                                                {
+                                                    <span>
+                                                        &#8358;@string.Format("{0:C}", i.PaymentAmount.Amount).Replace(".00", "").Replace("$", "")
+                                                    </span>
+                                                    }
+                                            </td>
+
+
+                                                <td>
+                                                    @using (Html.BeginForm("UpdateAmount", "Panel", new { area = "Student" }, FormMethod.Post, new { id = i.Income.Title.Replace(" ", "") + i.Id + "50%", enctype = "" }))
+                                                    {
+                                                        @*@Html.AntiForgeryToken()*@
+                                                        <input type="hidden" name="id" value="@i.Id" />
+                                                        <input type="hidden" name="sessionId" value="@ViewBag.sid" />
+
+                                                        <input type="hidden" value="50" name="percent" />
+                                                        @*<button type="submit" class="btn btn-xs btn-primary"> 50%</button>*@
+                                                    }
+
+                                                    @using (Html.BeginForm("UpdateAmount", "Panel", new { area = "Student" }, FormMethod.Post, new { id = i.Income.Title.Replace(" ", "") + i.Id + "75%", enctype = "" }))
+                                                    {
+                                                        @*@Html.AntiForgeryToken()*@
+                                                        <input type="hidden" name="id" value="@i.Id" />
+                                                        <input type="hidden" name="sessionId" value="@ViewBag.sid" />
+
+                                                        <input type="hidden" value="75" name="percent" />
+                                                        @*<button type="submit" class="btn btn-xs btn-primary"> 50%</button>*@
+                                                    }
+
+                                                    @using (Html.BeginForm("UpdateAmount", "Panel", new { area = "Student" }, FormMethod.Post, new { id = i.Income.Title.Replace(" ", "") + i.Id + "100%", enctype = "" }))
+                                                    {
+                                                        @*@Html.AntiForgeryToken()*@
+                                                        <input type="hidden" name="id" value="@i.Id" />
+                                                        <input type="hidden" name="sessionId" value="@ViewBag.sid" />
+
+                                                        <input type="hidden" value="100" name="percent" />
+                                                        @*<button type="submit" class="btn btn-xs btn-primary"> 50%</button>*@
+                                                    }
+                                                    @{
+                                                        var five = i.Income.Title.Replace(" ", "") + i.Id + "50%";
+                                                        var seven = i.Income.Title.Replace(" ", "") + i.Id + "75%";
+                                                        var hundred = i.Income.Title.Replace(" ", "") + i.Id + "100%";
+                                                    }
+                                                    @if (i.Payall == false)
+                                                    {
+                                                        <a href="javascript:document.getElementById('@five').submit()" class="btn btn-xs btn-primary">50%</a>
+                                                        <a href="javascript:document.getElementById('@seven').submit()" class="btn btn-xs btn-primary">75%</a>
+                                                        <a href="javascript:document.getElementById('@hundred').submit()" class="btn btn-xs btn-primary">100%</a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a href="#" class="btn btn-xs btn-primary">100%</a>
+
+                                                    }
+                                                </td>
+
+                                                <td>&#8358;@string.Format("{0:C}", i.Amount).Replace(".00", "").Replace("$", "")</td>
+                                                <td>
+                                                    @{
+                                                        decimal balance = i.PaymentAmount.Amount - i.Amount;
+                                                    }
+                                                    @if (i.Payall == false)
+                                                    {
+                                                        <span>
+                                                            &#8358;@string.Format("{0:C}", balance).Replace(".00", "").Replace("$", "")
+                                                        </span>
+
+                                                    }
+                                                    else
+                                                    {
+                                                        <span>
+                                                            &#8358;@string.Format("{0:C}", 0).Replace(".00", "").Replace("$", "")
+                                                        </span>
+                                                    }
+                                                </td>
+                                                <td>
+                                                    @using (Html.BeginForm("RemovePay", "Panel", new { area = "Student" }, FormMethod.Post, new { id = i.Income.Title.Replace(" ", "") + i.Id + "100%", enctype = "" }))
+                                                    {
+                                                        @*@Html.AntiForgeryToken()*@
+                                                        <input type="hidden" name="id" value="@i.Id" />
+                                                        <input type="hidden" name="sessionId" value="@ViewBag.sid" />
+
+                                                        <button type="submit" class="btn btn-xs btn-danger"> <i class="fa fa-minus"></i></button>
+                                                    }
+
+
+                                                </td>
+
+                                            </tr>
+                                        }
+
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="3" style=""><b style="text-align:right;">Total</b></td>
+                                            <td>
+                                                @if (ViewBag.total != null)
+                                                {
+                                                    <b>&#8358;@string.Format("{0:C}", ViewBag.total).Replace(".00", "").Replace("$", "")</b>
+                                                }
+                                                else
+                                                {
+                                                    <b>&#8358;0</b>
+
+                                                }
+                                            </td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                            <!-- /.table-responsive -->
+                        </div>
+                        <!-- /.box-body -->
+                        <div class="box-footer clearfix">
+                            @Html.ActionLink("Continue", "InvoiceDetails", "Payment", new { area = "Financial", sessionId = ViewBag.sid }, new { @class = "btn btn-sm btn-primary btn-flat pull-right" })
+                            @* <a href="@Url.Action("", "", new { area=""})" class=""></a>*@
+                        </div>
+                        <!-- /.box-footer -->
+                    </div>
+                </div>
+
+                <!-- /.tab-pane -->
+            </div>
+            <!-- /.tab-content -->
+        </div>
+        <!-- nav-tabs-custom -->
+    </div>
+    <!-- /.col -->
+</div>
+
+@section Scripts {
+    <script>
+        $("#rowset div").first().addClass("fclass");
+        $("#rowset div").second().addClass("sclass");
+        $("#rowset div").third().addClass("tclass");
+        $("#rowset div").fourth().addClass("frclass");
+
+    </script>
+    <script>
+        function updatef(param1, param2) {
+
+            //$.ajax({
+            //    type: 'POST',
+            //    url: 'file_product.php',
+            //    data: "param1=" + param1 + "&param2=" + param2,
+            //    success: function (data) {
+            //        $("p").text(data);
+            //    }
+            //});
+            console.log(param1 + " " + param2)
+        }
+    </script>
+
+}

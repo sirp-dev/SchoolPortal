@@ -1,0 +1,146 @@
+﻿
+@model PagedList.IPagedList<SchoolPortal.Web.Models.Entities.PinCodeModel>
+@using PagedList.Mvc;
+@using SchoolPortal.Web.Areas.Service
+<link href="http://v1.exwhyzee.ng/Content/PagedList.css" rel="stylesheet" />
+@{
+    ViewBag.Title = "AdminPinIndex";
+}
+@{
+    int sno = 0;
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box panel-primary">
+
+            <div class="box-header">
+                <h3 class="box-title"><i class="fa fa-fw fa-lock"></i> Pin Management <i>ALL CARDS</i> (@Model.Count() / @ViewBag.countAll)</h3>
+                @Html.ActionLink("New Test Pin", "Create", null, new { @class = "btn btn-success" })
+                @Html.ActionLink("update card session Card", "UpdatePinWithSessionId", null, new { @class = "btn btn-warning" })
+                @Html.ActionLink("Delete Card Batch", "DeleteCard", "ImportFromExcel", new { area = "SuperUser" }, new { @class = "btn btn-danger" })
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-1"></div>
+
+                <div class="col-md-5">
+                    @using (Html.BeginForm())
+                    {
+
+                        <div class="input-group" style="margin-left:10px;">
+                            <div class="input-group-btn">
+                                <button type="submit" class="btn btn-primary">Search</button>
+                            </div>
+                            <!-- /btn-group -->
+                            <input type="text" name="SearchString" value="@ViewBag.CurrentFilter" class="form-control" placeholder="Search...">
+                        </div>
+
+                    }
+                </div>
+                <div class="col-md-5">
+                    <div class="btn-group pull-right">
+                        @Html.ActionLink("Unnsed Card", "IndexofUnused", null, new { @class = "btn btn-warning" })
+                        @Html.ActionLink("Used Card", "IndexofUsed", null, new { @class = "btn btn-success" })
+
+                    </div>
+                </div>
+                <div class="col-md-1"></div>
+            </div>
+
+            <br />
+            <!-- /.box-header -->
+            <div class="box-body table-responsive border-table">
+
+
+                <br />
+
+                <table border="1" class="table table-bordered table-hover">
+
+                    <tr>
+                        <th>S/N</th>
+                        <th>
+                            PIN NUMBER
+                        </th>
+                        <th>
+                            SERIAL NUMBER
+                        </th>
+                        <th>
+                            USAGE
+                        </th>
+                        <th>
+                            BATCH
+                        </th>
+
+                        <th style="text-transform:uppercase;">
+                            @GeneralService.StudentorPupil() PIN
+                        </th>
+
+                        <th>SESSION</th>
+                        <th></th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @{ sno++; }
+                                @sno
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PinNumber)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.SerialNumber)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Usage)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.BatchNumber)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.StudentPin)
+                            </td>
+
+
+                            @if (item.SessionId != null)
+                            {
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Session.SessionYear) / @Html.DisplayFor(modelItem => item.Session.Term)
+
+                                </td>
+                            }
+                            else
+                            {
+                                <td></td>
+                            }
+
+
+                            <td>
+                                @Html.ActionLink("Card Info", "Details", new { id = item.Id }, new { @class = "btn btn-primary" })
+                                @Html.ActionLink("Card Edit", "EditPin", new { id = item.Id }, new { @class = "btn btn-primary" })
+                                @Html.ActionLink("Reset Card by 1", "ResetAdd", new { id = item.Id }, new { @class = "btn btn-primary" })
+                                @Html.ActionLink("Remove Reset Card by 1", "ResetMinus", new { id = item.Id }, new { @class = "btn btn-primary" })
+
+                            </td>
+                        </tr>
+                    }
+                </table>
+                <div class="container text-center page" style="margin-left:auto;margin-right:auto;">
+
+                    <p>Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount</p>
+
+                    @Html.PagedListPager(Model, page => Url.Action("AdminPinIndex",
+    new { page }))
+                </div>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+        <!-- /.box -->
+    </div>
+    <!-- /.col -->
+</div>

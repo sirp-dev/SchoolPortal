@@ -1,0 +1,160 @@
+﻿@model IEnumerable<SchoolPortal.Web.Models.Entities.StaffProfile>
+@using SchoolPortal.Web.Areas.Service
+
+@{
+    ViewBag.Title = "StaffList";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<style>
+    #subtable tr td {
+        padding: 5px;
+    }
+
+    #subtable tr th {
+        padding: 5px;
+    }
+</style>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box" style="padding:7px;">
+            <div class="box-header" style="margin-bottom:15px;">
+                <h3 class="box-title" style="font-weight:900;"><i class="fa fa-fw fa-file-text-o"></i> Comprehensive Staff List</h3>
+
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+                <table id="example1" class="table table-bordered table-hover" border="1">
+
+                    <thead>
+                        <tr>
+                            <th>S/N</th>
+                            <th>
+                                UserName
+                            </th>
+                            <th>
+                                Staff Name
+                            </th>
+                            <th>
+                                Staff Id
+                            </th>
+                            <th>Status</th>
+                            @if (User.IsInRole("SuperAdmin"))
+                            {
+                                <th>
+                                    user Id
+                                </th>
+                            }
+                            <th>
+                                Details
+                            </th>
+                            <th></th>
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        @{
+                            int sno = 0;
+                        }
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @{ sno++; }
+                                    @sno
+                                </td>
+                                <td>
+                                    @item.user.UserName
+                                </td>
+                                <td>
+                                    @item.user.Surname @item.user.FirstName @item.user.OtherName
+                                </td>
+                                <td>
+                                    @item.StaffRegistrationId
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.user.Status)
+                                </td>
+                                @if (User.IsInRole("SuperAdmin"))
+                                {
+                                    <td>
+                                        @item.UserId
+                                    </td>
+                                }
+                                <td>
+                                    <table id="subtable">
+                                        <tr>
+                                            <th>Form Teacher</th>
+                                        </tr>
+                                        <tr>
+                                            @Html.Raw(GeneralService.StaffClassList(item.UserId))
+                                        </tr>
+                                    </table>
+                                    <br />
+                                    <table id="subtable">
+                                        <tr>
+
+                                            <th>
+                                                Subjects
+                                            </th>
+
+
+                                        </tr>
+                                        <tr>
+                                            @Html.Raw(GeneralService.StaffSubjectList(item.UserId))
+                                        </tr>
+
+                                    </table>
+                                </td>
+                                <td>
+                                    @if (User.IsInRole("SuperAdmin") || User.IsInRole("Edittor") || User.IsInRole("Admin"))
+                                    {
+                                        @Html.ActionLink("Edit", "Edit", "UserManagers", new { id = item.UserId, area = "Admin" }, new { @class = "btn btn-warning" })
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+
+
+
+
+
+@section Style {
+
+    <link rel="stylesheet" href="http://v1.exwhyzee.ng/admin/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+}
+
+@section Scripts {
+    <!-- DataTables -->
+    <script src="http://v1.exwhyzee.ng/admin/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="http://v1.exwhyzee.ng/admin/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+
+}
+
+@section Scripts2 {
+    <script>
+        $(function () {
+            $('#example1').DataTable()
+            $('#example2').DataTable({
+                'paging': true,
+                'lengthChange': false,
+                'searching': false,
+                'ordering': true,
+                'info': true,
+                'autoWidth': false
+            })
+        })
+    </script>
+}
+
+

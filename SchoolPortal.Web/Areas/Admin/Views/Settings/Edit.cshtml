@@ -1,0 +1,383 @@
+﻿@model SchoolPortal.Web.Models.Entities.Setting
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+
+
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+        <div class="box box-primary">
+            <div class="box-header">
+                <h2>School Settings</h2>
+            </div>
+            @using (Html.BeginForm())
+            {
+                @*@Html.AntiForgeryToken()*@
+        <div class="box-body">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.Id)
+            @Html.HiddenFor(model => model.SchoolName)
+            @Html.HiddenFor(model => model.SchoolInitials)
+            @Html.HiddenFor(model => model.ImageId)
+            @Html.HiddenFor(model => model.IsPrimaryNursery)
+            @Html.HiddenFor(model => model.EnableBatchResultPrinting)
+            @Html.HiddenFor(model => model.WebsiteLink)
+            @Html.HiddenFor(model => model.PortalLink)
+            @Html.HiddenFor(model => model.NewsletterContent)
+            @Html.HiddenFor(model => model.ShowNewsletterPage)
+            @Html.HiddenFor(model => model.EnableZoom)
+            @Html.HiddenFor(model => model.EnableMultipleZoom)
+            @Html.HiddenFor(model => model.ZoomHostOne)
+            @Html.HiddenFor(model => model.ZoomHostOnePass)
+            @Html.HiddenFor(model => model.ZoomHostThree)
+            @Html.HiddenFor(model => model.ZoomHostThreePass)
+            @Html.HiddenFor(model => model.ZoomHostTwo)
+            @Html.HiddenFor(model => model.ZoomHostTwoPass)
+            @Html.HiddenFor(model => model.IskoollLink)
+            @Html.HiddenFor(model => model.CBTLink)
+            @Html.HiddenFor(model => model.ShowPositionOnResult)
+            @Html.HiddenFor(model => model.ShowFeesOnResult)
+            @Html.HiddenFor(model => model.ShowAccctOnResult)
+            @Html.HiddenFor(model => model.GoogleAnalytics)
+            @Html.HiddenFor(model => model.PrintOutOption)
+            @Html.HiddenFor(model => model.AdmissionPinOption)
+            @Html.HiddenFor(model => model.NewsletterContent)
+            @Html.HiddenFor(model => model.ShowNewsletterPage)
+            @Html.HiddenFor(model => model.PinValidOption)
+            @Html.HiddenFor(model => model.PaymentCallBackUrl)
+            @Html.HiddenFor(model => model.EnableCBT)
+            @Html.HiddenFor(model => model.EnablePreviewResult)
+            @Html.HiddenFor(model => model.EnableTestScore)
+            @Html.HiddenFor(model => model.EnableTestScore2)
+            @Html.HiddenFor(model => model.EnableExamScore)
+            @Html.HiddenFor(model => model.EnableProject)
+            @Html.HiddenFor(model => model.EnableClassExercise)
+            @Html.HiddenFor(model => model.EnableAssessment)
+            @Html.HiddenFor(model => model.Assessment)
+            @Html.HiddenFor(model => model.ClassExercise)
+            @Html.HiddenFor(model => model.Project)
+            @Html.HiddenFor(model => model.TestScore2)
+            @Html.HiddenFor(model => model.EnableFinance)
+            @Html.HiddenFor(model => model.EnableHostel)
+            @Html.HiddenFor(model => model.PaystackSecretKey)
+            @Html.HiddenFor(model => model.DisableAllResultPrinting)
+            @Html.HiddenFor(model => model.DisableAllResultPrintingNote)
+
+
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs pull-right">
+                    <li><a href="#tab_1-0" data-toggle="tab">Screening Test</a></li>
+                    <li><a href="#tab_1-1" data-toggle="tab">E-Mail</a></li>
+                    <li><a href="#tab_2-2" data-toggle="tab">Academics/Results</a></li>
+                    <li><a href="#tab_3-2" data-toggle="tab">SMS</a></li>
+                    <li class="active"><a href="#tab_4-2" data-toggle="tab">School Profile</a></li>
+
+                    <li class="pull-left header"><i class="fa fa-gears"></i> Settings</li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane" id="tab_1-0">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ScreeningVenue, htmlAttributes: new { @class = "control-label" })
+                            <div class="">
+                                @Html.EditorFor(model => model.ScreeningVenue, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.ScreeningVenue, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ScreeningTime, htmlAttributes: new { @class = "control-label" })
+                            <div class="">
+                                @Html.EditorFor(model => model.ScreeningTime, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.ScreeningTime, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ScreeningDate, htmlAttributes: new { @class = "control-label" })
+                            <div class="">
+                                @Html.EditorFor(model => model.ScreeningDate, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.ScreeningDate, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                    <div class="tab-pane" id="tab_1-1">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.EmailFrom, htmlAttributes: new { @class = "control-label" })
+                            <div class="">
+                                @Html.EditorFor(model => model.EmailFrom, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.EmailFrom, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.MailHost, htmlAttributes: new { @class = "control-label" })
+                            <div class="">
+                                @Html.EditorFor(model => model.MailHost, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.MailHost, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Port, htmlAttributes: new { @class = "control-label" })
+                            <div class="">
+                                @Html.EditorFor(model => model.Port, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Port, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.MailUsername, htmlAttributes: new { @class = "control-label" })
+                            <div class="">
+                                @Html.EditorFor(model => model.MailUsername, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.MailUsername, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.MailPassword, htmlAttributes: new { @class = "control-label" })
+                            <div class="">
+                                @Html.EditorFor(model => model.MailPassword, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.MailPassword, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.SslEnabled, htmlAttributes: new { @class = "control-label" })
+                            <div class="">
+                                <div class="checkbox">
+                                    @Html.EditorFor(model => model.SslEnabled)
+                                    @Html.ValidationMessageFor(model => model.SslEnabled, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- /.tab-pane -->
+                    <div class="tab-pane" id="tab_2-2">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ExamScore, htmlAttributes: new { @class = "control-label" })
+                            <div class="">
+                                @Html.EditorFor(model => model.ExamScore, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.ExamScore, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.AccessmentScore, htmlAttributes: new { @class = "control-label" })
+                            <div class="">
+                                @Html.EditorFor(model => model.AccessmentScore, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.AccessmentScore, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Assessment, htmlAttributes: new { @class = "control-label" })
+                            <div class="">
+                                @Html.EditorFor(model => model.Assessment, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Assessment, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ClassExercise, htmlAttributes: new { @class = "control-label" })
+                            <div class="">
+                                @Html.EditorFor(model => model.ClassExercise, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.ClassExercise, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Project, htmlAttributes: new { @class = "control-label" })
+                            <div class="">
+                                @Html.EditorFor(model => model.Project, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Project, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.TestScore2, htmlAttributes: new { @class = "control-label" })
+                            <div class="">
+                                @Html.EditorFor(model => model.TestScore2, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.TestScore2, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Passmark, htmlAttributes: new { @class = "control-label" })
+                            <div class="">
+                                @Html.EditorFor(model => model.Passmark, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Passmark, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.PromotionByTrial, htmlAttributes: new { @class = "control-label" })
+                            <div class="">
+                                @Html.EditorFor(model => model.PromotionByTrial, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.PromotionByTrial, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.PromoteAll, htmlAttributes: new { @class = "control-label" })
+
+                            @Html.EditorFor(model => model.PromoteAll)
+                            @Html.ValidationMessageFor(model => model.PromoteAll, "", new { @class = "text-danger" })
+
+                        </div>
+
+                        @*<div class="form-group">
+                        @Html.LabelFor(model => model.ShowPositionOnResult, htmlAttributes: new { @class = "control-label" })
+
+                        @Html.EditorFor(model => model.ShowPositionOnResult)
+                        @Html.ValidationMessageFor(model => model.ShowPositionOnResult, "", new { @class = "text-danger" })
+
+                    </div>*@
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ShowCumulativeResultForThirdTerm, htmlAttributes: new { @class = "control-label" })
+
+                            @Html.EditorFor(model => model.ShowCumulativeResultForThirdTerm)
+                            @Html.ValidationMessageFor(model => model.ShowCumulativeResultForThirdTerm, "", new { @class = "text-danger" })
+
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.DefaultEnrollmentRemark, htmlAttributes: new { @class = "control-label" })
+                            <div class="">
+                                @Html.EditorFor(model => model.DefaultEnrollmentRemark, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.DefaultEnrollmentRemark, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- /.tab-pane -->
+                    <div class="tab-pane" id="tab_3-2">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.SmsUsername, htmlAttributes: new { @class = "control-label" })
+                            <div class="">
+                                @Html.EditorFor(model => model.SmsUsername, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.SmsUsername, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.SmsPassword, htmlAttributes: new { @class = "control-label" })
+                            <div class="">
+                                @Html.EditorFor(model => model.SmsPassword, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.SmsPassword, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane active" id="tab_4-2">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.SchoolName, htmlAttributes: new { @class = "control-label" })
+                            <div class="">
+                                <input type="text" name="SchoolName" value="@Model.SchoolName" disabled="disabled" class="form-control" />
+                                @Html.ValidationMessageFor(model => model.SchoolName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.SchoolInitials, htmlAttributes: new { @class = "control-label" })
+                            <div class="">
+                                <input type="text" name="SchoolInitials" value="@Model.SchoolInitials" disabled="disabled" class="form-control" />
+                                @Html.ValidationMessageFor(model => model.SchoolInitials, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.SchoolAddress, htmlAttributes: new { @class = "control-label" })
+                            <div class="">
+                                <textarea class="form-control" name="SchoolAddress">@Model.SchoolAddress</textarea>
+                                @Html.ValidationMessageFor(model => model.SchoolAddress, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.SchoolAddress2, htmlAttributes: new { @class = "control-label" })
+                            <div class="">
+                                <textarea class="form-control" name="SchoolAddress2">@Model.SchoolAddress2</textarea>
+                                @Html.ValidationMessageFor(model => model.SchoolAddress2, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.State, htmlAttributes: new { @class = "control-label" })
+                            <div class="">
+                                @Html.EditorFor(model => model.State, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.State, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Country, htmlAttributes: new { @class = "control-label" })
+                            <div class="">
+                                @Html.EditorFor(model => model.Country, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Country, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ContactEmail, htmlAttributes: new { @class = "control-label" })
+                            <div class="">
+                                @Html.EditorFor(model => model.ContactEmail, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.ContactEmail, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ContactPhoneNumber, htmlAttributes: new { @class = "control-label" })
+                            <div class="">
+                                @Html.EditorFor(model => model.ContactPhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.ContactPhoneNumber, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        @if (User.IsInRole("SuperAdmin"))
+                        {
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.WebsiteLink, htmlAttributes: new { @class = "control-label" })
+                                <div class="">
+                                    @Html.EditorFor(model => model.WebsiteLink, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.WebsiteLink, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.PortalLink, htmlAttributes: new { @class = "control-label" })
+                                <div class="">
+                                    @Html.EditorFor(model => model.PortalLink, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.PortalLink, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                        }
+
+                    </div>
+                    <!-- /.tab-pane -->
+                </div>
+                <!-- /.tab-content -->
+            </div>
+        </div>
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <a href="javascript: history.back()" class="btn btn-default">Cancel</a>
+                </div>
+            }
+        </div>
+        <!-- Custom Tabs (Pulled to the right) -->
+        <!-- nav-tabs-custom -->
+    </div>
+    <!-- /.col -->
+    <div class="col-md-1"></div>
+</div>
+
+@section Scripts {
+        
+}

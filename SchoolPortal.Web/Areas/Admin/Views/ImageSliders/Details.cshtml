@@ -1,0 +1,85 @@
+﻿@model SchoolPortal.Web.Models.Entities.ImageSlider
+
+@{
+    ViewBag.Title = "Details";
+}
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box" style="padding:7px;">
+            <div class="box-header" style="margin-bottom:15px;">
+                <h3 class="box-title"><i class="fa fa-fw fa-file-text-o"></i> Slider Details</h3>
+
+               
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+                <h2>Details</h2>
+
+                <div>
+                   
+                    <dl class="dl-horizontal">
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Content)
+                        </dt>
+
+                        <dd>
+                            @if (Model.Content != null)
+                            {
+
+                                <img src="data:image/jpg;base64,@(Convert.ToBase64String(Model.Content))" class="img-responsive" style="width:100%;" />
+
+                            }
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.SliderAlt)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.SliderAlt)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.TextOne)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.TextOne)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.TextTwo)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.TextTwo)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.TextThree)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.TextThree)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.CurrentSlider)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.CurrentSlider)
+                        </dd>
+
+                    </dl>
+                </div>
+                <p>
+                    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary" }) |
+                    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-warning" })
+                </p>
+
+</div>
+</div>
+</div>
+</div>

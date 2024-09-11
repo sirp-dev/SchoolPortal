@@ -1,0 +1,53 @@
+﻿@model SchoolPortal.Web.Models.Entities.Setting
+@using SchoolPortal.Web.Areas.Service;
+@using (Html.BeginForm())
+{
+    @*@Html.AntiForgeryToken()*@
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.SchoolName)
+    @Html.HiddenFor(model => model.SchoolInitials)
+    @Html.HiddenFor(model => model.SchoolAddress)
+    @Html.HiddenFor(model => model.SchoolAddress2)
+    @Html.HiddenFor(model => model.State)
+    @Html.HiddenFor(model => model.Country)
+    @Html.HiddenFor(model => model.ContactEmail)
+    @Html.HiddenFor(model => model.ContactPhoneNumber)
+    @Html.HiddenFor(model => model.ImageId)
+    @Html.HiddenFor(model => model.SmsUsername)
+    @Html.HiddenFor(model => model.SmsPassword)
+    @Html.HiddenFor(model => model.Passmark)
+    @Html.HiddenFor(model => model.PromotionByTrial)
+    @Html.HiddenFor(model => model.ShowPositionOnResult)
+    @Html.HiddenFor(model => model.ShowCumulativeResultForThirdTerm)
+    @Html.HiddenFor(model => model.EmailFrom)
+    @Html.HiddenFor(model => model.MailHost)
+    @Html.HiddenFor(model => model.Port)
+    @Html.HiddenFor(model => model.MailUsername)
+    @Html.HiddenFor(model => model.SslEnabled)
+    @Html.HiddenFor(model => model.AccessmentScore)
+    @Html.HiddenFor(model => model.ExamScore)
+    @Html.HiddenFor(model => model.MailPassword)
+    @Html.HiddenFor(model => model.ScreeningVenue)
+    @Html.HiddenFor(model => model.ScreeningTime)
+    @Html.HiddenFor(model => model.ScreeningDate)
+    @Html.HiddenFor(model => model.WebsiteLink)
+    @Html.HiddenFor(model => model.PortalLink)
+    @Html.HiddenFor(model => model.IsPrimaryNursery)
+    @Html.HiddenFor(model => model.EnableBatchResultPrinting)
+    @Html.HiddenFor(model => model.PromotionByMathsAndEng)
+    @Html.HiddenFor(model => model.DefaultEnrollmentRemark)
+    @Html.HiddenFor(model => model.GoogleAnalytics)
+
+    <div>
+        @*@Html.Label("Promote All " + @GeneralService.StudentorPupil() + " Instead.", htmlAttributes: new { @class = "control-label" })*@
+
+        Promote All @GeneralService.StudentorPupil() Instead. @Html.EditorFor(model => model.PromoteAll)
+        @Html.ValidationMessageFor(model => model.PromoteAll, "", new { @class = "text-danger" })
+
+        <input type="submit" value="Save" class="btn btn-default" />
+
+    </div>
+
+}

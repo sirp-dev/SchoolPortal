@@ -1,0 +1,58 @@
+﻿
+@{
+    ViewBag.Title = "UserLockout";
+    Layout = "~/Views/Shared/_LockOut.cshtml";
+}
+
+@using SchoolPortal.Web.Areas.Service
+
+<div class="lockscreen-wrapper">
+    <div class="lockscreen-logo">
+        <a href="http://@GeneralService.WebsiteLink()"><b>iSkool</b>Portal</a>
+    </div>
+    <!-- User name -->
+    <div class="lockscreen-name">@ViewBag.user.user.Surname @ViewBag.user.user.FirstName @ViewBag.user.user.OtherName</div>
+
+    <!-- START LOCK SCREEN ITEM -->
+    <div class="lockscreen-item">
+        <!-- lockscreen image -->
+        <div class="lockscreen-image">
+            @if (ViewBag.user.ImageId != 0)
+            {
+
+                <img src="data:image/jpg;base64,@(Convert.ToBase64String(ViewBag.img))" alt="">
+
+            }
+            else
+            {
+                <img src="http://v1.exwhyzee.ng/admin/dist/img/avatar5.jpg" alt="">
+            }
+        </div>
+        <!-- /.lockscreen-image -->
+        <!-- lockscreen credentials (contains the form) -->
+        <form class="lockscreen-credentials">
+            <div class="input-group">
+                <input type="password" class="form-control" placeholder="Locked Out" disabled="disabled">
+
+                <div class="input-group-btn">
+                    <a href="http://@GeneralService.WebsiteLink()" class="btn"><i class="fa fa-lock text-muted"></i></a>
+                </div>
+            </div>
+        </form>
+        <!-- /.lockscreen credentials -->
+
+    </div>
+    <!-- /.lockscreen-item -->
+    <div class="help-block text-center">
+        Contact Your @GeneralService.HeadteacherOrPrincipal()
+    </div>
+    <div class="text-center">
+        <a href="@Url.Action("Login", "Account")">Or sign in as a different user</a>
+    </div>
+    <div class="lockscreen-footer text-center">
+        Copyright &copy; @DateTime.UtcNow.Year <b><a href="#" class="text-black">@GeneralService.SchoolName()</a></b><br>
+        All rights reserved
+        <br />
+        <i>Powered By:</i>  <b><a href="http://exwhyzee.ng" class="text-black">Exwhyzee Technologies Ltd</a></b>
+    </div>
+</div>

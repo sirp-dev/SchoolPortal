@@ -1,0 +1,68 @@
+﻿
+@{
+    ViewBag.Title = "MoveStudents";
+}
+
+
+<div class="row">
+    <!-- left column -->
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <!-- general form elements -->
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">New Subject  <strong><i>Previous class @ViewBag.mss</i></strong></h3>
+                @if (TempData["error"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                        @TempData["error"]
+                    </div>
+                }
+            </div>
+            @using (Html.BeginForm())
+            {
+                @*@Html.AntiForgeryToken()*@
+
+            <div class="box-body">
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+                <div class="form-group">
+                    Session
+                    <div class="">
+                        @Html.DropDownList("sessionid", ViewBag.sessionId as SelectList, "Select a Session", new { id = "", @class = "form-control" })
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    Promotion Class
+                    <div class="">
+                        @Html.DropDownList("classid", ViewBag.cId as SelectList, "Select a Session", new { id = "", @class = "form-control" })
+
+                    </div>
+                </div>
+
+            </div>
+
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <a href="javascript: history.back()" class="btn btn-default">Cancel</a>
+                </div>
+
+            }
+        </div>
+
+    </div>
+    <div class="col-md-3"></div>
+
+</div>
+
+@section Scripts {
+        @**@
+
+
+}

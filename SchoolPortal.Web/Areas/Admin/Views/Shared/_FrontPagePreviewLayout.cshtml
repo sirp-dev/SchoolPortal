@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+
+    @RenderSection("HeadArea", false)
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="@ViewBag.mDesc">
+    <meta name="keywords" content="@ViewBag.mKey">
+    <meta name="author" content="@ViewBag.mTitle">
+
+
+
+    <style>
+
+
+    @RenderSection("BlogStyle", false)
+    </style>
+    <style>
+        .panel-blog-home {
+            position: relative;
+            min-height: 1px;
+            padding-right: 15px;
+            padding-left: 15px;
+        }
+
+        .panel-blog-home {
+            float: left;
+        }
+
+        @@media (min-width: 992px) {
+            .panel-blog-home {
+                float: left;
+            }
+
+            .panel-blog-home {
+                width: 33.33333333%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    @Html.Action("_MenuTopHeader", "Page")
+    @Html.Action("_MenuStrinIitem", "Page")
+
+    @RenderBody()
+
+
+    @Html.Action("_AboveFooter", "Page")
+    @Html.Action("_Footer", "Page")
+
+    @RenderSection("FooterArea", false)
+
+    @RenderSection("SliderFooterArea", false)
+    <script type="text/javascript" src="http://v1.exwhyzee.ng/nivo-slider/jquery.nivo.slider.js"></script>
+    <script type="text/javascript">
+        //$(window).load(function () {
+        //    $('#slider').nivoSlider();
+
+
+        //});
+        $(window).load(function () {
+            $('#slider').nivoSlider({
+
+                animSpeed: 4000,                   // Slide transition speed
+                pauseTime: 9000,                  // How long each slide will show
+                controlNav: false,                // 1,2,3... navigation
+
+            });
+        });
+    </script>
+    @RenderSection("scripts", required: false)
+    @RenderSection("BlogJs", required: false)
+</body>
+</html>

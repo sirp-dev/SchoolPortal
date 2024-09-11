@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+
+    @RenderSection("HeadArea", false)
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+
+
+    @RenderSection("BlogStyle", false)
+    </style>
+
+</head>
+<body>
+
+
+    @RenderBody()
+
+
+
+    @RenderSection("FooterArea", false)
+
+    @RenderSection("SliderFooterArea", false)
+    <script type="text/javascript" src="http://v1.exwhyzee.ng/nivo-slider/jquery.nivo.slider.js"></script>
+    <script type="text/javascript">
+        //$(window).load(function () {
+        //    $('#slider').nivoSlider();
+
+
+        //});
+        $(window).load(function () {
+            $('#slider').nivoSlider({
+
+                animSpeed: 4000,                   // Slide transition speed
+                pauseTime: 9000,                  // How long each slide will show
+                controlNav: false,                // 1,2,3... navigation
+
+            });
+        });
+    </script>
+    @RenderSection("scripts", required: false)
+    @RenderSection("BlogJs", required: false)
+</body>
+</html>

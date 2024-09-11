@@ -1,0 +1,244 @@
+﻿
+
+@{
+    ViewBag.Title = "Score Sheet";
+    int n = 0;
+}
+
+
+<style>
+    #studentRecord tr, td, th {
+        padding: 2px !important;
+    }
+</style>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box" style="padding:7px;">
+                <div class="box-header noprint" style="margin-bottom:15px;">
+                    <div class="pull-right noprint">
+                       
+                            <button onclick="myFunction()" class="btn btn-sm btn-primary">Print Result Sheet</button>
+
+                       
+                    </div>
+                    <h3 class="box-title" style="text-transform:uppercase;"><i class="fa fa-fw fa-users"></i> Score Sheet</h3>
+
+                </div>
+
+               
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="box-body table-responsive">
+                            <table class="table table-success table-bordered" style="background-color:#3c8dbc; color:#ffffff;">
+                                <tr>
+                                    <th colspan="2" class="text-center">CLASS DETAILS</th>
+
+                                </tr>
+                                <tr>
+                                    <th>Class</th>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th>Teacher</th>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th>Subject</th>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th>Session</th>
+                                    <td></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- /.box-header -->
+
+                <div id="" class="box-body table-responsive no-padding">
+
+
+                    <table id="" class="table table-hover">
+                      
+                        <tr>
+                            <th> S/N</th>
+                            <th>
+                                FULL NAME
+                            </th>
+
+                            <th>
+                                C.A
+                            </th>
+                            <th>
+                                EXAM
+                            </th>
+
+                        </tr>
+
+                        @for (long i = 0; 1 < 40; i++)
+                        {
+                            <tr>
+                              
+                                <td>@i</td>
+                                <td>
+                                   
+                                </td>
+
+
+                                <td class=""></td>
+                                <td class=""></td>
+
+                            </tr>
+                        }
+
+                    </table>
+
+                </div>
+
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </div>
+    </div>
+
+
+@section Style {
+
+    <link rel="stylesheet" href="http://v1.exwhyzee.ng/admin/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+    <style>
+        @@media print {
+            .noprint {
+                display: none !important;
+            }
+
+            html {
+                zoom: 75%;
+                font-size: 55% !important;
+            }
+        }
+    </style>
+
+}
+
+
+
+@section Scripts {
+    <script src="http://v1.exwhyzee.ng/admin/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="http://v1.exwhyzee.ng/admin/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+        @**@
+    @*<script type="text/javascript" src="http://ajax.cdnjs.com/ajax/libs/json2/20110223/json2.js"></script>*@
+    <script src="http://v1.exwhyzee.ng/Content/angular/json2.js"></script>
+    <script type="text/javascript">
+
+
+    </script>
+
+    <script>
+        $("#btnExport").click(function (e) {
+            window.open('data:application/vnd.ms-excel,' + $('#dvData').html());
+            e.preventDefault();
+        });
+        $("[id$=myButtonControlID]").click(function (e) {
+            window.open('data:application/vnd.ms-excel,' + encodeURIComponent($('div[id$=divTableDataHolder]').html()));
+
+            this.download = name;
+            return true;
+            e.preventDefault();
+        });
+    </script>
+    <script type="text/jscript">
+        $(function () {
+            $('#classesId').change(function () {
+                $.getJSON('/EventsControl/SubjectByClass/' + $('#classesId').val(), function (data) {
+                    var items = '<option>Select a Subject</option>';
+                    console.log(data);
+                    console.log("check");
+                    $.each(data, function (i, local) {
+                        items += "<option value='" + local.Value + "'>" + local.Text + "</option>";
+                    });
+                    $('#Subject').html(items);
+                    console.log(items);
+                    console.log("check 2");
+                });
+            });
+        });
+    </script>
+}
+
+
+
+@section Scripts2 {
+    <script>
+        $(function () {
+            $('#example1').DataTable()
+            $('#example2').DataTable({
+                'paging': true,
+                'lengthChange': false,
+                'searching': false,
+                'ordering': true,
+                'info': true,
+                'autoWidth': false
+            })
+        })
+    </script>
+    <script>
+        function sortTable() {
+            var table, rows, switching, i, x, y, shouldSwitch;
+            table = document.getElementById("studentRecord");
+            switching = true;
+            /* Make a loop that will continue until
+            no switching has been done: */
+            while (switching) {
+                // Start by saying: no switching is done:
+                switching = false;
+                rows = table.getElementsByTagName("TR");
+                /* Loop through all table rows (except the
+                first, which contains table headers): */
+                for (i = 1; i < (rows.length - 1); i++) {
+                    // Start by saying there should be no switching:
+                    shouldSwitch = false;
+                    /* Get the two elements you want to compare,
+                    one from current row and one from the next: */
+                    x = rows[i].getElementsByTagName("TD")[0];
+                    y = rows[i + 1].getElementsByTagName("TD")[0];
+                    // Check if the two rows should switch place:
+                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                        // If so, mark as a switch and break the loop:
+                        shouldSwitch = true;
+                        break;
+                    }
+                }
+                if (shouldSwitch) {
+                    /* If a switch has been marked, make the switch
+                    and mark that a switch has been done: */
+                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                    switching = true;
+                }
+            }
+        }
+    </script>
+    <script>
+        $(document).on("click", ".modalLink", function () {
+
+            var sId = $(event.relatedTarget).data('StudentId'); //camelCase, you have - separated data attr
+            $(this).find('input[type="hidden"]').val(sId);
+            $('#StudentId').val($(this).data('id'));
+            $('#subId').val($(this).data('sub-id'));
+            $('#sessionId').val($(this).data('sess-id'));
+
+            $(".modal-body .hiddenid").val(passedID);
+        });
+
+        function myFunction() {
+            window.print();
+        }
+    </script>
+}
+
+
+
+

@@ -1,0 +1,817 @@
+﻿@using SchoolPortal.Web.Areas.Service
+@{
+    ViewBag.Title = "PrintResult";
+    Layout = "~/Areas/Student/Views/Shared/_PrintLayout2.cshtml";
+}
+
+@{
+    var res = PrintArchiveService.PrintSingleResult(ViewBag.id);
+}
+
+@*<div id="watermark">
+
+        @if (res.SchoolLogo != null)
+        {
+            <img src="data:image/jpg;base64,@(Convert.ToBase64String(res.SchoolLogo))" alt="" height="400" width="400" class="watermark">
+        }
+        else
+        {
+            <img src="http://v1.exwhyzee.ng/admin/dist/img/avatar5.jpg" alt="" height="400" width="400" class="watermark" />
+
+        }
+
+
+
+    </div>*@
+
+@*<div style="" class="topBtn" align="center"> Toggle Chart </div>*@
+
+
+<div id="test" style="width:100%;" align="center">
+
+
+    <div id="result_wrapper" align="center" class="transparent-border">
+
+        <!--
+        Result holder table
+        -->
+        <table border="0" cellspacing="0" cellpadding="0" style="" class="result_table">
+            <tbody>
+                <tr>
+                    <td height="30">
+
+                        <table width="100%" height="40" border="0" cellpadding="0" cellspacing="0" bgcolor="#E8EBF0" style="border-bottom:1px solid #D7DCE5">
+                            <tbody>
+                                <tr>
+                                    <td align="center" class="palatino_16" style="color:#333; font-size:14px">
+
+                                        <div style="width:100%; border:0px solid #000" class="top_bar">
+                                            <div style="font-size:14px; float:left; margin-left:10px; width:98%">
+                                                <span style="font-size:30px">  @res.SchoolName </span><br>
+                                                <span style="font-size:16px; font-weight:normal">@res.Address </span><br>
+                                                <span style="font-size:14px; font-weight:normal">  <b>Phone :</b> @res.Phone<b style="margin-left:20px"> Email : </b> @res.Email <b style="margin-left:20px"> Website : </b>@res.Website</span>
+                                            </div>
+
+                                            <div style="font-size:14px"></div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center" valign="top" id="result_container" style="border-bottom:1px solid #D7DCE5">
+
+                        <table id="result_container1" border="0" cellspacing="0" cellpadding="0" style="border:0px solid #CCC; border-radius:4px; padding:3px; width:100%">
+
+
+                            <tbody>
+                                <tr>
+                                    <td height="120" align="left">
+
+                                        <table width="100%" height="125" border="0" cellpadding="0" cellspacing="0" style="margin:3px; padding:3px">
+                                            <tbody>
+                                                <tr>
+                                                    <td width="35%" align="left" valign="top" style=" width:40%">
+                                                        <table height="150" border="0" cellpadding="0" cellspacing="0" bgcolor="#f2f2f2" class="bottom font rName" style="width:100%">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td height="25" align="left" bgcolor="#FFFFFF">REG. NUMBER </td>
+                                                                    <td align="left" bgcolor="#FFF">: @res.RegNumber</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td width="120" height="25" align="left" bgcolor="#FFFFFF">FULL NAME</td>
+                                                                    <td width="210" align="left" bgcolor="#FFF">: @res.Fullname</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td height="25" align="left" bgcolor="#FFFFFF">CLASS</td>
+                                                                    <td align="left" bgcolor="#FFFFFF">
+                                                                        :
+                                                                        @res.ClassName
+
+                                                                    </td>
+                                                                </tr>
+                                                                @*<tr>
+                                                                        <td height="25" align="left" bgcolor="#FFFFFF">Gender</td>
+                                                                        <td align="left" bgcolor="#FFFFFF">: MALE</td>
+                                                                    </tr>*@
+                                                                <tr>
+                                                                    <td height="25" align="left" bgcolor="#FFFFFF">TERM</td>
+                                                                    <td align="left" bgcolor="#FFFFFF">: @res.SessionTerm1</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td height="25" align="left" bgcolor="#FFFFFF">YEAR</td>
+                                                                    <td align="left" bgcolor="#FFFFFF">: @res.SessionTerm2</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                    <td width="15%" align="center" valign="middle" style="width:15%; border-bottom:none">
+                                                        <span class="top_bar" style="">
+
+                                                            @if (res.SchoolLogo != null)
+                                                            {
+                                                                <img src="data:image/jpg;base64,@(Convert.ToBase64String(res.SchoolLogo))" alt="" style="height:80px; width:60px;margin-left:auto;margin-right:auto;">
+                                                            }
+                                                            else
+                                                            {
+                                                                <img class="" src="http://v1.exwhyzee.ng/Admin/dist/img/avatar5.png" alt="" width="110" height="110" style="" />
+
+                                                            }
+
+                                                        </span>
+                                                    </td>
+                                                    <td width="30%" align="right" valign="top">
+
+                                                        <table width="100%" height="150" border="0" cellpadding="0" cellspacing="0" bgcolor="#f2f2f2" class="bottom font rName" style="width:100%">
+                                                            <tbody>
+                                                                @*<tr>
+                                                                        <td width="143" align="left" bgcolor="#FFFFFF">NO. IN CLASS </td>
+                                                                        <td width="122" align="left" bgcolor="#FFFFFF">: @res.TotalStudent</td>
+                                                                    </tr>*@
+                                                                <tr>
+                                                                    <td align="left" bgcolor="#FFFFFF">AVERAGE</td>
+                                                                    <td align="left" bgcolor="#FFFFFF">
+                                                                        :
+                                                                        @res.Average
+                                                                    </td>
+                                                                </tr>
+
+                                                                <tr>
+                                                                    <td align="left" bgcolor="#FFFFFF">MAX MARK OBTAINABLE</td>
+                                                                    <td align="left" bgcolor="#FFFFFF">: <span id="obtainable">@Math.Round(res.OverallScore ?? 0)</span></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td align="left" bgcolor="#FFFFFF">MARK OBTAINED</td>
+                                                                    <td align="left" bgcolor="#FFFFFF">
+                                                                        :
+                                                                        @Math.Round(res.TotalScore ?? 0)
+                                                                    </td>
+                                                                </tr>
+                                                                @if (res.showPosOnClassResult == true)
+                                                                {
+                                                                    <tr>
+                                                                        <td align="left" bgcolor="#FFFFFF">POSITION</td>
+                                                                        <td align="left" bgcolor="#FFFFFF">
+                                                                            : @if (res.Position == 1)
+                                                                            {
+                                                                                @res.Position
+                                                                                <spamp><sup>st</sup></spamp>
+                                                                            }
+                                                                            else if (res.Position == 2)
+                                                                            {
+                                                                                @res.Position
+                                                                                <spamp><sup>nd</sup></spamp>
+                                                                            }
+                                                                            else if (res.Position == 3)
+                                                                            {
+                                                                                @res.Position
+                                                                                <spamp><sup>rd</sup></spamp>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                @res.Position
+                                                                                <spamp><sup>th</sup></spamp>
+                                                                            }
+
+                                                                        </td>
+                                                                    </tr>
+
+                                                                    <tr>
+                                                                        <td align="left" bgcolor="#FFFFFF">OUT OF </td>
+                                                                        <td align="left" bgcolor="#FFFFFF">
+                                                                            : @res.TotalStudent @GeneralService.StudentorPupil()s
+
+                                                                        </td>
+                                                                    </tr>
+                                                                }
+                                                                else
+                                                                {
+
+                                                                }
+
+                                                                <tr>
+                                                                    <td align="left" bgcolor="#FFFFFF">REMARK</td>
+                                                                    <td align="left" bgcolor="#FFFFFF">
+                                                                        :
+                                                                        @res.ResultRemark
+                                                                    </td>
+                                                                </tr>
+
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                    <td width="20%" align="center" valign="middle" style="width:35%">
+                                                        @*@{ byte[] neww = new byte[0]; }*@
+                                                        @if (res.studentImage != null)
+                                                        {
+                                                            <img src="data:image/jpg;base64,@(Convert.ToBase64String(res.studentImage))" alt="" height="120" title="" width="100px" style="margin-left:10px" />
+                                                        }
+                                                        else
+                                                        {
+                                                            @*<img class="img-circle" src="http://v1.exwhyzee.ng/Admin/dist/img/avatar5.png" alt="" height="120" title="" width="100px" style="margin-left:10px" />*@
+                                                        }
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center">
+                                        <div style="width:100%; height:auto; padding:1px">
+
+                                            <div style="width:100%; height:60px; border:0px solid #000" align="left">
+                                                <table width="5%" height="60" border="0" cellpadding="0" cellspacing="0" style="float:left" class="result_wrapper">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td align="center" valign="bottom"><div class="rotate" style="font-weight:bold; font-size:14px">KEY</div></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+
+                                                <table width="95%" height="60" border="0" cellpadding="0" cellspacing="0" class="result_wrapper">
+
+
+                                                    <tbody>
+
+
+                                                        <tr>
+                                                            @foreach (var asdf in res.GradingDetails)
+                                                            {
+                                                                <td align="center" style=" width:13"> @asdf.Grade</td>
+                                                            }
+
+
+                                                        </tr>
+
+
+
+                                                        <tr>
+                                                            @foreach (var asdf in res.GradingDetails)
+                                                            {
+                                                                <td align="center">@asdf.LowerLimit - @asdf.UpperLimit</td>
+                                                            }
+
+
+                                                        </tr>
+
+
+
+
+                                                    </tbody>
+
+                                                </table>
+
+                                            </div>
+                                            <!--CHART SCRIPT-->
+
+
+
+                                            <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#EAEAEA" style="margin:3px; padding:0px; border-right:1px solid #D7DCE5; border-left:1px solid #D7DCE5; border-top:none; border-bottom:none" id="result1" class="font result_wrapper">
+
+                                                <tbody>
+                                                    <tr>
+                                                        <td width="30%" height="" align="left" valign="bottom" bgcolor="#FFFFFF">
+
+
+
+
+
+                                                            <div class="" style="font-weight:bold;"> SUBJECT</div>
+                                                        </td>
+                                                        @if (GeneralService.EnabledProjectScore() == true && GeneralService.TotalStudentCAScore(ViewBag.id) != 0)
+                                                        {
+                                                            <td valign="bottom" width="15%" align="center"> <div class="" style="font-weight:bold;">PROJECT </div> </td>
+                                                        }
+                                                        @if (GeneralService.EnabledTestScore() == true && GeneralService.EnabledTestScore2() == true && GeneralService.TotalStudentCAScore(ViewBag.id) != 0)
+                                                        {
+                                                            <td valign="bottom" width="15%" align="center"> <div class="" style="font-weight:bold;">1ST TEST </div> </td>
+                                                        }
+                                                        else
+                                                        {
+                                                            <td valign="bottom" width="15%" align="center"> <div class="" style="font-weight:bold;">C.A </div> </td>
+                                                        }
+
+                                                        @if (GeneralService.EnabledTestScore2() == true && GeneralService.TotalStudentCAScore(ViewBag.id) != 0)
+                                                        {
+                                                            <td valign="bottom" width="15%" align="center"> <div class="" style="font-weight:bold;">2ND TEST</div> </td>
+                                                        }
+
+                                                        @if (GeneralService.EnabledClassExerciseScore() == true && GeneralService.TotalStudentCAScore(ViewBag.id) != 0)
+                                                        {
+
+                                                            <td valign="bottom" width="15%" align="center"> <div class="" style="font-weight:bold;">CLASS EXERCISE </div> </td>
+                                                        }
+
+                                                        @if (GeneralService.EnabledAssessmentScore() == true && GeneralService.TotalStudentCAScore(ViewBag.id) != 0)
+                                                        {
+
+                                                            <td valign="bottom" width="15%" align="center"> <div class="" style="font-weight:bold;">ASSESSMENT </div> </td>
+                                                        }
+                                                        @if (GeneralService.TotalStudentCAScore(ViewBag.id) != 0)
+                                                        {
+                                                            <td valign="bottom" width="15%" align="center"> <div class="" style="font-weight:bold;">TOTAL C.A </div> </td>
+
+
+                                                        }
+                                                        
+
+                                                        @if (GeneralService.EnabledExamScore() == true)
+                                                        {
+
+                                                            <td valign="bottom" width="15%" align="center"> <div class="" style="font-weight:bold;">EXAM</div> </td>
+                                                        }
+
+                                                        @*<td valign="bottom" width="15%" align="center"> <div class="" style="font-weight:bold;">C.A </div> </td>
+                                                            <td valign="bottom" width="15%" align="center"> <div class="" style="font-weight:bold;">EXAM</div> </td>*@
+                                                        <td width="15%" align="center" valign="bottom" bgcolor="#FFFFFF"><div class="" style="font-weight:bold;">TOTAL</div></td>
+
+                                                        <td width="5%" align="center" valign="bottom" bgcolor="#EAEAEA"><div class="" style="font-weight:bold;">GRADE</div></td>
+                                                        @*<td width="5%" align="center" valign="bottom" bgcolor="#FFFFFF"><div class="rotate">CLASS.AVERAGE</div></td>
+                                                            <td width="5%" align="center" valign="bottom" bgcolor="#FFFFFF"><div class="rotate">SUBJECT.POSITION</div></td>*@
+                                                        <td width="20%" align="center" valign="bottom" bgcolor="#FFFFFF"><div class="" style="font-weight:bold;">REMARKS</div></td>
+                                                        @*<td width="10%" align="center" valign="bottom" bgcolor="#FFFFFF"><div class="rotate">VERDICT</div></td>*@
+                                                    </tr>
+                                                    @foreach (var item in res.SubjectList)
+                                                    {
+
+                                                        <tr>
+                                                            <td width="30%" height="" align="left" valign="bottom" bgcolor="#FFFFFF">@item.SubjectName</td>
+
+
+                                                            @if (GeneralService.EnabledProjectScore() == true && GeneralService.TotalStudentCAScore(ViewBag.id) != 0)
+                                                            {
+                                                                <td width="15%" align="center" bgcolor="#FFFFFF">@item.Project</td>
+                                                            }
+                                                            @if (GeneralService.EnabledTestScore() == true && GeneralService.TotalStudentCAScore(ViewBag.id) != 0)
+                                                            {
+                                                                <td width="15%" align="center" bgcolor="#FFFFFF">@item.TestScore</td>
+
+                                                            }
+                                                            else
+                                                            {
+                                                                <td width="15%" align="center" bgcolor="#FFFFFF">@item.TestScore</td>
+                                                            }
+
+                                                            @if (GeneralService.EnabledTestScore2() == true)
+                                                            {
+                                                                <td width="15%" align="center" bgcolor="#FFFFFF">@item.TestScore2</td>
+                                                            }
+
+                                                            @if (GeneralService.EnabledClassExerciseScore() == true && GeneralService.TotalStudentCAScore(ViewBag.id) != 0)
+                                                            {
+
+                                                                <td width="15%" align="center" bgcolor="#FFFFFF">@item.ClassExercise</td>
+                                                            }
+
+                                                            @if (GeneralService.EnabledAssessmentScore() == true && GeneralService.TotalStudentCAScore(ViewBag.id) != 0)
+                                                            {
+
+                                                                <td width="15%" align="center" bgcolor="#FFFFFF">@item.Assessment</td>
+                                                            }
+                                                            @if (GeneralService.TotalStudentCAScore(ViewBag.id) != 0)
+                                                            {
+                                                                <td width="15%" align="center" bgcolor="#FFFFFF">@item.TotalCA</td>
+                                                            }
+                                                            else
+                                                            {
+
+                                                            }
+
+                                                            @if (GeneralService.EnabledExamScore() == true)
+                                                            {
+
+                                                                <td width="15%" align="center" bgcolor="#FFFFFF">@item.ExamScore</td>
+                                                            }
+                                                            @*<td width="15%" align="center" bgcolor="#FFFFFF">@item.TestScore</td>
+                                                                <td width="15%" align="center" bgcolor="#FFFFFF">@item.ExamScore</td>*@
+                                                            <td width="15%" align="center" bgcolor="#FFFFFF" class="pass">@item.TotalScore</td>
+                                                            @*<td width="15%" align="center" bgcolor="#FFFFFF">@PrintService.SubjectRangeInResult(item.SubjectId, item.Enrollments.ClassLevelId).HghestScoreInSubject</td>
+                                                                <td width="15%" align="center" bgcolor="#FFFFFF">@PrintService.SubjectRangeInResult(item.SubjectId, item.Enrollments.ClassLevelId).LowestScoreInSubject</td>*@
+
+                                                            <td width="5%" align="center" bgcolor="#EAEAEA" class="pass">@item.Grade</td>
+                                                            @*<td align="center" bgcolor="#FFFFFF">69.5</td>
+                                                                <td align="center" bgcolor="#FFFFFF">
+
+                                                                    13th
+                                                                </td>*@
+                                                            <td width="20%" align="center" bgcolor="#FFFFFF">@item.Remark</td>
+                                                            @*<td width="10%" align="center" bgcolor="#FFFFFF">PASS</td>*@
+                                                        </tr>
+                                                    }
+
+                                                </tbody>
+                                            </table>
+
+
+                                            <table width="33%" border="0" cellspacing="0" cellpadding="0" class="result_wrapper wrapper_pad" style="margin-left:3px;margin-top:2px; border-right:1px solid #D7DCE5; float:left; border-left:none" id="social_table">
+                                                <tbody>
+                                                    <tr>
+                                                        <td height="10" colspan="6">  <span style="font-weight:bold; font-size:14px">COGNITIVE DOMAIN  </span> </td>
+                                                    </tr>
+                                                    <tr>
+
+
+                                                        <td width="" height="15"> <span style="font-weight:bold; font-size:12px"> TITLE </span> </td>
+                                                        <td width=""> <span style="font-weight:bold; font-size:12px"> GRADE </span></td>
+                                                        @*<td width="20%"> <span style="font-weight:bold; font-size:12px"> TITLE </span></td>
+                                                            <td width="13%"> <span style="font-weight:bold; font-size:12px"> GRADE </span></td>
+                                                            <td width="20%"> <span style="font-weight:bold; font-size:12px"> TITLE </span></td>
+                                                            <td width="13%"> <span style="font-weight:bold; font-size:12px"> GRADE </span></td>*@
+                                                    </tr>
+                                                    <tr>
+                                                        <td height="10">ANALYZING</td>
+                                                        <td>@res.RecognitiveDomain.Analyzing</td>
+
+                                                    </tr>
+                                                    <tr>
+                                                        <td>APPLICATIN</td>
+                                                        <td>@res.RecognitiveDomain.Application</td>
+
+                                                    </tr>
+                                                    <tr>
+                                                        <td>CREATIVITY</td>
+                                                        <td>@res.RecognitiveDomain.Creativity</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td height="10">EVALUATION </td>
+                                                        <td>@res.RecognitiveDomain.Evaluation</td>
+
+                                                    </tr>
+                                                    <tr>
+                                                        <td>REMEMBERANCE</td>
+                                                        <td>@res.RecognitiveDomain.Rememberance</td>
+
+                                                    </tr>
+                                                    <tr>
+                                                        <td>UNDERSTANDING</td>
+                                                        <td>@res.RecognitiveDomain.Understanding</td>
+                                                    </tr>
+
+                                                </tbody>
+                                            </table>
+
+                                            <table width="33%" border="0" cellspacing="0" cellpadding="0" class="result_wrapper wrapper_pad" style="margin-left:3px;margin-top:2px; border-right:1px solid #D7DCE5; float:left; border-left:none" id="social_table">
+                                                <tbody>
+                                                    <tr>
+                                                        <td height="10" colspan="2">  <span style="font-weight:bold; font-size:14px">PSYCHOMOTOR DOMAIN  </span> </td>
+                                                    </tr>
+                                                    <tr>
+
+
+                                                        <td width="" height="15"> <span style="font-weight:bold; font-size:12px"> TITLE </span> </td>
+                                                        <td width=""> <span style="font-weight:bold; font-size:12px"> GRADE </span></td>
+                                                        @*<td width="20%"> <span style="font-weight:bold; font-size:12px"> TITLE </span></td>
+                                                            <td width="13%"> <span style="font-weight:bold; font-size:12px"> GRADE </span></td>
+                                                            <td width="20%"> <span style="font-weight:bold; font-size:12px"> TITLE </span></td>
+                                                            <td width="13%"> <span style="font-weight:bold; font-size:12px"> GRADE </span></td>*@
+                                                    </tr>
+
+
+                                                    <tr>
+                                                        <td height="10">DRAWING</td>
+                                                        <td>@res.PsychomotorDomain.Drawing</td>
+
+                                                    </tr>
+                                                    <tr>
+                                                        <td>PAINTING</td>
+                                                        <td>@res.PsychomotorDomain.Painting</td>
+
+                                                    </tr>
+                                                    <tr>
+                                                        <td>HANDWRITING</td>
+                                                        <td>@res.PsychomotorDomain.Painting</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td height="10">HOBBIES </td>
+                                                        <td>@res.PsychomotorDomain.Hobbies</td>
+
+                                                    </tr>
+                                                    <tr>
+                                                        <td>SPORTS</td>
+                                                        <td>@res.PsychomotorDomain.Sports</td>
+
+                                                    </tr>
+                                                    <tr>
+                                                        <td>CLUB</td>
+                                                        <td>@res.PsychomotorDomain.Club</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+
+                                            <table width="33%" border="0" cellspacing="0" cellpadding="0" class="result_wrapper wrapper_pad" style="margin-left:3px;margin-top:2px; border-right:1px solid #D7DCE5; float:left; border-left:none" id="social_table">
+                                                <tbody>
+                                                    <tr>
+                                                        <td height="10" colspan="2"><span style="font-weight:bold; font-size:14px">AFFECTIVE DOMAIN </span></td>
+                                                    </tr>
+                                                    <tr>
+
+
+                                                        <td width="" height="15"> <span style="font-weight:bold; font-size:12px"> TITLE </span> </td>
+                                                        <td width=""> <span style="font-weight:bold; font-size:12px"> GRADE </span></td>
+                                                        @*<td width="20%"> <span style="font-weight:bold; font-size:12px"> TITLE </span></td>
+                                                            <td width="13%"> <span style="font-weight:bold; font-size:12px"> GRADE </span></td>
+                                                            <td width="20%"> <span style="font-weight:bold; font-size:12px"> TITLE </span></td>
+                                                            <td width="13%"> <span style="font-weight:bold; font-size:12px"> GRADE </span></td>*@
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td height="10">ATTENTIVENSS</td>
+                                                        <td>@res.AffectiveDomain.Attentiveness</td>
+
+                                                    </tr>
+                                                    <tr>
+                                                        <td>HONESTY</td>
+                                                        <td>@res.AffectiveDomain.Honesty</td>
+
+                                                    </tr>
+                                                    <tr>
+                                                        <td>NEATNESS</td>
+                                                        <td>@res.AffectiveDomain.Neatness</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td height="10">PUNCTUALITY </td>
+                                                        <td>@res.AffectiveDomain.Punctuality</td>
+
+                                                        @*<td></td>
+                                                            <td></td>*@
+                                                    </tr>
+                                                    <tr>
+                                                        <td>RELATIONSHIP</td>
+                                                        <td>@res.AffectiveDomain.Relationship </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+
+
+
+                        <!--
+
+                        Comment Holder
+                        -->
+
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="font">
+
+                            <tbody>
+                                <tr>
+                                    <td style="border-top:0px solid #8064A2; border-bottom:0px solid #8064A2">
+
+                                        <table width="100%" height="50" border="0" cellpadding="0" cellspacing="0" class="result_wrapper" style="border:none">
+                                            <tbody>
+                                                <tr>
+                                                    <td width="20%" height="25" align="left" bgcolor="#DFD8E8" class="font_14" style="color:#FFFFFF">
+                                                        <label style="margin-left:3px"><span class="style1">Class Teacher's Comment</span></label>
+                                                    </td>
+                                                    <td width="80%">
+                                                        <div class="palatino_18" style="margin-left:5px; font-size:14px; z-index:2">
+                                                            @res.EnrollmentRemark2
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="20%" height="25" align="left" bgcolor="#DFD8E8" class="font_14" style="color:#FFFFFF">
+                                                        <label style="margin-left:3px"><span class="style1">@GeneralService.HeadteacherOrPrincipal()'s Remarks</span></label>
+                                                    </td>
+                                                    <td width="80%">
+                                                        <div class="palatino_18" style="margin-left:5px; font-size:14px; z-index:2">
+                                                            @res.EnrollmentRemark
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                    </td>
+                                </tr>
+                                @foreach (var asdf in res.NewsLetter)
+                                {
+
+                                    <tr>
+                                        <td style="border-top:0px solid #8064A2; border-bottom:0px solid #8064A2">
+
+                                            <table width="100%" height="50" border="0" cellpadding="0" cellspacing="0" class="result_wrapper" style="border:none">
+                                                <tbody>
+                                                    <tr>
+                                                        <td width="20%" height="25" align="left" bgcolor="#DFD8E8" class="font_14" style="color:#FFFFFF">
+                                                            <label style="margin-left:3px"><span class="style1">@GeneralService.HeadteacherOrPrincipal()'s General Remarks</span></label>
+                                                        </td>
+                                                        <td width="80%">
+                                                            <div class="palatino_18" style="margin-left:5px; font-size:14px; z-index:2">
+                                                                @asdf.GenRemark
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="20%" height="25" align="left" bgcolor="#DFD8E8" class="font_14" style="color:#FFFFFF">
+                                                            <label style="margin-left:3px"><span class="style1">Resumption Date </span></label>
+                                                        </td>
+                                                        <td width="80%">
+                                                            <div class="palatino_18" style="margin-left:5px; font-size:14px; z-index:2">
+                                                                @asdf.NextTResumptionDate
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td width="20%" height="25" align="left" bgcolor="#DFD8E8" class="font_14" style="color:#FFFFFF">
+                                                            <label style="margin-left:3px"><span class="style1">PTA Meeting </span></label>
+                                                        </td>
+                                                        <td width="80%">
+                                                            <div class="palatino_18" style="margin-left:5px; font-size:14px; z-index:2">
+                                                                @asdf.PTAMeetingDate
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td width="20%" height="25" align="left" bgcolor="#DFD8E8" class="font_14" style="color:#FFFFFF">
+                                                            <label style="margin-left:3px"><span class="style1">PTA Fee </span></label>
+                                                        </td>
+                                                        <td width="80%">
+                                                            <div class="palatino_18" style="margin-left:5px; font-size:14px; z-index:2">
+                                                                @asdf.PTAFee
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+
+                                                </tbody>
+                                            </table>
+
+                                        </td>
+                                    </tr>
+                                }
+
+                                <tr>
+                                    <td style="border-bottom:0px solid #8064A2">
+                                        <table width="100%" height="25" border="0" cellpadding="0" cellspacing="0" class="result_wrapper" style="border:none">
+                                            <tbody>
+                                                <tr>
+                                                    <td width="15%" class="font_14" align="left" bgcolor="#DFD8E8" style="color:#FFFFFF">
+                                                        <span style="color: #000">
+                                                            <label style="margin-left:3px">Signature</label>
+                                                        </span>
+                                                    </td>
+                                                    <td width="15%">
+                                                        <div class="palatino_18" align="center">
+
+                                                            @if (res.SchoolLogo != null)
+                                                            {
+                                                                <img src="data:image/jpg;base64,@(Convert.ToBase64String(res.SchoolStamp))" alt="" height="60px" width="100px">
+                                                            }
+                                                            else
+                                                            {
+
+                                                            }
+
+
+                                                        </div>
+                                                    </td>
+                                                    <td width="20%" align="center" valign="middle" class="palatino_18" style="font-size:14px"> @GeneralService.HeadteacherOrPrincipal()</td>
+                                                    <td width="50%" align="center" valign="middle" class="palatino_18" style="font-size:14px">
+                                                        @res.headteacher
+                                                    </td>
+                                                    @*<td width="10%" align="center" valign="middle" class="palatino_18" style="font-size:14px">Resumption Date  </td>
+                                                        <td width="30%" align="center" valign="middle" class="palatino_18" style="font-size:14px">
+                                                            @if (res.NextResumption != null)
+                                                            {
+                                                                @res.NextResumption
+                                                            }
+                                                            else
+                                                            {
+
+                                                            }
+                                                        </td>*@
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <style type="text/css">
+        </style>
+
+        @if (res.showSchFeeOnResult == true && res.SchoolFees != null)
+        {
+
+            <div style="width:100%; height:100px; border:0px solid #000">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" class="result_wrapper">
+                    <tbody>
+                        <tr>
+                            <td height="20" colspan="3" align="center">
+
+                                <span style="" class="fee_title"> NEXT TERM SCHOOL FEE </span>
+                                @*<span style="" class="fee_title2">
+                                        <a href="https://adminarea.com.ng/student_portal/result_window.php#!" onclick="$(&#39;#payment_detail&#39;).submit()"> Print Fee Breakdown <i class="fa-print fa"></i> </a>
+                                    </span>*@
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="25%" height="26" align="center"><span style="font-weight:bold; font-size:12px"> CATEGORY</span></td>
+                            <td width="25%" height="26" align="center"><span style="font-weight:bold; font-size:12px"> TOTAL AMOUNT</span></td>
+                            <td width="25%" align="center"><span style="font-weight:bold; font-size:12px"> DISCOUNT </span></td>
+                            <td width="25%" align="center"><span style="font-weight:bold; font-size:12px"> AMOUNT DUE </span></td>
+                        </tr>
+                        @foreach (var asdf in res.SchoolFees)
+                        {
+                            <tr>
+                                <td width="25%" height="26" align="center">@asdf.Category</td>
+                                <td width="25%" height="26" align="center">@asdf.Amount</td>
+                                <td width="25%" align="center">@asdf.Discount</td>
+                                <td width="25%" align="center">@asdf.AmountDue</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+
+        else
+        {
+
+        }
+
+        <!-- SCHOOL ACCOUNT DETAIL -->
+
+        @if (res.showSchAccountOnResult == true && res.SchoolAccount != null)
+        {
+            <div style="width:100%; height:100px; border:0px solid #000">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" class="result_wrapper">
+                    <tbody>
+                        <tr>
+                            <td height="20" colspan="4" align="center"> <span style="font-weight:bold; font-size:14px"> SCHOOL ACCOUNT  DETAIL </span> </td>
+                        </tr>
+                        <tr>
+                            <td width="25%" height="27" align="center"> <span style="font-weight:bold; font-size:12px"> PURPOSE </span></td>
+                            <td width="25%" align="center"> <span style="font-weight:bold; font-size:12px"> BANK </span></td>
+                            <td width="25%" align="center"> <span style="font-weight:bold; font-size:12px"> ACCOUNT NAME </span> </td>
+                            <td width="25%" align="center"> <span style="font-weight:bold; font-size:12px"> ACCOUNT NO. </span> </td>
+                        </tr>
+                        @foreach (var asdf in res.SchoolAccount)
+                        {
+                            <tr>
+
+                                <td height="20" align="center"> @asdf.AcctPurpose</td>
+                                <td align="center"> @asdf.BankName </td>
+                                <td align="center">@asdf.AcctName</td>
+                                <td align="center">@asdf.AcctNumber</td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+
+        }
+        else
+        {
+
+        }
+
+        <!-- Stamp Holder -->
+        <!-- End of stamp holder -->
+
+
+
+    </div>
+</div>
+<br />
+<div class="clearfix"></div>
+<div class="text-center">
+    <button onclick="myFunction()" style="text-align:center;" class="btn btn-primary">Print Result</button>
+
+</div>
+
+<script type="text/javascript">
+
+
+    function myFunction() {
+        window.print();
+    }
+
+
+</script>
+

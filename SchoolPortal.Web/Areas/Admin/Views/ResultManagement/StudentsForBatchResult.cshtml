@@ -1,0 +1,118 @@
+﻿
+
+@model IEnumerable<SchoolPortal.Web.Models.Dtos.EnrolledStudentsByClassDto>
+@using SchoolPortal.Web.Areas.Service
+@{
+    ViewBag.Title = @GeneralService.StudentorPupil() + "s ForBatchResult";
+    int sn = 1;
+
+}
+
+
+
+
+
+
+
+
+<div class="row">
+    <div class="col-xs-12">
+
+        <div class="box">
+            <div class="box-header">
+                <span style="color:#337ab7;font-size:30px;"><i class="fa fa-fw fa-users" style="color:#337ab7;"></i> Batch Result </span>   <span style="font-size:15px;">@ViewBag.Session - @ViewBag.Class </span>
+                <h4>Form Teacher (@ViewBag.formteacher)</h4>
+
+                <div class="pull-right">
+                    @Html.ActionLink("Back To Batch Result", "Index", null, new { @class = "btn btn-primary" })
+
+                </div>
+            </div>
+            <div class="box-body">
+                @if (TempData["Report"] != null)
+                {
+                    <div class="alert alert-success alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <strong>@TempData["Report"]</strong>
+                    </div>
+                }
+                @if (TempData["Error"] != null)
+                {
+                    <div class="alert alert-success alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <strong>@TempData["Error"]</strong>
+                    </div>
+                }
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive">
+                <table class="table table-hover">
+
+                    <tr>
+                        <th>
+                            @GeneralService.StudentorPupil() Name
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.StudentRegNumber)
+                        </th>
+
+                        @if (ViewBag.showPosOnClassResult == true)
+                        {
+                            <th>Position</th>
+                        }
+                        else
+                        {
+
+                        }
+
+
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StudentName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StudentRegNumber)
+                        </td>
+
+                        @if (ViewBag.showPosOnClassResult == true)
+                        {
+                            <td>
+                                @PrintService.MasterListPosition(item.EnrollmentId)
+                            </td>
+                        }
+
+                        else
+                        {
+
+                        }
+
+
+                        </tr>
+                    }
+
+                </table>
+            </div>
+            <div class="box-body">
+                <div class="alert bg-primary">
+
+                    <h2 style="border-bottom:1px dotted #ffffff;" class="page-header">Preview Batch Result</h2>
+                  
+                    @Html.ActionLink("View Batch", "ViewBatch", "ResultManagement", new { sessId = ViewBag.sessId, classId = ViewBag.classId }, new { @class = "btn btn-medium btn-success" , target = "_blank" })
+                   
+
+                </div>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+    <!-- /.col -->
+</div>
+
+
+
+

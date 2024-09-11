@@ -1,0 +1,97 @@
+﻿@model IEnumerable<SchoolPortal.Web.Models.Entities.ApprovedDevice>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.MacAddress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ImelNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IpAddress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DeviceThatAddedThis)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MacAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ImelNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IpAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DeviceThatAddedThis)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>
+<input type="text" id="txtMACAdress" />1
+<input type="text" id="txtIPAdress" />2
+<input type="text" id="txtComputerName" />3
+
+@ViewBag.mc1   1
+<br />
+@ViewBag.mc2   2
+<br />
+<br />
+@ViewBag.mc3   3
+
+
+@section Scripts {
+
+
+
+
+    <script type="text/javascript">
+        var macAddress = "";
+        var ipAddress = "";
+        var computerName = "";
+        var wmi = GetObject("winmgmts:{impersonationLevel=impersonate}");
+        e = new Enumerator(wmi.ExecQuery("SELECT * FROM Win32_NetworkAdapterConfiguration WHERE IPEnabled = True"));
+        for (; !e.atEnd(); e.moveNext()) {
+            var s = e.item();
+            macAddress = s.MACAddress;
+            ipAddress = s.IPAddress(0);
+            computerName = s.DNSHostName;
+        }
+    </script>
+
+
+
+    <script type="text/javascript">
+        document.getElementById("txtMACAdress").value = unescape(macAddress);
+        document.getElementById("txtIPAdress").value = unescape(ipAddress);
+        document.getElementById("txtComputerName").value = unescape(computerName);
+    </script>
+}

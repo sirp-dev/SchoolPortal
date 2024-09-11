@@ -1,0 +1,75 @@
+﻿@model IEnumerable<SchoolPortal.Web.Models.Entities.HallOfFame>
+
+
+
+@using SchoolPortal.Web.Areas.Service
+
+@helper Truncate(string input, int lenght)
+{
+    if (input.Length <= lenght)
+    {
+        @Html.Raw(input)
+    }
+    else
+    {
+        @Html.Raw(input.Substring(0, input.IndexOf(" ", lenght)).ToString())
+    }
+}
+
+
+@if (ViewBag.hall != null)
+{
+
+
+
+    <section class="fame-home-section">
+        <div class="container">
+            <div class="fame-home-one">
+                <div class="row">
+                    <div class="fame-home-two">
+
+                        @foreach (var item in ViewBag.hall)
+                        {
+                            <a href="@Url.Action("Read", "Blog", new { id = item.Id, title = item.Name.ToSeoUrl() })">
+                                <div class="panel-fame-home">
+                                    <div class="panel">
+                                        <div class="panel-body">
+                                            <div class="fame-home-image-one">
+                                                <div class="fame-home-image-two">
+
+                                                    @if (item.Image != null)
+                                                    {
+                                                        <img src="data:image/jpg;base64,@(Convert.ToBase64String(item.Image))" alt="" class="img-responsive img-blog">
+
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel-heading">
+                                            <div class="fame-home-title">
+                                                @item.Name
+                                            </div>
+                                        </div>
+
+                                        <div class="panel-body">
+                                            <div class="fame-home-body-one">
+                                                <div class="fame-home-body-two">
+
+                                                    @Truncate(item.Content, 150) ...<span style="font-weight:900;" class="readmore-fame-home">Read More</span>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </a>
+                        }
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+}

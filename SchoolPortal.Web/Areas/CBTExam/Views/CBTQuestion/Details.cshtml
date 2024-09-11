@@ -1,0 +1,106 @@
+﻿@model SchoolPortal.Web.Models.Entities.QuestionModel
+@using SchoolPortal.Web.Areas.Service
+@{
+    ViewBag.Title = "Question Detail";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+        <div class="box box-default">
+            <div class="box-header with-border">
+
+                <h3 class="box-title">Question Details</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="table-responsive">
+                            <table class="table table-success table-bordered" style="background-color:#3c8dbc; color:#ffffff;">
+                                <tr>
+                                    <th>Session</th>
+                                    <td>@ViewBag.Detail.Session</td>
+                                </tr>
+                                <tr>
+                                    <th>Class</th>
+                                    <td>@ViewBag.Detail.ClassName</td>
+                                </tr>
+                                <tr>
+                                    <th>Subject</th>
+                                    <td>@ViewBag.Detail.Subject</td>
+
+                                </tr>
+
+                                <tr>
+                                    <th>Term</th>
+                                    <td>@ViewBag.Detail.Term</td>
+                                </tr>
+                                <tr>
+                                    <th>Exam Mode</th>
+                                    <td>@ViewBag.Detail.ExamMode</td>
+                                </tr>
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="box-body">
+
+                <div class="container-fluid">
+                    <h3>Question</h3>
+                    <div class="" style="max-height:200px;overflow:scroll;">
+                        @Html.Raw(ViewBag.Detail.Name)
+                    </div>
+                </div>
+
+                <div class="container-fluid">
+                    <h3>Options</h3>
+                    @{
+                        int sno = 0;
+                    }
+                    @foreach (var item in ViewBag.data2)
+                    {
+                        <div class="" style="max-height:200px;overflow:scroll;">
+                            <p>
+                                <b>
+                                    @{ sno++; }
+                                    (@sno)
+                                </b>
+
+                            </p>
+                            @Html.Raw(item.Name)
+                            @if (item.IsAnswer == true)
+                            {
+                                <p style="color:#00ff21"><b>Correct Option</b></p>
+                            }
+                            else
+                            {
+                                <p style="color:#ff0000"><b>Wrong Option</b></p>
+                            }
+                        </div>
+                    }
+
+                </div>
+            </div>
+            <!-- /.box-body -->
+
+            <div class="box-footer">
+                <a class="btn btn-primary" href="http://@GeneralService.PortalLink()/CBTExam/CBTQuestion/Edit?id=@ViewBag.Detail.Id&unixconverify=@User.Identity.Name&xgink=@GeneralService.PortalLink()&role=superadmin"><i class="fa fa-edit"></i> Edit  </a>
+                <a href="javascript: history.back()" class="btn btn-default">Cancel</a>
+            </div>
+
+        </div>
+        <!-- /.box -->
+    </div>
+    <!-- /.col -->
+
+
+    <div class="col-md-1"></div>
+
+</div>
+

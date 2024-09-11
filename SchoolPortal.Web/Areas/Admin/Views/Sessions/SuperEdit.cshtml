@@ -1,0 +1,68 @@
+﻿@model SchoolPortal.Web.Models.Entities.Session
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+
+<div class="row">
+    <!-- left column -->
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <!-- general form elements -->
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Edit Session</h3>
+            </div>
+            @using (Html.BeginForm())
+            {
+                @*@Html.AntiForgeryToken()*@
+
+        <div class="box-body">
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.Id)
+            @Html.HiddenFor(model => model.SessionYear)
+            @Html.HiddenFor(model => model.Status)
+            @Html.HiddenFor(model => model.SchoolPrincipal)
+            @Html.HiddenFor(model => model.ArchiveStatus)
+            @*@Html.HiddenFor(model => model.Term)*@
+
+
+            <div class="form-group">
+                <label class="control-label">@Model.SessionYear</label>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Term, htmlAttributes: new { @class = "control-label" })
+                <div class="">
+                    @Html.EditorFor(model => model.Term, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Term, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            @*<div class="form-group">
+            @Html.LabelFor(model => model.SchoolPrincipal, htmlAttributes: new { @class = "control-label" })
+            <div class="">
+                @Html.EditorFor(model => model.SchoolPrincipal, new { htmlAttributes = new { @class = "form-control", id = "upper", onkeyup = "myUppercase()" } })
+                @Html.ValidationMessageFor(model => model.SchoolPrincipal, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+        </div>
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <a href="javascript: history.back()" class="btn btn-default">Cancel</a>
+                </div>
+
+            }
+        </div>
+
+    </div>
+    <div class="col-md-3"></div>
+
+</div>
+
+
+
+
+@section Scripts {
+    
+}

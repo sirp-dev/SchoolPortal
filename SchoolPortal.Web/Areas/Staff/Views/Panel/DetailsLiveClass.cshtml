@@ -1,0 +1,162 @@
+﻿@model SchoolPortal.Web.Models.Dtos.Zoom.RootobjectDetails
+
+@{
+    ViewBag.Title = "DetailsLiveClass";
+}
+
+<div class="row">
+    <div class="col-xs-12">
+
+        <div class="box">
+            <div class="box-header">
+
+                <h3>Online Lesson</h3>
+            </div>
+
+            <div class="box-body">
+                <div>
+
+                    <div>
+                        <h4>Live Class Details</h4>
+                        <hr />
+                        <dl class="dl-horizontal">
+
+                            <dt>
+                                Class
+
+                            </dt>
+
+                            <dd>
+                                @ViewBag.prof.ClassLevel.ClassName
+                            </dd>
+                            <dt>
+
+                                Subject
+                            </dt>
+
+                            <dd>
+                                @ViewBag.prof.Subject.SubjectName
+                            </dd>
+                            <dt>
+                                Teacher
+
+                            </dt>
+
+                            <dd>
+                                @ViewBag.prof.User.Surname
+                                @ViewBag.prof.User.FirstName
+                                @ViewBag.prof.User.OtherName
+                            </dd>
+                            <dt>
+
+                                Meeting ID
+                            </dt>
+
+                            <dd>
+                                @Model.id
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.topic)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.topic)
+                            </dd>
+
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.status)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.status)
+                            </dd>
+
+                            <dt>
+                                Start Time
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.start_time)
+                            </dd>
+
+                            <dt>
+                                Class Duration
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.duration)
+                            </dd>
+
+                            <dt>
+                                Time Zone
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.timezone)
+                            </dd>
+
+                            <dt>
+                                Class Description
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.agenda)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.created_at)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.created_at)
+                            </dd>
+
+
+                            <dt>
+                                Click on Start Class
+                            </dt>
+
+                            <dd>
+                                <a href="@Model.start_url" class="btn btn-success btn-md">
+                                    Start Class Now
+                                </a>
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.password)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.password)
+                            </dd>
+
+
+                        </dl>
+                    </div>
+                </div>
+              
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts2 {
+
+    <script type="text/JavaScript">
+        //courtesy of BoogieJack.com
+        function killCopy(e) {
+            return false
+        }
+        function reEnable() {
+            return true
+        }
+        document.onselectstart = new Function("return false")
+        if (window.sidebar) {
+            document.onmousedown = killCopy
+            document.onclick = reEnable
+        }
+    </script>
+}

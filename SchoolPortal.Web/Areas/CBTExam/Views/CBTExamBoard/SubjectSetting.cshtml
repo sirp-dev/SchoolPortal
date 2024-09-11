@@ -1,0 +1,122 @@
+﻿@model SchoolPortal.Web.Models.Entities.ExaminationSubject
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    int sn = 0;
+
+}
+
+@section Style {
+
+    <!-- summernote -->
+}
+
+<div class="row">
+    <!-- left column -->
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+        <!-- general form elements -->
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Add Subject</h3>
+                @if (TempData["error"] != null)
+                {
+                    <div class="alert alert-danger">
+                        <strong>ops!</strong> @TempData["error"]
+                    </div>
+                }
+                @if (ViewBag.AddedSubject != null)
+                {
+                    foreach (var i in ViewBag.AddedSubject)
+                    {
+
+                        <div class="alert alert-success alert-dismissible">
+                            @{
+                                sn++;
+                            }
+                            @using (Html.BeginForm("RemoveSubject", "CBTExamBoard", FormMethod.Post, new { role = "form" }))
+                            {
+
+                                <input type="hidden" name="xgink" value="@ViewBag.xgink" />
+                                <input type="hidden" name="unixconverify" value="@ViewBag.unixconverify" />
+                                <input type="hidden" name="role" value="@ViewBag.role" />
+                                <input type="hidden" name="id" value="@i.Id" />
+                                <input type="hidden" name="settingId" value="@i.SettingModelId" />
+                                @*@Html.AntiForgeryToken()*@
+
+                                <div class="close" aria-label="close">
+                                    <input type="submit" value="&times;">
+                                </div>
+                            }
+
+                            Subject: @i.Name
+                            <br>
+                            Total Question @i.Count
+                        </div>
+
+                    }
+
+                }
+                else
+                {
+                    <div class="alert alert-danger">
+                        <strong>No Subject Added Yet!</strong>
+                    </div>
+                }
+
+                <br />
+                <br />
+            </div>
+            @using (Html.BeginForm("SubjectSetting", "CBTExamBoard", FormMethod.Post, new { role = "form" }))
+            {
+                @*@Html.AntiForgeryToken()*@
+
+                <input type="hidden" name="xgink" value="@ViewBag.xgink" />
+                <input type="hidden" name="unixconverify" value="@ViewBag.unixconverify" />
+                <input type="hidden" name="role" value="@ViewBag.role" />
+                <input type="hidden" name="settingId" value="@ViewBag.settingId"/>
+
+                <div class="box-body">
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Name, "Subject", htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+                            @Html.DropDownList("subId", ViewBag.subject as SelectList, "Select a Subject", new {@class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Count, "Number Of Question", htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+                            @Html.EditorFor(model => model.Count, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Count, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-primary">Create</button>
+                    <button type="button" onclick="location.href='@Url.Action("Index","CBTExamBoard",new { unixconverify = ViewBag.unixconverify, xgink = ViewBag.xgink, role = ViewBag.role,area ="CBTExam" })'" class="btn btn-success">
+                        Finish
+                    </button>
+                </div>
+            }
+
+        </div>
+
+    </div>
+    <div class="col-md-1"></div>
+
+</div>
+
+
+@section Scripts {
+    
+    <!-- Summernote -->
+
+}

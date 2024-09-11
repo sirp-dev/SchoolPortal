@@ -1,0 +1,214 @@
+﻿@using SchoolPortal.Web.Areas.Service
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<section class="content">
+
+
+    <div class="row">
+        <div class="col-lg-3 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-aqua">
+                <div class="inner">
+                    <h3>00</h3>
+
+                    <p>Unit Balance</p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-money"></i>
+                </div>
+                <a class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-green">
+                <div class="inner">
+                    <h3>0000</h3>
+
+                    <p>@GeneralService.StudentorPupil()'s Numbers</p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-book"></i>
+                </div>
+                <a class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-xs-6">
+
+            <div class="small-box bg-yellow">
+                <div class="inner">
+                    <h3>0000</h3>
+
+                    <p>Staff Numbers</p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-book"></i>
+                </div>
+                <a class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-red">
+                <div class="inner">
+                    <h3>0000</h3>
+
+                    <p>Sent Messages</p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-book"></i>
+                </div>
+                <a class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <!-- ./col -->
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Bulk SMS</h3>
+                        @if (TempData["error"] != null)
+                        {
+                            <div class="alert alert-danger alert-dismissible">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                                @TempData["error"]
+                            </div>
+                        }
+                        @if (TempData["Succes"] != null)
+                        {
+                            <div class="alert alert-success alert-dismissible">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                                @TempData["Succes"]
+                            </div>
+                        }
+                    </div>
+                    @using (Html.BeginForm("SendSMS", "Message", FormMethod.Post))
+                    {
+                        @*@Html.AntiForgeryToken()*@
+
+                        <div class="box-body">
+                            <div class="form-group">
+                                @Html.Label("Send Message to All " + GeneralService.StudentorPupil() + "(s)", htmlAttributes: new { @class = "control-label" })
+                                <input type="hidden" name="Target" value="SendToAllStudent" />
+                            </div>
+
+                        </div>
+
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-primary">Continue</button>
+                            <a href="javascript: history.back()" class="btn btn-default">Cancel</a>
+                        </div>
+
+                    }
+                    <hr style="border:4px solid #3f8bb7;" />
+
+                    @using (Html.BeginForm("SendSMS", "Message", FormMethod.Post))
+                    {
+                        @*@Html.AntiForgeryToken()*@
+
+                        <div class="box-body">
+                            <div class="form-group">
+                                @Html.Label("Send Message to " + GeneralService.StudentorPupil() + "(s) in Class", htmlAttributes: new { @class = "control-label" })
+                                <div class="">
+                                    @Html.DropDownList("Target", ViewBag.ClassLevelId as SelectList, "choose a class to Send Message", htmlAttributes: new { @class = "form-control", required = "Choose a class" })
+                                    <input type="hidden" name="ClassSend" value="Sendtostudent" />
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-primary">Continue</button>
+                            <a href="javascript: history.back()" class="btn btn-default">Cancel</a>
+                        </div>
+
+                    }
+                    <hr style="border:4px solid #3f8bb7" />
+
+                    @using (Html.BeginForm("SendSMS", "Message", FormMethod.Post))
+                    {
+                        @*@Html.AntiForgeryToken()*@
+
+                        <div class="box-body">
+                            <div class="form-group">
+                                @Html.Label("Send Message to all Staff", htmlAttributes: new { @class = "control-label" })
+                                <input type="hidden" name="Target" value="SendToStaff" />
+                            </div>
+
+                        </div>
+
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-primary">Continue</button>
+                            <a href="javascript: history.back()" class="btn btn-default">Cancel</a>
+                        </div>
+
+                    }
+                    <hr style="border:4px solid #3f8bb7" />
+
+                    @using (Html.BeginForm("SendSMS", "Message", FormMethod.Post))
+                    {
+                        @*@Html.AntiForgeryToken()*@
+
+                        <div class="box-body">
+                            <div class="form-group">
+                                @Html.Label("Send Message to All Parents", htmlAttributes: new { @class = "control-label" })
+                                <input type="hidden" name="Target" value="SendToAllParent" />
+                            </div>
+
+                        </div>
+
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-primary">Continue</button>
+                            <a href="javascript: history.back()" class="btn btn-default">Cancel</a>
+                        </div>
+
+                    }
+
+                    <hr style="border:4px solid #3f8bb7" />
+
+                    @using (Html.BeginForm("SendSMS", "Message", FormMethod.Post))
+                    {
+                        @*@Html.AntiForgeryToken()*@
+
+                        <div class="box-body">
+                            <div class="form-group">
+                                @Html.Label("Send Message to Parents By Class", htmlAttributes: new { @class = "control-label" })
+                                <div class="">
+                                    @Html.DropDownList("Target", ViewBag.ClassLevelId as SelectList, "choose a class to Send Message", htmlAttributes: new { @class = "form-control", required = "Choose a class" })
+                                    <input type="hidden" name="ClassSend" value="SendtoParent" />
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-primary">Continue</button>
+                            <a href="javascript: history.back()" class="btn btn-default">Cancel</a>
+                        </div>
+
+                    }
+
+
+                </div>
+            </div>
+            <!-- /. box -->
+        </div>
+
+      
+    </div>
+
+    <!-- /.row -->
+</section>

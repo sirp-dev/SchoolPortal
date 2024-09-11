@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html>
+<!-- saved from url=(0074)https://templates.iqonic.design/streamit/dashboard/html/theme/sign-in.html -->
+<html lang="en" dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Required meta tags -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>
+        Login | @ViewBag.sch
+    </title>
+    <!-- Favicon -->
+    @if (ViewBag.schimage != null)
+    {
+        <link rel="icon" href="data:image/jpg;base64,@(Convert.ToBase64String(ViewBag.schimage))" type="image/jpg">
+    }    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="http://v1.exwhyzee.ng/Content/Loginstyle/bootstrap.min.css">
+    <!-- Typography CSS -->
+    <link rel="stylesheet" href="http://v1.exwhyzee.ng/Content/Loginstyle/typography.css">
+    <!-- Style CSS -->
+    <link rel="stylesheet" href="http://v1.exwhyzee.ng/Content/Loginstyle/style.css">
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="http://v1.exwhyzee.ng/Content/Loginstyle/responsive.css">
+    <style>
+        .sign-user_card {
+            position: relative;
+            background: rgb(55 105 151 / 50%);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            padding: 25px;
+            box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
+            -webkit-box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
+            -moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            display: block;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body data-new-gr-c-s-check-loaded="14.1062.0" data-gr-ext-installed="">
+    <!-- loader Start -->
+    <div id="loading" style="display: none;">
+        <div id="loading-center">
+        </div>
+    </div>
+    <!-- loader END -->
+    <!-- Sign in Start -->
+    <section class="sign-in-page">
+        <div class="container">
+            <div class="row justify-content-center align-items-center height-self-center">
+                <div class="col-lg-8 col-md-12 align-self-center form-padding">
+                    <div class="sign-user_card ">
+                        <div class="sign-in-page-data">
+                            <div class="sign-in-from w-100 m-auto">
+                                @if (ViewBag.schimage != null)
+                                {
+                                    <div style="text-align:center;margin:0 auto !important;">
+
+
+                                        <a href="/">
+                                            <img src="data:image/jpg;base64,@(Convert.ToBase64String(ViewBag.schimage))" alt="logo" style="text-align:center;margin:0 auto !important;height:70px;">
+                                        </a>
+                                    </div>
+                                }
+                                <h5 class="text-center"> @ViewBag.sch</h5>
+                                @RenderBody()
+                            </div>
+                        </div>
+                            </div>
+                        </div>
+                    </div>
+            <!-- Sign in END -->
+            <!-- color-customizer -->
+        </div>
+    </section>
+    <!-- Sign in END -->
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="http://v1.exwhyzee.ng/Content/Loginstyle/jquery.min.js"></script>
+    <script src="http://v1.exwhyzee.ng/Content/Loginstyle/popper.min.js"></script>
+    <script src="http://v1.exwhyzee.ng/Content/Loginstyle/bootstrap.min.js"></script>
+    <!-- Appear JavaScript -->
+    <script src="http://v1.exwhyzee.ng/Content/Loginstyle/jquery.appear.js"></script>
+    <!-- Countdown JavaScript -->
+    <script src="http://v1.exwhyzee.ng/Content/Loginstyle/countdown.min.js"></script>
+    <!-- Counterup JavaScript -->
+    <script src="http://v1.exwhyzee.ng/Content/Loginstyle/waypoints.min.js"></script>
+    <script src="http://v1.exwhyzee.ng/Content/Loginstyle/jquery.counterup.min.js"></script>
+    <!-- Wow JavaScript -->
+    <script src="http://v1.exwhyzee.ng/Content/Loginstyle/wow.min.js"></script>
+    <!-- Slick JavaScript -->
+    <script src="http://v1.exwhyzee.ng/Content/Loginstyle/slick.min.js"></script>
+    <!-- Owl Carousel JavaScript -->
+    <script src="http://v1.exwhyzee.ng/Content/Loginstyle/owl.carousel.min.js"></script>
+    <!-- Magnific Popup JavaScript -->
+    <script src="http://v1.exwhyzee.ng/Content/Loginstyle/jquery.magnific-popup.min.js"></script>
+    <!-- Smooth Scrollbar JavaScript -->
+    <script src="http://v1.exwhyzee.ng/Content/Loginstyle/smooth-scrollbar.js"></script>
+    <!-- Chart Custom JavaScript -->
+    <script src="http://v1.exwhyzee.ng/Content/Loginstyle/chart-custom.js"></script>
+    <!-- Custom JavaScript -->
+    <script src="http://v1.exwhyzee.ng/Content/Loginstyle/custom.js"></script>
+    <script src="http://v1.exwhyzee.ng/Content/Loginstyle/rtl.js"></script>
+
+        <script>
+            function myFunction() {
+                var x = document.getElementById("myInput");
+            if (x.type === "password") {
+                x.type = "text";
+                } else {
+                x.type = "password";
+                }
+            }
+    </script> 
+</body>
+
+</html>

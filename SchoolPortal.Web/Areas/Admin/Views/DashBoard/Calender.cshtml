@@ -1,0 +1,235 @@
+﻿@using SchoolPortal.Web.Areas.Service
+
+@{
+    ViewBag.Title = "Calender";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<section class="content">
+    @Html.Action("_Dashboard", "Dashboard", new { area = "Admin" })
+    @if (TempData["error"] != null)
+    {
+        <div class="alert alert-danger alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>@TempData["error"]</strong>
+        </div>
+    }
+    @if (TempData["success"] != null)
+    {
+        <div class="alert alert-success alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>@TempData["success"]</strong>
+        </div>
+    }
+    @if (TempData["Report"] != null)
+    {
+        <div class="alert alert-info alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>@TempData["Report"]</strong>
+        </div>
+    }
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="" style="padding:0 10px;">
+
+                    <div class="" style="padding:10px;">
+                        <strong><i class="fa fa-question-circle"></i> Help</strong>
+                        <a href="@Url.Action("Index", "Dashboard", new { area = "Admin" })">
+
+                            <img src="http://v1.exwhyzee.ng/img/toogle-red.png" />
+                        </a>
+                        <strong> Calender <i class="fa fa-calendar"></i></strong>
+                    </div>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /. box -->
+        </div>
+        <div class="col-md-2">
+
+            <!-- /. box -->
+            <div class="box box-solid">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Create Event</h3>
+                </div>
+
+                @using (Html.BeginForm("AddEvent", "DashBoard", null, FormMethod.Post))
+                {
+                    @*@Html.AntiForgeryToken()*@
+
+                    <div class="box-body">
+
+                        <div class="form-group">
+
+                            <div class="">
+                                @Html.Editor("subject", new { htmlAttributes = new { @class = "form-control", placeholder = "Subject" } })
+                            </div>
+                        </div>
+                        <div class="form-group">
+
+                            <div class="">
+                                @Html.Editor("description", new { htmlAttributes = new { @class = "form-control", placeholder = "Description" } })
+                            </div>
+                        </div>
+                        <div class="form-group">
+
+                            <div class="">
+                                @Html.Editor("start", new { htmlAttributes = new { @class = "form-control", id = "datepicker", placeholder = "Start Date" } })
+                            </div>
+                        </div>
+                        <div class="form-group">
+
+                            <div class="">
+                                @Html.Editor("end", new { htmlAttributes = new { @class = "form-control", id = "datepicker1", placeholder = "End Date" } })
+                            </div>
+                        </div>
+                        @*<div class="form-group">
+
+                                <div class="">
+                                    @Html.Editor("color", new { htmlAttributes = new { @class = "form-control my-colorpicker1", placeholder = "Color" } })
+                                </div>
+                            </div>*@
+                        <div class="form-group">
+
+                            <div class="">
+                                @Html.CheckBox("general", new { htmlAttributes = new { @class = "form-control" } }) General Event
+                            </div>
+                        </div>
+                        <div class="form-group">
+
+                            <div class="">
+                                @Html.CheckBox("fday", new { htmlAttributes = new { @class = "form-control" } }) Is Full Day
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-primary">Add</button>
+
+                    </div>
+
+                }
+            </div>
+        </div>
+
+
+        <!-- /.col -->
+        <div class="col-md-10">
+            <div class="box box-primary">
+                <div class="box-body no-padding">
+                    <!-- THE CALENDAR -->
+                    <div id="calendar"></div>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /. box -->
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</section>
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><span id="eventTitle"></span></h4>
+            </div>
+            <div class="modal-body">
+                <p id="pDetails"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Style {
+    <!-- fullCalendar -->
+    <link rel="stylesheet" href="http://v1.exwhyzee.ng/admin/bower_components/fullcalendar/dist/fullcalendar.min.css">
+    <link rel="stylesheet" href="http://v1.exwhyzee.ng/admin/bower_components/fullcalendar/dist/fullcalendar.print.min.css" media="print">
+    <link rel="stylesheet" href="http://v1.exwhyzee.ng/admin/bower_components/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css">
+
+}
+
+@section Scripts {
+    <script src="http://v1.exwhyzee.ng/admin/bower_components/moment/moment.js"></script>
+    <script src="http://v1.exwhyzee.ng/admin/bower_components/fullcalendar/dist/fullcalendar.min.js"></script>
+    <script src="http://v1.exwhyzee.ng/admin/bower_components/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
+    @*<script src="http://v1.exwhyzee.ng/admin/bower_components/fullcalendar/dist/fullcalendar.min.js"></script>*@
+
+
+}
+
+@section Scripts2 {
+    <script>
+
+        $(document).ready(function () {
+            var events = [];
+            $.ajax({
+                type: "GET",
+                url: "/dashBoard/GetEvents",
+                success: function (data) {
+                    $.each(data, function (i, v) {
+                        events.push({
+                            title: v.Subject,
+                            description: v.Description,
+                            start: moment(v.Start),
+                            end: v.End != null ? moment(v.End) : null,
+                            backgroundColor: v.ThemeColor,
+
+                            allDay: v.IsFullDay
+                        });
+                    })
+
+                    GenerateCalender(events);
+                },
+                error: function (error) {
+                    alert('failed');
+                }
+            })
+            function GenerateCalender(events) {
+                $('#calender').fullCalendar('destroy');
+                $('#calendar').fullCalendar({
+                    header: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'month,agendaWeek,agendaDay'
+                    },
+                    buttonText: {
+                        today: 'today',
+                        month: 'month',
+                        week: 'week',
+                        day: 'day'
+                    },
+                    //Random default events
+                    events: events,
+                    editable: true,
+                    eventClick: function (calEvent, jsEvent, view) {
+                        $('#myModal #eventTitle').text(calEvent.title);
+                        var $description = $('<div/>');
+                        $description.append($('<p/>').html('<b>Start: </b>' + calEvent.start.format("DD-MMM-YYYY HH:mm a")));
+                        if (calEvent.end != null) {
+                            $description.append($('<p/>').html('<b>End: </b>' + calEvent.end.format("DD-MMM-YYYY HH:mm a")));
+                        }
+                        $description.append($('<p/>').html('<b>Description:</b>' + calEvent.description));
+                        $('#myModal #pDetails').empty().html($description);
+
+                        $('#myModal').modal();
+                    }
+                })
+            }
+        })
+    </script>
+    <script>
+        $('.my-colorpicker1').colorpicker()
+    </script>
+
+}
+
+

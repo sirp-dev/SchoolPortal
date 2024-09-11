@@ -1,0 +1,51 @@
+﻿@model SchoolPortal.Web.Models.Entities.HallOfFame
+
+@{
+    ViewBag.Title = "PageFame";
+    Layout = "~/Areas/Admin/Views/Shared/_DescView.cshtml";
+    
+}
+
+@Html.Action("_FameDetailCrumb", "Page")
+<section class="famedetail-section">
+    <div class="container">
+        <div class="famedetail-two">
+            <div class="famedetail-three">
+
+
+                <div class="panel panel-famedetail">
+                    <div class="panel-heading">
+                        <div class="famedetail-title">
+                            @Html.DisplayFor(modelItem => Model.Name)
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="famedetail-image-one">
+                            <div class="famedetail-image-two">
+
+                                @if (Model.Image != null)
+                                {
+                                    <img src="data:image/jpg;base64,@(Convert.ToBase64String(Model.Image))" alt="" class="img-responsive img-famedetail">
+
+                                }
+                            </div>
+                        </div>
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section HeadArea {
+
+    @Html.Raw(ViewBag.taghead)
+    @Html.Raw(ViewBag.styletag)
+
+}
+
+@section FooterArea {
+
+    @Html.Raw(ViewBag.jstag)
+}

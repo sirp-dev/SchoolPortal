@@ -1,0 +1,139 @@
+﻿@model SchoolPortal.Web.Models.Entities.WebsiteSettings
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <!-- left column -->
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <!-- general form elements -->
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Edit Setting/Theme</h3>
+            </div>
+            @using (Html.BeginForm("Edit", "WebsiteSettings", null, FormMethod.Post, new { id = "", enctype = "multipart/form-data" }))
+            {
+                @*@Html.AntiForgeryToken()*@
+
+            <div class="box-body">
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.Id)
+                @Html.HiddenFor(model => model.WebsiteLogo)
+                @Html.HiddenFor(model => model.WebsiteIcon)
+                @Html.HiddenFor(model => model.PortalUrl)
+                @Html.HiddenFor(model => model.WebsiteUrl)
+                @Html.HiddenFor(model => model.Slider)
+                @Html.HiddenFor(model => model.EventAndNews)
+                @Html.HiddenFor(model => model.AboutUs)
+
+
+            
+                <div class="form-group">
+                    <label> Previous Logo</label>
+                    <div class="">
+                        @if (Model.WebsiteLogo != null)
+                        {
+
+                            <img src="data:image/jpg;base64,@(Convert.ToBase64String(Model.WebsiteLogo))" class="img-responsive" style="width:150px;" />
+
+                        }
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Website Logo</label>
+                    <div class="">
+                        <input type="file" name="upload" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Previouse Icon</label>
+                    <div class="">
+                        @if (Model.WebsiteIcon != null)
+                        {
+
+                            <img src="data:image/jpg;base64,@(Convert.ToBase64String(Model.WebsiteIcon))" class="img-responsive" style="width:150px;" />
+
+                        }
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Website Icon</label>
+                    <div class="">
+                        <input type="file" name="icon" class="form-control" />
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Layout, htmlAttributes: new { @class = "control-label" })
+                    <div class="">
+                        @Html.EditorFor(model => model.Layout, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Layout, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                @*<div class="form-group">
+            @Html.LabelFor(model => model.Slider, htmlAttributes: new { @class = "control-label" })
+            <div class="">
+                @Html.EditorFor(model => model.Slider, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Slider, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.AboutUs, htmlAttributes: new { @class = "control-label" })
+            <div class="">
+                @Html.EditorFor(model => model.AboutUs, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.AboutUs, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.EventAndNews, htmlAttributes: new { @class = "control-label" })
+            <div class="">
+                @Html.EditorFor(model => model.EventAndNews, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.EventAndNews, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ContactUs, htmlAttributes: new { @class = "control-label" })
+            <div class="">
+                @Html.EditorFor(model => model.ContactUs, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ContactUs, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ShowBlogInHome, htmlAttributes: new { @class = "control-label" })
+
+                    @Html.EditorFor(model => model.ShowBlogInHome)
+                    @Html.ValidationMessageFor(model => model.ShowBlogInHome, "", new { @class = "text-danger" })
+
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ShowHallOfFameInHome, htmlAttributes: new { @class = "control-label" })
+
+                    @Html.EditorFor(model => model.ShowHallOfFameInHome)
+                    @Html.ValidationMessageFor(model => model.ShowHallOfFameInHome, "", new { @class = "text-danger" })
+
+                </div>
+            </div>
+
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <a href="javascript: history.back()" class="btn btn-default">Cancel</a>
+                </div>
+
+            }
+        </div>
+
+    </div>
+    <div class="col-md-3"></div>
+
+</div>

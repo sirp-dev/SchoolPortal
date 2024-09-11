@@ -1,0 +1,62 @@
+﻿@using SchoolPortal.Web.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "Login";
+
+    Layout = "~/Areas/Account/Views/Shared/_LoginLayout.cshtml";
+
+}
+
+
+
+
+@if (TempData["error"] != null)
+{
+
+    <div class="alert alert-danger alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+        @TempData["error"]
+    </div>
+
+}
+
+<h6 class="mb-3 text-center" style="color:#bf000a;font-weight:700;">Sign in</h6>
+
+@using (Html.BeginForm("Login", "XYZ", new { ReturnUrl = ViewBag.ReturnUrl, area = "Account" }, FormMethod.Post, new { @class = "mt-4", role = "" }))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group form-box">
+        <input name="Username" type="text" class="form-control" placeholder="Username" aria-label="Username" required="required">
+
+    </div>
+    <div class="form-group form-box clearfix">
+        <input name="Password" type="password" id="myInput" class="form-control" autocomplete="off" placeholder="Password" aria-label="Password" required="required">
+
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-check d-flex mb-4">
+                <input class="form-check-input me-2" type="checkbox" asp-for="Input.RememberMe" id="form2Example33" />
+                <label class="form-check-label" for="form2Example33">
+                    Remember Me
+                </label>
+            </div>
+        </div>
+        <div class="col-md-6 mb-4">
+            <div class="form-check d-flex">
+
+                <input type="checkbox" onclick="myFunction()" id="" class="form-check-input me-2">
+                <label class="form-check-label" for="form2Example33f">
+                    Show Password
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary btn-lg btn-theme">Login</button>
+    </div>
+}
+

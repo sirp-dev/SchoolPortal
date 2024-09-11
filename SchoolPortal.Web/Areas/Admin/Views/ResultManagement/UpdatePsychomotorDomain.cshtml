@@ -1,0 +1,208 @@
+﻿@model SchoolPortal.Web.Models.Entities.PsychomotorDomain
+
+@{
+    ViewBag.Title = "UpdatePsychomotorDomain";
+}
+
+
+<div class="row">
+    <!-- left column -->
+
+    <div class="col-md-12">
+        <!-- general form elements -->
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Update Psychomotor Domain</h3>
+
+                @if (TempData["message"] != null)
+                {
+                    <div class="alert alert-success alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                        @TempData["message"]
+                    </div>
+                }
+                @if (TempData["error"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                        @TempData["error"]
+                    </div>
+                }
+            </div>
+
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="table-responsive">
+                            <table class="table table-success table-bordered" style="background-color:#3c8dbc; color:#ffffff;">
+                                <tr>
+                                    <th>Club</th>
+                                    <td>@Model.Club</td>
+                                </tr>
+                                <tr>
+                                    <th>Drawing</th>
+                                    <td>@Model.Drawing</td>
+                                </tr>
+                                <tr>
+                                    <th>Painting</th>
+                                    <td>@Model.Painting</td>
+                                </tr>
+                                <tr>
+                                    <th>Handwriting</th>
+                                    <td>@Model.Handwriting</td>
+                                </tr>
+                                <tr>
+                                    <th>Hobbies</th>
+                                    <td>@Model.Hobbies</td>
+
+                                </tr>
+                                <tr>
+                                    <th>Speech</th>
+                                    <td>@Model.Speech</td>
+                                </tr>
+
+                                <tr>
+                                    <th>Sports</th>
+                                    <td>@Model.Sports</td>
+                                </tr>
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- /.box-body -->
+            <!-- /.box -->
+
+
+            @using (Html.BeginForm())
+            {
+                @*@Html.AntiForgeryToken()*@
+            <div class="box-body">
+
+
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.Id)
+                @Html.HiddenFor(model => model.EnrolmentId)
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Club, htmlAttributes: new { @class = "control-label" })
+                    <div class="">
+                        <select name="Club" class="form-control">
+                            <option value="Excellent">Excellent</option>
+                            <option value="Very Good">Very Good</option>
+                            <option value="Good">Good</option>
+                            <option value="Pass">Pass</option>
+                            <option value="Fair">Fair</option>
+                            <option value="Fail">Fail</option>
+                        </select>
+                        @Html.ValidationMessageFor(model => model.Club, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Drawing, htmlAttributes: new { @class = "control-label" })
+                    <div class="">
+                        <select name="Drawing" class="form-control">
+                            <option value="Excellent">Excellent</option>
+                            <option value="Very Good">Very Good</option>
+                            <option value="Good">Good</option>
+                            <option value="Pass">Pass</option>
+                            <option value="Fair">Fair</option>
+                            <option value="Fail">Fail</option>
+                        </select>
+                        @Html.ValidationMessageFor(model => model.Drawing, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Painting, htmlAttributes: new { @class = "control-label" })
+                    <div class="">
+                        <select name="Painting" class="form-control">
+                            <option value="Excellent">Excellent</option>
+                            <option value="Very Good">Very Good</option>
+                            <option value="Good">Good</option>
+                            <option value="Pass">Pass</option>
+                            <option value="Fair">Fair</option>
+                            <option value="Fail">Fail</option>
+                        </select>
+                        @Html.ValidationMessageFor(model => model.Painting, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Handwriting, htmlAttributes: new { @class = "control-label" })
+                    <div class="">
+                        <select name="Handwriting" class="form-control">
+                            <option value="Excellent">Excellent</option>
+                            <option value="Very Good">Very Good</option>
+                            <option value="Good">Good</option>
+                            <option value="Pass">Pass</option>
+                            <option value="Fair">Fair</option>
+                            <option value="Fail">Fail</option>
+                        </select>
+                        @Html.ValidationMessageFor(model => model.Handwriting, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Hobbies, htmlAttributes: new { @class = "control-label" })
+                    <div class="">
+                        <select name="Hobbies" class="form-control">
+                            <option value="Excellent">Excellent</option>
+                            <option value="Very Good">Very Good</option>
+                            <option value="Good">Good</option>
+                            <option value="Pass">Pass</option>
+                            <option value="Fair">Fair</option>
+                            <option value="Fail">Fail</option>
+                        </select>
+                        @Html.ValidationMessageFor(model => model.Hobbies, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Speech, htmlAttributes: new { @class = "control-label" })
+                    <div class="">
+                        <select name="Speech" class="form-control">
+                            <option value="Excellent">Excellent</option>
+                            <option value="Very Good">Very Good</option>
+                            <option value="Good">Good</option>
+                            <option value="Pass">Pass</option>
+                            <option value="Fair">Fair</option>
+                            <option value="Fail">Fail</option>
+                        </select>
+                        @Html.ValidationMessageFor(model => model.Speech, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Sports, htmlAttributes: new { @class = "control-label" })
+                    <div class="">
+                        <select name="Sports" class="form-control">
+                            <option value="Excellent">Excellent</option>
+                            <option value="Very Good">Very Good</option>
+                            <option value="Good">Good</option>
+                            <option value="Pass">Pass</option>
+                            <option value="Fair">Fair</option>
+                            <option value="Fail">Fail</option>
+                        </select>
+                        @Html.ValidationMessageFor(model => model.Sports, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+
+            </div>
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <a href="javascript: history.back()" class="btn btn-default">Cancel</a>
+                </div>
+            }
+        </div>
+    </div>
+</div>

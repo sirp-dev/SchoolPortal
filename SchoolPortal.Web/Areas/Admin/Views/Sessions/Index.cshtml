@@ -1,0 +1,189 @@
+﻿@model IEnumerable<SchoolPortal.Web.Models.Entities.Session>
+@using SchoolPortal.Web.Models.Entities
+@using SchoolPortal.Web.Areas.Service
+
+@{
+    ViewBag.Title = "Index";
+
+}
+
+
+@section Style {
+
+    <link rel="stylesheet" href="http://v1.exwhyzee.ng/admin/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+}
+
+
+
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box" style="padding:7px;">
+            <div class="box-header" style="margin-bottom:15px;">
+                <h3 class="box-title"><i class="fa fa-fw fa-sitemap"></i> School Session</h3>
+                @if (TempData["error"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                        @TempData["error"]
+                    </div>
+                }
+                <div class="box-tools">
+
+                    <div class="btn-group pull-right">
+                        @if (User.IsInRole("SuperAdmin") || User.IsInRole("Admin"))
+                        {
+                            @Html.ActionLink("Create New", "NewSession", null, new { @class = "btn btn-primary" })
+                        }
+                        @Html.ActionLink("Next Term", "NextTerm", null, new { @class = "btn btn-success" })
+                        @Html.ActionLink("Previous Term", "PreviousTerm", null, new { @class = "btn btn-warning" })
+
+                    </div>
+
+                </div>
+            </div>
+
+
+            <!-- /.box-header -->
+            <div class="box-body table-responsive">
+
+                <table id="example1" class="table table-bordered table-hover" border="1">
+                    <thead>
+                        <tr>
+                            <th>S/N</th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Term)
+                            </th>
+                            <th>
+                                @GeneralService.HeadteacherOrPrincipal()
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.SessionYear)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Status)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            int sno = 0;
+                        }
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @{ sno++; }
+                                    @sno
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Term)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.SchoolPrincipal)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.SessionYear)
+                                </td>
+                                <td>
+                                    @if (item.Status == SessionStatus.Current)
+                                    {
+                                        <span class="label label-success">@item.Status</span>
+                                    }
+                                    else if (item.Status == SessionStatus.Used)
+                                    {
+                                        <span class="label label-primary">@item.Status</span>
+                                    }
+                                    else if (item.Status == SessionStatus.NotUsed)
+                                    {
+                                        <span class="label label-warning">@item.Status</span>
+                                    }
+
+
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Update Principal Name", "Edit", new { id = item.Id }, new { @class = "btn btn-primary" })
+                                    @if (User.IsInRole("SuperAdmin") || User.IsInRole("Edittor"))
+                                    {
+
+                                        @Html.ActionLink("Super Edit", "SuperEdit", new { id = item.Id }, new { @class = "btn btn-primary" })
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+</div>
+<div class="modal fade" id="modal-session">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Notification</h4>
+            </div>
+            <div class="modal-body">
+                <p>Sussion Unavialable</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<div class="modal modal-success fade" id="modal-success">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Success Modal</h4>
+            </div>
+            <div class="modal-body">
+                <p>One fine body&hellip;</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-outline">Save changes</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+@section Scripts {
+    <!-- DataTables -->
+    <script src="http://v1.exwhyzee.ng/admin/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="http://v1.exwhyzee.ng/admin/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+
+}
+
+@section Scripts2 {
+    <script>
+        $(function () {
+            $('#example1').DataTable()
+            $('#example2').DataTable({
+                'paging': true,
+                'lengthChange': false,
+                'searching': false,
+                'ordering': true,
+                'info': true,
+                'autoWidth': false
+            })
+        })
+    </script>
+}
+

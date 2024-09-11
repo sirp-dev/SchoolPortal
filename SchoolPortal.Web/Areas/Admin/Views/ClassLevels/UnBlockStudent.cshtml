@@ -1,0 +1,50 @@
+﻿@model SchoolPortal.Web.Models.Entities.Defaulter
+@using SchoolPortal.Web.Areas.Service
+@{
+    ViewBag.Title = "UnBlock";
+}
+
+ 
+
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <div class="box box-default">
+            <div class="box-header with-border">
+                <i class="fa fa-warning"></i>
+
+                <h3 class="box-title">UnBlock @GeneralService.StudentorPupil()</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <div class="alert alert-danger alert-dismissible">
+
+                    <h4>
+                        <i class="icon fa fa-ban"></i> Alert! You want to Unblock @GeneralService.StudentorPupil()?
+                    </h4>
+                    
+                    @using (Html.BeginForm())
+                    {
+                        @*@*@Html.AntiForgeryToken()*@*@
+
+                        <div class="form-actions no-color btn-delete">
+                            <input type="submit" value="Unblock Student" class="btn btn-default" /> &nbsp;
+                            <a href="javascript: history.back()" class="btn btn-default">Cancel</a>
+
+                        </div>
+                    }
+
+
+                </div>
+
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+    <!-- /.col -->
+
+
+    <div class="col-md-3"></div>
+
+</div>

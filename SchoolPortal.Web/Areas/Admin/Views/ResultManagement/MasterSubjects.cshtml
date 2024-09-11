@@ -1,0 +1,94 @@
+﻿@model IEnumerable<SchoolPortal.Web.Models.Dtos.EnrolledStudentsByClassDto>
+
+
+@using SchoolPortal.Web.Areas.Service
+
+
+@foreach (var subn in ViewBag.listx)
+{
+    if (GeneralService.IsPrintOutThree() == true && (GeneralService.TotalStudentCAScore(ViewBag.idc) == null || GeneralService.TotalStudentCAScore(ViewBag.idc) == 0))
+    {
+        <td>
+            @if (subn.TotalCA == 0)
+            {
+
+                if (subn.TestScore == 0)
+                {
+                    <text>-</text>
+                }
+                else
+                {
+                    @Math.Round(subn.TestScore ?? 0)
+
+                }
+            }
+            else
+            {
+                @Math.Round(subn.TotalCA ?? 0)
+
+            }
+        </td>
+    }
+    else if (GeneralService.TotalStudentCAScore(ViewBag.idc) != null || GeneralService.TotalStudentCAScore(ViewBag.idc) != 0)
+    {
+        <td>
+            @if (subn.TotalCA == 0)
+            {
+                if (subn.TestScore == 0)
+                {
+                    <text>-</text>
+                }
+                else
+                {
+                    @Math.Round(subn.TestScore ?? 0)
+
+                }
+            }
+            else
+            {
+                @Math.Round(subn.TotalCA ?? 0)
+
+            }
+        </td>
+    }
+    else
+    {
+        <td>
+            @if (subn.TestScore == 0)
+            {
+                <text> -</text>
+            }
+            else
+            {
+                @Math.Round(subn.TestScore ?? 0)
+
+            }
+        </td>
+    }
+
+    <td>
+        @if (subn.ExamScore == 0)
+        {
+            <text>-</text>
+        }
+        else
+        {
+            @Math.Round(subn.ExamScore ?? 0)
+
+        }
+
+    </td>
+    <td>
+        @if (subn.TotalScore == 0)
+        {
+            <text>-</text>
+        }
+        else
+        {
+            @Math.Round(subn.TotalScore ?? 0)
+
+        }
+
+    </td>
+}
+

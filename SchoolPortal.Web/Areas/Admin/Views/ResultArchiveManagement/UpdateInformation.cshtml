@@ -1,0 +1,187 @@
+﻿@model SchoolPortal.Web.Models.Entities.RecognitiveDomain
+
+@{
+    ViewBag.Title = "UpdateInformation";
+}
+
+
+<div class="row">
+    <!-- left column -->
+
+    <div class="col-md-12">
+        <!-- general form elements -->
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Update Recognitive Domain</h3>
+
+                @if (TempData["message"] != null)
+                {
+                    <div class="alert alert-success alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                        @TempData["message"]
+                    </div>
+                }
+                @if (TempData["error"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                        @TempData["error"]
+                    </div>
+                }
+            </div>
+
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="table-responsive">
+                            <table class="table table-success table-bordered" style="background-color:#3c8dbc; color:#ffffff;">
+                                <tr>
+                                    <th>Rememberance</th>
+                                    <td>@Model.Rememberance</td>
+                                </tr>
+                                <tr>
+                                    <th>Understanding</th>
+                                    <td>@Model.Understanding</td>
+                                </tr>
+                                <tr>
+                                    <th>Application</th>
+                                    <td>@Model.Application</td>
+                                </tr>
+                                <tr>
+                                    <th>Analyzing</th>
+                                    <td>@Model.Analyzing</td>
+                                </tr>
+                                <tr>
+                                    <th>Evaluation</th>
+                                    <td>@Model.Evaluation</td>
+
+                                </tr>
+                                <tr>
+                                    <th>Creativity</th>
+                                    <td>@Model.Creativity</td>
+                                </tr>
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- /.box-body -->
+            <!-- /.box -->
+
+
+            @using (Html.BeginForm())
+            {
+                @*@Html.AntiForgeryToken()*@
+                <div class="box-body">
+
+
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.Id)
+                    @Html.HiddenFor(model => model.EnrolmentId)
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Rememberance, htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+                            <select name="Rememberance" class="form-control">
+                                <option value="Excellent">Excellent</option>
+                                <option value="Very Good">Very Good</option>
+                                <option value="Good">Good</option>
+                                <option value="Pass">Pass</option>
+                                <option value="Fair">Fair</option>
+                                <option value="Fail">Fail</option>
+                            </select>
+                            @Html.ValidationMessageFor(model => model.Rememberance, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Understanding, htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+                            <select name="Understanding" class="form-control">
+                                <option value="Excellent">Excellent</option>
+                                <option value="Very Good">Very Good</option>
+                                <option value="Good">Good</option>
+                                <option value="Pass">Pass</option>
+                                <option value="Fair">Fair</option>
+                                <option value="Fail">Fail</option>
+                            </select>
+                            @Html.ValidationMessageFor(model => model.Understanding, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Application, htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+                            <select name="Application" class="form-control">
+                                <option value="Excellent">Excellent</option>
+                                <option value="Very Good">Very Good</option>
+                                <option value="Good">Good</option>
+                                <option value="Pass">Pass</option>
+                                <option value="Fair">Fair</option>
+                                <option value="Fail">Fail</option>
+
+
+                            </select>
+                            @Html.ValidationMessageFor(model => model.Application, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Analyzing, htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+                            <select name="Analyzing" class="form-control">
+                                <option value="Excellent">Excellent</option>
+                                <option value="Very Good">Very Good</option>
+                                <option value="Good">Good</option>
+                                <option value="Pass">Pass</option>
+                                <option value="Fair">Fair</option>
+                                <option value="Fail">Fail</option>
+                            </select>                                        @Html.ValidationMessageFor(model => model.Analyzing, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Evaluation, htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+                            <select name="Evaluation" class="form-control">
+                                <option value="Excellent">Excellent</option>
+                                <option value="Very Good">Very Good</option>
+                                <option value="Good">Good</option>
+                                <option value="Pass">Pass</option>
+                                <option value="Fair">Fair</option>
+                                <option value="Fail">Fail</option>
+                            </select>                                        @Html.ValidationMessageFor(model => model.Evaluation, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Creativity, htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+                            <select name="Creativity" class="form-control">
+                                <option value="Excellent">Excellent</option>
+                                <option value="Very Good">Very Good</option>
+                                <option value="Good">Good</option>
+                                <option value="Pass">Pass</option>
+                                <option value="Fair">Fair</option>
+                                <option value="Fail">Fail</option>
+                            </select>                                        @Html.ValidationMessageFor(model => model.Creativity, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+
+
+                </div>
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <a href="javascript: history.back()" class="btn btn-default">Cancel</a>
+                </div>
+            }
+        </div>
+    </div>
+</div>

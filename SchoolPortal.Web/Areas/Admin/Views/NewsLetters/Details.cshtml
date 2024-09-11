@@ -1,0 +1,48 @@
+﻿@model SchoolPortal.Web.Models.Entities.NewsLetter
+
+@{
+    ViewBag.Title = "Details";
+}
+
+
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <div class="box box-default">
+            <div class="box-header with-border">
+
+                <h3 class="box-title">Details of News Letter </h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.GenRemark)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.GenRemark)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.NextTResumptionDate)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.NextTResumptionDate)
+                    </dd>
+
+
+                </dl>
+
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+    <!-- /.col -->
+
+
+    <div class="col-md-3"></div>
+
+</div>

@@ -1,0 +1,123 @@
+﻿@model SchoolPortal.Web.Models.Entities.Finance
+
+@{
+    ViewBag.Title = "Bank Payment";
+}
+
+<div class="row no-print">
+    <!-- left column -->
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <!-- general form elements -->
+        <!-- Table row -->
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Bank Statement</h3>
+            </div>
+            <div class="table-responsive" style="padding:20px;">
+                
+                    @foreach (var bank in ViewBag.bank)
+                    {<table class="table table-striped">
+    <tr>
+        <th>Account Name</th>
+        <td>@bank.AccountName</td>
+    </tr>
+    <tr>
+        <th>Bank Name</th>
+        <td>@bank.BankName</td>
+    </tr>
+    <tr>
+        <th>Account Number</th>
+        <td>@bank.BankAccountNumber</td>
+    </tr>
+
+</table>
+    }
+
+
+
+            </div>
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</div>
+<div class="row no-print">
+    <!-- left column -->
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <!-- general form elements -->
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">New Bank Payment (Cash Flow IN)</h3>
+                @if (TempData["error"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                        @TempData["error"]<br />
+                        @TempData["error1"]
+                    </div>
+                }
+                @if (TempData["success"] != null)
+                {
+                    <div class="alert alert-success alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <strong>@Html.Raw(TempData["success"])</strong>
+                    </div>
+                }
+            </div>
+
+            @using (Html.BeginForm("MakeBankPayment", "Payment", FormMethod.Post, new { @class = "", enctype = "multipart/form-data", area = "Financial" }))
+            {
+                @*@Html.AntiForgeryToken()*@
+                <input type="hidden" name="id" value="@ViewBag.InvoiceId" />
+                @Html.HiddenFor(model => model.Id)
+
+                <div class="box-body">
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+
+                    <div class="form-group">
+                        @Html.Label("Enter Teller Number", new { @class = "control-label" })
+                        <div class="">
+                            @Html.EditorFor(model => model.ReferenceId, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.ReferenceId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <a href="javascript: history.back()" class="btn btn-default">Cancel</a>
+                </div>
+
+            }
+        </div>
+
+    </div>
+    <div class="col-md-2"></div>
+
+</div>
+
+@using SchoolPortal.Web.Areas.Service
+@{
+
+    string url = HttpContext.Current.Request.Url.AbsoluteUri;
+    Logger.log(User.Identity.Name, url.ToString());
+
+}
+@section Scripts {
+        @**@
+
+
+
+    <script src="http://v1.exwhyzee.ng/admin/main.js"></script>
+}
+
+

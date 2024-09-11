@@ -1,0 +1,406 @@
+﻿
+@model IEnumerable<SchoolPortal.Web.Models.Dtos.EnrolledSubjectDto>
+@using SchoolPortal.Web.Areas.Service
+@{
+    ViewBag.Title = "Offline";
+    int n = 0;
+
+}
+
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box" style="padding:7px;">
+            <div class="box-header" style="margin-bottom:15px;">
+
+                <h3 class="box-title" style="text-transform:uppercase;"><i class="fa fa-fw fa-users"></i> @GeneralService.StudentorPupil()<span>'s</span> LIST</h3>
+                @if (TempData["error"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                        @Html.Raw(TempData["error"])
+                    </div>
+                }
+                @if (TempData["msg"] != null)
+                {
+                    <div class="alert alert-success alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                        @TempData["msg"]
+                    </div>
+                }
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <table class="table table-success table-bordered" style="background-color:#3c8dbc; color:#ffffff;">
+                            <tr>
+                                <th colspan="2" class="text-center">Offline Information</th>
+
+                            </tr>
+
+                        </table>
+                        @using (Html.BeginForm("Offline", "Panel", new { id = ViewBag.Id, area = "Staff" }, FormMethod.Post))
+                        {
+                            @*@Html.AntiForgeryToken()*@
+
+                            <div class="box-body">
+
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+
+
+                                <div class="form-group">
+                                    Session
+                                    <div class="">
+                                        @Html.DropDownList("sessionId", ViewBag.session as SelectList, "Select a Session", new { id = "", @class = "form-control" })
+
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    Class
+                                    <div class="">
+                                        @Html.DropDownList("classListId", ViewBag.classList as SelectList, "Select a Class", new { id = "classname", @class = "form-control" })
+
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    Subject
+                                    <div class="">
+
+                                        <select id="subject" name="subId" class="form-control"></select>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="box-footer">
+                                <button type="submit" class="btn btn-primary">Fetch @GeneralService.StudentorPupil()</button>
+
+                            </div>
+
+                        }
+                    </div>
+                    <div class="col-md-6">
+                        <div class="">
+                            <div class="">
+                                <button class="btn btn-primary" id="button-a" style="padding:40px 10px;width:100%;margin-bottom:20px;">Download Offline Result Sheet</button>
+                                @if (GeneralService.IsPrintOutThree() == true)
+                                {
+                                    using (Html.BeginForm("Import2", "Panel", new { subId = ViewBag.SubjectId, sessionId = ViewBag.SessionId }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                    {
+
+                                        <input type="file" class="form-control" name="excelfile" style="margin-bottom:20px;" />
+                                        <input type="submit" value="Upload" class="btn btn-sm btn-primary" style="width:100%;" />
+
+                                    }
+
+                                }
+                                else
+                                {
+                                    using (Html.BeginForm("Import", "Panel", new { subId = ViewBag.SubjectId, sessionId = ViewBag.SessionId }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                    {
+
+                                        <input type="file" class="form-control" name="excelfile" style="margin-bottom:20px;" />
+                                        <input type="submit" value="Upload" class="btn btn-sm btn-primary" style="width:100%;" />
+
+                                    }
+                                }
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            @if (ViewBag.notfound == true)
+            {
+                <table class="table table-hover">
+
+                    <thead>
+                        <tr>
+                            <th>No Record Found</th>
+                        </tr>
+                    </thead>
+
+                </table>
+            }
+            else
+            {
+                <hr style="border:2px solid #3c8dbc;" />
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="box-body table-responsive">
+                            <table class="table table-success table-bordered" style="background-color:#3c8dbc; color:#ffffff;">
+                                <tr>
+                                    <th colspan="2" class="text-center">CLASS DETAILS</th>
+
+                                </tr>
+                                <tr>
+                                    <th>Class</th>
+                                    <td>@ViewBag.Class</td>
+                                </tr>
+                                <tr>
+                                    <th>Subject</th>
+                                    <td>@ViewBag.Subject</td>
+                                </tr>
+                                <tr>
+                                    <th>Session</th>
+                                    <td>@ViewBag.SessionOne</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+
+                    </div>
+
+
+                </div>
+
+                <div id="divTableDataHolder" class="box-body table-responsive no-padding">
+                    <input type="text" value="@ViewBag.Class-@ViewBag.Subject-@ViewBag.SessionOne" id="fullname" />
+                    <table id="mytable" class="table table-hover" border="1">
+                        <tr>
+                            <td colspan="6">  @ViewBag.Class | @ViewBag.Subject | @ViewBag.SessionOne (Assessment = @ViewBag.acc) (Exam = @ViewBag.exam)</td>
+                        </tr>
+                        <thead>
+
+
+                            <tr>
+                                <th>S/N</th>
+                                <th>
+                                    Full Name
+                                </th>
+                                <th>
+                                    Unique Id
+                                </th>
+                                <th>
+                                    Reg. NO.
+                                </th>
+                                @if (GeneralService.IsPrintOutThree() == true)
+                                {
+
+
+                                    <th>
+                                        Project
+                                    </th>
+
+
+                                    <th>
+                                        Class Exercise
+                                    </th>
+
+
+                                    <th>
+                                        1st Test
+                                    </th>
+
+
+                                    <th>
+                                        2nd Test
+                                    </th>
+
+
+                                    <th>
+                                        Assessment
+                                    </th>
+
+
+                                    <th>
+                                        Exam Score
+                                    </th>
+                                }
+                                else
+                                {
+
+                                    @*if (GeneralService.EnabledProjectScore() == true)
+                                        {
+                                            <th>
+                                                Project
+                                            </th>
+                                        }
+
+                                        if (GeneralService.EnabledClassExerciseScore() == true)
+                                        {
+                                            <th>
+                                                Class Exercise
+                                            </th>
+                                        }
+
+                                        if (GeneralService.EnabledTestScore() == true)
+                                        {
+                                            <th>
+                                                1st Test
+                                            </th>
+                                        }
+
+                                        if (GeneralService.EnabledTestScore2() == true)
+                                        {
+                                            <th>
+                                                2nd Test
+                                            </th>
+                                        }
+
+                                        if (GeneralService.EnabledAssessmentScore() == true)
+                                        {
+                                            <th>
+                                                Assessment
+                                            </th>
+                                        }
+                                        if (GeneralService.EnabledExamScore() == true)
+                                        {
+                                            <th>
+                                                Exam Score
+                                            </th>
+                                        }*@
+
+
+                                    <th>
+                                        Assessment Score
+                                    </th>
+                                    <th>
+                                        Exam Score
+                                    </th>
+                                }
+
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    @{n++;}
+                                    <td>@n</td>
+                                    <td>
+                                        @item.FullName
+                                    </td>
+                                    <td>
+                                        @item.Id
+
+                                    </td>
+
+                                    <td>
+                                        @GeneralService.RegNumByEnrolId(item.Enrollments.StudentProfileId)
+                                    </td>
+                                    @if (GeneralService.IsPrintOutThree() == true)
+                                    {
+                                        <td class="">
+                                            @Html.DisplayFor(modelItem => item.Project)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ClassExercise)
+
+                                        </td>
+                                        <td class="">
+                                            @Html.DisplayFor(modelItem => item.TestScore)
+
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.TestScore2)
+
+                                        </td>
+                                        <td class="">
+                                            @Html.DisplayFor(modelItem => item.Assessment)
+
+
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ExamScore)
+
+                                        </td>
+                                    }
+                                    else
+                                    {
+
+
+                                        <td class="">
+                                            @Html.DisplayFor(modelItem => item.TestScore)
+
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ExamScore)
+
+                                        </td>
+                                    }
+
+
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                </div>
+            }
+
+            <!-- /.box-header -->
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+</div>
+
+
+@section Scripts {
+
+
+}
+
+
+
+
+
+@section Style {
+
+
+}
+
+
+@section Scripts2 {
+        @**@
+
+
+    <script lang="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.15.1/xlsx.full.min.js"></script>
+    <script src="http://v1.exwhyzee.ng/Content/FileSaver.js-master/FileSaver.js-master/dist/FileSaver.min.js"></script>
+    <script>
+        var wb = XLSX.utils.table_to_book(document.getElementById('mytable'), { sheet: "Sheet JS" });
+        var wbout = XLSX.write(wb, { bookType: 'xlsx', bookSST: true, type: 'binary' });
+        function s2ab(s) {
+            var buf = new ArrayBuffer(s.length);
+            var view = new Uint8Array(buf);
+            for (var i = 0; i < s.length; i++) view[i] = s.charCodeAt(i) & 0xFF;
+            return buf;
+        }
+        $("#button-a").click(function () {
+            console.log(document.getElementById('fullname').value)
+
+            saveAs(new Blob([s2ab(wbout)], { type: "application/octet-stream" }), document.getElementById('fullname').value + '.xlsx');
+        });
+    </script>
+
+
+    <script type="text/jscript">
+        $(function () {
+            $('#classname').change(function () {
+                $.getJSON('/Staff/Panel/SubjectList/' + $('#classname').val(), function (data) {
+                    var items = '<option>Select a Subject</option>';
+                    $.each(data, function (i, local) {
+                        items += "<option value='" + local.Value + "'>" + local.Text + "</option>";
+                    });
+                    console.log(data)
+                    $('#subject').html(items);
+                });
+            });
+        });
+    </script>
+
+    <script src="http://v1.exwhyzee.ng/admin/main.js"></script>
+
+}
+

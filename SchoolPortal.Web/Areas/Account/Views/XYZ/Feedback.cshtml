@@ -1,0 +1,14 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Login.cshtml";
+
+    ViewBag.Title = "Feedback";
+}
+
+    <div class="login-box animated fadeIn" style="margin-top:1.4em;padding:1em 1em;border-radius:0;">
+        <h2 style="padding:0 0 0 0;text-align:center;">Request Submitted Successfully</h2>
+
+        <p>Kindly check your phone or email for login details if your data was correct and validated within 5min</p>
+       
+        <p>Did not receive text, <a href="@Url.Action("FindProfile", "Account")">Request again</a> or  <a href="http://@ViewBag.url">Go to Home</a></p>
+    </div>

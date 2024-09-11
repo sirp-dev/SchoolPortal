@@ -1,0 +1,67 @@
+﻿@model SchoolPortal.Web.Models.Entities.SchoolAccount
+
+@{
+    ViewBag.Title = "Details";
+}
+
+
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <div class="box box-default">
+            <div class="box-header with-border">
+
+                <h3 class="box-title">Details of School Account </h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.AcctPurpose)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.AcctPurpose)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.AcctName)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.AcctName)
+                    </dd>
+
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.BankName)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.BankName)
+                    </dd>
+
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.AcctNumber)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.AcctNumber)
+                    </dd>
+
+
+
+                </dl>
+
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+    <!-- /.col -->
+
+
+    <div class="col-md-3"></div>
+
+</div>

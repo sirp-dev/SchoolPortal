@@ -1,0 +1,60 @@
+﻿@model IEnumerable<SchoolPortal.Web.Models.Dtos.EnrolledSubjectDto>
+@using SchoolPortal.Web.Areas.Service;
+@{
+    ViewBag.Title = "Subject Result Sheet";
+    int sn = 0;
+}
+<div class="box box-primary">
+    <div class="box-header with-border">
+        <h3 class="box-title">
+        Position of @GeneralService.StudentorPupil() in @ViewBag.info.ClassLevel.ClassName that offered @ViewBag.info.SubjectName
+            </h3>
+        </div>
+        <div id="divTableDataHolder" class="box-body table-responsive no-padding">
+
+
+            <table id="studentRecord" class="table">
+
+                <tr>
+                    <th>Position</th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TotalScore)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FullName)
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.Regnumber)
+                    </th>
+
+
+
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        @{sn++;}
+                        <td>@sn</td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TotalScore)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FullName)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Regnumber)
+                        </td>
+
+
+
+                    </tr>
+                }
+
+            </table>
+        </div>
+    </div>
+
+

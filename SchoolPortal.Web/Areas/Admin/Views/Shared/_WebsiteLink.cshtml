@@ -1,0 +1,17 @@
+﻿
+@using SchoolPortal.Web.Areas.Service
+<li class="treeview">
+    <a href="#">
+        <i class="fa fa-bookmark-o"></i> <span> Click if Having issue</span>
+        <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+        </span>
+    </a>
+    <ul class="treeview-menu">
+        <li><a href="@Url.Action("Create", "Tickets", new { area = "Admin" })"><i class="fa fa-info-circle"></i> <span> New Complaint</span></a></li>
+        <li><a href="@Url.Action("Index", "Tickets", new { area = "Admin" })"><i class="fa fa-bookmark"></i> <span> All Complaints</span></a></li>
+
+    </ul>
+</li>
+
+<li><a href="http://@GeneralService.WebsiteLink()/" target="_blank"><i class="fa fa-home"></i> <span>Home</span></a></li>

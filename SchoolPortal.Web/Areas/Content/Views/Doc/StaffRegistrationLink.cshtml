@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewBag.Title = "StaffRegistrationLink";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+
+    string link = ViewBag.link + "/Admin/UserManagers/StaffRegistration";
+
+}
+
+<div class="row">
+    <!-- left column -->
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <!-- general form elements -->
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Staff Registration Link</h3>
+
+            </div>
+
+
+            <div class="box-body">
+
+                <h4>Kindly Copy the link and send to your staff to register in the portal.</h4>
+
+                <p>
+                    <span id="linktxt" style="word-break:break-all;"> @link</span> <button onclick="copyToClipboard('#linktxt')" class="btn btn-default">Copy text</button>
+                </p>
+            </div>
+            <div class="box-footer">
+                @* <a href="whatsapp://send?text=@link" data-action="share/whatsapp/share">Share via Whatsapp</a>*@
+                <a class="btn" style="background-color:#0dc143;color:#ffffff;" href="https://wa.me/?text=@link follow this link to register as @ViewBag.name" data-action="share/whatsapp/share">Share via Whatsapp</a>
+
+                <a href="javascript: history.back()" class="btn btn-default">Cancel</a>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="col-md-3"></div>
+
+</div>
+
+@section Scripts2 {
+
+    <script>
+        function copyToClipboard(element) {
+            var $temp = $("<input>");
+            $("body").append($temp);
+            $temp.val($(element).text()).select();
+            document.execCommand("copy");
+            $temp.remove();
+        }
+    </script>
+}
+

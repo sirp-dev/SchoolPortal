@@ -1,0 +1,75 @@
+﻿<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>Portal | Log in @ViewBag.sch</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="" />
+
+    <link href="http://v1.exwhyzee.ng/admin/login2/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="http://v1.exwhyzee.ng/admin/login2/css/hover-min.css" rel="stylesheet" />
+    <!-- Custom Theme files -->
+
+    <link href="http://v1.exwhyzee.ng/admin/login2/css/school.css" rel="stylesheet" />
+    <link rel="icon" href="data:image/jpg;base64,@(Convert.ToBase64String(ViewBag.schimage))" type="image/jpg">
+
+    @*<link rel="icon" href="http://v1.exwhyzee.ng/admin/schoolportal.png" type="image/jpg">*@
+    <link href="http://v1.exwhyzee.ng/admin/login2/css/animate.min.css" rel="stylesheet" />
+    @if (ViewBag.bg != null)
+    {
+        <style>
+        body {
+            background: linear-gradient(0deg,rgba(128, 128, 128, 0.95),rgba(128, 128, 128, 0.85)),url(data:image/jpg;base64,@(Convert.ToBase64String(ViewBag.bg)));
+            background-size: cover;
+
+        }
+
+        </style>
+    }
+    else
+    {
+        <style></style>
+    }
+    <style>
+        b {
+            color: rgb(128, 128, 128)
+        }
+    </style>
+</head>
+    
+
+<body>
+    <div class="text-center animated  fadeInDown">
+        @if (ViewBag.schimage != null)
+        {
+        <div style="border-radius: 50%;padding:20px;">
+            <img class="text-center logoPad img-responsive" src="data:image/jpg;base64,@(Convert.ToBase64String(ViewBag.schimage))" style="max-height:120px;padding:25px;border-radius: 50%;">
+        </div> 
+        }
+        else
+        {
+
+        }
+    </div>
+
+    <h4 class="text-center text-info animated fadeInDown" style="font-weight:900;color:#000000 !important;">WELCOME TO @ViewBag.sch</h4>
+    <div class="login-box animated fadeIn">
+        <h2>Login into your portal</h2>
+
+        @RenderBody()
+    </div>
+
+    @*<div class="text-center">
+            <p> <a href="DirectResult.html" class="hvr-grow text-info"><strong> Check Result </strong></a></p>
+        </div>*@
+
+    <footer>
+        <p class="text-center"><a href="http://www.exwhyzee.ng"><small>Powered By: Exwhyzee Technologies  Ltd </small></a></p>
+    </footer>
+    <script src="http://v1.exwhyzee.ng/admin/login2/js/jquery.min.js"></script>
+    <script src="http://v1.exwhyzee.ng/admin/login2/js/bootstrap.min.js"></script>
+    <script src="http://v1.exwhyzee.ng/admin/login2/js/bootstrap.bundle.min.js"></script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

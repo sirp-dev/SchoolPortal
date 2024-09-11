@@ -1,0 +1,143 @@
+﻿@model SchoolPortal.Web.Models.Entities.CategoryPage
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="row">
+    <!-- left column -->
+    <div class="col-md-12">
+        <!-- general form elements -->
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Edit style content Page</h3>
+                @if (TempData["error"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                        @Html.Raw(TempData["error"])
+                    </div>
+                }
+            </div>
+            @using (Html.BeginForm())
+            {
+                @*@Html.AntiForgeryToken()*@
+
+                <div class="box-body">
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.Id)
+                    @Html.HiddenFor(model => model.Publish)
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+                            @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.MenuDescription, htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+                            @Html.EnumDropDownListFor(model => model.MenuDescription, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.MenuDescription, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.SortOrder, htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+                            @Html.EditorFor(model => model.SortOrder, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.SortOrder, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                   
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ShowInHome, htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+                            <div class="">
+                                @Html.EditorFor(model => model.ShowInHome)
+                                @Html.ValidationMessageFor(model => model.ShowInHome, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ContentHome, htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+                            <textarea name="ContentHome" class="form-control" rows="20">
+            @Model.ContentHome
+</textarea>
+                            @Html.ValidationMessageFor(model => model.ContentHome, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                     <div class="form-group">
+                        @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+                            <textarea name="Content" class="form-control" rows="20">
+            @Model.Content
+</textarea>
+                            @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.MetaTage, htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+                            @Html.EditorFor(model => model.MetaTage, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.MetaTage, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.MetaDescription, htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+                            @Html.EditorFor(model => model.MetaDescription, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.MetaDescription, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.MetaKeyword, htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+                            @Html.EditorFor(model => model.MetaKeyword, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.MetaKeyword, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>if this page will be redirecting to a main page place the url of the page here.</label>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.RedirectUrl, htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+                            @Html.EditorFor(model => model.RedirectUrl, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.RedirectUrl, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                </div>
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <a href="javascript: history.back()" class="btn btn-default">Cancel</a>
+                </div>
+
+            }
+        </div>
+
+    </div>
+
+</div>
+
+
+
+@section Scripts2 {
+
+    
+  
+}

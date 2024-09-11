@@ -1,0 +1,105 @@
+﻿
+@model IEnumerable<SchoolPortal.Web.Models.Dtos.EnrolledStudentsByClassDto>
+@using SchoolPortal.Web.Areas.Service
+@{
+    ViewBag.Title = GeneralService.StudentorPupil() + "s In Class";
+    int sn = 0;
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box" style="padding:7px;">
+            <div class="box-header" style="margin-bottom:15px;">
+
+                <h3 class="box-title"><i class="fa fa-fw fa-file-text-o"></i> @GeneralService.StudentorPupil()<span>s</span> In Class</h3>
+
+            </div>
+            <div class="box-body">
+                @if (TempData["Report"] != null)
+                {
+                    <div class="alert alert-success alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <strong>@TempData["Report"]</strong>
+                    </div>
+                }
+                @if (TempData["Error"] != null)
+                {
+                    <div class="alert alert-success alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <strong>@TempData["Error"]</strong>
+                    </div>
+                }
+            </div>
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="box-body table-responsive">
+                        <table class="table table-success table-bordered" style="background-color:#3c8dbc; color:#ffffff;">
+                            <tr>
+                                <th colspan="2">Class Info</th>
+
+                            </tr>
+                            <tr>
+                                <th>Class</th>
+                                <td>@ViewBag.classname</td>
+                            </tr>
+                            <tr>
+                                <th>Number of @GeneralService.StudentorPupil()<span>s</span></th>
+                                <td>@Model.Count()</td>
+                            </tr>
+                            <tr>
+                                <th>Session</th>
+                                <td>@ViewBag.session</td>
+                            </tr>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+                <table class="table table-hover">
+
+                    <tr>
+                        <th>S/N</th>
+                        <th>
+                            NAME
+                        </th>
+                        <th>
+                            REG. NUMBER
+                        </th>
+
+
+                        <th></th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            @{sn++;}
+                            <td>@sn</td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.StudentName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.StudentRegNumber)
+                            </td>
+
+
+                            <td>
+                                @Html.ActionLink("Details", "StudentProfile", "StudentProfiles", new { id = item.StudentId, area = "Admin" }, new { @class = "btn btn-success" })
+
+                                @if (User.IsInRole("SuperAdmin") || User.IsInRole("Edittor"))
+                                {
+                                    @Html.ActionLink("Edit", "EditWardUser", new { id = item.StudentId, cid = ViewBag.ClassId }, new { @class = "btn btn-primary" })
+                                }
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            </div>
+
+        </div>
+        <!-- /.box -->
+    </div>
+</div>

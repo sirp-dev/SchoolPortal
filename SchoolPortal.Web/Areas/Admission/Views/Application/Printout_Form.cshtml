@@ -1,0 +1,163 @@
+﻿@model SchoolPortal.Web.Models.Dtos.StudentDataDto
+@using SchoolPortal.Web.Areas.Service
+
+@{
+    ViewBag.Title = "Admission Application Prinout";
+
+    if (User.Identity.IsAuthenticated)
+    {
+        Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    }
+    else
+    {
+        Layout = "~/Areas/Admin/Views/Shared/_View.cshtml";
+    }
+}
+
+
+<div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+
+                <div id="test">
+
+                    <table style="width:100%; border:0; text-align:left; margin-left:auto; margin-right:auto; margin-top:2px; text-align:center; line-height:2em">
+                        <tr>
+                            <td>
+                                <img src="data:image/jpg;base64,@(Convert.ToBase64String(ViewBag.Logo))" alt="image" style='height:140px; display:block' />
+                            </td>
+                            <td>
+                                <h2>@ViewBag.Name</h2>
+                                <h3>@ViewBag.Slogan</h3>
+                                <br />
+                                <h2>@GeneralService.StudentorPupil() Admission Printout</h2>
+                            </td>
+                            <td>
+
+                                <div style="border:solid 1px black;">
+                                    @*<h3>ATTACH YOUR PASSPORT PHOTO</h3>*@
+                                    @if (Model.Image != null)
+                                    {
+                                        <img src="data:image/jpg;base64,@(Convert.ToBase64String(Model.Image))" class="img-responsive" style="margin-left:auto;margin-right:auto;max-height:300px;max-width:120px;" />
+
+                                    }
+                                    else
+                                    {
+                                        <img src="" class="img-circle img-responsive" style="margin-left:auto;margin-right:auto;max-height:300px;max-width:300px;" alt="ATTACH YOUR PASSPORT PHOTO" />
+
+                                    }
+                                </div>
+                            </td>
+                        </tr>
+
+
+                    </table>
+                    <hr />
+                    <table style="width:80%;margin-left:auto;margin-right:auto; font-size:13px;">
+
+                        <tr>
+                            <td>Registration Number:</td>
+                            <td style="font-weight:bold"> @Html.DisplayFor(model => model.RegistrationNumber)</td>
+                        </tr>
+                        <tr>
+                            <td>Surname:</td>
+                            <td style="font-weight:bold"> @Html.DisplayFor(model => model.Surname)</td>
+                        </tr>
+                        <tr>
+                            <td>Other Names:</td>
+                            <td style="font-weight:bold"> @Html.DisplayFor(model => model.FirstName) &nbsp;&nbsp; @Html.DisplayFor(model => model.OtherNames)</td>
+                        </tr>
+
+
+                        <tr>
+                            <td>Date Of Birth:</td>
+                            <td style="font-weight:bold"> @Model.DateOfBirth.GetValueOrDefault().ToString("dd MMM, yyyy")</td>
+                        </tr>
+                        <tr>
+                            <td>Gender:</td>
+                            <td style="font-weight:bold">@Html.DisplayFor(model => model.LastPrimarySchoolAttended)</td>
+                        </tr>
+                        <tr>
+                            <td>Nationality:</td>
+                            <td style="font-weight:bold">@Html.DisplayFor(model => model.Nationality)</td>
+                        </tr>
+                        <tr>
+                            <td>State Of Origin:</td>
+                            <td style="font-weight:bold"> @Html.DisplayFor(model => model.StateOfOrigin)</td>
+                        </tr>
+                        <tr>
+                            <td>Local Gov:</td>
+                            <td style="font-weight:bold">@Html.DisplayFor(model => model.LocalGov)</td>
+                        </tr>
+                        <tr>
+                            <td>Name of Parents/Guardian:</td>
+                            <td style="font-weight:bold">@Html.DisplayFor(model => model.NameOfParents)</td>
+                        </tr>
+                        <tr>
+                            <td>Phone Number: </td>
+                            <td style="font-weight:bold"> @Html.DisplayFor(model => model.PhoneNumberOfParents)</td>
+                        </tr>
+                        <tr>
+                            <td>Parents/Guardian Address:</td>
+                            <td style="font-weight:bold">@Html.DisplayFor(model => model.ParentsAddress)</td>
+                        </tr>
+                        <tr>
+                            <td>Permanent Address:</td>
+                            <td style="font-weight:bold">@Html.DisplayFor(model => model.ParentsAddress)</td>
+                        </tr>
+
+                        <tr>
+                            <td>Exam Centre:</td>
+                            @*<td style="font-weight:bold">@Html.DisplayFor(model => model.ExamCenter)</td>*@
+
+                            <td style="font-weight:bold">
+                                @ViewBag.Exam.ScreeningVenue
+                            </td>
+
+                        </tr>
+
+                        <tr>
+                            <td>Emergency Contact:</td>
+                            <td style="font-weight:bold">@Html.DisplayFor(model => model.EmergencyContact)</td>
+                        </tr>
+
+
+                    </table>
+                    <hr />
+                    <div style="margin-left:auto;margin-right:auto; width:16%"><a href="" class="btn btn-primary" onclick="printSelection(document.getElementById('test'));return false">Print</a>  @*| <a class="btn btn-primary" href="@Url.Action("Index","FillForm")">Done</a>*@</div>
+                    <hr />
+                    <div>
+                        <p style="font-weight:bold; color:red; text-align:center;">Date of Registration: @Model.ApplicationDate.ToString() </p>
+
+                        <p style="text-align:center;">
+                            Thanks for your interest. Your application has been submitted. The Date for the Entrance examination is @ViewBag.Exam.ScreeningDate @ViewBag.Exam.ScreeningTime. Come with your writing materials.
+                        </p>
+
+
+                    </div>
+                    <br />
+                    <br />
+                </div>
+            </div>
+        </div>
+
+        <script type="text/javascript">
+
+            function printSelection(node) {
+
+                var content = node.innerHTML
+                var pwin = window.open('', 'print_content', 'width=600,height=500');
+
+                pwin.document.open();
+                pwin.document.write('<html><body onload="window.print()">' + content + '</body></html>');
+                pwin.document.close();
+
+                setTimeout(function () { pwin.close(); }, 1000);
+
+            }
+        </script>
+    </div>
+</div>
+

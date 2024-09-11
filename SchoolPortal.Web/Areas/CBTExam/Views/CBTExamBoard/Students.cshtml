@@ -1,0 +1,157 @@
+﻿@model IEnumerable<SchoolPortal.Web.Models.Dtos.Api.CBTExaminationDto>
+@using SchoolPortal.Web.Areas.Service
+@using SchoolPortal.Web.Models.Entities
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box" style="padding:7px;">
+            <div class="box-header" style="margin-bottom:15px;">
+                <h3 class="box-title"><i class="fa fa-fw fa-file-text-o"></i> Student Schedule Examination </h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+
+                <table id="example1" class="table table-bordered table-hover" border="1">
+                    <thead>
+                        <tr>
+                            <th>S/No</th>
+                            <th>Class Name</th>
+                            <th>
+                                FullName
+                            </th>
+                            <th>
+                                Duration
+                            </th>
+                            <th>
+                                Session/Term
+                            </th>
+
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @{
+                            int sno = 0;
+                            TimeSpan duration;
+                        }
+                        @if (ViewBag.data != null)
+                        {
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @{ sno++; }
+                                        @sno
+                                    </td>
+                                    <td>@item.ClassName</td>
+
+                                    <td>
+                                        @item.FullName
+                                    </td>
+                                    <td>
+                                        @item.Duration
+                                    </td>
+                                    <td>
+                                        @item.Session - @item.Term
+                                    </td>
+
+                                    <td>
+
+                                        @if (item.Status == ExamStatus.NotStarted)
+                                        {
+                                            <a href="#" class="btn btn-primary">
+                                                Not Taken Exam
+                                            </a>
+                                        }
+                                        else if (item.Status == ExamStatus.Started)
+                                        {
+                                            <a href="#" class="btn btn-success">
+                                                Started Exam
+                                            </a>
+                                        }
+                                        else if (item.Status == ExamStatus.Completed)
+                                        {
+                                            <a class="btn btn-success" href="http://@GeneralService.PortalLink()/CBTExam/CBTExamBoard/StudentScore?examId=@item.Id&unixconverify=@User.Identity.Name&xgink=@GeneralService.PortalLink()&role=superadmin"><i class="fa fa-eye"></i>View Student Score </a>
+
+                                        }
+
+                                    </td>
+
+                                </tr>
+
+
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="9" style="text-align:center;">No Data Yet!</td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+
+    <div id="studentModal1" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    @*<h4 class="modal-title">Access Denied</h4>*@
+                    <div class="alert alert-danger alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title"><i class="icon fa fa-ban"></i> Alert!</h4>
+                        Access Denied
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <p>You cannot take this examination,please contact the school administrator for more information!</p>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+    @section Style {
+
+        <link rel="stylesheet" href="http://v1.exwhyzee.ng/admin/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+
+    }
+
+    @section Scripts {
+        <!-- DataTables -->
+        <script src="http://v1.exwhyzee.ng/admin/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+        <script src="http://v1.exwhyzee.ng/admin/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+
+    }
+
+    @section Scripts2 {
+        <script>
+            $(function () {
+                $('#example1').DataTable()
+                $('#example2').DataTable({
+                    'paging': true,
+                    'lengthChange': false,
+                    'searching': false,
+                    'ordering': true,
+                    'info': true,
+                    'autoWidth': false
+                })
+            })
+        </script>
+    }
+
+</div>

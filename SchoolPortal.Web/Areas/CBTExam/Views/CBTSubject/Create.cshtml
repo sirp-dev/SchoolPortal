@@ -1,0 +1,74 @@
+﻿@model SchoolPortal.Web.Models.Entities.SubjectModel
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+    <div class="row">
+        <!-- left column -->
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <!-- general form elements -->
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Add Subject</h3>
+                    @if (TempData["error"] != null)
+                    {
+                        <div class="alert alert-danger alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                            @TempData["error"]
+                        </div>
+                    }
+                </div>
+
+
+                @using (Html.BeginForm("Create", "CBTSubject", FormMethod.Post, new { role = "form" }))
+                {
+                    @*@Html.AntiForgeryToken()*@
+
+                    <input type="hidden" name="xgink" value="@ViewBag.xgink" />
+                    <input type="hidden" name="unixconverify" value="@ViewBag.unixconverify" />
+                    <input type="hidden" name="role" value="@ViewBag.role" />
+                    @*<input type="hidden" name="classId" value="@ViewBag.classId" />*@
+
+
+                    @*@Html.AntiForgeryToken()*@
+
+                    <div class="box-body">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ClassModelId, "Class", htmlAttributes: new { @class = "control-label" })
+                            <div class="">
+                                @Html.DropDownListFor(model => model.ClassModelId, ViewBag.classId as SelectList, "Select a Class", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.ClassModelId, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Name, "Subject", htmlAttributes: new { @class = "control-label" })
+                            <div class="">
+                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <a href="javascript: history.back()" class="btn btn-default">Cancel</a>
+                    </div>
+                }
+
+
+            </div>
+            <div class="col-md-1"></div>
+
+        </div>
+        </div>
+
+        @section Scripts {
+                
+        }

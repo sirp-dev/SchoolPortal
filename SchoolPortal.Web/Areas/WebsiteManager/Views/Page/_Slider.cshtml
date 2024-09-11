@@ -1,0 +1,54 @@
+﻿@model IEnumerable<SchoolPortal.Web.Models.Entities.ImageSlider>
+
+<link rel="stylesheet" href="http://v1.exwhyzee.ng/nivo-slider/themes/default/default.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="http://v1.exwhyzee.ng/nivo-slider/themes/default/default.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="http://v1.exwhyzee.ng/nivo-slider/themes/light/light.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="http://v1.exwhyzee.ng/nivo-slider/themes/dark/dark.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="http://v1.exwhyzee.ng/nivo-slider/themes/bar/bar.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="http://v1.exwhyzee.ng/nivo-slider/nivo-slider.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="http://v1.exwhyzee.ng/nivo-slider/demo/style.css" type="text/css" media="screen" />
+
+
+
+<section class="slider-container">
+    <div class="slider-wrapper theme-default">
+
+        <div id="slider" class="nivoSlider">
+
+            @foreach (var image in ViewBag.slider)
+            {
+                if (image.Content != null)
+                {
+
+                    <img data-u="image" src="data:image/jpg;base64,@(Convert.ToBase64String(image.Content))" data-thumb="data:image/jpg;base64,@(Convert.ToBase64String(image.Content))" alt="" />
+
+
+                }
+            }
+
+        </div>
+    </div>
+</section>
+
+@section SliderFooterArea {
+
+   
+<script type="text/javascript" src="http://v1.exwhyzee.ng/nivo-slider/jquery.nivo.slider.js"></script>
+<script type="text/javascript">
+    //$(window).load(function () {
+    //    $('#slider').nivoSlider();
+
+
+    //});
+    $(window).load(function () {
+        $('#slider').nivoSlider({
+
+            animSpeed: 4000,                   // Slide transition speed
+            pauseTime: 9000,                  // How long each slide will show
+            controlNav: false,                // 1,2,3... navigation
+
+        });
+    });
+</script>
+    }
+

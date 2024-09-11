@@ -1,0 +1,109 @@
+﻿
+@{
+    ViewBag.Title = "Access";
+    Layout = "~/Areas/Account/Views/Shared/_LoginLayout.cshtml";
+
+}
+<div class="login-box animated fadeIn" style="margin-top:1.4em;padding:1em 1em;border-radius:0;">
+    <h2 style="padding:0 0 0 0;text-align:center;">Enter access code</h2>
+
+    <h1 id="demo1"></h1>
+    @if (ViewBag.error == null)
+    {
+        using (Html.BeginForm("TwoFactorLogin", "XYZ", new { area = "Account" }, FormMethod.Post))
+        {
+            <input type="hidden" name="username" value="@TempData["iname"]" />
+            <div class="form-group">
+                <input type="text" name="passcode" class="form-control" placeholder="Pass Code">
+            </div>
+            <div class="form-group">
+                @*<button type="submit" class="btn-md btn btn-block btn-danger">Verify</button>*@
+                <button type="submit" class="btn btn-danger btn-md hvr-pulse-grow hvr-bounce-to-bottom btn-block " data-toggle="">Verify</button>
+            </div>
+
+        }
+    }
+    else
+    {
+        <h4 style="color:#ff0000;">@ViewBag.error</h4>
+        <h1 id="demo"></h1>
+        <script>
+        window.setTimeout(function () {
+            window.location.href = '@Url.Action("Login", "XYZ", new { id = ViewBag.idd, area="Account" })';
+        }, 40000);
+        </script>
+
+
+
+        <script>
+            // Set the date we're counting down to
+
+            var t = new Date();
+            t.setSeconds(t.getSeconds() + 5);
+            var countDownDate = t;
+            // Update the count down every 1 second
+            var x = setInterval(function () {
+
+                // Get today's date and time
+                var now = new Date().getTime();
+
+                // Find the distance between now and the count down date
+                var distance = countDownDate - now;
+
+                // Time calculations for days, hours, minutes and seconds
+                var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                // Display the result in the element with id="demo"
+                document.getElementById("demo").innerHTML = "Redirect in " + seconds + "s ";
+
+                // If the count down is finished, write some text
+                if (distance < 0) {
+                    clearInterval(x);
+                    document.getElementById("demo1").innerHTML = "<a href='http://localhost:61390/Account/Login'>Login</a>";
+
+
+                }
+            }, 10000);
+        </script>
+
+
+    }
+    </div>
+    <br />
+
+    <script>
+    // Set the date we're counting down to
+
+    var t = new Date();
+    t.setSeconds(t.getSeconds() + 60);
+    var countDownDate = t;
+    // Update the count down every 1 second
+    var x = setInterval(function () {
+
+        // Get today's date and time
+        var now = new Date().getTime();
+
+        // Find the distance between now and the count down date
+        var distance = countDownDate - now;
+
+        // Time calculations for days, hours, minutes and seconds
+        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        // Display the result in the element with id="demo"
+        document.getElementById("demo1").innerHTML = "Timeout in " + seconds + "s ";
+
+        // If the count down is finished, write some text
+        if (distance < 0) {
+            clearInterval(x);
+             window.setTimeout(function () {
+            window.location.href = '@Url.Action("Login", "XYZ", new { id = ViewBag.idd, area="Account" })';
+        }, 0);
+        }
+    }, 1000);
+    </script>

@@ -1,0 +1,185 @@
+﻿
+@model IEnumerable<SchoolPortal.Web.Models.Dtos.ClassLevelListDto>
+@using SchoolPortal.Web.Areas.Service
+@{
+    ViewBag.Title = "StudentsInTerm";
+}
+
+
+<div class="row noprint">
+    <!-- left column -->
+
+    <div class="col-md-12 noprint">
+        <!-- general form elements -->
+        <div class="box box-primary noprint">
+            <div class="box-header with-border noprint">
+                <h3 class="box-title">Select a term to see @GeneralService.StudentorPupil()s</h3>
+                @if (TempData["error"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                        @TempData["error"]
+                    </div>
+                }
+            </div>
+            @using (Html.BeginForm("StudentsInTerm", "Doc", new { area = "Content" }, FormMethod.Post))
+            {
+                @*@Html.AntiForgeryToken()*@
+
+                <div class="box-body">
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Session</label>
+                                <div class="">
+                                    @Html.DropDownList("sessionId", ViewBag.sessionId as List<SelectListItem>, "Select a term", new { id = "", @class = "form-control" })
+
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">List @GeneralService.StudentorPupil()</button>
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+
+
+            }
+        </div>
+
+
+
+    </div>
+</div>
+<style>
+    #studentRecord tr, td, th {
+        padding: 2px !important;
+    }
+</style>
+@if (Model != null)
+{
+
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box" style="padding:7px;">
+                <div class="box-header noprint" style="margin-bottom:15px;">
+
+                    <h3 class="box-title noprint" style="text-transform:uppercase;"><i class="fa fa-fw fa-users"></i> Student List</h3>
+
+                </div>
+
+                <div class="box-header noprint">
+
+                    @if (TempData["msg"] != null)
+                    {
+                        <div class="alert alert-success alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                            @TempData["msg"]
+                        </div>
+                    }
+
+
+                </div>
+
+
+                <div id="" class="box-body table-responsive no-padding">
+                    @if (ViewBag.session != null)
+                    {
+
+
+                        foreach (var item in Model)
+                        {
+                            /// ViewBag.sessionId
+
+                            <h3 class="box-title">@item.ClassLevelName</h3>
+                            <h5>Form Teacher (@item.FormTeacher)</h5>
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-hover" border="1">
+                                    <tr>
+                                        <th>S/N</th>
+                                        <th>Username</th>
+                                        <th>Fullname</th>
+                                        <th>Registration Number</th>
+                                        @if (User.IsInRole("Admin") || User.IsInRole("SuperAdmin"))
+                                        {
+                                            <th>Action</th>
+                                        }
+                                    </tr>
+                                    @{int sno = 0;
+                                    }
+                                    @foreach (var students in GeneralService.StudentlistByTerm(item.Id, ViewBag.session))
+                                    {
+                                        if (GeneralService.Studentlist(item.Id).Count() > 0)
+                                        {
+                                            <tr>
+                                                @{ sno++; }
+
+                                                <td>@sno</td>
+                                                <td>@students.StudentProfile.user.UserName</td>
+                                                <td>@students.StudentProfile.user.Surname @students.StudentProfile.user.FirstName @students.StudentProfile.user.OtherName</td>
+                                                <td>@students.StudentProfile.StudentRegNumber</td>
+                                                @if (User.IsInRole("SuperAdmin") || User.IsInRole("Admin"))
+                                                {
+                                                    <td>
+                                                        @Html.ActionLink("Edit", "EditInfo", new { id = students.StudentProfile.UserId }, new { @class = "btn btn-warning" })
+
+                                                        @if (User.IsInRole("SuperAdmin"))
+                                                        {
+
+                                                            @Html.ActionLink("Remove " + GeneralService.StudentorPupil(), "Removefromsession", "Doc", new { id = students.Id }, new { @class = "btn btn-info" })
+
+                                                        }
+                                                    </td>
+                                                }
+
+
+
+                                            </tr>
+                                        }
+                                        else if (GeneralService.Studentlist(item.Id).Count() < 0)
+                                        {
+
+                                            <tr>
+                                                <th colspan="4" style="text-align:center;">No record Found</th>
+                                            </tr>
+                                        }
+
+
+                                    }
+                                </table>
+                                <br clear="all" style="page-break-before:always !important;" />
+                            </div>
+
+                        }
+                    }
+                    else
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover" border="1">
+                                <tr>
+                                    <th colspan="5">Choose a session/term</th>
+
+                                </tr>
+
+                            </table>
+
+                        </div>
+                    }
+
+                </div>
+
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </div>
+    </div>
+
+}

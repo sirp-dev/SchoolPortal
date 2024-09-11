@@ -1,0 +1,156 @@
+﻿@model IEnumerable<SchoolPortal.Web.Models.Dtos.SchoolSessionDto>
+@using SchoolPortal.Web.Areas.Service
+
+@{
+    ViewBag.Title = "ResultIndex";
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box" style="padding:7px;">
+            <div class="box-header" style="margin-bottom:15px;">
+                <div class="pull-right">
+                    @Html.ActionLink("Back", "Subject", null, new { @class = "btn btn-small btn-primary" })
+                </div>
+                <h3 class="box-title"><i class="fa fa-fw fa-list-alt"></i> RESULT MANAGEMENT</h3>
+                @if (TempData["error"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                        @TempData["error"]
+
+                    </div>
+                }
+
+            </div>
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="box-body table-responsive">
+                        <table class="table table-success table-bordered" style="background-color:#3c8dbc; color:#ffffff;">
+                            <tr>
+                                <th colspan="2">SELECT SESSION/TERM</th>
+
+                            </tr>
+                            <tr>
+                                <th>Subject</th>
+                                <td>@ViewBag.SubjectName</td>
+                            </tr>
+                            <tr>
+                                <th>Class</th>
+                                <td>@ViewBag.ClassName</td>
+                            </tr>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+                <table id="example1" class="table table-bordered table-hover" border="1">
+
+                    <thead>
+                        <tr>
+                            <th>S/N</th>
+                            <th>
+                                SESSION
+                            </th>
+                            <th>
+                                Status
+                            </th>
+                            <th>ACTION</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            int sno = 0;
+                        }
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @{ sno++; }
+                                    @sno
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.FullSession)
+                                </td>
+                                <td>@Html.DisplayFor(modelItem => item.SessionStatus)</td>
+                                <td>
+                                    @if (item.SessionStatus == SchoolPortal.Web.Models.Entities.SessionStatus.Current)
+                                    {
+                                        var checkprint = GeneralService.IsPrintOutThree();
+                                        if (checkprint == true)
+                                        {
+
+                                            @Html.ActionLink("Continue", "StudentsList2", new { subId = ViewBag.SubjectsId, sessionId = item.Id }, new { @class = "btn btn-small btn-success" })
+                                        }
+                                        else
+                                        {
+
+                                            @Html.ActionLink("Continue", "StudentsList", new { subId = ViewBag.SubjectsId, sessionId = item.Id }, new { @class = "btn btn-small btn-success" })
+                                        }
+
+
+                                    }
+                                    else
+                                    {
+                                        var checkprint = GeneralService.IsPrintOutThree();
+                                        if (checkprint == true)
+                                        {
+                                            @Html.ActionLink("Continue", "StudentsList2", new { subId = ViewBag.SubjectsId, sessionId = item.Id }, new { @class = "btn btn-small btn-primary" })
+                                        }
+                                        else
+                                        {
+                                            @Html.ActionLink("Continue", "StudentsList", new { subId = ViewBag.SubjectsId, sessionId = item.Id }, new { @class = "btn btn-small btn-primary" })
+                                        }
+
+
+                                    }
+
+                                </td>
+
+
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+</div>
+
+
+
+@section Style {
+
+    <link rel="stylesheet" href="http://v1.exwhyzee.ng/admin/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+}
+
+@section Scripts {
+    <!-- DataTables -->
+    <script src="http://v1.exwhyzee.ng/admin/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="http://v1.exwhyzee.ng/admin/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+
+}
+
+@section Scripts2 {
+    <script>
+        $(function () {
+            $('#example1').DataTable()
+            $('#example2').DataTable({
+                'paging': true,
+                'lengthChange': false,
+                'searching': false,
+                'ordering': true,
+                'info': true,
+                'autoWidth': false
+            })
+        })
+    </script>
+}
+
+

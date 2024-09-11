@@ -1,0 +1,149 @@
+﻿@model IEnumerable<SchoolPortal.Web.Models.Entities.Assignment>
+
+@{
+    ViewBag.Title = "ClassAssignment";
+}
+
+
+
+<div class="row">
+    <div class="col-xs-12">
+
+        <div class="box">
+            <div class="box-header">
+                <h3>Class Assignment for @ViewBag.classInfo  @Html.ActionLink("Add Assignment", "AddAssignment","Panel", new { classId = ViewBag.classId, area="Staff", ReturnUrl = ViewContext.HttpContext.Request.Url.PathAndQuery }, new { @class = "btn btn-primary" })</h3>
+            </div>
+            <div class="box-body">
+                @if (TempData["success"] != null)
+                {
+                    <div class="alert alert-success alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <strong>@TempData["success"]</strong>
+                    </div>
+                }
+                @if (TempData["error"] != null)
+                {
+                    <div class="alert alert-success alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <strong>@TempData["error"]</strong>
+                    </div>
+                }
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive">
+                <table id="example1" class="table table-bordered table-hover" border="1">
+                    <thead>
+                        <tr>
+
+                            <th>S/N</th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Subject.SubjectName)
+                            </th>
+                            <th>Title</th>
+                            <th>
+                                Date Created
+                            </th>
+                            <th>Published</th>
+                            <th>
+                                Date Submition Ends
+                            </th>
+                            <th>Total Submitted</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            int sno = 0;
+                        }
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @{ sno++; }
+                                    @sno
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Subject.SubjectName)
+                                </td>
+                                <td>@item.Title</td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DateCreated)
+                                </td>
+                                <td>@Html.DisplayFor(modelitem => item.IsPublished)</td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DateSubmitionEnds)
+                                </td>
+                                <td>@item.AssignmentAnswers.Count()</td>
+                                <td>
+
+                                    <div class="dropdown">
+                                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                                            Action
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" style="border-left:1px dotted #337ab7;">
+                                            @if (item.IsPublished == true)
+                                            {
+                                                <li class="">@Html.ActionLink("Unpublish", "PublishOrUnpublish", "Panel", new { id = item.Id, ClassId = item.ClassLevelId, subjectId = item.SubjectId, area = "Staff", ReturnUrl = ViewContext.HttpContext.Request.Url.PathAndQuery }, null)</li>
+
+                                            }
+                                            else
+                                            {
+                                                <li class="">@Html.ActionLink("publish", "PublishOrUnpublish", "Panel", new { id = item.Id, ClassId = item.ClassLevelId, subjectId = item.SubjectId, area = "Staff", ReturnUrl = ViewContext.HttpContext.Request.Url.PathAndQuery }, null)</li>
+
+                                            }
+                                            <li class="text-color-success">@Html.ActionLink("Details", "AssignmentDetail", "Panel", new { id = item.Id, area = "Staff", ReturnUrl = ViewContext.HttpContext.Request.Url.PathAndQuery }, null)</li>
+                                            <li class="text-color-danger">@Html.ActionLink("Submitted Assignments", "AnsweredAssignment", "Panel", new { classId = item.ClassLevelId, assId = item.Id, area = "Staff", ReturnUrl = ViewContext.HttpContext.Request.Url.PathAndQuery }, null)</li>
+
+                                        </ul>
+                                    </div>
+
+                                </td>
+                            </tr>
+                          
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+    <!-- /.col -->
+</div>
+<!-- /.modal -->
+
+
+
+
+
+@section Style {
+
+    <link rel="stylesheet" href="http://v1.exwhyzee.ng/admin/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+}
+
+@section Scripts {
+    <!-- DataTables -->
+    <script src="http://v1.exwhyzee.ng/admin/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="http://v1.exwhyzee.ng/admin/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+
+}
+
+@section Scripts2 {
+    <script>
+        $(function () {
+            $('#example1').DataTable()
+            $('#example2').DataTable({
+                'paging': true,
+                'lengthChange': false,
+                'searching': false,
+                'ordering': true,
+                'info': true,
+                'autoWidth': false
+            })
+        })
+    </script>
+
+}
+

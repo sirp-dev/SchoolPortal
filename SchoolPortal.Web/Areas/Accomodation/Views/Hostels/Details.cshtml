@@ -1,0 +1,55 @@
+﻿@model SchoolPortal.Web.Models.Entities.Hostel
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <div class="box box-default">
+            <div class="box-header with-border">
+
+                <h3 class="box-title">Hostel Details</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Name)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.HostelType)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.HostelType)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Status)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Status)
+                    </dd>
+                </dl>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+    <!-- /.col -->
+
+
+    <div class="col-md-3"></div>
+
+</div>
+

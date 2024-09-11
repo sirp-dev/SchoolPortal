@@ -1,0 +1,600 @@
+﻿@model IEnumerable<SchoolPortal.Web.Models.Dtos.SubjectListDto>
+@using SchoolPortal.Web.Areas.Service
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<style>
+    #detailstable .table > tbody > tr > td,
+    #detailstable .table > tbody > tr > th,
+    #detailstable .table > tfoot > tr > td,
+    #detailstable .table > tfoot > tr > th,
+    #detailstable .table > thead > tr > td,
+    #detailstable .table > thead > tr > th {
+        padding: 2px 8px;
+        font-size: 12px;
+        font-weight: 800;
+    }
+</style>
+
+<div class="row">
+    <!-- left column -->
+
+    <div class="col-md-12">
+        <!-- general form elements -->
+
+        @if (Request.Browser.IsMobileDevice == true)
+        {
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Class Details @TempData["subs"] </h3>
+                    @if (TempData["subs"] != null)
+                    {
+                        <div class="alert alert-warning alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                            @TempData["subs"]
+                        </div>
+                    }
+                    @if (TempData["error"] != null)
+                    {
+                        <div class="alert alert-danger alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                            @TempData["error"]
+                        </div>
+                    }
+                    @if (TempData["error1"] != null)
+                    {
+                        <div class="alert alert-danger alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                            @TempData["error1"]
+                        </div>
+                    }
+                    @if (TempData["msg"] != null)
+                    {
+                        <div class="alert alert-success alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                            @TempData["msg"]
+                        </div>
+                    }
+                    @if (ViewBag.mess != null)
+                    {
+                        <div class="alert alert-primary alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                            @ViewBag.mess
+                        </div>
+                    }
+
+                    @if (ViewBag.Class.NumberOfStudents == 0)
+                    {
+                        <div class="alert alert-danger alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                            No @GeneralService.StudentorPupil() Enrolled in this Class
+                        </div>
+                    }
+
+                </div>
+                <div class="box-body">
+                    <p>
+                        Class Name: @ViewBag.Class.ClassName
+                    </p>
+
+                    <p>
+                        Form Teacher: @ViewBag.Class.FormTeacher
+                    </p>
+
+                </div>
+                <div class="box-body">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-mobile btn-primary" data-toggle="modal" data-target="#modalclass">
+                            More Class Info
+                        </button>
+                        @Html.ActionLink("Subjects", "ClassSubject", new { id = ViewBag.Class.Id }, new { @class = "btn btn-mobile btn-primary" })
+                        @if (ViewBag.Class.NumberOfStudents == 0)
+                        {
+
+                            <a href="" class="btn btn-mobile btn-primary.disabled" disabled="disabled">@GeneralService.StudentorPupil()<span>s</span></a>
+                        }
+                        else
+                        {
+
+                            <a href="@Url.Action("Students", new { id = ViewBag.Class.Id })" class="btn btn-mobile btn-primary">@GeneralService.StudentorPupil()<span>s</span></a>
+
+                        }
+
+                    </div>
+                </div>
+                <div class="modal fade" id="modalclass">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <h4 class="modal-title">Class Details</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div>
+                                    <p>
+                                        Class Name
+                                        :
+                                        @ViewBag.Class.ClassName
+                                    </p>
+
+                                    <p>
+                                        Form Teacher
+                                        :
+                                        @ViewBag.Class.FormTeacher
+                                    </p>
+
+                                    <p>
+                                        Number of @GeneralService.StudentorPupil()<span>s</span>
+
+                                        : @ViewBag.Class.NumberOfStudents
+                                    </p>
+                                    <p>
+                                        number of Subjects
+                                        : @ViewBag.Class.NumberOfSubjects
+                                    </p>
+                                    <p>
+                                        Passmark
+                                        : @ViewBag.Class.Passmark
+                                    </p>
+                                    <p>
+                                        Mark for Promotion on Trial
+                                        : @ViewBag.Class.PromotionByTrial
+                                    </p>
+                                    <p>
+                                        Accessment Score
+                                        : @ViewBag.Class.AccessmentScore
+                                    </p>
+                                    <p>
+                                        Exam Score
+                                        : @ViewBag.Class.ExamScore
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+
+                            </div>
+                        </div>
+                        <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                </div>
+                <!-- /.modal -->
+            </div>
+        }
+        else
+        {
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Class Details</h3>
+                    @if (TempData["error"] != null)
+                    {
+                        <div class="alert alert-danger alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                            @TempData["error"]
+                        </div>
+                    }
+                    @if (TempData["error1"] != null)
+                    {
+                        <div class="alert alert-danger alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                            @TempData["error1"]
+                        </div>
+                    }
+                    @if (TempData["msg"] != null)
+                    {
+                        <div class="alert alert-success alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                            @TempData["msg"]
+                        </div>
+                    }
+                    @if (ViewBag.mess != null)
+                    {
+                        <div class="alert alert-primary alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                            @ViewBag.mess
+                        </div>
+                    }
+
+                    @if (ViewBag.Class.NumberOfStudents == 0)
+                    {
+                        <div class="alert alert-danger alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                            No @GeneralService.StudentorPupil() Enrolled in this Class
+                        </div>
+                    }
+
+                </div>
+
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="table-responsive" id="detailstable">
+                                <table class="table table-success table-bordered" style="background-color:#3c8dbc; color:#ffffff;">
+                                    <tr>
+                                        <th>Class</th>
+                                        <td>@ViewBag.Class.ClassName</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Form Teacher</th>
+                                        <td>@ViewBag.Class.FormTeacher</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Number of @GeneralService.StudentorPupil()<span>s</span></th>
+                                        <td>@ViewBag.Class.NumberOfStudents</td>
+                                    </tr>
+                                    <tr>
+                                        <th>number of Subjects</th>
+                                        <td>@ViewBag.Class.NumberOfSubjects</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Passmark</th>
+                                        <td>@ViewBag.Class.Passmark</td>
+
+                                    </tr>
+                                    <tr>
+                                        <th>Mark for Promotion on Trial</th>
+                                        <td>@ViewBag.Class.PromotionByTrial</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Accessment Score</th>
+                                        <td>@ViewBag.Class.AccessmentScore</td>
+
+                                    </tr>
+                                    <tr>
+                                        <th>Exam Score</th>
+                                        <td>@ViewBag.Class.ExamScore</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="btn-group pull-right">
+                        @if (User.IsInRole("SuperAdmin") || User.IsInRole("Admin") || User.IsInRole("Edittor"))
+                        {
+                            @Html.ActionLink("Add New Subject", "AddSubject", new { id = ViewBag.Class.Id }, new { @class = "btn btn-primary" })
+
+                        }
+                        @if (User.IsInRole("SuperAdmin") || User.IsInRole("Edittor"))
+                        {
+                            @Html.ActionLink("Edit Class Level", "EditClass", new { id = ViewBag.Class.Id }, new { @class = "btn btn-primary" })
+                        }
+
+                        @if (ViewBag.Class.NumberOfStudents == 0)
+                        {
+
+                            <a href="" class="btn btn-primary.disabled" disabled="disabled">@GeneralService.StudentorPupil()<span>s</span></a>
+                            @Html.ActionLink("Promote " + GeneralService.StudentorPupil(), "StudentPromotion", new { classId = ViewBag.Class.Id }, new { @class = "btn btn-success" })
+
+                        }
+                        else
+                        {
+
+                            <a href="@Url.Action("Students", new { id = ViewBag.Class.Id })" class="btn btn-primary">@GeneralService.StudentorPupil()<span>s</span></a>
+
+                        }
+                        @Html.ActionLink("Assignment", "ClassAssignment", new { classId = ViewBag.Class.Id }, new { @class = "btn btn-primary" })
+                        @Html.ActionLink("Attendance", "Attendance", new { id = ViewBag.Class.Id }, new { @class = "btn btn-primary" })
+                        @Html.ActionLink("Back To Class List", "Index", null, new { @class = "btn btn-primary" })
+                        @if (User.IsInRole("SuperAdmin"))
+                        {
+
+                            @*@Html.ActionLink("Remove Duplicate Enroll Subject", "RemoveDuplicateEnrolledSubject", new { id = ViewBag.Class.Id }, new { @class = "btn btn-danger" })*@
+                            @Html.ActionLink("Delete Class", "DeleteClass", new { id = ViewBag.Class.Id }, new { @class = "btn btn-danger" })
+                            @Html.ActionLink("Not Offered", "NotOffered", new { id = ViewBag.Class.Id }, new { @class = "btn btn-danger" })
+                            @*@Html.ActionLink("Remove Subject With Different ID", "NotClassSubjectEnrolled", new { id = ViewBag.Class.Id }, new { @class = "btn btn-danger" })*@
+                            @*@Html.ActionLink("Del", "DelSubjectsInClass", new { id = ViewBag.Class.Id }, new { @class = "btn btn-danger" })
+
+            @Html.ActionLink("Del all users in class", "DeleteAllUser", "AdminUser", new { id = ViewBag.Class.Id, area = "SuperUser" }, new { @class = "btn btn-danger" })*@
+                            <a href="@Url.Action("MoveClassEnrol","Doc", new {area="Content", id = ViewBag.Class.Id })" class="btn btn-danger">Move @GeneralService.StudentorPupil()</a>
+                        }
+                    </div>
+
+                </div>
+
+                <!-- /.box-body -->
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-xs-12">
+
+
+                            <!-- /.box -->
+
+                            <div class="nav-tabs-custom">
+                                <ul class="nav nav-tabs">
+                                    <li class="active"><a href="#tab_1" data-toggle="tab">Subjects</a></li>
+                                    <li><a href="#tab_2" data-toggle="tab">Time Table</a></li>
+
+                                </ul>
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="tab_1">
+                                        <div class="box box-primary">
+                                            <div class="box-header">
+                                                <h3 class="box-title">Subjects</h3>
+
+
+                                            </div>
+                                            <!-- /.box-header -->
+                                            <div class="box-body table-responsive no-padding">
+                                                <table class="table table-hover">
+                                                    <tr>
+                                                        <th>
+
+                                                            Subject Name
+                                                        </th>
+                                                        <th>
+                                                            Teacher
+                                                        </th>
+
+                                                        <th></th>
+                                                    </tr>
+
+                                                    @foreach (var item in Model)
+                                                    {
+                                                        if (User.IsInRole("SuperAdmin") && item.ShowSubject == false)
+                                                        {
+                                                            <tr>
+                                                                <td>
+                                                                    @item.SubjectName
+                                                                </td>
+                                                                <td>
+                                                                    @item.FormTeacher
+                                                                </td>
+
+                                                                <td>
+
+                                                                    <div class="btn-group pull-right">
+
+                                                                        @Html.ActionLink("Edit", "EditSubject", new { id = item.SubjectId }, new { @class = "btn btn-primary" })
+
+                                                                        @if (User.IsInRole("SuperAdmin"))
+                                                                        {
+                                                                            @Html.ActionLink("Delete", "DeleteSubject", new { id = item.SubjectId }, new { @class = "btn btn-primary" })
+
+                                                                        }
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        }
+                                                        else if (item.ShowSubject == true)
+                                                        {
+                                                            <tr>
+                                                                <td>
+                                                                    @item.SubjectName
+                                                                </td>
+                                                                <td>
+                                                                    @item.FormTeacher
+                                                                </td>
+
+                                                                <td>
+
+                                                                    <div class="btn-group pull-right">
+                                                                        @if (User.IsInRole("SuperAdmin") || User.IsInRole("Edittor"))
+                                                                        {
+                                                                            @Html.ActionLink("Edit", "EditSubject", new { id = item.SubjectId }, new { @class = "btn btn-primary" })
+                                                                        }
+                                                                        @if (User.IsInRole("SuperAdmin") || User.IsInRole("Delettor"))
+                                                                        {
+                                                                            @Html.ActionLink("Delete", "DeleteSubject", new { id = item.SubjectId }, new { @class = "btn btn-primary" })
+
+                                                                        }
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        }
+
+
+                                                    }
+                                                </table>
+                                            </div>
+                                            <!-- /.box-body -->
+                                        </div>
+                                    </div>
+                                    <!-- /.tab-pane -->
+                                    <div class="tab-pane" id="tab_2">
+                                        <div class="box box-primary">
+                                            <div class="box-header">
+                                                <h3 class="box-title">Time Table</h3>
+
+
+                                            </div>
+                                            <!-- /.box-header -->
+                                            <style>
+                                                .timetable tr td {
+                                                    border: 1px solid #464646 !important;
+                                                }
+                                            </style>
+                                            <div class="box-body table-responsive no-padding timetable">
+                                                <table class="table table-hover table-bordered">
+                                                    <tr>
+                                                        <td>Days</td>
+                                                        <td>@ViewBag.time.Time6_7</td>
+                                                        <td>@ViewBag.time.Time7_8</td>
+                                                        <td>@ViewBag.time.Time8_9</td>
+                                                        <td>@ViewBag.time.Time9_10</td>
+                                                        <td>@ViewBag.time.Time10_11</td>
+                                                        <td>@ViewBag.time.Time11_12</td>
+                                                        <td>@ViewBag.time.Time12_13</td>
+                                                        <td>@ViewBag.time.Time13_14</td>
+                                                        <td>@ViewBag.time.Time14_15</td>
+                                                        <td>@ViewBag.time.Time15_16</td>
+                                                        <td>@ViewBag.time.Time16_17</td>
+                                                        <td>@ViewBag.time.Time17_18</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>@ViewBag.time.Monday</td>
+                                                        <td>@ViewBag.time.M6_7</td>
+                                                        <td>@ViewBag.time.M7_8</td>
+                                                        <td>@ViewBag.time.M8_9</td>
+                                                        <td>@ViewBag.time.M9_10</td>
+                                                        <td>@ViewBag.time.M10_11</td>
+                                                        <td>@ViewBag.time.M11_12</td>
+                                                        <td>@ViewBag.time.M12_13</td>
+                                                        <td>@ViewBag.time.M13_14</td>
+                                                        <td>@ViewBag.time.M14_15</td>
+                                                        <td>@ViewBag.time.M15_16</td>
+                                                        <td>@ViewBag.time.M16_17</td>
+                                                        <td>@ViewBag.time.M17_18</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>@ViewBag.time.Tuesday</td>
+                                                        <td>@ViewBag.time.T6_7</td>
+                                                        <td>@ViewBag.time.T7_8</td>
+                                                        <td>@ViewBag.time.T8_9</td>
+                                                        <td>@ViewBag.time.T9_10</td>
+                                                        <td>@ViewBag.time.T10_11</td>
+                                                        <td>@ViewBag.time.T11_12</td>
+                                                        <td>@ViewBag.time.T12_13</td>
+                                                        <td>@ViewBag.time.T13_14</td>
+                                                        <td>@ViewBag.time.T14_15</td>
+                                                        <td>@ViewBag.time.T15_16</td>
+                                                        <td>@ViewBag.time.T16_17</td>
+                                                        <td>@ViewBag.time.T17_18</td>
+
+
+                                                    </tr>
+                                                    <tr>
+
+                                                        <td>@ViewBag.time.Wednessday</td>
+                                                        <td>@ViewBag.time.W6_7</td>
+                                                        <td>@ViewBag.time.W7_8</td>
+                                                        <td>@ViewBag.time.W8_9</td>
+                                                        <td>@ViewBag.time.W9_10</td>
+                                                        <td>@ViewBag.time.W10_11</td>
+                                                        <td>@ViewBag.time.W11_12</td>
+                                                        <td>@ViewBag.time.W12_13</td>
+                                                        <td>@ViewBag.time.W13_14</td>
+                                                        <td>@ViewBag.time.W14_15</td>
+                                                        <td>@ViewBag.time.W15_16</td>
+                                                        <td>@ViewBag.time.W16_17</td>
+                                                        <td>@ViewBag.time.W17_18</td>
+                                                    </tr>
+                                                    <tr>
+
+                                                        <td>@ViewBag.time.Thursday</td>
+                                                        <td>@ViewBag.time.Th6_7</td>
+                                                        <td>@ViewBag.time.Th7_8</td>
+                                                        <td>@ViewBag.time.Th8_9</td>
+                                                        <td>@ViewBag.time.Th9_10</td>
+                                                        <td>@ViewBag.time.Th10_11</td>
+                                                        <td>@ViewBag.time.Th11_12</td>
+                                                        <td>@ViewBag.time.Th12_13</td>
+                                                        <td>@ViewBag.time.Th13_14</td>
+                                                        <td>@ViewBag.time.Th14_15</td>
+                                                        <td>@ViewBag.time.Th15_16</td>
+                                                        <td>@ViewBag.time.Th16_17</td>
+                                                        <td>@ViewBag.time.Th17_18</td>
+                                                    </tr>
+                                                    <tr>
+
+                                                        <td>@ViewBag.time.Friday</td>
+                                                        <td>@ViewBag.time.F6_7</td>
+                                                        <td>@ViewBag.time.F7_8</td>
+                                                        <td>@ViewBag.time.F8_9</td>
+                                                        <td>@ViewBag.time.F9_10</td>
+                                                        <td>@ViewBag.time.F10_11</td>
+                                                        <td>@ViewBag.time.F11_12</td>
+                                                        <td>@ViewBag.time.F12_13</td>
+                                                        <td>@ViewBag.time.F13_14</td>
+                                                        <td>@ViewBag.time.F14_15</td>
+                                                        <td>@ViewBag.time.F15_16</td>
+                                                        <td>@ViewBag.time.F16_17</td>
+                                                        <td>@ViewBag.time.F17_18</td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+
+                                            <div class="box-footer">
+                                                @if (User.IsInRole("SuperAdmin") || User.IsInRole("Edittor"))
+                                                {
+                                                    @Html.ActionLink("Edit TimeTable", "EditTimeTable", new { id = @ViewBag.time.Id }, new { @class = "btn btn-primary", style = "" })
+                                                }
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <!-- /.tab-pane -->
+                                    <!-- /.tab-pane -->
+                                </div>
+                                <!-- /.tab-content -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>
+
+@using SchoolPortal.Web.Areas.Service
+@{
+
+    string url = HttpContext.Current.Request.Url.AbsoluteUri;
+    Logger.log(User.Identity.Name, url.ToString());
+
+}
+
+@if (User.IsInRole("SuperAdmin"))
+{
+    @Html.ActionLink("Update All Class Subject with students", "ReloadEnterscoreByClass", "ClassLevels", new { area = "Admin", id = ViewBag.Class.Id }, new { @class = "btn btn-warning" })
+}
+
+
+@section Style {
+
+    <link rel="stylesheet" href="http://v1.exwhyzee.ng/admin/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+    <style>
+        .linkdisabled {
+            cursor: text;
+        }
+    </style>
+}
+
+@section Scripts {
+    <!-- DataTables -->
+    <script src="http://v1.exwhyzee.ng/admin/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="http://v1.exwhyzee.ng/admin/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+
+}
+
+@section Scripts2 {
+    <script>
+        $function(){
+            $(".linkdisabled").click(function () {
+                return false;
+            }
+                                                                                                                                                                                            }
+    </script>
+    <script>
+        $(function () {
+            $('#example1').DataTable()
+            $('#example2').DataTable({
+                'paging': true,
+                'lengthChange': false,
+                'searching': false,
+                'ordering': true,
+                'info': true,
+                'autoWidth': false
+            })
+        })
+    </script>
+}
+

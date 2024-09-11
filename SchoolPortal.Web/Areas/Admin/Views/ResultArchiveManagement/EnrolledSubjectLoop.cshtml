@@ -1,0 +1,228 @@
+﻿@model IEnumerable<SchoolPortal.Web.Models.ResultArchive.EnrolledSubjectArchive>
+@using SchoolPortal.Web.Areas.Service
+@{
+    ViewBag.Title = "EnrolledSubjectLoop";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>EnrolledSubjectLoop</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    @{
+        var checkPrint = GeneralService.IsPrintOutThree();
+    }
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Enrollments.StudentProfile.StudentRegNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Enrollments.SessionId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SubjectName)
+        </th>
+        </th>
+        @if (checkPrint == true)
+        {
+            <th>
+                @Html.DisplayNameFor(model => model.Project)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ClassExercise)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TestScore)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TestScore2)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Assessment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalCA)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExamScore)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.TotalScore)
+            </th>
+        }
+        else
+        {
+            if (GeneralService.EnabledProjectScore() == true)
+            {
+                <th>
+                    @Html.DisplayNameFor(model => model.Project)
+                </th>
+            }
+            if (GeneralService.EnabledTestScore() == true)
+            {
+                <th>
+                    @Html.DisplayNameFor(model => model.TestScore)
+                </th>
+            }
+
+            if (GeneralService.EnabledTestScore2() == true)
+            {
+                <th>
+                    @Html.DisplayNameFor(model => model.TestScore2)
+                </th>
+            }
+
+            if (GeneralService.EnabledClassExerciseScore() == true)
+            {
+
+                <th>
+                    @Html.DisplayNameFor(model => model.ClassExercise)
+                </th>
+            }
+
+            if (GeneralService.EnabledAssessmentScore() == true)
+            {
+
+                <th>
+                    @Html.DisplayNameFor(model => model.Assessment)
+                </th>
+            }
+            <th>
+                @Html.DisplayNameFor(model => model.TotalCA)
+            </th>
+            if (GeneralService.EnabledExamScore() == true)
+            {
+
+                <th>
+                    @Html.DisplayNameFor(model => model.ExamScore)
+                </th>
+            }
+
+
+
+            <th>
+                @Html.DisplayNameFor(model => model.TotalScore)
+            </th>
+        }
+        <th>
+            @Html.DisplayNameFor(model => model.IsOffered)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GradingOption)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.OrderByDescending(x => x.Enrollments.SessionId))
+    {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Enrollments.StudentProfile.StudentRegNumber)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Enrollments.SessionId)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Id)
+        @Html.DisplayFor(modelItem => item.SubjectName) | class:::
+        @Html.DisplayFor(modelItem => item.Enrollments.ClassLevelId)
+    </td>
+    @if (checkPrint == true)
+    {
+        <td>
+            @Html.DisplayFor(modelItem => item.Project)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ClassExercise)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TestScore)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TestScore2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Assessment)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TotalCA)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ExamScore)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TotalScore)
+        </td>
+    }
+    else
+    {
+        if (GeneralService.EnabledProjectScore() == true)
+        {
+            <td>
+                @Html.DisplayFor(modelItem => item.Project)
+            </td>
+        }
+        if (GeneralService.EnabledTestScore() == true)
+        {
+            <td>
+                @Html.DisplayFor(modelItem => item.TestScore)
+            </td>
+        }
+
+        if (GeneralService.EnabledTestScore2() == true)
+        {
+            <td>
+                @Html.DisplayFor(modelItem => item.TestScore2)
+            </td>
+        }
+
+        if (GeneralService.EnabledClassExerciseScore() == true)
+        {
+
+            <td>
+                @Html.DisplayFor(modelItem => item.ClassExercise)
+            </td>
+        }
+
+        if (GeneralService.EnabledAssessmentScore() == true)
+        {
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Assessment)
+            </td>
+        }
+
+        <td>
+            @Html.DisplayFor(modelItem => item.TotalCA)
+        </td>
+
+        if (GeneralService.EnabledExamScore() == true)
+        {
+
+            <td>
+                @Html.DisplayFor(modelItem => item.ExamScore)
+            </td>
+        }
+
+        <td>
+            @Html.DisplayFor(modelItem => item.TotalScore)
+        </td>
+    }
+    <td>
+        @Html.DisplayFor(modelItem => item.IsOffered)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.GradingOption)
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+    </td>
+</tr>
+    }
+
+</table>

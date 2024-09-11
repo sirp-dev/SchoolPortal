@@ -1,0 +1,82 @@
+﻿@model SchoolPortal.Web.Models.Entities.AssignmentAnswer
+
+@{
+    ViewBag.Title = "AnswerDetail";
+}
+
+<h2>AnswerDetail</h2>
+
+<div>
+    <h4>AssignmentAnswer</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.AssignmentId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AssignmentId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateAnswered)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateAnswered)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateModified)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateModified)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StudentId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StudentId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ClassId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ClassId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Answer)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Answer)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Assessed)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Assessed)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

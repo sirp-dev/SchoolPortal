@@ -1,0 +1,580 @@
+﻿@model SchoolPortal.Web.Models.Entities.Setting
+
+@{
+    ViewBag.Title = "SuperDetails";
+}
+<div class="row">
+    <!-- left column -->
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <!-- general form elements -->
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title"> Settings Detail</h3>
+
+
+                <div class="box-body">
+
+                    <div>
+                        <h4>Setting</h4>
+                        <hr />
+                        <dl class="dl-horizontal">
+                            <dt>
+                                @Html.DisplayNameFor(model => model.SchoolName)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.SchoolName)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.SchoolInitials)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.SchoolInitials)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.SchoolAddress)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.SchoolAddress)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.SchoolAddress2)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.SchoolAddress2)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.State)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.State)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Country)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.Country)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.ContactEmail)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.ContactEmail)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.ContactPhoneNumber)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.ContactPhoneNumber)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.ImageId)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.ImageId)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.SmsUsername)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.SmsUsername)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.SmsPassword)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.SmsPassword)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Passmark)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.Passmark)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.PromoteAll)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.PromoteAll)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.PromotionByTrial)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.PromotionByTrial)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.ShowPositionOnResult)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.ShowPositionOnResult)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.ShowFeesOnResult)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.ShowFeesOnResult)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.ShowAccctOnResult)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.ShowAccctOnResult)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.ShowCumulativeResultForThirdTerm)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.ShowCumulativeResultForThirdTerm)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.EmailFrom)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.EmailFrom)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.MailHost)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.MailHost)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Port)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.Port)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.MailUsername)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.MailUsername)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.MailPassword)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.MailPassword)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.SslEnabled)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.SslEnabled)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.AccessmentScore)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.AccessmentScore)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.ExamScore)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.ExamScore)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Assessment)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.Assessment)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.ClassExercise)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.ClassExercise)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Project)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.Project)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.TestScore2)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.TestScore2)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.ScreeningVenue)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.ScreeningVenue)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.ScreeningTime)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.ScreeningTime)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.ScreeningDate)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.ScreeningDate)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.WebsiteLink)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.WebsiteLink)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.PortalLink)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.PortalLink)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.IskoollLink)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.IskoollLink)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.CBTLink)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.CBTLink)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.IsPrimaryNursery)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.IsPrimaryNursery)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.EnableBatchResultPrinting)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.EnableBatchResultPrinting)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.PromotionByMathsAndEng)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.PromotionByMathsAndEng)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.DefaultEnrollmentRemark)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.DefaultEnrollmentRemark)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.GoogleAnalytics)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.GoogleAnalytics)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.PrintOutOption)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.PrintOutOption)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.AdmissionPinOption)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.AdmissionPinOption)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.NewsletterContent)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.NewsletterContent)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.ShowNewsletterPage)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.ShowNewsletterPage)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.PinValidOption)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.PinValidOption)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.PaymentCallBackUrl)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.PaymentCallBackUrl)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.PaystackSecretKey)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.PaystackSecretKey)
+                            </dd>
+                            <hr style="border:1px solid #0094ff" />
+                            <dt>
+                                @Html.DisplayNameFor(model => model.ZoomHostOne)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.ZoomHostOne)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.ZoomHostOnePass)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.ZoomHostOnePass)
+                            </dd>
+                            <hr style="border:1px solid #0094ff" />
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.ZoomHostTwo)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.ZoomHostTwo)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.ZoomHostTwoPass)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.ZoomHostTwoPass)
+                            </dd>
+                            <hr style="border:1px solid #0094ff" />
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.ZoomHostThree)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.ZoomHostThree)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.ZoomHostThreePass)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.ZoomHostThreePass)
+                            </dd>
+                            <hr style="border:1px solid #0094ff" />
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.EnableZoom)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.EnableZoom)
+                            </dd>
+                            <hr style="border:1px solid #0094ff" />
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.EnableMultipleZoom)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.EnableMultipleZoom)
+                            </dd>
+
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.EnableCBT)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.EnableCBT)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.EnableTestScore)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.EnableTestScore)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.EnableTestScore2)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.EnableTestScore2)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.EnableExamScore)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.EnableExamScore)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.EnableProject)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.EnableProject)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.EnableClassExercise)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.EnableClassExercise)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.EnableAssessment)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.EnableAssessment)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.EnableHostel)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.EnableHostel)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.EnableFinance)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.EnableFinance)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.DisableAllResultPrinting)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.DisableAllResultPrinting)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.DisableAllResultPrintingNote)
+                            </dt>
+
+                            <dd>
+                                @Html.Raw(Model.DisableAllResultPrintingNote)
+                            </dd>
+                        </dl>
+                    </div>
+                    <p>
+                        @Html.ActionLink("Edit", "SupperSettingsEdit", new { id = Model.Id }) 
+                    </p>
+                </div>
+            </div>
+        </div>
+           
+        </div>
+</div>

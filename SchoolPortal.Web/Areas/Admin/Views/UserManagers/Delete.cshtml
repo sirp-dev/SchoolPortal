@@ -1,0 +1,60 @@
+﻿@model IEnumerable<SchoolPortal.Web.Models.Entities.Enrollment>
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-3">
+        <h2>////////////////////</h2>
+
+        @Html.ActionLink("Delete User", "XremoveDelete", "UserManagers", new { id = ViewBag.id }, new { @class = "btn btn-info" })
+
+
+
+        @if (ViewBag.r != null)
+        {
+            <div class="alert alert-danger alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                @ViewBag.r
+            </div>
+        }
+        <div class="" style="margin:20px;"></div>
+        <hr style="border:3px solid red;"/>
+        @Html.Raw(ViewBag.name) <br />
+        <hr style="border:3px solid red;"/>
+        Subjects Handling <br />
+        @Html.Raw(ViewBag.i1)
+        <hr style="border:3px solid red;"/>
+        <br />
+        Class formteacher
+        <br />
+        @Html.Raw(ViewBag.i11)
+
+        <hr style="border:3px solid red;"/>
+        @foreach (var item in Model)
+        {
+            @item.Id <span>Enrolment Id</span>
+            <br />
+            @Html.DisplayFor(modelItem => item.ClassLevel.ClassName)
+            <br />
+            @Html.DisplayFor(modelItem => item.Session.Term) <span> / </span>
+
+            @Html.DisplayFor(modelItem => item.Session.SessionYear)
+            <br />
+            @Html.DisplayFor(modelItem => item.StudentProfile.StudentRegNumber)
+            <br />
+            @Html.DisplayFor(modelItem => item.AverageScore)
+            <br />
+            @Html.DisplayFor(modelItem => item.CummulativeAverageScore)
+            <br />
+            @item.EnrolledSubjects.Count() <span>subjects</span>
+            <hr style="border:3px solid #3c8dbc;" />
+        }
+
+    </div>
+    <div class="col-md-3"></div>
+</div>
+

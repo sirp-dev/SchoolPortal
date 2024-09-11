@@ -1,0 +1,128 @@
+﻿@model IEnumerable<SchoolPortal.Web.Models.Dtos.ClassLevelListDto>
+@using SchoolPortal.Web.Areas.Service
+@{
+    ViewBag.Title = "Index All by Class";
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box" style="padding:7px;">
+            <div class="box-header" style="margin-bottom:15px;">
+                <h3 class="box-title"><i class="fa fa-fw fa-file-text-o"></i> All Class List</h3>
+                @if (TempData["success"] != null)
+                {
+                    <div class="alert alert-success alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                        @TempData["success"]
+                    </div>
+                }
+                @if (TempData["error"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                        @TempData["error"]
+                    </div>
+                }
+               
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+
+                @foreach (var item in Model)
+                {
+
+
+                    <h3 class="box-title">@item.ClassLevelName</h3>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover" border="1">
+                            <tr>
+                                <th>S/N</th>
+                                <th>Id</th>
+                                <th>class</th>
+                                <th>Username</th>
+                                <th>Fullname</th>
+                                <th>Registration Number</th>
+                                @if (User.IsInRole("Admin") || User.IsInRole("SuperAdmin"))
+                                {
+                                    <th>Action</th>
+                                }
+                            </tr>
+                            @{int sno = 0;
+                            }
+                            @foreach (var students in GeneralService.StudentlistForASession(item.Id))
+                            {
+                                if (GeneralService.Studentlist(item.Id).Count() > 0)
+                                {
+                                    <tr>
+                                        @{ sno++; }
+
+                                        <td>@sno</td>
+                                        <td>@students.Id</td>
+                                        <td>@item.ClassLevelName</td>
+                                        <td>@students.StudentProfile.user.UserName</td>
+                                        <td>@students.StudentProfile.user.Surname @students.StudentProfile.user.FirstName @students.StudentProfile.user.OtherName</td>
+                                        <td>@students.StudentProfile.StudentRegNumber</td>
+                                        @if (User.IsInRole("SuperAdmin") || User.IsInRole("Admin"))
+                                        {
+                                            <td>
+                                                @Html.ActionLink("Edit", "EditInfo", new { id = students.StudentProfile.UserId }, new { @class = "btn btn-warning noprint" })
+
+                                                @Html.ActionLink("Remove " + GeneralService.StudentorPupil(), "RemoveSelectedStudent", "Doc", new { id = students.Id }, new { @class = "btn btn-info noprint" })
+                                               
+                                            </td>
+                                        }
+
+
+
+                                    </tr>
+                                }
+                                else if (GeneralService.Studentlist(item.Id).Count() < 0)
+                                {
+
+                                    <tr>
+                                        <th colspan="4" style="text-align:center;">No record Found</th>
+                                    </tr>
+                                }
+
+
+                            }
+                        </table>
+                        <br clear="all" style="page-break-before:always !important;" />
+                    </div>
+
+                }
+
+            </div>
+        </div>
+        <div class="text-center">
+            <button onclick="myFunction()" style="text-align:center;" class="btn btn-primary">Print</button>
+
+        </div>
+        <script type="text/javascript">
+
+        //function printSelection(node) {
+
+        //    var content = node.innerHTML
+        //    var pwin = window.open('', 'print_content', 'width=800,height=500');
+
+        //    pwin.document.open();
+        //    pwin.document.write('<html><body onload="window.print()">' + content + '</body></html>');
+        //    pwin.document.close();
+
+        //    setTimeout(function () { pwin.close(); }, 1000);
+
+        //}
+
+
+        function myFunction() {
+            window.print();
+        }
+
+
+        </script>
+    </div>
+</div>
+
+

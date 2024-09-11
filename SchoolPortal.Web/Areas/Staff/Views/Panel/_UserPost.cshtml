@@ -1,0 +1,105 @@
+﻿@model PagedList.IPagedList<SchoolPortal.Web.Models.Entities.Post>
+@using PagedList.Mvc;
+<link href="http://v1.exwhyzee.ng/Content/PagedList.css" rel="stylesheet" />
+@using System.Text.RegularExpressions;
+@helper Truncate(string input, int lenght)
+{
+    if (input.Length <= lenght)
+    {
+        @Html.Raw(input)
+    }
+    else
+    {
+        @Html.Raw(input.Substring(0, input.IndexOf(" ", lenght)).ToString())
+    }
+}
+<div class="clearfix"></div>
+<div class="row">
+    <div class="col-md-4 text-center">
+        @using (Html.BeginForm("Index", "Panel", null, FormMethod.Post, new { @class = "" }))
+        {
+
+            <div class="input-group" style="margin-left:10px;">
+                <div class="input-group-btn">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+                <!-- /btn-group -->
+                <input type="text" name="SearchString" class="form-control" value="@ViewBag.CurrentFilter" placeholder="Search...">
+            </div>
+        }
+    </div>
+    <div class="col-md-4"></div>
+    <div class="col-md-4 text-center">
+        @Html.ActionLink("New Article", "Create", "Panel", null, new { @class = "btn btn-primary pull-right" })
+
+    </div>
+</div>
+
+<div class="clearfix"></div>
+<br />
+
+<ul class="timeline timeline-inverse">
+    <!-- timeline time label -->
+    @foreach (var post in Model)
+    {
+        <li class="time-label">
+            <span class="bg-red">
+                @post.DatePosted.ToString("dd MMM, yyyy")
+            </span>
+        </li>
+        <!-- /.timeline-label -->
+        <!-- timeline item -->
+
+        <li>
+            @if (post.PageType == SchoolPortal.Web.Models.Entities.PageType.Article)
+            {
+                <i class="btn btn-warning">Article</i>
+            }
+            else if (post.PageType == SchoolPortal.Web.Models.Entities.PageType.News)
+            {
+                <i class="btn btn-primary">News</i>
+            }
+
+            <div class="timeline-item">
+                <span class="time"><i class="fa fa-clock-o"></i> @post.DatePosted.ToString("h:m tt")</span>
+
+                <h3 class="timeline-header"><a href="#">@post.Title</a> <span class="text-danger Bold">by</span> <i class="text-primary Bold">@post.PostedBy</i></h3>
+                @{
+
+                    var noHtml = Regex.Replace(post.Content, @"<[^>]*(>|$)|&nbsp;|&zwnj;|&raquo;|&laquo;", string.Empty).Trim();
+                    post.Content = noHtml;
+                }
+                <div class="timeline-body">
+                    @Html.Raw(Truncate(noHtml, 250))...
+
+                </div>
+                <div class="timeline-footer">
+
+                    <div class="btn btn-primary btn-xs pull-right">
+
+
+                        <a class="btn btn-primary btn-xs"><i class="fa fa-globe"></i> @post.WhoCanSeePost</a>
+                        <a class="btn btn-primary btn-xs"><i class="fa fa-comment"></i> @post.Comments.Count</a>
+
+                    </div>
+                    <a class="btn btn-primary btn-xs" href="@Url.Action("Details", "Panel", new { id = post.Id })">Read more</a>
+                    <a class="btn btn-social-icon btn-facebook btn-xs"><i class="fa fa-facebook"></i></a>
+                    @if (post.PostedBy == User.Identity.Name)
+                    {
+                        <a class="btn btn-danger btn-xs" href="@Url.Action("Delete", "Panel", new { id = post.Id })">Delete</a>
+                    }
+
+                </div>
+            </div>
+        </li>
+    }
+
+
+</ul>
+@*<div class="container text-center page" style="margin-left:auto;margin-right:auto;">
+
+    <p>Content @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount</p>
+
+    @Html.PagedListPager(Model, page => Url.Action("_UserPost",
+new { page }))
+</div>*@

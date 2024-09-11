@@ -1,0 +1,73 @@
+﻿@model IEnumerable<SchoolPortal.Web.Models.Entities.Enrollment>
+
+@{
+    ViewBag.Title = "AllEnrollment";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>AllEnrollment</h2>
+<div class="table-responsive">
+    <table class="table">
+        <tr>
+            <th>
+class            </th>
+            <th>
+               session
+            </th>
+            <th>
+                uid
+            </th>
+            <th>
+                username / name
+            </th>
+            <th>
+                reg
+            </th>
+            <th>
+                Ave
+            </th>
+            <th>
+                cum
+            </th>
+
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ClassLevel.ClassName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Session.SessionYear) /
+                @Html.DisplayFor(modelItem => item.Session.Term)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StudentProfile.UserId)
+            </td>
+            <td>
+                ( @Html.DisplayFor(modelItem => item.StudentProfile.user.UserName) )
+                @Html.DisplayFor(modelItem => item.StudentProfile.user.Surname)
+                @Html.DisplayFor(modelItem => item.StudentProfile.user.FirstName)
+                @Html.DisplayFor(modelItem => item.StudentProfile.user.OtherName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StudentProfile.StudentRegNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AverageScore)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CummulativeAverageScore)
+            </td>
+           
+            <td>
+                @Html.ActionLink("Remove enrol", "Removefromsession", "Doc", new { id = item.StudentProfileId, area="Content" }, new { @class = "btn btn-info" })
+
+            </td>
+        </tr>
+        }
+
+    </table>
+</div>

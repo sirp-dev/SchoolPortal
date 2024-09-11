@@ -1,0 +1,120 @@
+﻿@model IEnumerable<SchoolPortal.Web.Models.Entities.BatchResult>
+
+@{
+    ViewBag.Title = "ListBatch";
+}
+
+
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box" style="padding:7px;">
+            <div class="box-header" style="margin-bottom:15px;">
+                <h3 class="box-title"><i class="fa fa-fw fa-file-text-o"></i> View Batch</h3>
+
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+                <table id="example1" class="table table-bordered table-hover" border="1">
+
+                    <thead>
+                        <tr>
+                            <th>S/N</th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.BatchId)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.StudentRegNumber)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ProfileId)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.SessionId)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ClassId)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.EnrollmentId)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.AverageScore)
+                            </th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            int sno = 0;
+                        }
+                        @foreach (var item in Model)
+                        {
+                        <tr>
+                            <td>
+                                @{ sno++; }
+                                @sno
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.BatchId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.StudentRegNumber)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ProfileId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.SessionId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ClassId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.EnrollmentId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AverageScore)
+                            </td>
+                         
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+</div>
+
+
+
+
+@section Style {
+
+    <link rel="stylesheet" href="http://v1.exwhyzee.ng/admin/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+}
+
+@section Scripts {
+    <!-- DataTables -->
+    <script src="http://v1.exwhyzee.ng/admin/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="http://v1.exwhyzee.ng/admin/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+
+}
+
+@section Scripts2 {
+    <script>
+        $(function () {
+            $('#example1').DataTable()
+            $('#example2').DataTable({
+                'paging': true,
+                'lengthChange': false,
+                'searching': false,
+                'ordering': true,
+                'info': true,
+                'autoWidth': false
+            })
+        })
+    </script>
+}

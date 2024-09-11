@@ -1,0 +1,210 @@
+﻿
+@model PagedList.IPagedList<SchoolPortal.Web.Models.Entities.PinCodeModel>
+@using PagedList.Mvc;
+@using SchoolPortal.Web.Areas.Service
+<link href="http://v1.exwhyzee.ng/Content/PagedList.css" rel="stylesheet" />
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box panel-primary">
+
+            <div class="box-header">
+                <h3 class="box-title"><i class="fa fa-fw fa-lock"></i> Pin Management <i>USED CARD</i>  (@Model.Count() / @ViewBag.countU)</h3>
+
+            </div>
+
+            @Html.Action("_CardAnalysis", "PinManagement")
+
+            <div class="row">
+
+                <div class="col-md-8" style="padding-left:0px;">
+                    <div>
+
+                        @using (Html.BeginForm())
+                        {
+                            <div class="col-sm-9">
+                                <div class="form-group">
+                                    @*<label>Search</label>*@
+                                    <div class="">
+                                        <input type="text" name="SearchString" value="@ViewBag.CurrentFilter" class="form-control" placeholder="Search...">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    @*<label>---</label>*@
+                                    <div class="">
+                                        <button type="submit" class="btn btn-primary">Search</button>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                        }
+
+                        @*@using (Html.BeginForm())
+                            {
+                                <div class="">
+                                    <div class="row">
+                                        <div class="col-sm-5">
+                                            <div class="form-group">
+                                                <label>Select Session</label>
+                                                <div class="">
+                                                    @Html.DropDownList("searchStringSession", ViewBag.sessionId as SelectList, "choose a session", htmlAttributes: new { @class = "form-control", placeholder = "Choose a session" })
+
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-sm-5">
+                                            <div class="form-group">
+                                                <label>Search</label>
+                                                <div class="">
+                                                    <input type="text" name="SearchString" value="@ViewBag.CurrentFilter" class="form-control" placeholder="Search...">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <div class="form-group">
+                                                <label>---</label>
+                                                <div class="">
+                                                    <button type="submit" class="btn btn-primary">Search</button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+
+
+                                </div>
+
+
+
+
+                            }*@
+                    </div>
+                </div>
+                <div class="col-md-4" style="padding-right:5px;">
+                    <div class="btn-group pull-right">
+                        @Html.ActionLink("Used Card", "Index", null, new { @class = "btn btn-success" })
+                        @Html.ActionLink("Unnsed Card", "IndexofUnused", null, new { @class = "btn btn-warning" })
+                        @Html.ActionLink("All card", "IndexofAll", null, new { @class = "btn btn-primary" })
+                    </div>
+                </div>
+            </div>
+
+
+            <br />
+
+            <!-- /.box-header -->
+            <div class="box-body table-responsive border-table">
+
+
+                <br />
+
+                <table border="1" class="table table-bordered table-hover">
+
+                    <tr>
+                        <th>
+                            PIN NUMBER
+                        </th>
+                        <th>
+                            SERIAL NUMBER
+                        </th>
+                        <th>
+                            USAGE
+                        </th>
+                        <th>PRINTED</th>
+
+                        <th style="text-transform:uppercase;">
+                            @GeneralService.StudentorPupil() PIN
+                        </th>
+
+                        <th>SESSION</th>
+                        <th></th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+
+                            @if (item.StudentPin != null && item.EnrollmentId != null)
+                            {
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.PinNumber)
+                                </td>
+                            }
+                            else
+                            {
+                                <td>
+                                    xxxxxxxxxxxx
+                                </td>
+                            }
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.SerialNumber)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Usage)
+                            </td>
+
+                            @if (!GeneralService.CheckPrintedStaus(item.StudentPin, item.PinNumber))
+                            {
+                                <td>Not Printed</td>
+                            }
+                            else
+                            {
+                                if (GeneralService.CheckPrintedStaus(item.StudentPin, item.PinNumber) == true)
+                                {
+                                    <td>Printed</td>
+                                }
+                                else
+                                {
+                                    <td>Not Printed</td>
+                                }
+
+                            }
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.StudentPin)
+                            </td>
+                            @if (item.SessionId != null)
+                            {
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Session.SessionYear) / @Html.DisplayFor(modelItem => item.Session.Term)
+
+                                </td>
+                            }
+                            else
+                            {
+                                <td></td>
+                            }
+
+                            <td>
+                                @Html.ActionLink("Card Info", "Details", new { id = item.Id }, new { @class = "btn btn-primary" })
+
+                            </td>
+                        </tr>
+                    }
+                </table>
+                <div class="container text-center page" style="margin-left:auto;margin-right:auto;">
+
+                    <p>Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount</p>
+
+                    @Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page }))
+                </div>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+        <!-- /.box -->
+    </div>
+    <!-- /.col -->
+</div>

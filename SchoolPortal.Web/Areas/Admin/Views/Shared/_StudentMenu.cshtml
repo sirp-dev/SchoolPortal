@@ -1,0 +1,84 @@
+﻿@using SchoolPortal.Web.Areas.Service
+@using SchoolPortal.Web.Models.Entities
+
+<li class="header">STUDENT NAVIGATION</li>
+<li><a href="@Url.Action("Index", "Panel", new { area="Student"})"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
+<li><a href="@Url.Action("Profile", "Panel", new { area="Student"})"><i class="fa fa-user"></i> <span> Profile</span></a></li>
+<li><a href="@Url.Action("MakePayment", "Panel", new { area="Student"})"><i class="fa fa-money"></i> <span> Make Payment</span></a></li>
+<li><a href="@Url.Action("Document", "Panel", new { area="Student"})"><i class="fa fa-file"></i> <span> My Documents</span></a></li>
+@if (GeneralService.IsFinanceEnabled() == true)
+{
+    <li><a href="@Url.Action("MyPayment", "Payment", new { area = "Financial" })"><i class="fa fa-money"></i> <span>My Payment</span></a></li>
+}
+<li style="background-color:#dd4b39;color:#000000;"><a href="@Url.Action("LiveList", "Panel", new { area="Student"})"><i class="fa fa-book"></i> <span> Live Class <span class="label label-danger">New</span></span></a></li>
+<li><a href="@Url.Action("OnlineSubject", "Panel", new { area="Student"})"><i class="fa fa-book"></i> <span> Uploaded Class </span></a></li>
+<li><a href="@Url.Action("MyPost", "Panel", new { area="Student"})"><i class="fa fa-lock"></i> <span>My Post</span></a></li>
+<li><a href="@Url.Action("Attendance", "Panel", new { area="Student"})"><i class="fa fa-calendar"></i> <span>Attendance</span></a></li>
+<li><a href="@Url.Action("Assignment", "Panel", new { area="Student"})"><i class="fa fa-book"></i> <span>Assignment</span></a></li>
+<li><a href="@Url.Action("StudentTimeTable", "Panel", new { area="Student"})"><i class="fa fa-book"></i> <span>Time Table</span></a></li>
+<li><a href="@Url.Action("Sylabus", "Panel", new { area="Student"})"><i class="fa fa-book"></i> <span>Syllable</span></a></li>
+<li><a href="@Url.Action("Result", "Panel", new { area="Student"})"><i class="fa fa-book"></i> <span>Check Student Result</span></a></li>
+
+
+@if (GeneralService.IsHostelEnabled() == true)
+{
+
+    <li class="treeview">
+        <a href="#">
+            <i class="fa fa-hotel"></i> <span style="color:#e2a1a1;font-weight:900;"> Accomodation</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+            </span>
+        </a>
+        <ul class="treeview-menu">
+            <li>
+                <a href="@Url.Action("MyAccomodation", "Allotment", new { area = "Accomodation" })"><i class="fa fa-home"></i> My Hostel Allotment</a>
+
+            </li>
+        </ul>
+    </li>
+}
+@if (GeneralService.CBTEnable() == true)
+{
+    <li class="treeview">
+        <a href="#">
+            <i class="fa fa-certificate"></i> <span> E-Learning</span> <span class="label label-danger">New</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+            </span>
+        </a>
+        <ul class="treeview-menu">
+            <li>@*<a href="http://cbt.iskools.com/?xgink=@GeneralService.PortalLink()"><i class="fa fa-certificate"></i> CBT <span class="label label-danger">New</span> </a>*@</li>
+            @if (User.IsInRole("Admin"))
+            {
+                @*<li><a href="http://localhost:58920/?unixconverify=@User.Identity.Name&xgink=@GeneralService.PortalLink()&role=admin"><i class="fa fa-desktop"></i> CBT <span class="label label-danger">New</span> </a></li>*@
+                <li><a href="http://cbt.iskools.com/?unixconverify=@User.Identity.Name&xgink=@GeneralService.PortalLink()&role=admin"><i class="fa fa-desktop"></i> CBT <span class="label label-danger">New</span> </a></li>
+
+            }
+            else if (User.IsInRole("SuperAdmin"))
+            {
+                <li><a href="http://cbt.iskools.com/?unixconverify=@User.Identity.Name&xgink=@GeneralService.PortalLink()&role=superadmin"><i class="fa fa-desktop"></i> CBT <span class="label label-danger">New</span> </a></li>
+
+            }
+            else if (User.IsInRole("Student"))
+            {
+                <li><a href="http://cbt.iskools.com/?unixconverify=@User.Identity.Name&xgink=@GeneralService.PortalLink()&role=student"><i class="fa fa-desktop"></i> CBT <span class="label label-danger">New</span> </a></li>
+
+            }
+            else if (User.IsInRole("Staff"))
+            {
+                <li><a href="http://cbt.iskools.com/?unixconverify=@User.Identity.Name&xgink=@GeneralService.PortalLink()&role=staff"><i class="fa fa-desktop"></i> CBT <span class="label label-danger">New</span> </a></li>
+
+            }
+
+            <li><a href="http://iskools.com/ELibrary/Ebooks"><i class="fa fa-book"></i> E-Library <span class="label label-danger">New</span></a></li>
+            <li><a href="http://iskools.com/Simulations/Initializer"><i class="fa fa-play-circle-o"></i> Science Practical <span class="label label-danger">New</span></a></li>
+            <li><a href="http://iskools.com/Games/Initializer"><i class="fa fa-gamepad"></i> Games <span class="label label-danger">New</span></a></li>
+
+        </ul>
+    </li>
+}
+
+<li><a href="@Url.Action("ChangePassword", "Account", new { area=""})"><i class="fa fa-lock"></i> <span>Change Password</span></a></li>
+
+

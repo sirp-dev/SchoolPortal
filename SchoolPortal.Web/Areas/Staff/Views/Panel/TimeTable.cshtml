@@ -1,0 +1,162 @@
+﻿
+@{
+    ViewBag.Title = "TimeTable";
+}
+<div class="row">
+    <!-- left column -->
+    <div class="col-md-12">
+        <!-- general form elements -->
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Time Table</h3>
+
+            </div>
+            <div class="box-body">
+                @using (Html.BeginForm())
+                {
+                    @*@Html.AntiForgeryToken()*@
+
+
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="form-group">
+                        @Html.Label("Choose Class", htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+                            @Html.DropDownList("name", ViewBag.Timetable as SelectList, "Select a Class", new { id = "", @class = "form-control" })
+                        </div>
+                    </div>
+
+
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-primary">View TimeTable</button>
+                        <a href="javascript: history.back()" class="btn btn-default">Cancel</a>
+                    </div>
+
+                }
+            </div>
+
+           
+                <div class="box-header">
+                    <h3 class="box-title">Time Table</h3>
+
+
+                </div>
+                <!-- /.box-header -->
+                <style>
+                    .timetable tr td {
+                        border: 1px solid #464646 !important;
+                    }
+                </style>
+                <div class="box-body table-responsive no-padding timetable">
+                    @if (ViewBag.time != null)
+                    {
+                        <table class="table table-hover table-bordered">
+                            <tr>
+                                <td>Days</td>
+                                <td>@ViewBag.time.Time6_7</td>
+                                <td>@ViewBag.time.Time7_8</td>
+                                <td>@ViewBag.time.Time8_9</td>
+                                <td>@ViewBag.time.Time9_10</td>
+                                <td>@ViewBag.time.Time10_11</td>
+                                <td>@ViewBag.time.Time11_12</td>
+                                <td>@ViewBag.time.Time12_13</td>
+                                <td>@ViewBag.time.Time13_14</td>
+                                <td>@ViewBag.time.Time14_15</td>
+                                <td>@ViewBag.time.Time15_16</td>
+                                <td>@ViewBag.time.Time16_17</td>
+                                <td>@ViewBag.time.Time17_18</td>
+                            </tr>
+                            <tr>
+                                <td>@ViewBag.time.Monday</td>
+                                <td>@ViewBag.time.M6_7</td>
+                                <td>@ViewBag.time.M7_8</td>
+                                <td>@ViewBag.time.M8_9</td>
+                                <td>@ViewBag.time.M9_10</td>
+                                <td>@ViewBag.time.M10_11</td>
+                                <td>@ViewBag.time.M11_12</td>
+                                <td>@ViewBag.time.M12_13</td>
+                                <td>@ViewBag.time.M13_14</td>
+                                <td>@ViewBag.time.M14_15</td>
+                                <td>@ViewBag.time.M15_16</td>
+                                <td>@ViewBag.time.M16_17</td>
+                                <td>@ViewBag.time.M17_18</td>
+                            </tr>
+                            <tr>
+                                <td>@ViewBag.time.Tuesday</td>
+                                <td>@ViewBag.time.T6_7</td>
+                                <td>@ViewBag.time.T7_8</td>
+                                <td>@ViewBag.time.T8_9</td>
+                                <td>@ViewBag.time.T9_10</td>
+                                <td>@ViewBag.time.T10_11</td>
+                                <td>@ViewBag.time.T11_12</td>
+                                <td>@ViewBag.time.T12_13</td>
+                                <td>@ViewBag.time.T13_14</td>
+                                <td>@ViewBag.time.T14_15</td>
+                                <td>@ViewBag.time.T15_16</td>
+                                <td>@ViewBag.time.T16_17</td>
+                                <td>@ViewBag.time.T17_18</td>
+
+
+                            </tr>
+                            <tr>
+
+                                <td>@ViewBag.time.Wednessday</td>
+                                <td>@ViewBag.time.W6_7</td>
+                                <td>@ViewBag.time.W7_8</td>
+                                <td>@ViewBag.time.W8_9</td>
+                                <td>@ViewBag.time.W9_10</td>
+                                <td>@ViewBag.time.W10_11</td>
+                                <td>@ViewBag.time.W11_12</td>
+                                <td>@ViewBag.time.W12_13</td>
+                                <td>@ViewBag.time.W13_14</td>
+                                <td>@ViewBag.time.W14_15</td>
+                                <td>@ViewBag.time.W15_16</td>
+                                <td>@ViewBag.time.W16_17</td>
+                                <td>@ViewBag.time.W17_18</td>
+                            </tr>
+                            <tr>
+
+                                <td>@ViewBag.time.Thursday</td>
+                                <td>@ViewBag.time.Th6_7</td>
+                                <td>@ViewBag.time.Th7_8</td>
+                                <td>@ViewBag.time.Th8_9</td>
+                                <td>@ViewBag.time.Th9_10</td>
+                                <td>@ViewBag.time.Th10_11</td>
+                                <td>@ViewBag.time.Th11_12</td>
+                                <td>@ViewBag.time.Th12_13</td>
+                                <td>@ViewBag.time.Th13_14</td>
+                                <td>@ViewBag.time.Th14_15</td>
+                                <td>@ViewBag.time.Th15_16</td>
+                                <td>@ViewBag.time.Th16_17</td>
+                                <td>@ViewBag.time.Th17_18</td>
+                            </tr>
+                            <tr>
+
+                                <td>@ViewBag.time.Friday</td>
+                                <td>@ViewBag.time.F6_7</td>
+                                <td>@ViewBag.time.F7_8</td>
+                                <td>@ViewBag.time.F8_9</td>
+                                <td>@ViewBag.time.F9_10</td>
+                                <td>@ViewBag.time.F10_11</td>
+                                <td>@ViewBag.time.F11_12</td>
+                                <td>@ViewBag.time.F12_13</td>
+                                <td>@ViewBag.time.F13_14</td>
+                                <td>@ViewBag.time.F14_15</td>
+                                <td>@ViewBag.time.F15_16</td>
+                                <td>@ViewBag.time.F16_17</td>
+                                <td>@ViewBag.time.F17_18</td>
+                            </tr>
+                        </table>
+                    }
+                    else
+                    {
+                        <h1 class="text-center" style="text-align:center;">You have not Selected a Class TimeTable</h1>
+                    }
+
+                </div>
+
+              
+        </div>
+    </div>
+</div>

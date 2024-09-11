@@ -1,0 +1,313 @@
+﻿
+@model IEnumerable<SchoolPortal.Web.Models.Dtos.EnrolledSubjectDto>
+@using SchoolPortal.Web.Areas.Service
+@{
+    ViewBag.Title = "Preview Result";
+    int n = 0;
+    //string returnUrl = HttpContext.Current.Request.Url.AbsolutePath;
+    string returnUrl = HttpContext.Current.Request.Url.PathAndQuery;
+
+    //int jkk = 9;
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box" style="padding:7px;">
+            <div class="box-header" style="margin-bottom:15px;">
+                <div class="pull-right">
+
+                    @Html.ActionLink("Offline Score Entry", "Offline", null, new { @class = "btn btn-sm btn-warning" })
+
+                    @Html.ActionLink("Finish", "ResultIndex", new { id = ViewBag.SubjectId }, new { @class = "btn btn-sm btn-primary" })
+
+                </div>
+                <h3 class="box-title" style="text-transform:uppercase;"><i class="fa fa-fw fa-users"></i> @GeneralService.StudentorPupil()<span>'s</span> LIST</h3>
+
+            </div>
+
+            <div class="box-header">
+                <div class="alert alert-info alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+
+                    <span class="text-primary" style="text-transform:uppercase;"> @GeneralService.StudentorPupil()<span>'s</span> LIST:</span> If there are no students on this List, please click on the red <span class="text-primary">"RELOAD STUDENTS"</span> button above to load students.
+
+                </div>
+                @if (TempData["msg"] != null)
+                {
+                    <div class="alert alert-success alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                        @TempData["msg"]
+                    </div>
+                }
+
+
+            </div>
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="box-body table-responsive">
+                        <table class="table table-success table-bordered" style="background-color:#3c8dbc; color:#ffffff;">
+                            <tr>
+                                <th colspan="2" class="text-center">CLASS DETAILS</th>
+
+                            </tr>
+                            <tr>
+                                <th>Class</th>
+                                <td>@ViewBag.Class</td>
+                            </tr>
+                            <tr>
+                                <th>Subject</th>
+                                <td>@ViewBag.Subject</td>
+                            </tr>
+                            <tr>
+                                <th>Session</th>
+                                <td>@ViewBag.Session</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+                <table id="studentRecord" class="table table-hover">
+                    @{
+                        var checkPrint = GeneralService.IsPrintOutThree();
+                    }
+                    <tr>
+
+                        <th>
+                            FULL NAME
+                        </th>
+                        <th>
+                            Reg. NO.
+                        </th>
+                        @if (checkPrint == true)
+                        {
+                            <th>
+                                PROJECT
+                            </th>
+                            <th>
+                                CLASS EXERCISE
+                            </th>
+                            <th>
+                                1ST TEST
+                            </th>
+                            <th>
+                                2ND TEST
+                            </th>
+                            <th>
+                                ASSESSMENT
+                            </th>
+                            <th>
+                                TOTAL C.A
+                            </th>
+                            <th>
+                                EXAM
+                            </th>
+                            <th>
+                                G.TOTAL
+                            </th>
+                        }
+                        else
+                        {
+                            if (GeneralService.EnabledProjectScore() == true)
+                            {
+                                <th>
+                                    PROJECT
+                                </th>
+                            }
+                            if (GeneralService.EnabledTestScore() == true && GeneralService.EnabledTestScore2() == true)
+                            {
+                                <th>
+                                    1ST TEST
+                                </th>
+                            }
+                            else
+                            {
+                                <th>
+                                    C.A
+                                </th>
+                            }
+
+                            if (GeneralService.EnabledTestScore2() == true)
+                            {
+                                <th>
+                                    2ND TEST
+                                </th>
+                            }
+
+                            if (GeneralService.EnabledClassExerciseScore() == true)
+                            {
+
+                                <th>
+                                    CLASS EXERCISE
+                                </th>
+                            }
+
+                            if (GeneralService.EnabledAssessmentScore() == true)
+                            {
+
+                                <th>
+                                    ASSESSMENT
+                                </th>
+                            }
+                            if (GeneralService.TotalCAScore(ViewBag.SessionId) != null || GeneralService.TotalCAScore(ViewBag.SessionId) != 0)
+                            {
+                                <th>
+                                    TOTAL C.A
+                                </th>
+                            }
+
+                            if (GeneralService.EnabledExamScore() == true)
+                            {
+
+                                <th>
+                                    EXAM SCORE
+                                </th>
+                            }
+                            @*<th>
+                                    TEST SCORE
+                                </th>
+                                <th>
+                                    EXAM SCORE
+                                </th>*@
+                            <th>
+                                TOTAL SCORE
+                            </th>
+                        }
+
+
+                        <th>
+                            GRADE
+                        </th>
+                        <th>
+                            REMARK
+                        </th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+
+                            <td>
+                                @item.FullName
+                            </td>
+                            <td>
+                                @GeneralService.RegNumByEnrolId(item.Enrollments.StudentProfileId)
+                            </td>
+                            @if (checkPrint == true)
+                            {
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Project)
+
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ClassExercise)
+
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TestScore)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TestScore2)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Assessment)
+                                </td>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TotalCA)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ExamScore)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TotalScore)
+                                </td>
+                            }
+                            else
+                            {
+                                if (GeneralService.EnabledProjectScore() == true)
+                                {
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Project)
+                                    </td>
+                                }
+                                if (GeneralService.EnabledTestScore() == true)
+                                {
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TestScore)
+                                    </td>
+                                }
+
+                                if (GeneralService.EnabledTestScore2() == true)
+                                {
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TestScore2)
+                                    </td>
+                                }
+
+                                if (GeneralService.EnabledClassExerciseScore() == true)
+                                {
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ClassExercise)
+                                    </td>
+                                }
+
+                                if (GeneralService.EnabledAssessmentScore() == true)
+                                {
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Assessment)
+                                    </td>
+                                }
+
+                                if (GeneralService.TotalCAScore(ViewBag.SessionId) != null || GeneralService.TotalCAScore(ViewBag.SessionId) != 0)
+                                {
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TotalCA)
+                                    </td>
+                                }
+
+                                if (GeneralService.EnabledExamScore() == true)
+                                {
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ExamScore)
+                                    </td>
+                                }
+                                @*<td class="TestScore">
+                                        @Html.DisplayFor(modelItem => item.TestScore)
+
+                                    </td>
+                                    <td class="ExamScore">
+                                        @Html.DisplayFor(modelItem => item.ExamScore)
+
+
+                                    </td>*@
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TotalScore)
+                                </td>
+                            }
+
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Grade)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Remark)
+                            </td>
+
+                        </tr>
+                    }
+
+                </table>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+</div>
+
+

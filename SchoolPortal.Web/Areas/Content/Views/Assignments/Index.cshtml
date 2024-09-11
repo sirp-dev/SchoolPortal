@@ -1,0 +1,75 @@
+﻿@model IEnumerable<SchoolPortal.Web.Models.Entities.Assignment>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ClassLevel.ClassName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Session.Term)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Subject.SubjectName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateCreated)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateSubmitionEnds)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsPublished)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ClassLevel.ClassName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Session.Term)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Subject.SubjectName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateCreated)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateSubmitionEnds)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsPublished)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

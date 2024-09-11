@@ -1,0 +1,95 @@
+﻿@model SchoolPortal.Web.Models.Entities.ApprovedDevice
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Add SuperAdmin Phone";
+}
+
+<div class="row">
+    <!-- left column -->
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <!-- general form elements -->
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">New Device</h3>
+                @if (TempData["error"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                        @TempData["error"]<br />
+                        @TempData["error1"]
+                    </div>
+                }
+                @if (TempData["success"] != null)
+                {
+                    <div class="alert alert-success alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <strong>@Html.Raw(TempData["success"])</strong>
+                    </div>
+                }
+            </div>
+            @using (Html.BeginForm())
+            {
+                @*@Html.AntiForgeryToken()*@
+
+
+        <div class="box-body">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+            <div class="form-group">
+                @Html.Label("Device Name", htmlAttributes: new { @class = "control-label" })
+                <div class="">
+                    @Html.EditorFor(model => model.DeviceName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.DeviceName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Phone Imel Number", htmlAttributes: new { @class = "control-label" })
+                <div class="">
+                    @Html.EditorFor(model => model.ImelNumber, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ImelNumber, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                @Html.Label("Ip Address", htmlAttributes: new { @class = "control-label" })
+                <div class="">
+                    @Html.EditorFor(model => model.IpAddress, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.IpAddress, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+        </div>
+
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-primary">Add Device</button>
+                    <a href="javascript: history.back()" class="btn btn-default">Cancel</a>
+                </div>
+
+            }
+        </div>
+
+    </div>
+    <div class="col-md-2"></div>
+
+</div>
+
+@using SchoolPortal.Web.Areas.Service
+@{
+
+    string url = HttpContext.Current.Request.Url.AbsoluteUri;
+    Logger.log(User.Identity.Name, url.ToString());
+
+}
+@section Scripts {
+        
+
+    <script src="http://v1.exwhyzee.ng/admin/main.js"></script>
+}
+

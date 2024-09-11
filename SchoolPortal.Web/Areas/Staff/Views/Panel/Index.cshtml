@@ -1,0 +1,408 @@
+﻿@using System.Text.RegularExpressions;
+@using SchoolPortal.Web.Areas.Service;
+@helper Truncate(string input, int lenght)
+{
+    if (input.Length <= lenght)
+    {
+        @Html.Raw(input)
+    }
+    else
+    {
+        @Html.Raw(input.Substring(0, input.IndexOf(" ", lenght)).ToString())
+    }
+}
+
+@{
+    ViewBag.Title = "Index";
+    string ReturnUrl = HttpContext.Current.Request.Url.AbsolutePath;
+}
+
+<div class="row">
+    <div class="col-md-3">
+
+        <!-- Profile Image -->
+        <div class="box box-primary">
+            <div class="box-body">
+                @if (Request.Browser.IsMobileDevice == true)
+                {
+                    <div class="alert alert-success alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <p>
+                            Welcome to Your School Portal. Kindly Update Your Profile Information.
+                        </p>
+                        <p>
+                            Make sure you Corfirm <strong> the number of @GeneralService.StudentorPupil() in your class if your the form teacher</strong>
+                            <br />
+                            and
+                            <br />
+                            <strong>the number of @GeneralService.StudentorPupil() that are offering the subject you teach.</strong>
+                        </p>
+                    </div>
+                }
+            </div>
+            <div class="box-body box-profile">
+                <img class="profile-user-img img-responsive img-circle" src="http://v1.exwhyzee.ng/admin/dist/img/avatar5.png" alt="User profile picture">
+
+                @*@using (Html.BeginForm("Upload", "Panel", new { id = ViewBag.staff.Id }, FormMethod.Get, new { enctype = "multipart/form-data" }))
+                        {
+                        <button type="submit" class="profile-user-img img-responsive img-circle">
+                            @if (ViewBag.staff.ImageId != 0)
+                            {
+                                if (ViewBag.staff.Image != null)
+                                {
+                                    <img class="profile-user-img img-responsive img-circle" src="data:image/jpg;base64,@(Convert.ToBase64String(ViewBag.staff.Image))" alt="User profile picture">
+
+                                }
+                                else
+                                {
+                                    <img class="profile-user-img img-responsive img-circle" src="http://v1.exwhyzee.ng/admin/dist/img/avatar5.png" alt="User profile picture">
+                                }
+
+
+                                @*if (ViewBag.staff.Image.ToString() != "System.Byte[]")
+                    {
+                        <img class="profile-user-img img-responsive img-circle" src="data:image/jpg;base64,@(Convert.ToBase64String(ViewBag.staff.Image))" alt="User profile picture">
+
+                    }
+                    else
+                    {
+                        <img class="profile-user-img img-responsive img-circle" src="http://v1.exwhyzee.ng/admin/dist/img/avatar5.jpg" alt="User profile picture">
+
+                    }*
+
+                            }
+                            else
+                            {
+                            <img class="profile-user-img img-responsive img-circle" src="http://v1.exwhyzee.ng/admin/dist/img/avatar5.png" alt="User profile picture">
+                            }
+                            </button>
+                            <p class="text-center">click image to change profile picture</p>
+                            }*@
+                <h3 class="profile-username text-center">@ViewBag.staff.Fullname</h3>
+
+                <p class="text-muted text-center">@ViewBag.staff.PostHeld</p>
+
+                <ul class="list-group list-group-unbordered">
+                    <li class="list-group-item">
+                        <b>Class</b>
+                        <a class="pull-right">
+                            @foreach (var i in ViewBag.Class)
+                            {
+
+                                @i.ClassName <text>/</text>
+
+                            }
+
+                        </a>
+                        @*<a >@</a>*@
+                    </li>
+                    <li class="list-group-item">
+                        <b>Number of Subjects</b> <a class="pull-right">@ViewBag.SubjectCount</a>
+                    </li>
+
+                </ul>
+
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+        <!-- About Me Box -->
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">About Me</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+
+
+                <p class="text-muted">
+                    @ViewBag.staff.AboutMe
+                </p>
+
+                <hr>
+
+                <strong><i class="fa fa-map-marker margin-r-5"></i> Location</strong>
+
+                <p class="text-muted">@ViewBag.staff.ContactAddress</p>
+
+                <hr>
+
+                @Html.ActionLink("Update Info", "EditUser", new { id = @ViewBag.staff.Id }, new { @class = "btn btn-primary" })
+
+
+
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+    <!-- /.col -->
+    <div class="col-md-9">
+
+        @if (Request.Browser.IsMobileDevice != true)
+        {
+            <div>
+                @if (TempData["error"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                        @Html.Raw(TempData["error"])
+                    </div>
+                }
+                @if (TempData["success"] != null)
+                {
+                    <div class="alert alert-success alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                        @Html.Raw(TempData["success"])
+                    </div>
+                }
+            </div>
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#activity" data-toggle="tab">Activity</a></li>
+                    <li><a href="#calendar" data-toggle="tab">Calendar</a></li>
+                    <li><a href="#chat" data-toggle="tab">Chat</a></li>
+                    <li><a href="#qualification" data-toggle="tab">Qualification</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="active tab-pane" id="activity">
+                        @Html.Action("_UserPost", "Panel")
+                    </div>
+                    <!-- /.tab-pane -->
+                    <div class="tab-pane" id="calendar">
+                        <div class="row">
+                            <div class="col-md-2 col-sm-2">
+
+                                <!-- /. box -->
+                                <div class="box box-solid">
+                                    <div class="box-header with-border">
+                                        <h3 class="box-title">Create Event</h3>
+                                    </div>
+
+                                    @using (Html.BeginForm("AddEventp", "EventsControl", null, FormMethod.Post))
+                                    {
+                                        @*@Html.AntiForgeryToken()*@
+
+                                        <div class="box-body">
+
+                                            <div class="form-group">
+
+                                                <div class="">
+                                                    @Html.Editor("subject", new { htmlAttributes = new { @class = "form-control", placeholder = "Subject" } })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+
+                                                <div class="">
+                                                    @Html.Editor("description", new { htmlAttributes = new { @class = "form-control", placeholder = "Description" } })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+
+                                                <div class="">
+                                                    @Html.Editor("start", new { htmlAttributes = new { @class = "form-control", id = "datepicker", placeholder = "Start Date" } })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+
+                                                <div class="">
+                                                    @Html.Editor("end", new { htmlAttributes = new { @class = "form-control", id = "datepicker1", placeholder = "End Date" } })
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+
+                                                <div class="">
+                                                    @Html.CheckBox("fday", new { htmlAttributes = new { @class = "form-control" } }) Is Full Day
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+
+                                        <div class="box-footer">
+                                            <button type="submit" class="btn btn-primary">Add</button>
+
+                                        </div>
+
+                                    }
+                                </div>
+                            </div>
+
+
+                            <!-- /.col -->
+                            <div class="col-md-10 col-sm-10">
+                                <div class="box box-primary">
+                                    <div class="box-body no-padding">
+                                        <!-- THE CALENDAR -->
+                                        <div id="calendar"></div>
+                                    </div>
+                                    <!-- /.box-body -->
+                                </div>
+                                <!-- /. box -->
+                            </div>
+                            <!-- /.col -->
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="chat">
+                        <h1><i>Coming Soon...</i></h1>
+                    </div>
+                    <!-- /.tab-pane -->
+
+
+                    <div class="tab-pane" id="qualification">
+                        <div class="box">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">@Html.ActionLink("Add Qualification", "AddQualification", "StaffProfile", new { area = "Admin" }, new { @class = "btn btn-primary" })</h3>
+
+                            </div>
+                            <!-- /.box-header -->
+                            <div class="box-body">
+                                <table class="table table-bordered">
+                                    <tr>
+
+                                        <th>Name Of Institution</th>
+                                        <th>Year Obtained</th>
+                                        <th>CertificateObtained</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    @foreach (var item in ViewBag.Qualication)
+                                    {
+                                        <tr>
+                                            <td>@item.NameOfInstitution</td>
+                                            <td>@item.YearObtained</td>
+                                            <td>@item.CertificateObtained</td>
+                                            <td>
+
+                                                <div class="dropdown">
+                                                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                                                        Action
+                                                        <span class="caret"></span>
+                                                    </button>
+                                                    <ul class="dropdown-menu">
+
+                                                        <li class="text-color-warning">@Html.ActionLink("Edit", "EditQualification", "StaffProfile", new { area = "Admin", id = item.Id }, null)</li>
+                                                        <li class="text-color-danger">@Html.ActionLink("Delete", "DeleteQualification", "StaffProfile", new { area = "Admin", id = item.Id }, null)</li>
+
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+
+
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- /.tab-pane -->
+                </div>
+                <!-- /.tab-content -->
+            </div>
+            <!-- /.nav-tabs-custom -->
+        }
+    </div>
+    <!-- /.col -->
+</div>
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><span id="eventTitle"></span></h4>
+            </div>
+            <div class="modal-body">
+                <p id="pDetails"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.row -->
+@section Style {
+    <!-- fullCalendar -->
+    <link rel="stylesheet" href="http://v1.exwhyzee.ng/admin/bower_components/fullcalendar/dist/fullcalendar.min.css">
+    <link rel="stylesheet" href="http://v1.exwhyzee.ng/admin/bower_components/fullcalendar/dist/fullcalendar.print.min.css" media="print">
+    <link rel="stylesheet" href="http://v1.exwhyzee.ng/admin/bower_components/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css">
+
+}
+
+@section Scripts {
+    <script src="http://v1.exwhyzee.ng/admin/bower_components/moment/moment.js"></script>
+    <script src="http://v1.exwhyzee.ng/admin/bower_components/fullcalendar/dist/fullcalendar.min.js"></script>
+    <script src="http://v1.exwhyzee.ng/admin/bower_components/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
+    @*<script src="http://v1.exwhyzee.ng/admin/bower_components/fullcalendar/dist/fullcalendar.min.js"></script>*@
+
+
+}
+
+@section Scripts2
+{
+    <script>
+
+        $(document).ready(function () {
+            var events = [];
+            $.ajax({
+                type: "GET",
+                url: "/eventsControl/GetmyEvents",
+                success: function (data) {
+                    $.each(data, function (i, v) {
+                        events.push({
+                            title: v.Subject,
+                            description: v.Description,
+                            start: moment(v.Start),
+                            end: v.End != null ? moment(v.End) : null,
+                            backgroundColor: v.ThemeColor,
+                            allDay: v.IsFullDay
+                        });
+                    })
+
+                    GenerateCalender(events);
+                },
+                error: function (error) {
+                    alert('failed');
+                }
+            })
+            function GenerateCalender(events) {
+                $('#calender').fullCalendar('destroy');
+                $('#calendar').fullCalendar({
+                    header: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'month,agendaWeek,agendaDay'
+                    },
+                    buttonText: {
+                        today: 'today',
+                        month: 'month',
+                        week: 'week',
+                        day: 'day'
+                    },
+                    //Random default events
+                    events: events,
+                    editable: true,
+                    eventClick: function (calEvent, jsEvent, view) {
+                        $('#myModal #eventTitle').text(calEvent.title);
+                        var $description = $('<div/>');
+                        $description.append($('<p/>').html('<b>Start:</b>' + calEvent.start.format("DD-MMM-YYYY HH:mm a")));
+                        if (calEvent.end != null) {
+                            $description.append($('<p/>').html('<b>End:</b>' + calEvent.end.format("DD-MMM-YYYY HH:mm a")));
+                        }
+                        $description.append($('<p/>').html('<b>Description:</b>' + calEvent.description));
+                        $('#myModal #pDetails').empty().html($description);
+
+                        $('#myModal').modal();
+                    }
+                })
+            }
+        })
+    </script>
+    <script>
+        $('.my-colorpicker1').colorpicker()
+    </script>
+
+}

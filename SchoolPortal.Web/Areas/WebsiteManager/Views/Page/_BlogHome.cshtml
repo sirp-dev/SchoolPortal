@@ -1,0 +1,78 @@
+﻿@model IEnumerable<SchoolPortal.Web.Models.Entities.Post>
+@using SchoolPortal.Web.Areas.Service
+@using System.Text.RegularExpressions;
+@helper Truncate(string input, int lenght)
+{
+    if (input.Length <= lenght)
+    {
+        @Html.Raw(input)
+    }
+    else
+    {
+        @Html.Raw(input.Substring(0, input.IndexOf(" ", lenght)).ToString())
+    }
+}
+
+@if (ViewBag.blog != null)
+{
+<section class="blog-home-section">
+    <div class="container">
+        <div class="blog-home-one">
+            <div class="row">
+                <div class="blog-home-two">
+
+                    @foreach (var item in Model)
+                    {
+                        <a href="@Url.Action("Read", "Blog", new { id = item.Id, title = item.Title.ToSeoUrl() })">
+                            <div class="panel-blog-home">
+                                <div class="panel">
+                                    <div class="panel-heading">
+                                        <div class="blog-home-title">
+                                            @Html.DisplayFor(modelItem => item.Title)
+                                        </div>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="blog-home-image-one">
+                                            <div class="blog-home-image-two">
+
+                                                @if (item.PostImages.Count() > 0)
+                                                {
+                                                    <img src="data:image/jpg;base64,@(Convert.ToBase64String(item.PostImages.OrderByDescending(x => x.Id).FirstOrDefault().ImageContent))" alt="" class="img-responsive img-blog-home">
+
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="blog-home-body-one">
+                                            <div class="blog-home-body-two">
+
+                                                @Truncate(item.PreviewContent, 150) ...<span style="font-weight:900;" class="readmore-blog-home">Read More</span>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel-footer">
+                                        <div class="blog-home-footer-one">
+                                            <div class="blog-home-footer-date">
+                                                @Html.DisplayFor(modelItem => item.DatePosted)
+                                            </div>
+                                            <div class="blog-home-footer-by">
+                                                @Html.DisplayFor(modelItem => item.PostedBy)
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    }
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+}
+
+

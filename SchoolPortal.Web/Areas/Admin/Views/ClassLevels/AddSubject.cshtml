@@ -1,0 +1,178 @@
+﻿@model SchoolPortal.Web.Models.Entities.Subject
+@using SchoolPortal.Web.Areas.Service
+@{
+    ViewBag.Title = "Add Subject";
+}
+
+<div class="row">
+    <!-- left column -->
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <!-- general form elements -->
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">New Subject</h3>
+                @if (TempData["error"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                        @TempData["error"]
+                    </div>
+                }
+            </div>
+            @using (Html.BeginForm("AddSubject", "ClassLevels", new { id = ViewBag.Id }, FormMethod.Post))
+            {
+                @*@Html.AntiForgeryToken()*@
+
+                <div class="box-body">
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="form-group">
+                        @Html.Label("Subject Name", htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+                            @Html.EditorFor(model => model.SubjectName, new { htmlAttributes = new { @class = "form-control", id = "upper", onkeyup = "myUppercase()" } })
+                            @Html.ValidationMessageFor(model => model.SubjectName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+
+                    @*<div class="form-group">
+                            @Html.Label("Exam Score", htmlAttributes: new { @class = "control-label" })
+                            <div class="">
+                                <input type="text" name="ExamScore" value="@ViewBag.examscore" class="form-control" />
+                                @Html.ValidationMessageFor(model => model.ExamScore, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.Label("Test or Assessement Score", htmlAttributes: new { @class = "control-label" })
+                            <div class="">
+                                <input type="text" name="TestScore" value="@ViewBag.testscore" class="form-control" />
+                                @Html.ValidationMessageFor(model => model.TestScore, "", new { @class = "text-danger" })
+                            </div>
+                        </div>*@
+
+                    @if (GeneralService.EnabledProjectScore() == true)
+                    {
+                        <div class="form-group">
+                            @Html.Label("Project Score", htmlAttributes: new { @class = "control-label" })
+                            <div class="">
+                                <input type="text" name="Project" value="@ViewBag.projectscore" class="form-control" />
+                                @Html.ValidationMessageFor(model => model.Project, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    }
+                    @if (GeneralService.EnabledTestScore() == true)
+                    {
+                        <div class="form-group">
+                            @Html.Label("Test or Assessement Score", htmlAttributes: new { @class = "control-label" })
+                            <div class="">
+                                <input type="text" name="TestScore" value="@ViewBag.testscore" class="form-control" />
+                                @Html.ValidationMessageFor(model => model.TestScore, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    }
+
+                    @if (GeneralService.EnabledTestScore2() == true)
+                    {
+                        <div class="form-group">
+                            @Html.Label("2nd Test Score", htmlAttributes: new { @class = "control-label" })
+                            <div class="">
+                                <input type="text" name="TestScore2" value="@ViewBag.test2score" class="form-control" />
+                                @Html.ValidationMessageFor(model => model.TestScore2, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                    }
+
+                    @if (GeneralService.EnabledClassExerciseScore() == true)
+                    {
+                        <div class="form-group">
+                            @Html.Label("Class Exercise Score", htmlAttributes: new { @class = "control-label" })
+                            <div class="">
+                                <input type="text" name="ClassExercise" value="@ViewBag.ClassExercisescore" class="form-control" />
+                                @Html.ValidationMessageFor(model => model.ClassExercise, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    }
+
+                    @if (GeneralService.EnabledAssessmentScore() == true)
+                    {
+                        <div class="form-group">
+                            @Html.Label("Assessment Score", htmlAttributes: new { @class = "control-label" })
+                            <div class="">
+                                <input type="text" name="Assessment" value="@ViewBag.assessmentscore" class="form-control" />
+                                @Html.ValidationMessageFor(model => model.Assessment, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                    }
+
+                    @if (GeneralService.EnabledExamScore() == true)
+                    {
+
+                        <div class="form-group">
+                            @Html.Label("Exam Score", htmlAttributes: new { @class = "control-label" })
+                            <div class="">
+                                <input type="text" name="ExamScore" value="@ViewBag.examscore" class="form-control" />
+                                @Html.ValidationMessageFor(model => model.ExamScore, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                    }
+
+                    <div class="form-group">
+                        @Html.Label("Pass Mark", htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+                            <input type="text" name="PassMark" value="@ViewBag.passmark" class="form-control" />
+                            @*@Html.EditorFor(model => model., new { htmlAttributes = new { @class = "form-control" } })*@
+                            @Html.ValidationMessageFor(model => model.PassMark, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        Teacher
+                        <div class="">
+                            @Html.DropDownList("UserId", null, htmlAttributes: new { @class = "form-control select" })
+                            @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ShowSubject, htmlAttributes: new { @class = "control-label" })
+
+                        @Html.CheckBoxFor(model => model.ShowSubject, new { @checked = "checked" })
+                        @Html.ValidationMessageFor(model => model.ShowSubject, "", new { @class = "text-danger" })
+
+                    </div>
+
+                </div>
+
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <a href="javascript: history.back()" class="btn btn-default">Cancel</a>
+                </div>
+
+            }
+        </div>
+
+    </div>
+    <div class="col-md-3"></div>
+
+</div>
+
+
+@using SchoolPortal.Web.Areas.Service
+@{
+
+    string url = HttpContext.Current.Request.Url.AbsoluteUri;
+    Logger.log(User.Identity.Name, url.ToString());
+
+}
+@section Scripts {
+        
+
+
+}

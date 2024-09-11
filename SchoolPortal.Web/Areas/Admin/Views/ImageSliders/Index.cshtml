@@ -1,0 +1,96 @@
+﻿@model IEnumerable<SchoolPortal.Web.Models.Entities.ImageSlider>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box" style="padding:7px;">
+            <div class="box-header" style="margin-bottom:15px;">
+                <h3 class="box-title"><i class="fa fa-fw fa-file-text-o"></i> Slider Management</h3>
+
+                <div class="box-tools">
+                    @Html.ActionLink("New Slider", "Create", null, new { @class = "btn btn-primary", style = "padding: 7px;" })
+                </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+                <table class="table table-hover">
+
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayName("Name")
+                            </th>
+                            <th>
+                                @Html.DisplayName("Text One")
+                            </th>
+                           
+                            <th>
+                                @Html.DisplayName("Add To Slider")
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                        <tr>
+                            <td>
+                                @if (item.Content != null)
+                                {
+                               
+                                    <img src="data:image/jpg;base64,@(Convert.ToBase64String(item.Content))" class="img-responsive" style="width:150px;" />
+                             
+                                }
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TextOne)
+                            </td>
+                           
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CurrentSlider)
+                            </td>
+                            <td>
+                                <div class="btn-group btn-group-xs">
+                                    <button type="button" class="btn btn-default btn-flat">Action</button>
+                                    <button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown">
+                                        <span class="caret"></span>
+                                        <span class="sr-only">Toggle Dropdown</span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu">
+
+                                        @* <li>@Html.ActionLink("Delete", "Delete", new { id = item.Id })</li>*@
+                                        @if (item.CurrentSlider == false)
+                                        {
+                                            <li>@Html.ActionLink("Add to Slider", "AddToSlider", new { id = item.Id })</li>
+                                        }
+                                        else
+                                        {
+                                            <li>@Html.ActionLink("Remove from Slider", "AddToSlider", new { id = item.Id })</li>
+                                        }
+                                        <li>@Html.ActionLink("Edit", "Edit", new { id = item.Id })</li>
+                                        <li>@Html.ActionLink("Details", "Details", new { id = item.Id })</li>
+                                        <li>@Html.ActionLink("Delete Slider", "DeleteConfirmed", new { id = item.Id })</li>
+
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+
+
+
+                </table>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+</div>
+
+

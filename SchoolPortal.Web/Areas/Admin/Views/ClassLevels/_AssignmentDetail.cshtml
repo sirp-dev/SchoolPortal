@@ -1,0 +1,67 @@
+﻿@model SchoolPortal.Web.Models.Entities.Assignment
+
+
+
+<div class="modal fade" id="modal-detail">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Assignment Details</h4>
+            </div>
+            <div class="modal-body">
+               
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="table table-success table-bordered" style="background-color:#3c8dbc; color:#ffffff;">
+                                    <tr>
+                                        <th>Session</th>
+                                        <td>@Model.Session.SessionYear / @Model.Session.Term</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Class</th>
+                                        <td>@Model.ClassLevel.ClassName</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Subject</th>
+                                        <td>@Model.Subject.SubjectName</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Title</th>
+                                        <td>@Model.Title</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Last Submission Date</th>
+                                        <td>@Model.DateSubmitionEnds</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Status</th>
+                                        <td>@Html.Raw(ViewBag.status)</td>
+                                    </tr>
+
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h3>Question</h3>
+                            <textarea class="form-control" style="width:100%;" rows="15">
+@Html.Raw(Model.Description)
+</textarea>
+                        </div>
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-outline">Save changes</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

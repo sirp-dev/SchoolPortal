@@ -1,0 +1,165 @@
+﻿@model SchoolPortal.Web.Models.Dtos.StudentInfoDto
+
+@{
+    ViewBag.Title = "Profile";
+}
+
+<div class="row">
+    <div class="col-md-3">
+        <!-- Widget: user widget style 1 -->
+        
+        <!-- /.widget-user -->
+    </div>
+    <!-- /.col -->
+    <div class="col-md-6">
+        <!-- Widget: user widget style 1 -->
+        <div class="box box-widget widget-user">
+            <!-- Add the bg color to the header using any of the bg-* classes -->
+            <div class="widget-user-header bg-aqua-active">
+                <h3 class="widget-user-username">@*@Model.user.Surname @Model.user.FirstName @Model.user.OtherName*@</h3>
+                <h3 class="widget-user-username">@Model.Fullname</h3>
+                <h5 class="widget-user-desc">Registration Number [ @Model.StudentRegNumber ]</h5>
+                <h5 class="widget-user-desc">Current Class [@ViewBag.currentclass]</h5>
+            </div>
+            <div class="widget-user-image content1">
+                @if (Model.Image != null)
+                {
+                    <img class="img-circle" src="data:image/jpg;base64,@(Convert.ToBase64String(Model.Image))" alt="">
+                }
+                else
+                {
+                    <img class="img-circle" src="http://v1.exwhyzee.ng/admin/dist/img/avatar5.jpg" alt="">
+                   
+                }
+            </div>
+            <div class="box-footer">
+               
+            </div>
+            <div class="box-body">
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs pull-right">
+                        <li><a href="#tab_3-2" data-toggle="tab">Parent/Guardian</a></li>
+                        <li><a href="#tab_2-2" data-toggle="tab">Social</a></li>                       
+                        <li class="active"><a href="#tab_1-1" data-toggle="tab">Personal</a></li>
+                        <li class="pull-left header"><i class="fa fa-user-circle-o"></i> Profile Info</li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="tab_1-1">
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <tr>
+                                        <th>UserName</th>
+                                        <td>@Model.Username</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Full Name</th>
+                                        <td>@Model.Fullname</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Registration Number</th>
+                                        <td>@Model.StudentRegNumber</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Disability</th>
+                                        <td>@Model.Disability</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Emergency Contact</th>
+                                        <td>@Model.EmergencyContact</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Last Primary School Attended</th>
+                                        <td>@Model.LastPrimarySchoolAttended</td>
+                                    </tr>
+                                  
+                                </table>
+                            </div>
+
+                        </div>
+                        <!-- /.tab-pane -->
+                        <div class="tab-pane" id="tab_2-2">
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <tr>
+                                        <th>Favourite Book</th>
+                                        <td>@Model.BooksYouLike</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Favourite Food</th>
+                                        <td>@Model.FavouriteFood</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Favourite Movie</th>
+                                        <td>@Model.MoviesYouLike</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Favourite Tv Show</th>
+                                        <td>@Model.TVShowsYouLike</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Likes</th>
+                                        <td>
+                                            @Model.YourLikes
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>DisLikes</th>
+                                        <td>@Model.YourDisLikes</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Favourite Colour</th>
+                                        <td>@Model.FavouriteColour</td>
+                                    </tr>
+
+                                </table>
+                            </div>
+                        </div>
+                        <!-- /.tab-pane -->
+                        <div class="tab-pane" id="tab_3-2">
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <tr>
+                                        <th>Parent Guardian Name</th>
+                                        <td>@Model.ParentGuardianName</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Parent Guardian Phone Number</th>
+                                        <td>@Model.ParentGuardianPhoneNumber</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Parent Guardian Occupation</th>
+                                        <td>@Model.ParentGuardianOccupation</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Parent Guardian Address</th>
+                                        <td>@Model.ParentGuardianAddress</td>
+                                    </tr>
+
+                                </table>
+                            </div>
+                        </div>
+                     
+                    </div>
+                    <!-- /.tab-content -->
+                </div>
+            </div>
+        </div>
+        <!-- /.widget-user -->
+
+    </div>
+    <!-- /.col -->
+    <div class="col-md-3">
+        <!-- Widget: user widget style 1 -->
+        
+        <!-- /.widget-user -->
+    </div>
+    <!-- /.col -->
+</div>
+
+
+@section Scripts {
+  
+<script>
+   
+</script>
+}

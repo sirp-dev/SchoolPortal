@@ -1,0 +1,100 @@
+﻿@model SchoolPortal.Web.Models.Entities.ContactUs
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+@if (Model.messageStatus != SchoolPortal.Web.Models.Entities.MessageStatus.Closed)
+{
+    @Html.ActionLink("Create New", "NewChat")
+}
+
+<div>
+    <h4>ContactUs</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateCreated)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateCreated)
+        </dd>
+
+       
+        <dt>
+            @Html.DisplayNameFor(model => model.Subject)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Subject)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Message)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Message)
+        </dd>
+
+       
+        <dt>
+            @Html.DisplayNameFor(model => model.messageStatus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.messageStatus)
+        </dd>
+
+    </dl>
+</div>
+
+@foreach(var reply in Model.MessageReply.OrderBy(x=>x.ReplyDate))
+{
+    <div class="">
+        @reply.ReplyDate
+        @reply.ReplyMessage
+        
+    </div>
+}
+@if (Model.messageStatus != SchoolPortal.Web.Models.Entities.MessageStatus.Closed)
+            {
+
+    <h3 style="color:red;">  @TempData["error"]</h3>
+
+    using (Html.BeginForm("ChatReply", "ContactUsChat", new { id = Model.Id }, FormMethod.Post))
+    {
+                    @*@Html.AntiForgeryToken()*@
+
+                    <div class="form-horizontal">
+       
+        <div class="form-group">
+            @Html.LabelFor(model => model.Message, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Message, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Message, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Reply" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+}else{
+    <h2>Chat close</h2>
+}

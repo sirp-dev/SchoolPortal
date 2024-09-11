@@ -1,0 +1,195 @@
+﻿@model SchoolPortal.Web.Models.ApplicationUser
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+
+<div class="row">
+    <!-- left column -->
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <!-- general form elements -->
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Edit</h3>
+                @if (TempData["error"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                        @TempData["error"]
+                    </div>
+                }
+            </div>
+            @using (Html.BeginForm("EditInfo", "Doc", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
+            {
+                @*@Html.AntiForgeryToken()*@
+
+                <div class="box-body">
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.Id)
+                    @Html.HiddenFor(model => model.DataStatusChanged)
+                    @Html.HiddenFor(model => model.DateRegistered)
+                    @Html.HiddenFor(model => model.AccessFailedCount)
+                    @Html.HiddenFor(model => model.Claims)
+                    @Html.HiddenFor(model => model.EmailConfirmed)
+                    @Html.HiddenFor(model => model.LockoutEnabled)
+                    @Html.HiddenFor(model => model.LockoutEndDateUtc)
+                    @Html.HiddenFor(model => model.Logins)
+                    @Html.HiddenFor(model => model.PasswordHash)
+                    @Html.HiddenFor(model => model.PhoneNumber)
+                    @Html.HiddenFor(model => model.PhoneNumberConfirmed)
+                    @Html.HiddenFor(model => model.RegisteredBy)
+                    @Html.HiddenFor(model => model.SecurityStamp)
+                    @Html.HiddenFor(model => model.Status)
+                    @Html.HiddenFor(model => model.TwoFactorEnabled)
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+                            @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Surname, htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+                            @Html.EditorFor(model => model.Surname, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Surname, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+                            @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.OtherName, htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+                            @Html.EditorFor(model => model.OtherName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.OtherName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.DateOfBirth, htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+                            @Html.EditorFor(model => model.DateOfBirth, new { htmlAttributes = new { @class = "form-control", id = "datepicker" } })
+                            @Html.ValidationMessageFor(model => model.DateOfBirth, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Religion, htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+                            @Html.EditorFor(model => model.Religion, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Religion, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+                            @Html.EditorFor(model => model.Gender, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ContactAddress, htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+                            @Html.EditorFor(model => model.ContactAddress, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.ContactAddress, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.City, htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+                            @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Phone, htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+                            @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.StateOfOrigin, htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+
+                            @Html.DropDownList("StateOfOrigin", ViewBag.StateName as SelectList, "Select a State", new { id = "StateOfOrigin", @class = "form-control" })
+
+                            @Html.ValidationMessageFor(model => model.StateOfOrigin, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.LocalGov, htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+                            <select id="LGA" name="LGA" class="form-control"></select>
+                            @Html.ValidationMessageFor(model => model.LocalGov, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Nationality, htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+                            @Html.EditorFor(model => model.Nationality, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Nationality, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+
+
+                </div>
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <a href="javascript: history.back()" class="btn btn-default">Cancel</a>
+                </div>
+
+            }
+        </div>
+
+    </div>
+    <div class="col-md-3"></div>
+
+</div>
+
+@section Scripts {
+        @**@
+    <script type="text/jscript">
+                $(function () {
+                    $('#StateOfOrigin').change(function () {
+                        $.getJSON('/UserManagers/LgaList/' + $('#StateOfOrigin').val(), function (data) {
+                            var items = '<option>Select a Local Government</option>';
+                            $.each(data, function (i, local) {
+                                items += "<option value='" + local.Value + "'>" + local.Text + "</option>";
+                            });
+                            $('#LGA').html(items);
+                        });
+                    });
+    });
+    </script>
+}

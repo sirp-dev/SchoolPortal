@@ -1,0 +1,242 @@
+﻿@model IEnumerable<SchoolPortal.Web.Models.Entities.OnlineZoom>
+@using SchoolPortal.Web.Areas.Service;
+
+@{
+    ViewBag.Title = "LiveClassList";
+}
+
+
+
+
+
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box" style="padding:7px;">
+            <div class="box-header" style="margin-bottom:15px;">
+                <h3 class="box-title"><i class="fa fa-fw fa-file-text-o"></i> Online Class Management</h3>
+                @if (GeneralService.ZoomEnable() == true)
+                {
+                    <div class="box-tools">
+                        @Html.ActionLink("New Live Class", "LiveClassType", null, new { @class = "btn btn-primary", style = "padding: 7px;" })
+                    </div>
+                    if (TempData["success"] != null)
+                    {
+                        <div class="alert alert-success alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                            @TempData["success"]
+                        </div>
+                    }
+
+                    if (TempData["result1"] != null)
+                    {
+                        <div class="alert alert-success alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                            @TempData["result1"]
+                        </div>
+                    }
+                    if (TempData["result2"] != null)
+                    {
+                        <div class="alert alert-success alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                            @TempData["result2"]
+                        </div>
+                    }
+                    if (TempData["result3"] != null)
+                    {
+                        <div class="alert alert-success alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                            @TempData["result3"]
+                        </div>
+                    }
+                    if (TempData["eresult1"] != null)
+                    {
+                        <div class="alert alert-danger alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                            @TempData["eresult1"]
+                        </div>
+                    }
+                    if (TempData["eresult2"] != null)
+                    {
+                        <div class="alert alert-danger alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                            @TempData["eresult2"]
+                        </div>
+                    }
+                    if (TempData["eresult3"] != null)
+                    {
+                        <div class="alert alert-danger alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                            @TempData["eresult3"]
+                        </div>
+                    }
+
+
+                }
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+                @if (GeneralService.ZoomEnable() == true)
+                {
+
+
+                    <table id="example1" class="table table-bordered table-hover" border="1">
+
+                        <thead>
+                            <tr>
+                                <th>S/N</th>
+                                <th>Date Created</th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ClassLevel.ClassName)
+                                </th>
+
+                                <th>
+                                    Sheduled Date and Time
+                                </th>
+
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Duration)
+                                </th>
+                                <th>
+                                    Teacher Name
+                                </th>
+                                <th>
+                                    Subject Name
+                                </th>
+                                <th>Attendance</th>
+                                <th>Records</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                int sno = 0;
+                            }
+                            @foreach (var item in Model.OrderByDescending(x => x.DateCreated))
+                            {
+                                <tr>
+                                    <td>
+                                        @{ sno++; }
+                                        @sno
+                                    </td>
+                                    <td>
+                                        @item.DateCreated.ToString("dd MMM, yyyy hh:mm tt")
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ClassLevel.ClassName)
+                                    </td>
+
+                                    <td>
+                                        @{
+                                            DateTime da = Convert.ToDateTime(item.ClassDate).Date;
+                                            var datet = da.ToString("dd MMM, yyyy");
+                                        }
+                                        @datet  @item.ClassTime
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Duration) min
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.User.Surname)
+                                        @Html.DisplayFor(modelItem => item.User.FirstName)
+                                        @Html.DisplayFor(modelItem => item.User.OtherName)
+                                    </td>
+                                    <td>
+                                        @item.Subject.SubjectName
+                                        <a href="@Url.Action("DetailsLiveClass", new { id = item.MeetingId })">
+
+                                            (details)
+                                        </a>
+                                    </td>
+                                    <td>@Html.ActionLink("Attendance", "LiveClassParticipant", new { id = item.MeetingId }, null)</td>
+                                    <td>@Html.ActionLink("View Record", "LiveClassRecording", new { id = item.MeetingUUId }, null)</td>
+                                    <td>
+
+                                        <div class="dropdown">
+                                            <button class="btn btn-primary dropdown-toggle  btn-xs" type="button" data-toggle="dropdown">
+                                                Action
+                                                <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu">
+
+
+                                                <li class="text-color-warning">@Html.ActionLink("Send Bulk Message", "SendSMSLiveClass", "Message", new { id = item.MeetingId, Target = item.ClassLevelId, ClassSend = "Sendtostudent", area = "Content" }, null)</li>
+                                                @*<li class="text-color-warning">@Html.ActionLink("Edit", "EditLiveClass", new { id = item.Id }, null)</li>*@
+                                                @*<li class="text-color-success">@Html.ActionLink("Details", "DetailsLiveClass", new { id = item.MeetingId }, null)</li>*@
+
+                                            </ul>
+                                        </div>
+
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <div class="alert alert-danger alert-dismissible">
+                        <h4><i class="icon fa fa-ban"></i> Online Learning not enabled.</h4>
+
+                    </div>
+                }
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+</div>
+
+
+
+
+@section Style {
+
+    <link rel="stylesheet" href="http://v1.exwhyzee.ng/admin/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+}
+
+@section Scripts {
+    <!-- DataTables -->
+    <script src="http://v1.exwhyzee.ng/admin/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="http://v1.exwhyzee.ng/admin/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+
+}
+
+@section Scripts2 {
+    <script>
+        $(function () {
+            $('#example1').DataTable()
+            $('#example2').DataTable({
+                'paging': true,
+                'lengthChange': false,
+                'searching': false,
+                'ordering': true,
+                'info': true,
+                'autoWidth': false
+            })
+        })
+    </script>
+    <script type="text/JavaScript">
+        //courtesy of BoogieJack.com
+        function killCopy(e) {
+            return false
+        }
+        function reEnable() {
+            return true
+        }
+        document.onselectstart = new Function("return false")
+        if (window.sidebar) {
+            document.onmousedown = killCopy
+            document.onclick = reEnable
+        }
+    </script>
+}
+
+

@@ -1,0 +1,105 @@
+﻿@model SchoolPortal.Web.Models.Entities.HostelBed
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Create Room Bed";
+}
+
+<div class="row">
+    <!-- left column -->
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <!-- general form elements -->
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">New Bed</h3>
+                @if (TempData["error"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                        @TempData["error"]<br />
+                        @TempData["error1"]
+                    </div>
+                }
+                @if (TempData["success"] != null)
+                {
+                    <div class="alert alert-success alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <strong>@Html.Raw(TempData["success"])</strong>
+                    </div>
+                }
+            </div>
+            @using (Html.BeginForm())
+            {
+                @*@Html.AntiForgeryToken()*@
+
+
+                <div class="box-body">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.BedNo, htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+                            @Html.EditorFor(model => model.BedNo, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.BedNo, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.HostelId, new { @class = "control-label" })
+                        <div class="">
+                            @Html.DropDownList("HostelId", ViewBag.HostelId as SelectList, "Select a Hostel", new { id = "Hostel", @class = "form-control" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.HostelRoomId, new { @class = "control-label" })
+                        <div class="">
+                            <div id="Room" name="HostelRoomId" class="form-control"></div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-primary">Create</button>
+                    <a href="javascript: history.back()" class="btn btn-default">Cancel</a>
+                </div>
+
+            }
+        </div>
+
+    </div>
+    <div class="col-md-2"></div>
+
+</div>
+
+@using SchoolPortal.Web.Areas.Service
+@{
+
+    string url = HttpContext.Current.Request.Url.AbsoluteUri;
+    Logger.log(User.Identity.Name, url.ToString());
+
+}
+@section Scripts {
+        
+    <script type="text/jscript">
+        $(function () {
+            $('#Hostel').change(function () {
+                $.getJSON('/Accomodation/Beds/RoomList/' + $('#Hostel').val(), function (data) {
+                    var items = '<option>Select a Room</option>';
+                    $.each(data, function (i, local) {
+                        items += "<button value='" + local.Value + "'>" + local.Text + "</button>";
+                    });
+                    $('#Room').html(items);
+                });
+            });
+        });
+    </script>
+
+    <script src="http://v1.exwhyzee.ng/admin/main.js"></script>
+}
+
+

@@ -1,0 +1,880 @@
+﻿@model IEnumerable<SchoolPortal.Web.Models.Dtos.EnrolledStudentsByClassArchiveDto>
+@using SchoolPortal.Web.Areas.Service
+@{
+    ViewBag.Title = "ResultPreview";
+    //Layout = "~/Areas/Student/Views/Shared/_PrintLayout.cshtml";
+    int mp = 0;
+}
+<style type="text/css">
+    @@media print {
+        body {
+            display: none
+        }
+    }
+</style>
+<script>
+    function disableSelection(target) {
+        if (typeof target.onselectstart != "undefined") //For IE
+            target.onselectstart = function () { return false }
+        else if (typeof target.style.MozUserSelect != "undefined") //For Firefox
+            target.style.MozUserSelect = "none"
+        else //All other route (For Opera)
+            target.onmousedown = function () { return false }
+        target.style.cursor = "default"
+    }
+
+    //Call above method
+    disableSelection(document.body);
+</script>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box" style="padding:7px;">
+            <div class="box-header" style="margin-bottom:15px;">
+                <h3 class="box-title"><i class="fa fa-fw fa-file-text-o"></i> Result Preview</h3>
+
+
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+                @if (ViewBag.session.Term == "Third")
+                {
+                    foreach (var third in Model)
+                    {
+
+                        var res = PrintArchiveService.PrintThirdTermArchiveResult(third.EnrollmentId, ViewBag.session.Id);
+
+
+
+                        <div id="test" class="" style="margin-top: 0px; background-image: url();background-attachment:fixed;background-position:center;background-size:600px 600px;background-repeat:no-repeat; ">
+
+                            <div style="padding-top: 15px; padding-bottom: 15px; width: 90%; margin-left: auto; margin-right: auto;">
+
+
+                                <div style="margin-top:0px;">
+                                    @*<h1 style="text-align: center; margin-bottom: 3px; line-height: 1em; color: blue; ;">IMMACULATE CONCEPTION SEMINARY, AHIAEKE.</h1>*@
+                                </div>
+                                <h1 style="text-align:center !important; margin-bottom: 3px; line-height: 1em; color: blue;">@res.SchoolName</h1>
+                                <h6 style="text-align:center;">Address: @res.Address | Email: @res.Email </h6><h6 style="text-align:center;">Website: @res.Website | Phone: @res.Phone</h6>
+                                <br />
+
+
+                                <div class="row">
+                                    <div class="col-md-3" id="over" style="">
+                                        @if (res.SchoolLogo != null)
+                                        {
+                                            <img class="img-circle" src="data:image/jpg;base64,@(Convert.ToBase64String(res.SchoolLogo))" alt="" style="height:150px; width:100px;margin-left:auto;margin-right:auto;">
+                                        }
+                                        else
+                                        {
+                                            <img class="img-circle" src="http://v1.exwhyzee.ng/admin/dist/img/avatar5.jpg" alt="">
+
+                                        }
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h3 style="font-size:2em;font-weight:700;text-align:center;margin-top:20px;text-wrap:normal;">@res.SessionTerm</h3>
+                                    </div>
+                                    <div class="col-md-3" id="over" style="">
+                                        @*@if (res.studentImage != null)
+                                            {
+                                                <img class="img-circle" src="data:image/jpg;base64,@(Convert.ToBase64String(res.studentImage))" alt="" style="height:150px;margin:0 auto;">
+                                            }
+                                            else
+                                            {*@
+                                        @*<img class="img-circle" src="http://v1.exwhyzee.ng/admin/dist/img/avatar5.png" style="height:150px; width:100px;margin:0 auto;" alt="">*@
+
+                                    </div>
+                                </div>
+                                <br />
+
+
+
+                                <table style="width:100%;">
+                                    <tr style="text-align:center;">
+                                        <th align="center">
+                                            <table class="table-bordered" align="center" style="font-size:12px !important;">
+                                                <tr style="border:1px solid;text-align:center;">
+                                                    <th colspan="2">GRADING POINT</th>
+
+                                                </tr>
+                                                @foreach (var asdf in res.GradingDetails)
+                                                {
+                                                    <tr>
+                                                        <th style="padding:2px 6px;">@asdf.LowerLimit - @asdf.UpperLimit</th>
+                                                        <th style="padding:2px 6px;"> @asdf.Remark</th>
+                                                    </tr>
+                                                }
+
+                                            </table>
+                                        </th>
+                                        <th>
+                                            <table style="width:100%;height:100%;text-align:left;padding-left:10px;text-transform:uppercase !important;" align="center" class="table-bordered">
+                                                <tr style="">
+                                                    <th style="padding-left:10px;padding-top:10px;padding-bottom:10px;text-transform:uppercase;">FULL NAME</th>
+                                                    <th style="padding-left:10px;padding-top:10px;padding-bottom:10px;">@res.Fullname</th>
+                                                </tr>
+                                                <tr>
+                                                    <th style="padding-left:10px;">REG. NUMBER</th>
+                                                    <th style="padding-left:10px;">@res.RegNumber</th>
+                                                </tr>
+                                                <tr>
+                                                    <th style="padding-left:10px;">CLASS</th>
+                                                    <th style="padding-left:10px;">@res.ClassName</th>
+                                                </tr>
+                                                <tr class="done">
+                                                    <th>
+
+                                                        <table style="width:100%;">
+                                                            <tr>
+                                                                <td style="padding-left:10px;width:30%;border-right:1px solid #dee2e6;">AVERAGE</td>
+                                                                <td style="padding-left:10px;width:70%;">@res.Average</td>
+                                                            </tr>
+                                                        </table>
+                                                    </th>
+                                                    <th>
+                                                        <table style="width:100%;">
+                                                            <tr>
+                                                                <td style="padding-left:10px;width:50%;border-right:1px solid #dee2e6;">TOTAL</td>
+                                                                <td style="padding-left:10px;width:50%;">@Math.Round(res.TotalScore ?? 0)/@Math.Round(res.OverallScore ?? 0)</td>
+
+                                                            </tr>
+                                                        </table>
+                                                    </th>
+                                                </tr>
+                                                @if (res.cumshowPosOnClassResult == true)
+                                                {
+                                                    <tr class="done">
+                                                        <th>
+                                                            <table style="width:100%;">
+                                                                <tr>
+                                                                    <td style="padding-left:10px;width:30%;border-right:1px solid #dee2e6;">POSITION</td>
+                                                                    <td style="padding-left:10px;width:70%;">
+
+                                                                        @if (res.ShowAverageOverPositionInClass == true)
+                                                                        {
+                                                                            <span style="text-transform:uppercase">@res.AveragePositionGrade</span> <text> (@res.AveragePositionRemark) </text>
+
+                                                                        }
+                                                                        else
+                                                                        {
+
+                                                                            if (res.Position == 1)
+                                                                            {
+                                                                                @res.Position
+                                                                                <spamp><sup>st</sup></spamp>
+                                                                            }
+                                                                            else if (res.Position == 2)
+                                                                            {
+                                                                                @res.Position
+                                                                                <spamp><sup>nd</sup></spamp>
+                                                                            }
+                                                                            else if (res.Position == 3)
+                                                                            {
+                                                                                @res.Position
+                                                                                <spamp><sup>rd</sup></spamp>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                @res.Position
+                                                                                <spamp><sup>th</sup></spamp>
+                                                                            }
+
+
+                                                                            <span style="text-transform:uppercase">OUT OF</span> @res.TotalStudent @GeneralService.StudentorPupil()<text>S IN CLASS</text>
+                                                                        }
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </th>
+                                                        <th>
+                                                            <table style="width:100%;">
+                                                                <tr>
+                                                                    <td style="padding-left:10px;width:50%;;border-right:1px solid #dee2e6;">REMARK</td>
+                                                                    <td style="padding-left:10px;width:50%;">@res.ResultRemark</td>
+                                                                </tr>
+                                                            </table>
+                                                        </th>
+                                                    </tr>
+                                                }
+
+                                                else
+                                                {
+                                                    <tr>
+                                                        <td style="padding-left:10px;width:50%;;border-right:1px solid #dee2e6;">REMARK</td>
+                                                        <td style="padding-left:10px;width:50%;">@res.ResultRemark</td>
+                                                    </tr>
+                                                }
+
+                                            </table>
+
+                                        </th>
+                                        <th>
+                                            <table class="table-bordered" align="center" style="font-size:12px !important;">
+                                                <tr style="border:1px solid;text-align:center;">
+                                                    <th colspan="2">Cognitive Domain</th>
+
+                                                </tr>
+
+                                                <tr>
+                                                    <th style="padding:2px 6px;">Analyzing</th>
+                                                    <th style="padding:2px 6px;">@res.RecognitiveDomain.Analyzing</th>
+                                                </tr>
+                                                <tr>
+                                                    <th style="padding:2px 6px;">Application</th>
+                                                    <th style="padding:2px 6px;">@res.RecognitiveDomain.Application</th>
+                                                </tr>
+                                                <tr>
+                                                    <th style="padding:2px 6px;">Creativity</th>
+                                                    <th style="padding:2px 6px;">@res.RecognitiveDomain.Creativity</th>
+                                                </tr>
+                                                <tr>
+                                                    <th style="padding:2px 6px;">Evaluation</th>
+                                                    <th style="padding:2px 6px;">@res.RecognitiveDomain.Evaluation</th>
+                                                </tr>
+                                                <tr>
+                                                    <th style="padding:2px 6px;">Rememberance</th>
+                                                    <th style="padding:2px 6px;">@res.RecognitiveDomain.Rememberance</th>
+                                                </tr>
+                                                <tr>
+                                                    <th style="padding:2px 6px;">Understanding</th>
+                                                    <th style="padding:2px 6px;">@res.RecognitiveDomain.Understanding</th>
+                                                </tr>
+
+
+                                            </table>
+                                        </th>
+                                    </tr>
+                                </table>
+                                <br />
+                                <br />
+                                <table style="width:100%;" class="table-bordered">
+                                    <tr>
+                                        <th>
+                                            SUBJECT
+                                        </th>
+                                        @if (GeneralService.EnabledProjectScore() == true)
+                                        {
+                                            <th>PROJECT</th>
+                                        }
+                                        @if (GeneralService.EnabledTestScore() == true && GeneralService.EnabledTestScore2() == true)
+                                        {
+                                            <th>1ST TEST</th>
+                                        }
+                                        else
+                                        {
+                                            <th>C.A</th>
+                                        }
+
+                                        @if (GeneralService.EnabledTestScore2() == true)
+                                        {
+                                            <th>2ND TEST</th>
+                                        }
+
+                                        @if (GeneralService.EnabledClassExerciseScore() == true)
+                                        {
+
+                                            <th>CLASS EXERCISE</th>
+                                        }
+
+                                        @if (GeneralService.EnabledAssessmentScore() == true)
+                                        {
+
+                                            <th>ASSESSMENT</th>
+                                        }
+                                        @if (GeneralService.TotalCAScore(ViewBag.session.Id) != null || GeneralService.TotalCAScore(ViewBag.session.Id) != 0)
+                                        {
+                                            <th>TOTAL C.A</th>
+
+
+                                        }
+                                       
+
+                                        @if (GeneralService.EnabledExamScore() == true)
+                                        {
+
+                                            <th>EXAM</th>
+                                        }
+                                        @*<th>C.A</th>
+                                            <th>EXAM</th>*@
+                                        <th>TOTAL SCORE</th>
+                                        <th>GRADE</th>
+                                        <th>REMARK</th>
+                                    </tr>
+                                    @foreach (var item in res.SubjectList)
+                                    {
+                                        <tr>
+                                            <td style="padding:3px;">@item.Subject</td>
+                                            @if (GeneralService.EnabledProjectScore() == true)
+                                            {
+                                                <td style="padding:3px;">@item.Project</td>
+                                            }
+                                            @if (GeneralService.EnabledTestScore() == true)
+                                            {
+                                                <td style="padding:3px;">@item.TestScore</td>
+
+                                            }
+
+                                            @if (GeneralService.EnabledTestScore2() == true)
+                                            {
+                                                <td style="padding:3px;">@item.TestScore2</td>
+                                            }
+
+                                            @if (GeneralService.EnabledClassExerciseScore() == true)
+                                            {
+
+                                                <td style="padding:3px;">@item.ClassExercise</td>
+                                            }
+
+                                            @if (GeneralService.EnabledAssessmentScore() == true)
+                                            {
+
+                                                <td style="padding:3px;">@item.Assessment</td>
+                                            }
+                                            @if (GeneralService.TotalCAScore(ViewBag.session.Id) != null || GeneralService.TotalCAScore(ViewBag.session.Id) != 0)
+                                            {
+                                                <td style="padding:3px;">@item.TotalCA</td>
+                                            }
+                                            
+
+                                            @if (GeneralService.EnabledExamScore() == true)
+                                            {
+
+                                                <td style="padding:3px;">@item.ExamScore</td>
+                                            }
+                                            @*<td style="padding:3px;">@item.TestScore</td>
+                                                <td style="padding:3px;">@item.ExamScore</td>*@
+                                            <td style="padding:3px;">@item.TotalScore</td>
+                                            <td style="padding:3px;">@item.Grade</td>
+                                            <td style="padding:3px;">@item.Remark</td>
+                                        </tr>
+                                    }
+                                </table>
+                                <div style="float:right;margin-top:10px;text-align:right;padding-right:5px;">
+                                    @if (res.SchoolLogo != null)
+                                    {
+                                        <img class="img-circle" src="data:image/jpg;base64,@(Convert.ToBase64String(res.SchoolStamp))" alt="" style="height:70px;width:200px;">
+                                    }
+                                    <h5 style="margin-bottom:1px;padding-bottom:2px;">@res.headteacher</h5>
+                                    <h5 style="margin-top:2px;padding-top:2px;line-height:1.4px;">@GeneralService.HeadteacherOrPrincipal()</h5>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <br clear="all" style="page-break-before:always" />
+
+                        <div id="test" class="" style="margin-top: 0px; background-image: url();background-attachment:fixed;background-position:center;background-size:600px 600px;background-repeat:no-repeat; ">
+
+                            <div style="padding-top: 15px; padding-bottom: 15px; width: 90%; margin-left: auto; margin-right: auto;">
+
+
+                                <div style="margin-top:0px;">
+                                </div>
+                                <h1 style="text-align:center !important; margin-bottom: 3px; line-height: 1em; color: blue;">@res.SchoolName</h1>
+                                <h6 style="text-align:center;">Address: @res.Address | Email: @res.Email </h6><h6 style="text-align:center;">Website: @res.Website | Phone: @res.Phone</h6>
+                                <br />
+
+
+                                <div class="row">
+                                    <div class="col-md-3" id="over" style="">
+                                        @if (res.SchoolLogo != null)
+                                        {
+                                            <img class="img-circle" src="data:image/jpg;base64,@(Convert.ToBase64String(res.SchoolLogo))" alt="" style="height:150px; width:100px;margin-left:auto;margin-right:auto;">
+                                        }
+                                        else
+                                        {
+                                            <img class="img-circle" src="http://v1.exwhyzee.ng/admin/dist/img/avatar5.jpg" alt="">
+
+                                        }
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h3 style="font-size:2em;font-weight:700;text-align:center;margin-top:20px;text-wrap:normal;">@res.CummulativeSessionTerm</h3>
+                                    </div>
+                                    <div class="col-md-3" id="over" style="">
+                                        @*@if (res.studentImage != null)
+                                            {
+                                                <img class="img-circle" src="data:image/jpg;base64,@(Convert.ToBase64String(res.studentImage))" alt="" style="height:150px;margin:0 auto;">
+                                            }
+                                            else
+                                            {*@
+                                        @*<img class="img-circle" src="http://v1.exwhyzee.ng/admin/dist/img/avatar5.png" style="height:150px; width:100px;margin:0 auto;" alt="">*@
+
+                                    </div>
+                                </div>
+                                <br />
+
+
+
+                                <table style="width:100%;">
+                                    <tr style="text-align:center;">
+
+                                        <th>
+                                            <table style="width:100%;text-align:left;padding-left:10px;text-transform:uppercase !important;" align="center" class="table-bordered">
+                                                <tr style="">
+                                                    <th style="padding-left:10px;padding-top:10px;padding-bottom:10px;text-transform:uppercase;">FULL NAME</th>
+                                                    <th style="padding-left:10px;padding-top:10px;padding-bottom:10px;">@res.Fullname</th>
+                                                </tr>
+                                                <tr>
+                                                    <th style="padding-left:10px;">REG. NUMBER</th>
+                                                    <th style="padding-left:10px;">@res.RegNumber</th>
+                                                </tr>
+                                                <tr>
+                                                    <th style="padding-left:10px;">CLASS</th>
+                                                    <th style="padding-left:10px;">@res.ClassName</th>
+                                                </tr>
+                                                <tr class="done">
+
+                                                    <th style="padding-left:10px;">AVERAGE</th>
+                                                    <th style="padding-left:10px;">@res.CummulativeAverage</th>
+
+                                                </tr>
+                                                @if (res.cumshowPosOnClassResult == true)
+                                                {
+                                                    <tr class="done">
+                                                        <th style="padding-left:10px;">POSITION</th>
+                                                        <th style="padding-left:10px;">
+                                                            @if (res.CummulativePosition == 1)
+                                                            {
+                                                                @res.CummulativePosition
+                                                                <spamp><sup>st</sup></spamp>
+                                                            }
+                                                            else if (res.CummulativePosition == 2)
+                                                            {
+                                                                @res.CummulativePosition
+                                                                <spamp><sup>nd</sup></spamp>
+                                                            }
+                                                            else if (res.CummulativePosition == 3)
+                                                            {
+                                                                @res.CummulativePosition
+                                                                <spamp><sup>rd</sup></spamp>
+                                                            }
+                                                            else
+                                                            {
+                                                                @res.CummulativePosition
+                                                                <spamp><sup>th</sup></spamp>
+                                                            }
+
+
+                                                            <span style="text-transform:uppercase">OUT OF</span> @res.TotalStudent @GeneralService.StudentorPupil()S IN CLASS
+                                                        </th>
+
+                                                    </tr>
+                                                }
+                                                else
+                                                {
+
+                                                }
+
+                                                @if (res.IsEngMath == true)
+                                                {
+                                                    <tr class="done">
+
+                                                        <th style="padding-left:10px;">Status</th>
+                                                        <th style="padding-left:10px;">@PrintArchiveService.PromotionSubject(res.StudentId)</th>
+
+                                                    </tr>
+                                                }
+                                            </table>
+
+                                        </th>
+
+                                    </tr>
+                                </table>
+                                <br />
+                                <br />
+
+                                <table style="width:100%;" class="table-bordered">
+                                    <tr>
+                                        <td>
+                                            <table style="width:100%;" class="table-bordered">
+                                                <tr>
+                                                    <th>SUBJECT</th>
+                                                </tr>
+                                                @foreach (var item in res.CummulativeThirdScore)
+                                                {
+                                                    <tr>
+                                                        <td>
+
+
+                                                            @item.SubjectName
+                                                        </td>
+                                                    </tr>
+                                                }
+                                                <tr>
+                                                    <th>AVERAGE SCORE</th>
+                                                </tr>
+                                            </table>
+                                        </td>
+
+                                        <td>
+                                            <table style="width:100%;" class="table-bordered">
+                                                <tr>
+                                                    <th>FIRST TERM SCORE</th>
+                                                </tr>
+                                                @foreach (var item in res.CummulativeFirstScore)
+                                                {
+                                                    <tr>
+                                                        <td>
+
+
+                                                            @item.TotalScore
+                                                        </td>
+                                                    </tr>
+                                                }
+                                                <tr>
+                                                    <th>@res.AverageFirthTerm</th>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <td>
+                                            <table style="width:100%;" class="table-bordered">
+                                                <tr>
+                                                    <th>SECOND TERM SCORE</th>
+                                                </tr>
+                                                @foreach (var item in res.CummulativeSecondScore)
+                                                {
+                                                    <tr>
+                                                        <td>
+
+
+                                                            @item.TotalScore
+                                                        </td>
+                                                    </tr>
+                                                }
+                                                <tr>
+                                                    <th>@res.AverageSecondTerm</th>
+                                                </tr>
+                                            </table>
+                                        </td>
+
+                                        <td>
+                                            <table style="width:100%;" class="table-bordered">
+                                                <tr>
+                                                    <th>THIRD TERM SCORE</th>
+                                                </tr>
+                                                @foreach (var item in res.CummulativeThirdScore)
+                                                {
+                                                    <tr>
+                                                        <td>
+
+
+                                                            @item.TotalScore
+                                                        </td>
+                                                    </tr>
+                                                }
+                                                <tr>
+                                                    <th>@res.AverageThirdTerm</th>
+                                                </tr>
+                                            </table>
+                                        </td>
+
+                                        <td>
+                                            <table style="width:100%;" class="table-bordered">
+                                                <tr>
+                                                    <th>AVERAGE SCORE</th>
+                                                </tr>
+                                                @foreach (var item1 in res.CummulativeThirdScore)
+                                                {
+                                                    <tr>
+                                                        <td>
+
+                                                            @PrintArchiveService.AverageScoreSubject(item1.Id, res.StudentId)
+
+                                                        </td>
+                                                    </tr>
+                                                }
+                                                <tr>
+                                                    <th>@res.CummulativeAverage</th>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        @if (res.IsEngMath == true)
+                                        {
+                                            <td>
+                                                <table style="width:100%;" class="table-bordered">
+                                                    <tr>
+                                                        <th>REMARK</th>
+                                                    </tr>
+                                                    @foreach (var item1 in res.CummulativeThirdScore)
+                                                    {
+                                                        <tr>
+                                                            <td>
+
+                                                                @PrintArchiveService.RemarkSubject(item1.Subject.Id, res.StudentId)
+
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                    <tr>
+                                                        <th>REMARK</th>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        }
+
+                                    </tr>
+                                </table>
+
+
+
+                                <div style="float:right;margin-top:10px;text-align:right;padding-right:5px;">
+                                    @if (res.SchoolLogo != null)
+                                    {
+                                        <img class="img-circle" src="data:image/jpg;base64,@(Convert.ToBase64String(res.SchoolStamp))" alt="" style="height:70px;width:200px;">
+                                    }
+                                    <h5 style="margin-bottom:1px;padding-bottom:2px;">@res.headteacher</h5>
+                                    <h5 style="margin-top:2px;padding-top:2px;line-height:1.4px;">@GeneralService.HeadteacherOrPrincipal()</h5>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="clearfix"></div>
+                        <hr style="border:5px solid #007acc;" />
+                    }
+                }
+                else
+                {
+                    foreach (var other in Model)
+                    {
+                        var res = PrintArchiveService.PrintSingleResult(other.EnrollmentId);
+
+                        <div id="test" class="" style="margin-top: 0px; background-image: url();background-attachment:fixed;background-position:center;background-size:600px 600px;background-repeat:no-repeat; ">
+
+                            <div style="padding-top: 15px; padding-bottom: 15px; width: 90%; margin-left: auto; margin-right: auto;">
+
+
+                                <div style="margin-top:0px;">
+                                    @*<h1 style="text-align: center; margin-bottom: 3px; line-height: 1em; color: blue; ;">IMMACULATE CONCEPTION SEMINARY, AHIAEKE.</h1>*@
+                                </div>
+                                <h1 style="text-align:center !important; margin-bottom: 3px; line-height: 1em; color: blue;">@res.SchoolName</h1>
+                                <h6 style="text-align:center;">Address: @res.Address | Email: @res.Email </h6><h6 style="text-align:center;">Website: @res.Website | Phone: @res.Phone</h6>
+                                <br />
+
+
+                                <div class="row">
+                                    <div class="col-md-3" id="over" style="">
+                                        @if (res.SchoolLogo != null)
+                                        {
+                                            <img class="img-circle" src="data:image/jpg;base64,@(Convert.ToBase64String(res.SchoolLogo))" alt="" style="height:150px; width:100px;margin-left:auto;margin-right:auto;">
+                                        }
+                                        else
+                                        {
+                                            <img class="img-circle" src="http://v1.exwhyzee.ng/admin/dist/img/avatar5.jpg" alt="">
+
+                                        }
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h3 style="font-size:2em;font-weight:700;text-align:center;margin-top:20px;text-wrap:normal;">@res.SessionTerm</h3>
+                                    </div>
+                                    <div class="col-md-3" id="over" style="">
+                                        @*@if (res.studentImage != null)
+                                            {
+                                                <img class="img-circle" src="data:image/jpg;base64,@(Convert.ToBase64String(res.studentImage))" alt="" style="height:150px;margin:0 auto;">
+                                            }
+                                            else
+                                            {*@
+                                        @*<img class="img-circle" src="http://v1.exwhyzee.ng/admin/dist/img/avatar5.png" style="height:150px; width:100px;margin:0 auto;" alt="">*@
+
+                                    </div>
+                                </div>
+                                <br />
+
+
+
+                                <table style="width:100%;">
+                                    <tr style="text-align:center;">
+                                        <th align="center">
+                                            <table class="table-bordered" align="center" style="font-size:12px !important;">
+                                                <tr style="border:1px solid;text-align:center;">
+                                                    <th colspan="2">GRADING POINT</th>
+
+                                                </tr>
+                                                @foreach (var asdf in res.GradingDetails.ToList())
+                                                {
+                                                    <tr>
+                                                        <th style="padding:2px 6px;">@asdf.LowerLimit - @asdf.UpperLimit</th>
+                                                        <th style="padding:2px 6px;"> @asdf.Remark</th>
+                                                    </tr>
+                                                }
+
+                                            </table>
+                                        </th>
+                                        <th>
+                                            <table style="width:100%;text-align:left;padding-left:10px;text-transform:uppercase !important;" align="center" class="table-bordered">
+                                                <tr style="">
+                                                    <th style="padding-left:10px;padding-top:10px;padding-bottom:10px;text-transform:uppercase;">FULL NAME</th>
+                                                    <th style="padding-left:10px;padding-top:10px;padding-bottom:10px;">@res.Fullname</th>
+                                                </tr>
+                                                <tr>
+                                                    <th style="padding-left:10px;">REG. NUMBER</th>
+                                                    <th style="padding-left:10px;">@res.RegNumber</th>
+                                                </tr>
+                                                <tr>
+                                                    <th style="padding-left:10px;">CLASS</th>
+                                                    <th style="padding-left:10px;">@res.ClassName</th>
+                                                </tr>
+                                                <tr class="done">
+                                                    <th>
+
+                                                        <table style="width:100%;">
+                                                            <tr>
+                                                                <td style="padding-left:10px;width:50%;border-right:1px solid #dee2e6;">AVERAGE</td>
+                                                                <td style="padding-left:10px;width:50%;">@res.Average</td>
+                                                            </tr>
+                                                        </table>
+                                                    </th>
+                                                    <th>
+                                                        <table style="width:100%;">
+                                                            <tr>
+                                                                <td style="padding-left:10px;width:50%;border-right:1px solid #dee2e6;">TOTAL</td>
+                                                                <td style="padding-left:10px;width:50%;">@Math.Round(res.TotalScore ?? 0)/@Math.Round(res.OverallScore ?? 0)</td>
+
+                                                            </tr>
+                                                        </table>
+                                                    </th>
+                                                </tr>
+                                                @if (res.showPosOnClassResult == true)
+                                                {
+                                                    <tr class="done">
+                                                        <th>
+                                                            <table style="width:100%;">
+                                                                <tr>
+                                                                    <td style="padding-left:10px;width:50%;border-right:1px solid #dee2e6;">POSITION</td>
+                                                                    <td style="padding-left:10px;width:50%;">
+                                                                        @{mp++;}
+
+                                                                        @if (res.Position == 1)
+                                                                        {
+                                                                            @res.Position
+                                                                            <spamp><sup>st</sup></spamp>
+                                                                        }
+                                                                        else if (res.Position == 2)
+                                                                        {
+                                                                            @res.Position
+                                                                            <spamp><sup>nd</sup></spamp>
+                                                                        }
+                                                                        else if (res.Position == 3)
+                                                                        {
+                                                                            @res.Position
+                                                                            <spamp><sup>rd</sup></spamp>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            @res.Position
+                                                                            <spamp><sup>th</sup></spamp>
+                                                                        }
+
+
+                                                                        <span style="text-transform:lowercase">out of</span> @res.TotalStudent
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </th>
+                                                        <th>
+                                                            <table style="width:100%;">
+                                                                <tr>
+                                                                    <td style="padding-left:10px;width:50%;;border-right:1px solid #dee2e6;">REMARK</td>
+                                                                    <td style="padding-left:10px;width:50%;">@res.ResultRemark</td>
+                                                                </tr>
+                                                            </table>
+                                                        </th>
+                                                    </tr>
+                                                }
+
+                                                else
+                                                {
+
+                                                    <tr>
+                                                        <td style="padding-left:10px;width:50%;border-right:1px solid #dee2e6;">REMARK</td>
+                                                        <td style="padding-left:10px;width:50%;">@res.ResultRemark</td>
+                                                    </tr>
+                                                }
+
+                                            </table>
+
+                                        </th>
+                                        <th>
+                                            <table class="table-bordered" align="center" style="font-size:12px !important;">
+                                                <tr style="border:1px solid;text-align:center;">
+                                                    <th colspan="2">Cognitive Domain</th>
+
+                                                </tr>
+
+                                                <tr>
+                                                    <th style="padding:2px 6px;">Analyzing</th>
+                                                    <th style="padding:2px 6px;">@res.RecognitiveDomain.Analyzing</th>
+                                                </tr>
+                                                <tr>
+                                                    <th style="padding:2px 6px;">Application</th>
+                                                    <th style="padding:2px 6px;">@res.RecognitiveDomain.Application</th>
+                                                </tr>
+                                                <tr>
+                                                    <th style="padding:2px 6px;">Creativity</th>
+                                                    <th style="padding:2px 6px;">@res.RecognitiveDomain.Creativity</th>
+                                                </tr>
+                                                <tr>
+                                                    <th style="padding:2px 6px;">Evaluation</th>
+                                                    <th style="padding:2px 6px;">@res.RecognitiveDomain.Evaluation</th>
+                                                </tr>
+                                                <tr>
+                                                    <th style="padding:2px 6px;">Rememberance</th>
+                                                    <th style="padding:2px 6px;">@res.RecognitiveDomain.Rememberance</th>
+                                                </tr>
+                                                <tr>
+                                                    <th style="padding:2px 6px;">Understanding</th>
+                                                    <th style="padding:2px 6px;">@res.RecognitiveDomain.Understanding</th>
+                                                </tr>
+
+
+                                            </table>
+                                        </th>
+                                    </tr>
+                                </table>
+                                <br />
+                                <br />
+                                <table style="width:100%;" class="table-bordered">
+                                    <tr>
+                                        <th>
+                                            SUBJECT
+                                        </th>
+                                        <th>C.A</th>
+                                        <th>EXAM</th>
+                                        <th>TOTAL SCORE</th>
+                                        <th>GRADE</th>
+                                        <th>REMARK</th>
+                                    </tr>
+                                    @foreach (var item in res.SubjectList)
+                                    {
+                                        <tr>
+                                            <td style="padding:3px;">@item.Subject</td>
+                                            <td style="padding:3px;">@Math.Round(item.TestScore ?? 0)</td>
+                                            <td style="padding:3px;">@Math.Round(item.ExamScore ?? 0)</td>
+                                            <td style="padding:3px;">@Math.Round(item.TotalScore ?? 0)</td>
+                                            <td style="padding:3px;">@item.Grade</td>
+                                            <td style="padding:3px;">@item.Remark</td>
+                                        </tr>
+                                    }
+                                </table>
+                                <div style="float:right;margin-top:10px;text-align:right;padding-right:5px;">
+                                    @if (res.SchoolLogo != null)
+                                    {
+                                        <img class="img-circle" src="data:image/jpg;base64,@(Convert.ToBase64String(res.SchoolStamp))" alt="" style="height:70px;">
+                                    }
+                                    <h5 style="margin-bottom:1px;padding-bottom:2px;">@res.headteacher</h5>
+                                    <h5 style="margin-top:2px;padding-top:2px;line-height:1.4px;">@GeneralService.HeadteacherOrPrincipal()</h5>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="clearfix"></div>
+                        <hr style="border:5px solid #007acc;" />
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+

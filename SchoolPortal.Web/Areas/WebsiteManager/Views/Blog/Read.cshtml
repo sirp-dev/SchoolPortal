@@ -1,0 +1,95 @@
+﻿
+@model SchoolPortal.Web.Models.Dtos.PostDto
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_FrontPagePreviewLayout.cshtml";
+
+}
+
+@Html.Action("_BlogDetailCrumb", "Page")
+
+
+
+<section class="blogdetail-section">
+    <div class="container">
+        <div class="blogdetail-two">
+            <div class="blogdetail-three">
+
+
+                <div class="panel panel-blogdetail">
+                    <div class="panel-heading">
+                        <div class="blogdetail-title">
+                            @Html.DisplayFor(modelItem => Model.Title)
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="blogdetail-image-one">
+                            <div class="blogdetail-image-two">
+                                @if (ViewBag.source == "xyz")
+                                {
+                                    if (Model.PostByteImages != null)
+                                    {
+                                        <img src="data:image/jpg;base64,@(Convert.ToBase64String(Model.PostByteImages))" alt="" class="img-responsive img-blogdetail">
+
+                                    }
+                                }
+                                else if (ViewBag.source == "abc")
+                                {
+                                    if (Model.PostImage.Contains(".png") || Model.PostImage.Contains(".jpg"))
+                                    {
+                                        <img src="@Model.PostImage" alt="" class="img-responsive img-blog-home">
+
+                                    }
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="blogdetail-data-one">
+                            <div class="blogdetail-data-date">
+                                @Html.DisplayFor(modelItem => Model.DatePosted)
+                            </div>
+                            <div class="blogdetail-data-by">
+                                @Html.DisplayFor(modelItem => Model.PostedBy)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="blogdetail-body-one">
+                            <div class="blogdetail-body-two">
+                                @Html.DisplayFor(modelItem => Model.PreviewContent)
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+@section HeadArea {
+
+    @Html.Raw(ViewBag.taghead)
+    @Html.Raw(ViewBag.styletag)
+    @Html.Raw(ViewBag.overridecss)
+}
+
+
+@section FooterArea {
+
+    @Html.Raw(ViewBag.jstag)
+
+}
+
+
+@section BlogStyle {
+    @*blog style*@
+
+    @Html.Raw(ViewBag.styledetailsblog)
+
+}

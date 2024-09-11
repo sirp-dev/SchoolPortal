@@ -1,0 +1,146 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+
+</body>
+</html>
+
+
+<div>
+
+    <table class="table table-bordered">
+        <tr>
+            <th colspan="2">Payment Status</th>
+        </tr>
+        <tr>
+            <th>Total Fees</th>
+            <td>@ViewBag.totalFee</td>
+        </tr>
+        <tr>
+            <th>Paid Fees</th>
+            <td>@ViewBag.FeePaid</td>
+        </tr>
+        <tr>
+            <th>Balance</th>
+            <td>@ViewBag.FeeBalance</td>
+        </tr>
+    </table>
+</div>
+<div class="box-header with-border">
+    <h6>Select Payment you want to make:</h6>
+    <ul class="nav nav-tabs">
+        @if (ViewBag.Income.Count > 0)
+        {
+        foreach (var i in ViewBag.Income)
+        {
+        <li class="">
+            @using (Html.BeginForm("AddToPay", "Panel", new { area = "Student" }, FormMethod.Post, new { id = "", enctype = "" }))
+            {
+            @*@Html.AntiForgeryToken()*@
+            <input type="hidden" name="sessionId" value="@ViewBag.sid" />
+            //ViewBag.eid
+            @*<input type="hidden" value="@ViewBag.stid" name="id" />*@
+            <input type="hidden" value="@i.Id" name="id" />
+            {
+            var ivery = PrintService.PaymentModeStatus(i.Id, ViewBag.eid, ViewBag.sid);
+
+            if (ivery == 0)
+            {
+            @*<button type="button" class="btn btn-success bottom float-right" style="text-align:right;margin-top:20px;background-color:white;color:#3c8dbc;margin-right:5px;">@i.Title <sub>Paid</sub> </button>*@
+            {
+            var chk = PrintService.PaymentModeStatusInitial(i.Id, ViewBag.eid, ViewBag.sid);
+
+            if (chk == 0)
+            {
+            <button type="button" class="btn btn-success bottom float-right" style="text-align:right;margin-top:20px;background-color:white;color:#3c8dbc;margin-right:5px;">@i.Title &#8358;@string.Format("{0:C}", i.Amount).Replace(".00", "").Replace("$", "") <sub>Paid</sub> </button>
+
+            }
+            else if (chk > 0)
+            {
+            if (chk == 1111)
+            {
+            <button type="submit" class="btn btn-primary bottom float-right" style="text-align:right;margin-top:20px;background-color:white;color:#3c8dbc;margin-right:5px;">@i.Title &#8358;@string.Format("{0:C}", i.Amount).Replace(".00", "").Replace("$", "") <i class="fa fa-plus"></i></button>
+
+            }
+            else
+            {
+            <input type="hidden" value="true" name="payall" />
+            <input type="hidden" value="@chk" name="bal" />
+            <button type="submit" class="btn btn-warning bottom float-right" style="text-align:right;margin-top:20px;background-color:white;color:#3c8dbc;margin-right:5px;">@i.Title (Bal: @ivery) <i class="fa fa-plus"></i></button>
+            }
+            }
+            }
+            }
+            else if (ivery > 0)
+            {
+            if (ivery == 1111)
+            {
+            @*<button type="submit" class="btn btn-primary bottom float-right" style="text-align:right;margin-top:20px;background-color:white;color:#3c8dbc;margin-right:5px;">@i.Title <i class="fa fa-plus"></i></button>*@
+            {
+            var chk = PrintService.PaymentModeStatusInitial(i.Id, ViewBag.eid, ViewBag.sid);
+
+            if (chk == 0)
+            {
+            <button type="button" class="btn btn-success bottom float-right" style="text-align:right;margin-top:20px;background-color:#428bca;color:white;margin-right:5px;">@i.Title &#8358;@string.Format("{0:C}", i.Amount).Replace(".00", "").Replace("$", "") <sub>Selected</sub> </button>
+
+            }
+            else if (chk > 0)
+            {
+            if (chk == 1111)
+            {
+            <button type="submit" class="btn btn-primary bottom float-right" style="text-align:right;margin-top:20px;background-color:white;color:#3c8dbc;margin-right:5px;">@i.Title &#8358;@string.Format("{0:C}", i.Amount).Replace(".00", "").Replace("$", "") <i class="fa fa-plus"></i></button>
+
+            }
+            else
+            {
+            <input type="hidden" value="true" name="payall" />
+            <input type="hidden" value="@chk" name="bal" />
+            <button type="submit" class="btn btn-warning bottom float-right" style="text-align:right;margin-top:20px;background-color:white;color:#3c8dbc;margin-right:5px;">@i.Title (Bal: @chk) <i class="fa fa-plus"></i></button>
+            }
+            }
+            }
+            }
+            else
+            {
+            {
+            var chk = PrintService.PaymentModeStatusInitial(i.Id, ViewBag.eid, ViewBag.sid);
+
+            if (chk == 0)
+            {
+            <button type="button" class="btn btn-success bottom float-right" style="text-align:right;margin-top:20px;background-color:white;color:#3c8dbc;margin-right:5px;">@i.Title &#8358;@string.Format("{0:C}", i.Amount).Replace(".00", "").Replace("$", "") <sub>Paid</sub> </button>
+
+            }
+            else if (chk > 0)
+            {
+            if (chk == 1111)
+            {
+            <button type="submit" class="btn btn-primary bottom float-right" style="text-align:right;margin-top:20px;background-color:white;color:#3c8dbc;margin-right:5px;">@i.Title &#8358;@string.Format("{0:C}", i.Amount).Replace(".00", "").Replace("$", "") <i class="fa fa-plus"></i></button>
+
+            }
+            else
+            {
+            <input type="hidden" value="true" name="payall" />
+            <input type="hidden" value="@chk" name="bal" />
+            <button type="submit" class="btn btn-warning bottom float-right" style="text-align:right;margin-top:20px;background-color:white;color:#3c8dbc;margin-right:5px;">@i.Title (Bal: @ivery) <i class="fa fa-plus"></i></button>
+            }
+            }
+            }
+            @*<button type="submit" class="btn btn-warning bottom float-right" style="text-align:right;margin-top:20px;background-color:white;color:#3c8dbc;margin-right:5px;">@i.Title (Bal: @ivery) <i class="fa fa-plus"></i></button>*@
+            }
+            }
+            }
+            }
+        </li>
+
+        }
+        }
+        else
+        {
+        <li class="pull-left header"><i class="fa fa-th"></i> No Fees Available</li>
+        }
+    </ul>
+</div>

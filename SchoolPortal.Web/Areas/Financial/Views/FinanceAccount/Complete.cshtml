@@ -1,0 +1,309 @@
+﻿@model IQueryable<SchoolPortal.Web.Models.Entities.Finance>
+@using SchoolPortal.Web.Areas.Service
+
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box" style="padding:7px;">
+            <div class="box-header" style="margin-bottom:15px;">
+                <h3 class="box-title"><i class="fa fa-fw fa-file-text-o"></i> Complete Payment</h3>
+
+                @if (TempData["success"] != null)
+                {
+                    <div class="alert alert-success alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                        @TempData["success"]
+                    </div>
+                }
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+                <table id="example1" class="table table-bordered table-hover" border="1">
+
+                    <thead>
+                        <tr class="bg-primary">
+                            <th>S/N</th>
+                            <th>Ref No</th>
+                            <th>
+                                Title
+                            </th>
+                            <th>Credit</th>
+                            <th>
+                                Debit
+                            </th>
+                            <th>Approved By</th>
+
+                            <th>
+                                Status
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            int sno = 0;
+                        }
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @{ sno++; }
+                                    @sno
+                                </td>
+                                <td>
+                                    @item.ReferenceId
+                                </td>
+                                <td>
+                                    <a href="" data-toggle="modal" data-target="#modal-@item.Id">
+                                        @item.Title
+                                    </a>
+
+                                </td>
+                                @if (item.FinanceType == SchoolPortal.Web.Models.Entities.FinanceType.Credit)
+                                {
+                                    <td>@item.Amount</td>
+
+                                }
+                                else
+                                {
+                                    <td> - </td>
+                                }
+
+                                @if (item.FinanceType == SchoolPortal.Web.Models.Entities.FinanceType.Debit)
+                                {
+                                    <td>@item.Amount</td>
+
+                                }
+                                else
+                                {
+                                    <td> - </td>
+                                }
+                                @if (item.FinanceSource == SchoolPortal.Web.Models.Entities.FinanceSource.Online)
+                                {
+                                    <td>Online</td>
+                                }
+                                else if (item.FinanceSource == SchoolPortal.Web.Models.Entities.FinanceSource.Bank)
+                                {
+                                    if (item.ApprovedById == null)
+                                    {
+                                        <td></td>
+                                    }
+                                    else
+                                    {
+                                        <td>@item.ApprovedBy.Surname @item.ApprovedBy.FirstName @item.ApprovedBy.OtherName</td>
+                                    }
+
+                                }
+                                else if (item.FinanceSource == SchoolPortal.Web.Models.Entities.FinanceSource.Cash)
+                                {
+                                    if (item.ApprovedById == null)
+                                    {
+                                        <td></td>
+                                    }
+                                    else
+                                    {
+                                        <td>@item.ApprovedBy.Surname @item.ApprovedBy.FirstName @item.ApprovedBy.OtherName</td>
+                                    }
+                                }
+                                else
+                                {
+                                    <td></td>
+                                }
+
+                                <td>
+                                    @item.TransactionStatus
+                                </td>
+                                <td>
+
+                                    <div class="dropdown">
+                                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                                            Action
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu">
+
+
+                                            @if (User.IsInRole("Finance") || User.IsInRole("SuperAdmin"))
+                                            {
+                                                if (item.FinanceType == SchoolPortal.Web.Models.Entities.FinanceType.Credit)
+                                                {
+                                                    <li class="text-color-warning">@Html.ActionLink("Approve", "ApproveCreditPay", new { id = item.Id }, null)</li>
+                                                }
+                                                else if (item.FinanceType == SchoolPortal.Web.Models.Entities.FinanceType.Debit)
+                                                {
+                                                    <li class="text-color-warning">@Html.ActionLink("Approve", "ApproveDebitPay", new { id = item.Id }, null)</li>
+                                                }
+
+                                                @*<li class="text-color-warning">@Html.ActionLink("Edit", "Edit", new { id = item.Id }, null)</li>
+                                                    <li class="text-color-danger">@Html.ActionLink("Delete", "Delete", new { id = item.Id }, null)</li>*@
+                                            }
+                                        </ul>
+                                    </div>
+
+                                </td>
+                            </tr>
+
+                            <div class="modal fade" id="modal-@item.Id">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Payment Information</h4>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    @*<div class="form-group ">
+                                                            <label>Name:</label>
+                                                            <span>@item.User.Surname @item.User.FirstName @item.User.OtherName</span>
+
+                                                        </div>*@
+
+                                                    <div class="form-group ">
+                                                        <label>Reg Number:</label>
+                                                        <span>@item.RegistrationNumber</span>
+
+                                                    </div>
+                                                    <div class="form-group ">
+                                                        <label>Ref Id:</label>
+                                                        <span>@item.ReferenceId</span>
+
+                                                    </div>
+                                                    <div class="form-group ">
+                                                        <label>Title:</label>
+                                                        <span>@item.Title</span>
+
+                                                    </div>
+                                                    <div class="form-group ">
+                                                        <label>Amount:</label>
+                                                        <span>@item.Amount</span>
+
+                                                    </div>
+
+                                                    <div class="form-group ">
+                                                        <label>Finance Type:</label>
+                                                        <span>@item.FinanceType</span>
+
+                                                    </div>
+
+                                                    <div class="form-group ">
+                                                        <label>Transaction Source:</label>
+                                                        <span>@item.FinanceSource</span>
+
+                                                    </div>
+
+                                                    <div class="form-group ">
+                                                        <label>Transaction Status:</label>
+                                                        <span>@item.TransactionStatus</span>
+
+                                                    </div>
+
+                                                    <div class="form-group ">
+                                                        <label>Session/Term</label>
+                                                        <span>@item.Session.SessionYear/@item.Session.Term</span>
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @if (item.TransactionStatus == SchoolPortal.Web.Models.Entities.TransactionStatus.Pending || item.TransactionStatus == SchoolPortal.Web.Models.Entities.TransactionStatus.Cancel)
+                                        {
+                                            if (item.FinanceType == SchoolPortal.Web.Models.Entities.FinanceType.Credit)
+                                            {
+                                                using (Html.BeginForm("ApproveCreditPay", "Payment", new { id = item.Id }, FormMethod.Post, new { id = "" }))
+                                                {
+                                                    @*@Html.AntiForgeryToken()*@
+
+                                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+                                                    <div class="modal-footer justify-content-between">
+                                                        <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-primary">Approve</button>
+                                                    </div>
+                                                }
+                                            }
+                                            else if (item.FinanceType == SchoolPortal.Web.Models.Entities.FinanceType.Debit)
+                                            {
+                                                using (Html.BeginForm("ApproveDebitPay", "Payment", new { id = item.Id }, FormMethod.Post, new { id = "" }))
+                                                {
+                                                    @*@Html.AntiForgeryToken()*@
+
+                                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+                                                    <div class="modal-footer justify-content-between">
+                                                        <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-primary">Approve</button>
+                                                    </div>
+                                                }
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <div class="modal-footer justify-content-between">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                            </div>
+                                        }
+
+
+                                        @*<div class="modal-footer justify-content-between">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                <button type="button" class="btn btn-primary">Save changes</button>
+                                            </div>*@
+                                    </div>
+                                    <!-- /.modal-content -->
+                                </div>
+                                <!-- /.modal-dialog -->
+                            </div>
+                            <!-- /.modal -->
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+</div>
+
+
+
+
+
+@section Style {
+
+    <link rel="stylesheet" href="http://v1.exwhyzee.ng/admin/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+}
+
+@section Scripts {
+    <!-- DataTables -->
+    <script src="http://v1.exwhyzee.ng/admin/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="http://v1.exwhyzee.ng/admin/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+
+}
+
+@section Scripts2 {
+    <script>
+        $(function () {
+            $('#example1').DataTable()
+            $('#example2').DataTable({
+                'paging': true,
+                'lengthChange': false,
+                'searching': false,
+                'ordering': true,
+                'info': true,
+                'autoWidth': false
+            })
+        })
+    </script>
+}

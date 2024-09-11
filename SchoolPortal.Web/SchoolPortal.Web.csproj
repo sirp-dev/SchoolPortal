@@ -1,0 +1,2804 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{8ADC3AE6-758D-4A31-AD47-5537AE8EDF8F}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SchoolPortal.Web</RootNamespace>
+    <AssemblyName>SchoolPortal.Web</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TypeScriptToolsVersion>3.1</TypeScriptToolsVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\SchoolPortal.Web.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.10.1.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
+      <HintPath>..\packages\DocumentFormat.OpenXml.2.10.1\lib\net46\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Authenticator, Version=2.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\GoogleAuthenticator.2.0.1\lib\net45\Google.Authenticator.dll</HintPath>
+    </Reference>
+    <Reference Include="LinqToExcel, Version=1.11.0.0, Culture=neutral, PublicKeyToken=9c8ea65a58f03f1f, processorArchitecture=MSIL">
+      <HintPath>..\packages\LinqToExcel.1.11.0\lib\LinqToExcel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.Agent.Intercept, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.2.4.0\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.DependencyCollector, Version=2.14.0.17971, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.14.0\lib\net45\Microsoft.AI.DependencyCollector.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.PerfCounterCollector, Version=2.14.0.17971, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.14.0\lib\net45\Microsoft.AI.PerfCounterCollector.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.ServerTelemetryChannel, Version=2.14.0.17971, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.14.0\lib\net45\Microsoft.AI.ServerTelemetryChannel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.Web, Version=2.14.0.17971, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Web.2.14.0\lib\net45\Microsoft.AI.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.WindowsServer, Version=2.14.0.17971, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.2.14.0\lib\net45\Microsoft.AI.WindowsServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationInsights, Version=2.14.0.17971, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.2.14.0\lib\net46\Microsoft.ApplicationInsights.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.3\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.3\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.3\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.TelemetryCorrelation, Version=1.0.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.TelemetryCorrelation.1.0.7\lib\net45\Microsoft.AspNet.TelemetryCorrelation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.IdentityModel.JsonWebTokens, Version=6.5.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.JsonWebTokens.6.5.1\lib\net461\Microsoft.IdentityModel.JsonWebTokens.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Logging, Version=6.5.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Logging.6.5.1\lib\net461\Microsoft.IdentityModel.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Tokens, Version=6.5.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Tokens.6.5.1\lib\net461\Microsoft.IdentityModel.Tokens.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1000\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.Owin, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.4.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.4.1.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.4.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.4.1.0\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Facebook, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.4.1.0\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Google, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Google.4.1.0\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.MicrosoftAccount, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.MicrosoftAccount.4.1.0\lib\net45\Microsoft.Owin.Security.MicrosoftAccount.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.4.1.0\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Twitter, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Twitter.4.1.0\lib\net45\Microsoft.Owin.Security.Twitter.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Win32.Primitives, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Win32.Primitives.4.3.0\lib\net46\Microsoft.Win32.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="PhoneNumbers, Version=8.12.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\libphonenumber-csharp.8.12.3\lib\net46\PhoneNumbers.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="QRCoder, Version=1.3.9.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\QRCoder.1.3.9\lib\net40\QRCoder.dll</HintPath>
+    </Reference>
+    <Reference Include="Remotion, Version=1.13.52.2, Culture=neutral, PublicKeyToken=0669cf0452175907, processorArchitecture=MSIL">
+      <HintPath>..\packages\LinqToExcel.1.11.0\lib\Remotion.dll</HintPath>
+    </Reference>
+    <Reference Include="Remotion.Data.Linq, Version=1.13.52.2, Culture=neutral, PublicKeyToken=0669cf0452175907, processorArchitecture=MSIL">
+      <HintPath>..\packages\LinqToExcel.1.11.0\lib\Remotion.Data.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="Remotion.Interfaces, Version=1.13.52.2, Culture=neutral, PublicKeyToken=0669cf0452175907, processorArchitecture=MSIL">
+      <HintPath>..\packages\LinqToExcel.1.11.0\lib\Remotion.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp, Version=106.11.3.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.106.11.3\lib\net452\RestSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Swashbuckle.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cd1bb07a5ac7c7bc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Swashbuckle.Core.Net45.5.2.1\lib\net45\Swashbuckle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Swashbuckle.WebHost, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Swashbuckle.Net45.5.2.1\lib\net45\Swashbuckle.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.AppContext, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.AppContext.4.3.0\lib\net46\System.AppContext.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Collections.Immutable, Version=1.2.5.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Collections.Immutable.1.7.0\lib\netstandard2.0\System.Collections.Immutable.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Console, Version=4.0.1.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Console.4.3.1\lib\net46\System.Console.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.7.1\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Common, Version=4.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Drawing.Common.4.7.0\lib\net461\System.Drawing.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Globalization.Calendars, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Globalization.Calendars.4.3.0\lib\net46\System.Globalization.Calendars.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=6.5.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.6.5.1\lib\net461\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Compression, Version=4.1.2.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Compression.4.3.0\lib\net46\System.IO.Compression.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.IO.Compression.ZipFile, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Compression.ZipFile.4.3.0\lib\net46\System.IO.Compression.ZipFile.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.FileSystem, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.FileSystem.4.3.0\lib\net46\System.IO.FileSystem.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.FileSystem.Primitives, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.FileSystem.Primitives.4.3.0\lib\net46\System.IO.FileSystem.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Packaging, Version=4.0.5.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Packaging.4.7.0\lib\net46\System.IO.Packaging.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Management" />
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http, Version=4.1.1.3, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Http.4.3.4\lib\net46\System.Net.Http.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Sockets, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Sockets.4.3.0\lib\net46\System.Net.Sockets.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.6.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.7.1\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security.Cryptography.Algorithms, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.1\lib\net461\System.Security.Cryptography.Algorithms.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Encoding, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Encoding.4.3.0\lib\net46\System.Security.Cryptography.Encoding.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.X509Certificates, Version=4.1.1.2, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.X509Certificates.4.3.2\lib\net461\System.Security.Cryptography.X509Certificates.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Text.Encodings.Web, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Encodings.Web.4.7.1\lib\net461\System.Text.Encodings.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Cors, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Cors.5.2.7\lib\net45\System.Web.Cors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.Cors, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Cors.5.2.7\lib\net45\System.Web.Http.Cors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.7\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml.ReaderWriter, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Xml.ReaderWriter.4.3.1\lib\net46\System.Xml.ReaderWriter.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebActivatorEx.2.2.0\lib\net40\WebActivatorEx.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Owin">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Start\SwaggerConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\Accomodation\AccomodationAreaRegistration.cs" />
+    <Compile Include="Areas\Accomodation\Controllers\AllotmentController.cs" />
+    <Compile Include="Areas\Accomodation\Controllers\BedsController.cs" />
+    <Compile Include="Areas\Accomodation\Controllers\HostelsController.cs" />
+    <Compile Include="Areas\Accomodation\Controllers\RoomsController.cs" />
+    <Compile Include="Areas\Account\AccountAreaRegistration.cs" />
+    <Compile Include="Areas\Account\Controllers\XYZController.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\ClassLevelsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\DashBoardController.cs" />
+    <Compile Include="Areas\Admin\Controllers\DataUserRequestsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\EnrollmentsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\GradingsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\HallOfFamesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ImageGalleriesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ImageSlidersController.cs" />
+    <Compile Include="Areas\Admin\Controllers\NewsLettersController.cs" />
+    <Compile Include="Areas\Admin\Controllers\NotificationSettingsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PartialViewController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PinManagementController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ResultArchiveManagementController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ResultManagementController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SchoolAccountsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SchoolFeesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SessionsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SettingsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\StaffProfileController.cs" />
+    <Compile Include="Areas\Admin\Controllers\StudentProfilesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\TicketsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\UserManagersController.cs" />
+    <Compile Include="Areas\Admission\AdmissionAreaRegistration.cs" />
+    <Compile Include="Areas\Admission\Controllers\AdminController.cs" />
+    <Compile Include="Areas\Admission\Controllers\ApplicationController.cs" />
+    <Compile Include="Areas\CBTExam\CBTExamAreaRegistration.cs" />
+    <Compile Include="Areas\CBTExam\Controllers\CBTExamBoardController.cs" />
+    <Compile Include="Areas\CBTExam\Controllers\CBTOptionController.cs" />
+    <Compile Include="Areas\CBTExam\Controllers\CBTQuestionController.cs" />
+    <Compile Include="Areas\CBTExam\Controllers\CBTClassController.cs" />
+    <Compile Include="Areas\CBTExam\Controllers\CBTExamResultManagerController.cs" />
+    <Compile Include="Areas\CBTExam\Controllers\CBTSubjectController.cs" />
+    <Compile Include="Areas\Content\ContentAreaRegistration.cs" />
+    <Compile Include="Areas\Content\Controllers\AssignmentsController.cs" />
+    <Compile Include="Areas\Content\Controllers\CalendarController.cs" />
+    <Compile Include="Areas\Content\Controllers\ContactUsChatController.cs" />
+    <Compile Include="Areas\Content\Controllers\DocController.cs" />
+    <Compile Include="Areas\Content\Controllers\EventsController.cs" />
+    <Compile Include="Areas\Content\Controllers\HelpsController.cs" />
+    <Compile Include="Areas\Content\Controllers\MessageController.cs" />
+    <Compile Include="Areas\Content\Controllers\PostsController.cs" />
+    <Compile Include="Areas\Content\Controllers\QuotesController.cs" />
+    <Compile Include="Areas\Content\Controllers\RiddlesController.cs" />
+    <Compile Include="Areas\Content\Controllers\SyllablesController.cs" />
+    <Compile Include="Areas\Content\Controllers\TimeTablesController.cs" />
+    <Compile Include="Areas\Data\IServices\IAccomodationService.cs" />
+    <Compile Include="Areas\Data\IServices\IAssignmentService.cs" />
+    <Compile Include="Areas\Data\IServices\IAttendanceService.cs" />
+    <Compile Include="Areas\Data\IServices\IBankStatementService.cs" />
+    <Compile Include="Areas\Data\IServices\IClassLevelService.cs" />
+    <Compile Include="Areas\Data\IServices\IContactUsService.cs" />
+    <Compile Include="Areas\Data\IServices\IDefaulterService.cs" />
+    <Compile Include="Areas\Data\IServices\IDeviceService.cs" />
+    <Compile Include="Areas\Data\IServices\IEnrolledSubjectArchiveService.cs" />
+    <Compile Include="Areas\Data\IServices\IEnrolledSubjectService.cs" />
+    <Compile Include="Areas\Data\IServices\IEnrollmentService.cs" />
+    <Compile Include="Areas\Data\IServices\IExpenditureService.cs" />
+    <Compile Include="Areas\Data\IServices\IFinanceService.cs" />
+    <Compile Include="Areas\Data\IServices\IGeneralRemarkService.cs" />
+    <Compile Include="Areas\Data\IServices\IGradingService.cs" />
+    <Compile Include="Areas\Data\IServices\IHallOfFameService.cs" />
+    <Compile Include="Areas\Data\IServices\IImageGalleryService.cs" />
+    <Compile Include="Areas\Data\IServices\IImageService.cs" />
+    <Compile Include="Areas\Data\IServices\IimageSliderServices.cs" />
+    <Compile Include="Areas\Data\IServices\IIncomeService.cs" />
+    <Compile Include="Areas\Data\IServices\IMessageService.cs" />
+    <Compile Include="Areas\Data\IServices\INotificationSettingService.cs" />
+    <Compile Include="Areas\Data\IServices\IPaymentAmountService.cs" />
+    <Compile Include="Areas\Data\IServices\IPaystackTransactionService.cs" />
+    <Compile Include="Areas\Data\IServices\IPinService.cs" />
+    <Compile Include="Areas\Data\IServices\IPostService.cs" />
+    <Compile Include="Areas\Data\IServices\IPublishResultService.cs" />
+    <Compile Include="Areas\Data\IServices\IRegistrationDataService.cs" />
+    <Compile Include="Areas\Data\IServices\IResultArchiveService.cs" />
+    <Compile Include="Areas\Data\IServices\IResultService.cs" />
+    <Compile Include="Areas\Data\IServices\ISchoolAccountService.cs" />
+    <Compile Include="Areas\Data\IServices\ISchoolFeeService.cs" />
+    <Compile Include="Areas\Data\IServices\ISessionService.cs" />
+    <Compile Include="Areas\Data\IServices\ISettingService.cs" />
+    <Compile Include="Areas\Data\IServices\IStaffService.cs" />
+    <Compile Include="Areas\Data\IServices\IStudentProfileService.cs" />
+    <Compile Include="Areas\Data\IServices\ISubjectService.cs" />
+    <Compile Include="Areas\Data\IServices\ISyllableService.cs" />
+    <Compile Include="Areas\Data\IServices\IUserManagerService.cs" />
+    <Compile Include="Areas\Data\Services\AccomodationService.cs" />
+    <Compile Include="Areas\Data\Services\AssignmentService.cs" />
+    <Compile Include="Areas\Data\Services\AttendanceService.cs" />
+    <Compile Include="Areas\Data\Services\BankStatementService.cs" />
+    <Compile Include="Areas\Data\Services\ClassLevelService.cs" />
+    <Compile Include="Areas\Data\Services\ContactUsService.cs" />
+    <Compile Include="Areas\Data\Services\DefaulterService.cs" />
+    <Compile Include="Areas\Data\Services\DeviceService.cs" />
+    <Compile Include="Areas\Data\Services\EnrolledSubjectArchiveService.cs" />
+    <Compile Include="Areas\Data\Services\EnrolledSubjectService.cs" />
+    <Compile Include="Areas\Data\Services\EnrollmentService.cs" />
+    <Compile Include="Areas\Data\Services\ExpenditureService.cs" />
+    <Compile Include="Areas\Data\Services\FinanceService.cs" />
+    <Compile Include="Areas\Data\Services\GeneralRemarkService.cs" />
+    <Compile Include="Areas\Data\Services\GradingService.cs" />
+    <Compile Include="Areas\Data\Services\HallOfFameService.cs" />
+    <Compile Include="Areas\Data\Services\ImageGalleryService.cs" />
+    <Compile Include="Areas\Data\Services\ImageService.cs" />
+    <Compile Include="Areas\Data\Services\ImageSliderServices.cs" />
+    <Compile Include="Areas\Data\Services\IncomeService.cs" />
+    <Compile Include="Areas\Data\Services\MessageService.cs" />
+    <Compile Include="Areas\Data\Services\NotificationSettingService.cs" />
+    <Compile Include="Areas\Data\Services\PaymentAmountService.cs" />
+    <Compile Include="Areas\Data\Services\PaystackTransactionService.cs" />
+    <Compile Include="Areas\Data\Services\PinService.cs" />
+    <Compile Include="Areas\Data\Services\PostService.cs" />
+    <Compile Include="Areas\Data\Services\PublishResultService.cs" />
+    <Compile Include="Areas\Data\Services\RegistrationDataService.cs" />
+    <Compile Include="Areas\Data\Services\ResultArchiveService.cs" />
+    <Compile Include="Areas\Data\Services\ResultService.cs" />
+    <Compile Include="Areas\Data\Services\SchoolAccountService.cs" />
+    <Compile Include="Areas\Data\Services\SchoolFeeService.cs" />
+    <Compile Include="Areas\Data\Services\SessionService.cs" />
+    <Compile Include="Areas\Data\Services\SettingService.cs" />
+    <Compile Include="Areas\Data\Services\StaffService.cs" />
+    <Compile Include="Areas\Data\Services\StudentProfileService.cs" />
+    <Compile Include="Areas\Data\Services\SubjectService.cs" />
+    <Compile Include="Areas\Data\Services\SyllableService.cs" />
+    <Compile Include="Areas\Data\Services\UserManagerService.cs" />
+    <Compile Include="Areas\Documentaries\Controllers\DocController.cs" />
+    <Compile Include="Areas\Documentaries\DocumentariesAreaRegistration.cs" />
+    <Compile Include="Areas\Financial\Controllers\FinanceAccountController.cs" />
+    <Compile Include="Areas\Financial\Controllers\BankStatementController.cs" />
+    <Compile Include="Areas\Financial\Controllers\ExpenditureSourceController.cs" />
+    <Compile Include="Areas\Financial\Controllers\IncomeController.cs" />
+    <Compile Include="Areas\Financial\Controllers\IncomeSourceController.cs" />
+    <Compile Include="Areas\Financial\Controllers\PaymentController.cs" />
+    <Compile Include="Areas\Financial\FinancialAreaRegistration.cs" />
+    <Compile Include="Areas\OnlineClass\Controllers\LiveController.cs" />
+    <Compile Include="Areas\OnlineClass\OnlineClassAreaRegistration.cs" />
+    <Compile Include="Areas\Service\GeneralService.cs" />
+    <Compile Include="Areas\Service\Logger.cs" />
+    <Compile Include="Areas\Service\PrintArchiveService.cs" />
+    <Compile Include="Areas\Service\PrintService.cs" />
+    <Compile Include="Areas\Service\ServiceSmsComponent.cs" />
+    <Compile Include="Areas\Service\StringHelper.cs" />
+    <Compile Include="Areas\Staff\Controllers\EventsControlController.cs" />
+    <Compile Include="Areas\Staff\Controllers\PanelController.cs" />
+    <Compile Include="Areas\Staff\StaffAreaRegistration.cs" />
+    <Compile Include="Areas\Student\Controllers\ArchiveResultController.cs" />
+    <Compile Include="Areas\Student\Controllers\EventStudentController.cs" />
+    <Compile Include="Areas\Student\Controllers\PanelController.cs" />
+    <Compile Include="Areas\Student\StudentAreaRegistration.cs" />
+    <Compile Include="Areas\SuperDevice\Controllers\DeviceManagerController.cs" />
+    <Compile Include="Areas\SuperDevice\SuperDeviceAreaRegistration.cs" />
+    <Compile Include="Areas\SuperUser\Controllers\AdminUserController.cs" />
+    <Compile Include="Areas\SuperUser\Controllers\ApprovedDevicesController.cs" />
+    <Compile Include="Areas\SuperUser\Controllers\ImportFromExcelController.cs" />
+    <Compile Include="Areas\SuperUser\Controllers\ResultArchiveController.cs" />
+    <Compile Include="Areas\SuperUser\Controllers\TrackerController.cs" />
+    <Compile Include="Areas\SuperUser\Controllers\WebsiteSettingsController.cs" />
+    <Compile Include="Areas\SuperUser\SuperUserAreaRegistration.cs" />
+    <Compile Include="Areas\WebsiteManager\Controllers\BlogController.cs" />
+    <Compile Include="Areas\WebsiteManager\Controllers\ContentPagesController.cs" />
+    <Compile Include="Areas\WebsiteManager\Controllers\CategoryPagesController.cs" />
+    <Compile Include="Areas\WebsiteManager\Controllers\ContentImagesController.cs" />
+    <Compile Include="Areas\WebsiteManager\Controllers\PageController.cs" />
+    <Compile Include="Areas\WebsiteManager\WebsiteManagerAreaRegistration.cs" />
+    <Compile Include="Areas\WebsiteUI\Controllers\SiteBreadCrumbsController.cs" />
+    <Compile Include="Areas\WebsiteUI\Controllers\SiteContactsController.cs" />
+    <Compile Include="Areas\WebsiteUI\Controllers\SiteFooterJSController.cs" />
+    <Compile Include="Areas\WebsiteUI\Controllers\SiteFootersController.cs" />
+    <Compile Include="Areas\WebsiteUI\Controllers\SiteGalleriesController.cs" />
+    <Compile Include="Areas\WebsiteUI\Controllers\SiteGalleryListsController.cs" />
+    <Compile Include="Areas\WebsiteUI\Controllers\SiteHeadersController.cs" />
+    <Compile Include="Areas\WebsiteUI\Controllers\SiteSinglePostsController.cs" />
+    <Compile Include="Areas\WebsiteUI\Controllers\SiteHomeBodyAfterNewsController.cs" />
+    <Compile Include="Areas\WebsiteUI\Controllers\SiteHomeBodiesController.cs" />
+    <Compile Include="Areas\WebsiteUI\Controllers\SiteNavHeadersController.cs" />
+    <Compile Include="Areas\WebsiteUI\Controllers\SiteNewsPostListsController.cs" />
+    <Compile Include="Areas\WebsiteUI\Controllers\SiteNewsPostsController.cs" />
+    <Compile Include="Areas\WebsiteUI\Controllers\SiteOverrideCSSesController.cs" />
+    <Compile Include="Areas\WebsiteUI\Controllers\SitePageCategoriesController.cs" />
+    <Compile Include="Areas\WebsiteUI\Controllers\SitePagesController.cs" />
+    <Compile Include="Areas\WebsiteUI\Controllers\SiteSettingsController.cs" />
+    <Compile Include="Areas\WebsiteUI\Controllers\SiteSlidersController.cs" />
+    <Compile Include="Areas\WebsiteUI\WebsiteUIAreaRegistration.cs" />
+    <Compile Include="Controllers\AccountAAController.cs" />
+    <Compile Include="Controllers\CBTQuestionController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\RegistrationController.cs" />
+    <Compile Include="Controllers\LiveClassApiController.cs" />
+    <Compile Include="Controllers\SchoolApiController.cs" />
+    <Compile Include="Controllers\TokenManager.cs" />
+    <Compile Include="Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ExceptionUtility.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806261402009_Intial-migration.cs" />
+    <Compile Include="Migrations\201806261402009_Intial-migration.Designer.cs">
+      <DependentUpon>201806261402009_Intial-migration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806261404469_statesandcapital.cs" />
+    <Compile Include="Migrations\201806261404469_statesandcapital.Designer.cs">
+      <DependentUpon>201806261404469_statesandcapital.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807011103153_update1.cs" />
+    <Compile Include="Migrations\201807011103153_update1.Designer.cs">
+      <DependentUpon>201807011103153_update1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807021332237_fgs.cs" />
+    <Compile Include="Migrations\201807021332237_fgs.Designer.cs">
+      <DependentUpon>201807021332237_fgs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807081417243_gfd.cs" />
+    <Compile Include="Migrations\201807081417243_gfd.Designer.cs">
+      <DependentUpon>201807081417243_gfd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807140443279_recognitiveDomainandclass.cs" />
+    <Compile Include="Migrations\201807140443279_recognitiveDomainandclass.Designer.cs">
+      <DependentUpon>201807140443279_recognitiveDomainandclass.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807160353536_batchresultsetting.cs" />
+    <Compile Include="Migrations\201807160353536_batchresultsetting.Designer.cs">
+      <DependentUpon>201807160353536_batchresultsetting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807221201045_scriptfull.cs" />
+    <Compile Include="Migrations\201807221201045_scriptfull.Designer.cs">
+      <DependentUpon>201807221201045_scriptfull.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808152331518_IsOfferred123.cs" />
+    <Compile Include="Migrations\201808152331518_IsOfferred123.Designer.cs">
+      <DependentUpon>201808152331518_IsOfferred123.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808280235376_enrolmentRemark.cs" />
+    <Compile Include="Migrations\201808280235376_enrolmentRemark.Designer.cs">
+      <DependentUpon>201808280235376_enrolmentRemark.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810161542353_google.cs" />
+    <Compile Include="Migrations\201810161542353_google.Designer.cs">
+      <DependentUpon>201810161542353_google.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810161546500_google-allowhtml.cs" />
+    <Compile Include="Migrations\201810161546500_google-allowhtml.Designer.cs">
+      <DependentUpon>201810161546500_google-allowhtml.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810301112314_UserProfile_Update.cs" />
+    <Compile Include="Migrations\201810301112314_UserProfile_Update.Designer.cs">
+      <DependentUpon>201810301112314_UserProfile_Update.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810311127254_websitesettings.cs" />
+    <Compile Include="Migrations\201810311127254_websitesettings.Designer.cs">
+      <DependentUpon>201810311127254_websitesettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810311625309_ImageSliderText.cs" />
+    <Compile Include="Migrations\201810311625309_ImageSliderText.Designer.cs">
+      <DependentUpon>201810311625309_ImageSliderText.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811010123559_websiteIcon.cs" />
+    <Compile Include="Migrations\201811010123559_websiteIcon.Designer.cs">
+      <DependentUpon>201811010123559_websiteIcon.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811011500361_promoteall.cs" />
+    <Compile Include="Migrations\201811011500361_promoteall.Designer.cs">
+      <DependentUpon>201811011500361_promoteall.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201812141241166_dhdhhshshhshshs.cs" />
+    <Compile Include="Migrations\201812141241166_dhdhhshshhshshs.Designer.cs">
+      <DependentUpon>201812141241166_dhdhhshshhshshs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902081119085_phonenumbercorrection.cs" />
+    <Compile Include="Migrations\201902081119085_phonenumbercorrection.Designer.cs">
+      <DependentUpon>201902081119085_phonenumbercorrection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902081406149_eventupdate.cs" />
+    <Compile Include="Migrations\201902081406149_eventupdate.Designer.cs">
+      <DependentUpon>201902081406149_eventupdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902090601284_imagegallery.cs" />
+    <Compile Include="Migrations\201902090601284_imagegallery.Designer.cs">
+      <DependentUpon>201902090601284_imagegallery.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902211010528_positioninclassresult.cs" />
+    <Compile Include="Migrations\201902211010528_positioninclassresult.Designer.cs">
+      <DependentUpon>201902211010528_positioninclassresult.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902211544501_affectiveandpsychomotordomain.cs" />
+    <Compile Include="Migrations\201902211544501_affectiveandpsychomotordomain.Designer.cs">
+      <DependentUpon>201902211544501_affectiveandpsychomotordomain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903031353463_schoolfeesandschoolaccount.cs" />
+    <Compile Include="Migrations\201903031353463_schoolfeesandschoolaccount.Designer.cs">
+      <DependentUpon>201903031353463_schoolfeesandschoolaccount.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903031505137_teacherremarkupdate.cs" />
+    <Compile Include="Migrations\201903031505137_teacherremarkupdate.Designer.cs">
+      <DependentUpon>201903031505137_teacherremarkupdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903121646475_prinoutandfeeupdate.cs" />
+    <Compile Include="Migrations\201903121646475_prinoutandfeeupdate.Designer.cs">
+      <DependentUpon>201903121646475_prinoutandfeeupdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903151504124_sessionInPincardUpdated.cs" />
+    <Compile Include="Migrations\201903151504124_sessionInPincardUpdated.Designer.cs">
+      <DependentUpon>201903151504124_sessionInPincardUpdated.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903151709063_SelectPrintouttype.cs" />
+    <Compile Include="Migrations\201903151709063_SelectPrintouttype.Designer.cs">
+      <DependentUpon>201903151709063_SelectPrintouttype.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903221437147_Newsletter.cs" />
+    <Compile Include="Migrations\201903221437147_Newsletter.Designer.cs">
+      <DependentUpon>201903221437147_Newsletter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904071518218_websitemanager.cs" />
+    <Compile Include="Migrations\201904071518218_websitemanager.Designer.cs">
+      <DependentUpon>201904071518218_websitemanager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904071700312_contentimage.cs" />
+    <Compile Include="Migrations\201904071700312_contentimage.Designer.cs">
+      <DependentUpon>201904071700312_contentimage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904090354204_updatecontenpage.cs" />
+    <Compile Include="Migrations\201904090354204_updatecontenpage.Designer.cs">
+      <DependentUpon>201904090354204_updatecontenpage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904091651010_supportticket.cs" />
+    <Compile Include="Migrations\201904091651010_supportticket.Designer.cs">
+      <DependentUpon>201904091651010_supportticket.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904091708545_supportticketupdate.cs" />
+    <Compile Include="Migrations\201904091708545_supportticketupdate.Designer.cs">
+      <DependentUpon>201904091708545_supportticketupdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904101037598_update-tickettable.cs" />
+    <Compile Include="Migrations\201904101037598_update-tickettable.Designer.cs">
+      <DependentUpon>201904101037598_update-tickettable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904101441504_update-tickettable-2.cs" />
+    <Compile Include="Migrations\201904101441504_update-tickettable-2.Designer.cs">
+      <DependentUpon>201904101441504_update-tickettable-2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904111808353_helpdata.cs" />
+    <Compile Include="Migrations\201904111808353_helpdata.Designer.cs">
+      <DependentUpon>201904111808353_helpdata.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904121147281_ContentPageupdate.cs" />
+    <Compile Include="Migrations\201904121147281_ContentPageupdate.Designer.cs">
+      <DependentUpon>201904121147281_ContentPageupdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904121207097_CategoryPageupdate.cs" />
+    <Compile Include="Migrations\201904121207097_CategoryPageupdate.Designer.cs">
+      <DependentUpon>201904121207097_CategoryPageupdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904121219530_CategoryPageupdate2.cs" />
+    <Compile Include="Migrations\201904121219530_CategoryPageupdate2.Designer.cs">
+      <DependentUpon>201904121219530_CategoryPageupdate2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904121645502_websitecolor.cs" />
+    <Compile Include="Migrations\201904121645502_websitecolor.Designer.cs">
+      <DependentUpon>201904121645502_websitecolor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904130509124_Newsletterupdate.cs" />
+    <Compile Include="Migrations\201904130509124_Newsletterupdate.Designer.cs">
+      <DependentUpon>201904130509124_Newsletterupdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904142025031_frontendactivity.cs" />
+    <Compile Include="Migrations\201904142025031_frontendactivity.Designer.cs">
+      <DependentUpon>201904142025031_frontendactivity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904150842562_websitefrontend.cs" />
+    <Compile Include="Migrations\201904150842562_websitefrontend.Designer.cs">
+      <DependentUpon>201904150842562_websitefrontend.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904221711400_Security.cs" />
+    <Compile Include="Migrations\201904221711400_Security.Designer.cs">
+      <DependentUpon>201904221711400_Security.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905191438231_ShowInWebsiteHomeSettings.cs" />
+    <Compile Include="Migrations\201905191438231_ShowInWebsiteHomeSettings.Designer.cs">
+      <DependentUpon>201905191438231_ShowInWebsiteHomeSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906121612148_settingsvalue.cs" />
+    <Compile Include="Migrations\201906121612148_settingsvalue.Designer.cs">
+      <DependentUpon>201906121612148_settingsvalue.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201907191537363_admissionupdate.cs" />
+    <Compile Include="Migrations\201907191537363_admissionupdate.Designer.cs">
+      <DependentUpon>201907191537363_admissionupdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912200939435_bencochanges.cs" />
+    <Compile Include="Migrations\201912200939435_bencochanges.Designer.cs">
+      <DependentUpon>201912200939435_bencochanges.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001231008389_pinusageoption.cs" />
+    <Compile Include="Migrations\202001231008389_pinusageoption.Designer.cs">
+      <DependentUpon>202001231008389_pinusageoption.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002170848313_finance.cs" />
+    <Compile Include="Migrations\202002170848313_finance.Designer.cs">
+      <DependentUpon>202002170848313_finance.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002171145107_finance-update.cs" />
+    <Compile Include="Migrations\202002171145107_finance-update.Designer.cs">
+      <DependentUpon>202002171145107_finance-update.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002171211364_finance-update-2.cs" />
+    <Compile Include="Migrations\202002171211364_finance-update-2.Designer.cs">
+      <DependentUpon>202002171211364_finance-update-2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003091702293_ClassFees.cs" />
+    <Compile Include="Migrations\202003091702293_ClassFees.Designer.cs">
+      <DependentUpon>202003091702293_ClassFees.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003091746524_InvoiceUpdate.cs" />
+    <Compile Include="Migrations\202003091746524_InvoiceUpdate.Designer.cs">
+      <DependentUpon>202003091746524_InvoiceUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003101024599_Invoice.cs" />
+    <Compile Include="Migrations\202003101024599_Invoice.Designer.cs">
+      <DependentUpon>202003101024599_Invoice.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003101555112_paymentamount.cs" />
+    <Compile Include="Migrations\202003101555112_paymentamount.Designer.cs">
+      <DependentUpon>202003101555112_paymentamount.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003102353128_invoiceupdatee2.cs" />
+    <Compile Include="Migrations\202003102353128_invoiceupdatee2.Designer.cs">
+      <DependentUpon>202003102353128_invoiceupdatee2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003111404102_financeenrolupdate.cs" />
+    <Compile Include="Migrations\202003111404102_financeenrolupdate.Designer.cs">
+      <DependentUpon>202003111404102_financeenrolupdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003121129121_invoicefinanceupdate.cs" />
+    <Compile Include="Migrations\202003121129121_invoicefinanceupdate.Designer.cs">
+      <DependentUpon>202003121129121_invoicefinanceupdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003121208472_financeinvoiceIdupdate.cs" />
+    <Compile Include="Migrations\202003121208472_financeinvoiceIdupdate.Designer.cs">
+      <DependentUpon>202003121208472_financeinvoiceIdupdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003122037430_referenceupdate.cs" />
+    <Compile Include="Migrations\202003122037430_referenceupdate.Designer.cs">
+      <DependentUpon>202003122037430_referenceupdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003131201371_paymenttteeupdate.cs" />
+    <Compile Include="Migrations\202003131201371_paymenttteeupdate.Designer.cs">
+      <DependentUpon>202003131201371_paymenttteeupdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003131248137_approvedeby.cs" />
+    <Compile Include="Migrations\202003131248137_approvedeby.Designer.cs">
+      <DependentUpon>202003131248137_approvedeby.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003131347514_approvedebyupdate2.cs" />
+    <Compile Include="Migrations\202003131347514_approvedebyupdate2.Designer.cs">
+      <DependentUpon>202003131347514_approvedebyupdate2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003131407457_approvedbyaddedupdated.cs" />
+    <Compile Include="Migrations\202003131407457_approvedbyaddedupdated.Designer.cs">
+      <DependentUpon>202003131407457_approvedbyaddedupdated.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003161100107_accomodation.cs" />
+    <Compile Include="Migrations\202003161100107_accomodation.Designer.cs">
+      <DependentUpon>202003161100107_accomodation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003161548482_accomodationstatus.cs" />
+    <Compile Include="Migrations\202003161548482_accomodationstatus.Designer.cs">
+      <DependentUpon>202003161548482_accomodationstatus.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003170929545_bedsupdate.cs" />
+    <Compile Include="Migrations\202003170929545_bedsupdate.Designer.cs">
+      <DependentUpon>202003170929545_bedsupdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003181010574_financeaccomodationupdate.cs" />
+    <Compile Include="Migrations\202003181010574_financeaccomodationupdate.Designer.cs">
+      <DependentUpon>202003181010574_financeaccomodationupdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003301349144_SuperDeviceUpdate.cs" />
+    <Compile Include="Migrations\202003301349144_SuperDeviceUpdate.Designer.cs">
+      <DependentUpon>202003301349144_SuperDeviceUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003311032233_Deveiceupdate.cs" />
+    <Compile Include="Migrations\202003311032233_Deveiceupdate.Designer.cs">
+      <DependentUpon>202003311032233_Deveiceupdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004141014308_paymentcallbackurl.cs" />
+    <Compile Include="Migrations\202004141014308_paymentcallbackurl.Designer.cs">
+      <DependentUpon>202004141014308_paymentcallbackurl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004160936258_Documentary.cs" />
+    <Compile Include="Migrations\202004160936258_Documentary.Designer.cs">
+      <DependentUpon>202004160936258_Documentary.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004161108228_DocumentaryUpdate.cs" />
+    <Compile Include="Migrations\202004161108228_DocumentaryUpdate.Designer.cs">
+      <DependentUpon>202004161108228_DocumentaryUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004170723354_sortorder.cs" />
+    <Compile Include="Migrations\202004170723354_sortorder.Designer.cs">
+      <DependentUpon>202004170723354_sortorder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004281536472_ResultArchive.cs" />
+    <Compile Include="Migrations\202004281536472_ResultArchive.Designer.cs">
+      <DependentUpon>202004281536472_ResultArchive.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004282319161_Archivesss.cs" />
+    <Compile Include="Migrations\202004282319161_Archivesss.Designer.cs">
+      <DependentUpon>202004282319161_Archivesss.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004291036351_resultarchivesupdate.cs" />
+    <Compile Include="Migrations\202004291036351_resultarchivesupdate.Designer.cs">
+      <DependentUpon>202004291036351_resultarchivesupdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004291122303_ArchiveResultIdUpdate.cs" />
+    <Compile Include="Migrations\202004291122303_ArchiveResultIdUpdate.Designer.cs">
+      <DependentUpon>202004291122303_ArchiveResultIdUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004301503012_resultarchiveclassupdate.cs" />
+    <Compile Include="Migrations\202004301503012_resultarchiveclassupdate.Designer.cs">
+      <DependentUpon>202004301503012_resultarchiveclassupdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005010817421_archiveresultstatus.cs" />
+    <Compile Include="Migrations\202005010817421_archiveresultstatus.Designer.cs">
+      <DependentUpon>202005010817421_archiveresultstatus.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005011004363_Archiveaveragescore.cs" />
+    <Compile Include="Migrations\202005011004363_Archiveaveragescore.Designer.cs">
+      <DependentUpon>202005011004363_Archiveaveragescore.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005121125474_onlineschool.cs" />
+    <Compile Include="Migrations\202005121125474_onlineschool.Designer.cs">
+      <DependentUpon>202005121125474_onlineschool.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005121211355_onlineschoolnew.cs" />
+    <Compile Include="Migrations\202005121211355_onlineschoolnew.Designer.cs">
+      <DependentUpon>202005121211355_onlineschoolnew.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005132220239_update-record.cs" />
+    <Compile Include="Migrations\202005132220239_update-record.Designer.cs">
+      <DependentUpon>202005132220239_update-record.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005140452061_update-record-2.cs" />
+    <Compile Include="Migrations\202005140452061_update-record-2.Designer.cs">
+      <DependentUpon>202005140452061_update-record-2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005141402222_OnlineCourseUpload.cs" />
+    <Compile Include="Migrations\202005141402222_OnlineCourseUpload.Designer.cs">
+      <DependentUpon>202005141402222_OnlineCourseUpload.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005191722406_zoomupdate.cs" />
+    <Compile Include="Migrations\202005191722406_zoomupdate.designer.cs">
+      <DependentUpon>202005191722406_zoomupdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005191809420_zoomupdate2.cs" />
+    <Compile Include="Migrations\202005191809420_zoomupdate2.designer.cs">
+      <DependentUpon>202005191809420_zoomupdate2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005200252118_zoomupdate22.cs" />
+    <Compile Include="Migrations\202005200252118_zoomupdate22.designer.cs">
+      <DependentUpon>202005200252118_zoomupdate22.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005211232155_majorzoomupdate.cs" />
+    <Compile Include="Migrations\202005211232155_majorzoomupdate.designer.cs">
+      <DependentUpon>202005211232155_majorzoomupdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005211307007_majorzoomupdate1.cs" />
+    <Compile Include="Migrations\202005211307007_majorzoomupdate1.designer.cs">
+      <DependentUpon>202005211307007_majorzoomupdate1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008271126459_EnableCBT.cs" />
+    <Compile Include="Migrations\202008271126459_EnableCBT.designer.cs">
+      <DependentUpon>202008271126459_EnableCBT.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101191134148_PrintedStatus.cs" />
+    <Compile Include="Migrations\202101191134148_PrintedStatus.designer.cs">
+      <DependentUpon>202101191134148_PrintedStatus.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103081214349_PreviewResultandSubjectSettings.cs" />
+    <Compile Include="Migrations\202103081214349_PreviewResultandSubjectSettings.designer.cs">
+      <DependentUpon>202103081214349_PreviewResultandSubjectSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103081343148_classsubjectsetting.cs" />
+    <Compile Include="Migrations\202103081343148_classsubjectsetting.designer.cs">
+      <DependentUpon>202103081343148_classsubjectsetting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103091250449_NotificationSettings.cs" />
+    <Compile Include="Migrations\202103091250449_NotificationSettings.Designer.cs">
+      <DependentUpon>202103091250449_NotificationSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103091253533_NotificationContent.cs" />
+    <Compile Include="Migrations\202103091253533_NotificationContent.Designer.cs">
+      <DependentUpon>202103091253533_NotificationContent.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104131124060_Tracker.cs" />
+    <Compile Include="Migrations\202104131124060_Tracker.Designer.cs">
+      <DependentUpon>202104131124060_Tracker.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104131135521_trackerUpdates.cs" />
+    <Compile Include="Migrations\202104131135521_trackerUpdates.Designer.cs">
+      <DependentUpon>202104131135521_trackerUpdates.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202106150759539_CBTandIskoolLink.cs" />
+    <Compile Include="Migrations\202106150759539_CBTandIskoolLink.Designer.cs">
+      <DependentUpon>202106150759539_CBTandIskoolLink.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202107121046120_ResultUpdates.cs" />
+    <Compile Include="Migrations\202107121046120_ResultUpdates.Designer.cs">
+      <DependentUpon>202107121046120_ResultUpdates.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202107141053378_ResultInputUpdates.cs" />
+    <Compile Include="Migrations\202107141053378_ResultInputUpdates.Designer.cs">
+      <DependentUpon>202107141053378_ResultInputUpdates.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202107151125171_ResultArchiveUpdates.cs" />
+    <Compile Include="Migrations\202107151125171_ResultArchiveUpdates.Designer.cs">
+      <DependentUpon>202107151125171_ResultArchiveUpdates.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202107160931170_subjectandgeneralsetting.cs" />
+    <Compile Include="Migrations\202107160931170_subjectandgeneralsetting.Designer.cs">
+      <DependentUpon>202107160931170_subjectandgeneralsetting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202107221049424_ShowClassFeatures.cs" />
+    <Compile Include="Migrations\202107221049424_ShowClassFeatures.Designer.cs">
+      <DependentUpon>202107221049424_ShowClassFeatures.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202107261305136_AccomodationandSettingsUpdates.cs" />
+    <Compile Include="Migrations\202107261305136_AccomodationandSettingsUpdates.Designer.cs">
+      <DependentUpon>202107261305136_AccomodationandSettingsUpdates.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202108100830279_PaystackSecret.cs" />
+    <Compile Include="Migrations\202108100830279_PaystackSecret.Designer.cs">
+      <DependentUpon>202108100830279_PaystackSecret.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202108311311489_accounttype.cs" />
+    <Compile Include="Migrations\202108311311489_accounttype.Designer.cs">
+      <DependentUpon>202108311311489_accounttype.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202108311340382_paystackcharge.cs" />
+    <Compile Include="Migrations\202108311340382_paystackcharge.Designer.cs">
+      <DependentUpon>202108311340382_paystackcharge.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202108311825307_updatePayment.cs" />
+    <Compile Include="Migrations\202108311825307_updatePayment.Designer.cs">
+      <DependentUpon>202108311825307_updatePayment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202109011612144_updatePaymenttwo.cs" />
+    <Compile Include="Migrations\202109011612144_updatePaymenttwo.Designer.cs">
+      <DependentUpon>202109011612144_updatePaymenttwo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202109011836369_finianceInitialization.cs" />
+    <Compile Include="Migrations\202109011836369_finianceInitialization.Designer.cs">
+      <DependentUpon>202109011836369_finianceInitialization.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202109011938300_finianceInitialization1.cs" />
+    <Compile Include="Migrations\202109011938300_finianceInitialization1.Designer.cs">
+      <DependentUpon>202109011938300_finianceInitialization1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202109020043030_data.cs" />
+    <Compile Include="Migrations\202109020043030_data.Designer.cs">
+      <DependentUpon>202109020043030_data.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202109020101175_data2.cs" />
+    <Compile Include="Migrations\202109020101175_data2.Designer.cs">
+      <DependentUpon>202109020101175_data2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202109021346326_finance2.cs" />
+    <Compile Include="Migrations\202109021346326_finance2.Designer.cs">
+      <DependentUpon>202109021346326_finance2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202109021811467_finance20.cs" />
+    <Compile Include="Migrations\202109021811467_finance20.Designer.cs">
+      <DependentUpon>202109021811467_finance20.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202109021836473_finance204.cs" />
+    <Compile Include="Migrations\202109021836473_finance204.Designer.cs">
+      <DependentUpon>202109021836473_finance204.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202109021844203_finance2049.cs" />
+    <Compile Include="Migrations\202109021844203_finance2049.Designer.cs">
+      <DependentUpon>202109021844203_finance2049.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202109030112217_finance20495.cs" />
+    <Compile Include="Migrations\202109030112217_finance20495.Designer.cs">
+      <DependentUpon>202109030112217_finance20495.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202109030203181_finance20495k.cs" />
+    <Compile Include="Migrations\202109030203181_finance20495k.Designer.cs">
+      <DependentUpon>202109030203181_finance20495k.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202109030303077_finance20495k3.cs" />
+    <Compile Include="Migrations\202109030303077_finance20495k3.Designer.cs">
+      <DependentUpon>202109030303077_finance20495k3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202109041201465_updatefinance.cs" />
+    <Compile Include="Migrations\202109041201465_updatefinance.Designer.cs">
+      <DependentUpon>202109041201465_updatefinance.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202109041406260_data1.cs" />
+    <Compile Include="Migrations\202109041406260_data1.Designer.cs">
+      <DependentUpon>202109041406260_data1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202109112236081_hdfh.cs" />
+    <Compile Include="Migrations\202109112236081_hdfh.Designer.cs">
+      <DependentUpon>202109112236081_hdfh.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202109112317033_checkupdate.cs" />
+    <Compile Include="Migrations\202109112317033_checkupdate.Designer.cs">
+      <DependentUpon>202109112317033_checkupdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202109120035354_h.cs" />
+    <Compile Include="Migrations\202109120035354_h.Designer.cs">
+      <DependentUpon>202109120035354_h.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202110011305071_check-payment.cs" />
+    <Compile Include="Migrations\202110011305071_check-payment.Designer.cs">
+      <DependentUpon>202110011305071_check-payment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202110081547471_newupdate.cs" />
+    <Compile Include="Migrations\202110081547471_newupdate.Designer.cs">
+      <DependentUpon>202110081547471_newupdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202110251456174_graduate.cs" />
+    <Compile Include="Migrations\202110251456174_graduate.Designer.cs">
+      <DependentUpon>202110251456174_graduate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202207041827007_78iu.cs" />
+    <Compile Include="Migrations\202207041827007_78iu.Designer.cs">
+      <DependentUpon>202207041827007_78iu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202207050851247_78iui.cs" />
+    <Compile Include="Migrations\202207050851247_78iui.Designer.cs">
+      <DependentUpon>202207050851247_78iui.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202207051050100_78iuii.cs" />
+    <Compile Include="Migrations\202207051050100_78iuii.Designer.cs">
+      <DependentUpon>202207051050100_78iuii.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202207051258118_78iuiie.cs" />
+    <Compile Include="Migrations\202207051258118_78iuiie.Designer.cs">
+      <DependentUpon>202207051258118_78iuiie.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202207051313491_78iuiiey.cs" />
+    <Compile Include="Migrations\202207051313491_78iuiiey.Designer.cs">
+      <DependentUpon>202207051313491_78iuiiey.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202207051351034_78iuiieyk.cs" />
+    <Compile Include="Migrations\202207051351034_78iuiieyk.Designer.cs">
+      <DependentUpon>202207051351034_78iuiieyk.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202207051436088_78iuiieykr.cs" />
+    <Compile Include="Migrations\202207051436088_78iuiieykr.Designer.cs">
+      <DependentUpon>202207051436088_78iuiieykr.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202207051521429_updategallery.cs" />
+    <Compile Include="Migrations\202207051521429_updategallery.Designer.cs">
+      <DependentUpon>202207051521429_updategallery.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202207051600439_updategallery6.cs" />
+    <Compile Include="Migrations\202207051600439_updategallery6.Designer.cs">
+      <DependentUpon>202207051600439_updategallery6.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202304100927212_updateaverageonclassposition.cs" />
+    <Compile Include="Migrations\202304100927212_updateaverageonclassposition.Designer.cs">
+      <DependentUpon>202304100927212_updateaverageonclassposition.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202307311045468_initDisable-results.cs" />
+    <Compile Include="Migrations\202307311045468_initDisable-results.Designer.cs">
+      <DependentUpon>202307311045468_initDisable-results.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202307311158294_initDisable-results-note.cs" />
+    <Compile Include="Migrations\202307311158294_initDisable-results-note.Designer.cs">
+      <DependentUpon>202307311158294_initDisable-results-note.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202308161020410_lessonnote.cs" />
+    <Compile Include="Migrations\202308161020410_lessonnote.Designer.cs">
+      <DependentUpon>202308161020410_lessonnote.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202308282148486_ui-update.cs" />
+    <Compile Include="Migrations\202308282148486_ui-update.Designer.cs">
+      <DependentUpon>202308282148486_ui-update.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202308290932245_ui-update-3.cs" />
+    <Compile Include="Migrations\202308290932245_ui-update-3.Designer.cs">
+      <DependentUpon>202308290932245_ui-update-3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202308290936186_ui-update-30.cs" />
+    <Compile Include="Migrations\202308290936186_ui-update-30.Designer.cs">
+      <DependentUpon>202308290936186_ui-update-30.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202308291007080_ui-update-38.cs" />
+    <Compile Include="Migrations\202308291007080_ui-update-38.Designer.cs">
+      <DependentUpon>202308291007080_ui-update-38.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202308291141415_ui-update-389.cs" />
+    <Compile Include="Migrations\202308291141415_ui-update-389.Designer.cs">
+      <DependentUpon>202308291141415_ui-update-389.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202308291354132_usermanager-reconsile.cs" />
+    <Compile Include="Migrations\202308291354132_usermanager-reconsile.Designer.cs">
+      <DependentUpon>202308291354132_usermanager-reconsile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202308300359500_configs.cs" />
+    <Compile Include="Migrations\202308300359500_configs.Designer.cs">
+      <DependentUpon>202308300359500_configs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Blog.cs" />
+    <Compile Include="Models\BlogCategory.cs" />
+    <Compile Include="Models\DataConfig.cs" />
+    <Compile Include="Models\Dtos\AdminPostDetalsDto.cs" />
+    <Compile Include="Models\Dtos\AdmissionPinDto.cs" />
+    <Compile Include="Models\Dtos\Api\ApiAvailableResultsDto.cs" />
+    <Compile Include="Models\Dtos\Api\ApiClassListDto.cs" />
+    <Compile Include="Models\Dtos\Api\ApiPassResetDto.cs" />
+    <Compile Include="Models\Dtos\Api\ApiSchoolInfoDto.cs" />
+    <Compile Include="Models\Dtos\Api\ApiSchoolInfoWithUserDetailsDto.cs" />
+    <Compile Include="Models\Dtos\Api\ApiScratchCardsDto.cs" />
+    <Compile Include="Models\Dtos\Api\ApiSessionDetails.cs" />
+    <Compile Include="Models\Dtos\Api\ApiSessionList.cs" />
+    <Compile Include="Models\Dtos\Api\ApiSubjectListDto.cs" />
+    <Compile Include="Models\Dtos\Api\CBTClassModelDto.cs" />
+    <Compile Include="Models\Dtos\Api\CBTExaminationDto.cs" />
+    <Compile Include="Models\Dtos\Api\CBTExaminationSubjectDto.cs" />
+    <Compile Include="Models\Dtos\Api\CBTOptionDto.cs" />
+    <Compile Include="Models\Dtos\Api\CBTQuestionDto.cs" />
+    <Compile Include="Models\Dtos\Api\CBTSettingModelDto.cs" />
+    <Compile Include="Models\Dtos\Api\CBTSubjectDto.cs" />
+    <Compile Include="Models\Dtos\Api\DmmmApiList.cs" />
+    <Compile Include="Models\Dtos\CheckResultViewModelDto2.cs" />
+    <Compile Include="Models\Dtos\CheckResultViewModelDto.cs" />
+    <Compile Include="Models\Dtos\ClassLevelDetailsDto.cs" />
+    <Compile Include="Models\Dtos\ClassLevelListDto.cs" />
+    <Compile Include="Models\Dtos\ClassStudentsDto.cs" />
+    <Compile Include="Models\Dtos\DefaulterDto.cs" />
+    <Compile Include="Models\Dtos\EnrolledStudentsByClassArchiveDto.cs" />
+    <Compile Include="Models\Dtos\EnrolledStudentsByClassDto.cs" />
+    <Compile Include="Models\Dtos\EnrolledStudentsDto.cs" />
+    <Compile Include="Models\Dtos\EnrolledStudentsListDto.cs" />
+    <Compile Include="Models\Dtos\EnrolledSubjectDto.cs" />
+    <Compile Include="Models\Dtos\EnrollStudentsDto.cs" />
+    <Compile Include="Models\Dtos\IncomeTitleDto.cs" />
+    <Compile Include="Models\Dtos\LoginAccessDto.cs" />
+    <Compile Include="Models\Dtos\NotificationDto.cs" />
+    <Compile Include="Models\Dtos\OnlineCourseUploadDto.cs" />
+    <Compile Include="Models\Dtos\PageDto.cs" />
+    <Compile Include="Models\Dtos\PaymentListByClassDto.cs" />
+    <Compile Include="Models\Dtos\Paystack\AppConstants.cs" />
+    <Compile Include="Models\Dtos\Paystack\Data\AuthorizationRequest.cs" />
+    <Compile Include="Models\Dtos\Paystack\Data\TransactionInitializationRequest.cs" />
+    <Compile Include="Models\Dtos\Paystack\PaymentInitalizationResponse.cs" />
+    <Compile Include="Models\Dtos\Paystack\TransactionInitializationRequestModel.cs" />
+    <Compile Include="Models\Dtos\Paystack\TransactionResponse.cs" />
+    <Compile Include="Models\Dtos\PinInfoDto.cs" />
+    <Compile Include="Models\Dtos\PostByteDto.cs" />
+    <Compile Include="Models\Dtos\PostDetalsDto.cs" />
+    <Compile Include="Models\Dtos\PostDto.cs" />
+    <Compile Include="Models\Dtos\PrintResultArchiveDto.cs" />
+    <Compile Include="Models\Dtos\PrintResultDto.cs" />
+    <Compile Include="Models\Dtos\PrintThirdTermArchiveDto.cs" />
+    <Compile Include="Models\Dtos\PrintThirdTermDto.cs" />
+    <Compile Include="Models\Dtos\PromotionDto.cs" />
+    <Compile Include="Models\Dtos\SchoolSessionDto.cs" />
+    <Compile Include="Models\Dtos\SettingLayoutDto.cs" />
+    <Compile Include="Models\Dtos\SettingsDto.cs" />
+    <Compile Include="Models\Dtos\StaffDetailsDto.cs" />
+    <Compile Include="Models\Dtos\StaffDropdownListDto.cs" />
+    <Compile Include="Models\Dtos\StaffInfoDto.cs" />
+    <Compile Include="Models\Dtos\StudentDataDto.cs" />
+    <Compile Include="Models\Dtos\StudentEnrollementDto.cs" />
+    <Compile Include="Models\Dtos\StudentInfoDto.cs" />
+    <Compile Include="Models\Dtos\SubjectListDto.cs" />
+    <Compile Include="Models\Dtos\SubjectListPrintoutArchiveDto.cs" />
+    <Compile Include="Models\Dtos\SubjectListPrintoutDto.cs" />
+    <Compile Include="Models\Dtos\SubjectRangeInResultDto.cs" />
+    <Compile Include="Models\Dtos\UpdateEmailAndPhoneDto.cs" />
+    <Compile Include="Models\Dtos\Zoom\OnlineZoomDto.cs" />
+    <Compile Include="Models\Dtos\Zoom\ZoomAllMeetingsDto.cs" />
+    <Compile Include="Models\Dtos\Zoom\ZoomMeetingDetailsDto.cs" />
+    <Compile Include="Models\Dtos\Zoom\ZoomMeetingParticipant.cs" />
+    <Compile Include="Models\Dtos\Zoom\ZoomMeetingRecord.cs" />
+    <Compile Include="Models\Dtos\Zoom\ZoomNewMeeting.cs" />
+    <Compile Include="Models\Dtos\Zoom\ZoomUserDto.cs" />
+    <Compile Include="Models\Entities\AdminViewModel.cs" />
+    <Compile Include="Models\Entities\AffectiveDomain.cs" />
+    <Compile Include="Models\Entities\ApprovedDevice.cs" />
+    <Compile Include="Models\Entities\Assignment.cs" />
+    <Compile Include="Models\Entities\AssignmentAnswer.cs" />
+    <Compile Include="Models\Entities\Attendance.cs" />
+    <Compile Include="Models\Entities\AttendanceDetail.cs" />
+    <Compile Include="Models\Entities\BankDetails.cs" />
+    <Compile Include="Models\Entities\BatchResult.cs" />
+    <Compile Include="Models\Entities\ClassModel.cs" />
+    <Compile Include="Models\Entities\DataUserRequest.cs" />
+    <Compile Include="Models\Entities\Documentary.cs" />
+    <Compile Include="Models\Entities\Examination.cs" />
+    <Compile Include="Models\Entities\ExaminationSubject.cs" />
+    <Compile Include="Models\Entities\Expenditure.cs" />
+    <Compile Include="Models\Entities\Finance.cs" />
+    <Compile Include="Models\Entities\EnrolledHostel.cs" />
+    <Compile Include="Models\Entities\FinanceInitializer.cs" />
+    <Compile Include="Models\Entities\Hostel.cs" />
+    <Compile Include="Models\Entities\HostelAllotment.cs" />
+    <Compile Include="Models\Entities\EnrolledHostelBed.cs" />
+    <Compile Include="Models\Entities\HostelBed.cs" />
+    <Compile Include="Models\Entities\EnrolledHostelRoom.cs" />
+    <Compile Include="Models\Entities\HostelRoom.cs" />
+    <Compile Include="Models\Entities\Income.cs" />
+    <Compile Include="Models\Entities\LessonNote.cs" />
+    <Compile Include="Models\Entities\LiveClassOnline.cs" />
+    <Compile Include="Models\Entities\Notification.cs" />
+    <Compile Include="Models\Entities\OnlineCourseUpload.cs" />
+    <Compile Include="Models\Entities\OnlineZoom.cs" />
+    <Compile Include="Models\Entities\OptionModel.cs" />
+    <Compile Include="Models\Entities\PaymentAmount.cs" />
+    <Compile Include="Models\Entities\PaymentData.cs" />
+    <Compile Include="Models\Entities\QuestionModel.cs" />
+    <Compile Include="Models\Entities\SettingModel.cs" />
+    <Compile Include="Models\Entities\SubjectModel.cs" />
+    <Compile Include="Models\Entities\ContentPage.cs" />
+    <Compile Include="Models\Entities\CategoryPage.cs" />
+    <Compile Include="Models\Entities\ClassLevel.cs" />
+    <Compile Include="Models\Entities\Comment.cs" />
+    <Compile Include="Models\Entities\ContactUs.cs" />
+    <Compile Include="Models\Entities\ContentImage.cs" />
+    <Compile Include="Models\Entities\Defaulter.cs" />
+    <Compile Include="Models\Entities\EnrolledSubject.cs" />
+    <Compile Include="Models\Entities\Enrollment.cs" />
+    <Compile Include="Models\Entities\Enum.cs" />
+    <Compile Include="Models\Entities\Event.cs" />
+    <Compile Include="Models\Entities\Help.cs" />
+    <Compile Include="Models\Entities\ImageGallery.cs" />
+    <Compile Include="Models\Entities\Grading.cs" />
+    <Compile Include="Models\Entities\GradingDetails.cs" />
+    <Compile Include="Models\Entities\HallOfFame.cs" />
+    <Compile Include="Models\Entities\ImageModel.cs" />
+    <Compile Include="Models\Entities\ImageSlider.cs" />
+    <Compile Include="Models\Entities\LocalGovs.cs" />
+    <Compile Include="Models\Entities\MessageReply.cs" />
+    <Compile Include="Models\Entities\NewsLetter.cs" />
+    <Compile Include="Models\Entities\PinCodeModel.cs" />
+    <Compile Include="Models\Entities\Post.cs" />
+    <Compile Include="Models\Entities\PostImage.cs" />
+    <Compile Include="Models\Entities\Property.cs" />
+    <Compile Include="Models\Entities\PsychomotorDomain.cs" />
+    <Compile Include="Models\Entities\PublishResult.cs" />
+    <Compile Include="Models\Entities\Qualification.cs" />
+    <Compile Include="Models\Entities\Quote.cs" />
+    <Compile Include="Models\Entities\RecognitiveDomain.cs" />
+    <Compile Include="Models\Entities\Response.cs" />
+    <Compile Include="Models\Entities\ResultViewModel.cs" />
+    <Compile Include="Models\Entities\Riddles.cs" />
+    <Compile Include="Models\Entities\SchoolAccount.cs" />
+    <Compile Include="Models\Entities\SchoolFees.cs" />
+    <Compile Include="Models\Entities\Session.cs" />
+    <Compile Include="Models\Entities\Setting.cs" />
+    <Compile Include="Models\Entities\SettingsValue.cs" />
+    <Compile Include="Models\Entities\SmsGroup.cs" />
+    <Compile Include="Models\Entities\SmsReport.cs" />
+    <Compile Include="Models\Entities\StaffProfile.cs" />
+    <Compile Include="Models\Entities\States.cs" />
+    <Compile Include="Models\Entities\StudentData.cs" />
+    <Compile Include="Models\Entities\StudentProfile.cs" />
+    <Compile Include="Models\Entities\Subject.cs" />
+    <Compile Include="Models\Entities\Syllable.cs" />
+    <Compile Include="Models\Entities\Ticket.cs" />
+    <Compile Include="Models\Entities\TimeTable.cs" />
+    <Compile Include="Models\Entities\Tracker.cs" />
+    <Compile Include="Models\Entities\WebsiteColor.cs" />
+    <Compile Include="Models\Entities\WebsiteSettings.cs" />
+    <Compile Include="Models\FAQ.cs" />
+    <Compile Include="Models\HelperClass.cs" />
+    <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\PageCategory.cs" />
+    <Compile Include="Models\PageSection.cs" />
+    <Compile Include="Models\PageSectionList.cs" />
+    <Compile Include="Models\PostModal.cs" />
+    <Compile Include="Models\ResultArchive\AffectiveDomainArchive.cs" />
+    <Compile Include="Models\ResultArchive\ArchiveResult.cs" />
+    <Compile Include="Models\ResultArchive\EnrolledSubjectArchive.cs" />
+    <Compile Include="Models\ResultArchive\NewsLetterArchive.cs" />
+    <Compile Include="Models\ResultArchive\PrincipalArchive.cs" />
+    <Compile Include="Models\ResultArchive\PsychomotorDomainArchive.cs" />
+    <Compile Include="Models\ResultArchive\RecognitiveDomainArchive.cs" />
+    <Compile Include="Models\ResultArchive\SchoolFeesArchive.cs" />
+    <Compile Include="Models\Schools.cs" />
+    <Compile Include="Models\Slider.cs" />
+    <Compile Include="Models\SuperSetting.cs" />
+    <Compile Include="Models\Testimony.cs" />
+    <Compile Include="Models\UI\SiteSinglePost.cs" />
+    <Compile Include="Models\UI\SiteHomeBodyAfterNew.cs" />
+    <Compile Include="Models\UI\SiteNavHeader.cs" />
+    <Compile Include="Models\UI\SiteNewsPost.cs" />
+    <Compile Include="Models\UI\SiteNewsPostList.cs" />
+    <Compile Include="Models\UI\SiteOverrideCSS.cs" />
+    <Compile Include="Models\UI\SiteBreadCrumb.cs" />
+    <Compile Include="Models\UI\SiteContact.cs" />
+    <Compile Include="Models\UI\SiteFooterJS.cs" />
+    <Compile Include="Models\UI\SiteHeader.cs" />
+    <Compile Include="Models\UI\SiteHomeBody.cs" />
+    <Compile Include="Models\UI\SiteFooter.cs" />
+    <Compile Include="Models\UI\SiteGallery.cs" />
+    <Compile Include="Models\UI\SiteGalleryList.cs" />
+    <Compile Include="Models\UI\SitePageCategory.cs" />
+    <Compile Include="Models\UI\SitePage.cs" />
+    <Compile Include="Models\UI\SiteSetting.cs" />
+    <Compile Include="Models\UI\SiteSlider.cs" />
+    <Compile Include="Models\WebPage.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Startup.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ApplicationInsights.config" />
+    <Content Include="App_Data\ErrorLog.txt" />
+    <Content Include="App_Data\Logger.txt" />
+    <Content Include="Areas\Admin\Models\HtmlPage1.html" />
+    <Content Include="Areas\Admin\Views\ResultManagement\EditStudentResultAdmin.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_PrintLayout.cshtml" />
+    <Content Include="Areas\Content\Views\Doc\ResultSummary.cshtml" />
+    <Content Include="Areas\Financial\Views\Payment\HtmlPage1.html" />
+    <Content Include="Areas\Financial\Views\Payment\MakeCashPayment.cshtml" />
+    <Content Include="Areas\Student\Views\Shared\print.css" />
+    <Content Include="Default.aspx" />
+    <Content Include="Global.asax" />
+    <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Admin\Views\Sessions\NewSession.cshtml" />
+    <Content Include="Areas\Admin\Views\Sessions\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Sessions\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Sessions\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Sessions\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\UserManagers\NewStaff.cshtml" />
+    <Content Include="Areas\Admin\Views\Settings\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Settings\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Settings\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Settings\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\UserManagers\NewStudent.cshtml" />
+    <Content Include="Areas\Admin\Views\UserManagers\CreateRole.cshtml" />
+    <Content Include="Areas\Admin\Views\UserManagers\DeleteRole.cshtml" />
+    <Content Include="Areas\Admin\Views\UserManagers\EditRole.cshtml" />
+    <Content Include="Areas\Admin\Views\UserManagers\Roles.cshtml" />
+    <Content Include="Areas\Admin\Views\StudentProfiles\StudentProfile.cshtml" />
+    <Content Include="Areas\Admin\Views\ClassLevels\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ClassLevels\NewClass.cshtml" />
+    <Content Include="Areas\Admin\Views\ClassLevels\EditClass.cshtml" />
+    <Content Include="Areas\Admin\Views\ClassLevels\DeleteClass.cshtml" />
+    <Content Include="Areas\Admin\Views\ClassLevels\AddSubject.cshtml" />
+    <Content Include="Areas\Admin\Views\ClassLevels\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\ClassLevels\EditSubject.cshtml" />
+    <Content Include="Areas\Admin\Views\ClassLevels\DeleteSubject.cshtml" />
+    <Content Include="Areas\Admin\Views\Enrollments\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Enrollments\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Enrollments\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Enrollments\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Enrollments\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Enrollments\EnrollStudent.cshtml" />
+    <Content Include="Areas\Admin\Views\Enrollments\EnrolledStudents.cshtml" />
+    <Content Include="Areas\Admin\Views\StaffProfile\MyQualification.cshtml" />
+    <Content Include="Areas\Admin\Views\StaffProfile\QualificationDetails.cshtml" />
+    <Content Include="Areas\Admin\Views\StaffProfile\AddQualification.cshtml" />
+    <Content Include="Areas\Admin\Views\StaffProfile\EditQualification.cshtml" />
+    <Content Include="Areas\Admin\Views\StaffProfile\DeleteQualification.cshtml" />
+    <Content Include="Areas\Admin\Views\StaffProfile\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\PinManagement\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\PinManagement\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\PinManagement\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\PinManagement\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\PinManagement\IndexofUnused.cshtml" />
+    <Content Include="Areas\Admin\Views\PinManagement\IndexofAll.cshtml" />
+    <Content Include="Areas\Admin\Views\ClassLevels\Students.cshtml" />
+    <Content Include="Areas\Admin\Views\ClassLevels\BlockStudent.cshtml" />
+    <Content Include="Areas\Admin\Views\UserManagers\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ClassLevels\UnBlockStudent.cshtml" />
+    <Content Include="Areas\Admin\Views\ResultManagement\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ResultManagement\Students.cshtml" />
+    <Content Include="Areas\Admin\Views\ResultManagement\EditStudentResult.cshtml" />
+    <Content Include="Areas\Admin\Views\ResultManagement\Edit.cshtml" />
+    <Content Include="Areas\Content\Views\web.config" />
+    <Content Include="Areas\Content\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Content\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Content\Views\Posts\Create.cshtml" />
+    <Content Include="Areas\Content\Views\Posts\Delete.cshtml" />
+    <Content Include="Areas\Content\Views\Posts\Details.cshtml" />
+    <Content Include="Areas\Content\Views\Posts\Edit.cshtml" />
+    <Content Include="Areas\Content\Views\Posts\Index.cshtml" />
+    <Content Include="Areas\Content\Views\Message\Index.cshtml" />
+    <Content Include="Areas\Content\Views\Message\ComposeSms.cshtml" />
+    <Content Include="Areas\Content\Views\Message\MessageHistory.cshtml" />
+    <Content Include="Areas\Content\Views\Message\MessageDetails.cshtml" />
+    <Content Include="Areas\Staff\Views\web.config" />
+    <Content Include="Areas\Admin\Views\Sessions\_Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Settings\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\UserManagers\AllStudents.cshtml" />
+    <Content Include="Areas\Admin\Views\UserManagers\AllStaff.cshtml" />
+    <Content Include="Areas\Admin\Views\UserManagers\ChangeStatus.cshtml" />
+    <Content Include="Areas\Content\Views\ContactUsChat\NewChat.cshtml" />
+    <Content Include="Areas\Content\Views\ContactUsChat\Delete.cshtml" />
+    <Content Include="Areas\Content\Views\ContactUsChat\Chat.cshtml" />
+    <Content Include="Areas\Content\Views\ContactUsChat\Edit.cshtml" />
+    <Content Include="Areas\Content\Views\ContactUsChat\Index.cshtml" />
+    <Content Include="Areas\Staff\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Staff\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Staff\Views\Panel\Index.cshtml" />
+    <Content Include="Areas\Student\Views\web.config" />
+    <Content Include="Areas\Staff\Views\Panel\ClassIndex.cshtml" />
+    <Content Include="Areas\Staff\Views\Panel\StudentsInClass.cshtml" />
+    <Content Include="Areas\Staff\Views\Panel\StudentResult.cshtml" />
+    <Content Include="Areas\Staff\Views\Panel\Subject.cshtml" />
+    <Content Include="Areas\Staff\Views\Panel\ResultIndex.cshtml" />
+    <Content Include="Areas\Staff\Views\Panel\StudentsList.cshtml" />
+    <Content Include="Areas\Staff\Views\Panel\Edit.cshtml" />
+    <Content Include="Areas\Student\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Student\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Student\Views\Panel\Result.cshtml" />
+    <Content Include="Areas\Student\Views\Panel\PrintResult.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_AdminMenu.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_StudentMenu.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_StaffMenu.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_AdminProfileMenu.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_StudentProfileMenu.cshtml" />
+    <Content Include="Areas\Admin\Views\UserManagers\Staff.cshtml" />
+    <Content Include="Areas\Admin\Views\UserManagers\Students.cshtml" />
+    <Content Include="Areas\Staff\Views\Panel\Qualification.cshtml" />
+    <Content Include="Areas\Student\Views\Panel\Index.cshtml" />
+    <Content Include="Areas\Student\Views\Panel\Upload.cshtml" />
+    <Content Include="Areas\Staff\Views\Panel\Upload.cshtml" />
+    <Content Include="Areas\Student\Views\Panel\EditUser.cshtml" />
+    <Content Include="Areas\Staff\Views\Panel\EditUser.cshtml" />
+    <Content Include="Areas\Content\Views\Posts\PostDetails.cshtml" />
+    <Content Include="Areas\Admin\Views\UserManagers\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\UserManagers\Active.cshtml" />
+    <Content Include="Areas\Admin\Views\UserManagers\Expelled.cshtml" />
+    <Content Include="Areas\Admin\Views\UserManagers\Withdrawn.cshtml" />
+    <Content Include="Areas\Admin\Views\UserManagers\Archived.cshtml" />
+    <Content Include="Areas\Admin\Views\UserManagers\Suspended.cshtml" />
+    <Content Include="Areas\Admin\Views\PartialView\LayoutProfile.cshtml" />
+    <Content Include="Areas\Admin\Views\PartialView\LayoutProfileTitle.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_SetupLayout.cshtml" />
+    <Content Include="Areas\Admin\Views\HallOfFames\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\HallOfFames\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\HallOfFames\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\HallOfFames\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\HallOfFames\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ImageSliders\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ImageSliders\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Gradings\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Gradings\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Gradings\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Gradings\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Gradings\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Gradings\DeleteGradeDetail.cshtml" />
+    <Content Include="Areas\Admin\Views\Gradings\AddGrade.cshtml" />
+    <Content Include="Areas\Admin\Views\Gradings\EditGrade.cshtml" />
+    <Content Include="Areas\SuperUser\Views\web.config" />
+    <Content Include="Areas\SuperUser\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\SuperUser\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\SuperUser\Views\AdminUser\CreateAccount.cshtml" />
+    <Content Include="Areas\Admin\Views\DashBoard\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\PartialView\LayoutSchoolName.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_NewView.cshtml" />
+    <Content Include="Areas\Admin\Views\UserManagers\ChangeStudentStatus.cshtml" />
+    <Content Include="Areas\Admin\Views\UserManagers\ChangeStaffStatus.cshtml" />
+    <Content Include="Areas\Admin\Views\ClassLevels\AttendanceList.cshtml" />
+    <Content Include="Areas\Content\Views\Assignments\Create.cshtml" />
+    <Content Include="Areas\Content\Views\Assignments\Delete.cshtml" />
+    <Content Include="Areas\Content\Views\Assignments\Details.cshtml" />
+    <Content Include="Areas\Content\Views\Assignments\Edit.cshtml" />
+    <Content Include="Areas\Content\Views\Assignments\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ClassLevels\ClassAssignment.cshtml" />
+    <Content Include="Areas\Admin\Views\ClassLevels\_AssignmentDetail.cshtml" />
+    <Content Include="Areas\Admin\Views\ClassLevels\ClassAnsweredAssignment.cshtml" />
+    <Content Include="Areas\Admin\Views\ClassLevels\AnswerDetail.cshtml" />
+    <Content Include="Areas\Staff\Views\Panel\AddAssignment.cshtml" />
+    <Content Include="Areas\Staff\Views\Panel\AssignmentList.cshtml" />
+    <Content Include="Areas\Student\Views\Panel\Assignment.cshtml" />
+    <Content Include="Areas\Student\Views\Panel\AssignmentDetail.cshtml" />
+    <Content Include="Areas\Student\Views\Panel\AnswerDetail.cshtml" />
+    <Content Include="Areas\Student\Views\Panel\AssignmentAnswer.cshtml" />
+    <Content Include="Areas\Staff\Views\Panel\AnsweredAssignment.cshtml" />
+    <Content Include="Areas\Student\Views\Panel\EditAssignmentAnswer.cshtml" />
+    <Content Include="Areas\Admin\Views\ClassLevels\AssignmentDetail.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_currentSession.cshtml" />
+    <Content Include="Areas\Staff\Views\Panel\AssignmentDetail.cshtml" />
+    <Content Include="Areas\Admin\Views\ClassLevels\Attendance.cshtml" />
+    <Content Include="Areas\Admin\Views\ClassLevels\AttendanceDetail.cshtml" />
+    <Content Include="Areas\Student\Views\Panel\Attendance.cshtml" />
+    <Content Include="Areas\Content\Views\Syllables\Create.cshtml" />
+    <Content Include="Areas\Content\Views\Syllables\Delete.cshtml" />
+    <Content Include="Areas\Content\Views\Syllables\Details.cshtml" />
+    <Content Include="Areas\Content\Views\Syllables\Edit.cshtml" />
+    <Content Include="Areas\Content\Views\Syllables\Index.cshtml" />
+    <Content Include="Areas\Content\Views\Events\Create.cshtml" />
+    <Content Include="Areas\Content\Views\Events\Delete.cshtml" />
+    <Content Include="Areas\Content\Views\Events\Details.cshtml" />
+    <Content Include="Areas\Content\Views\Events\Edit.cshtml" />
+    <Content Include="Areas\Content\Views\Events\Index.cshtml" />
+    <Content Include="Areas\Content\Views\TimeTables\Create.cshtml" />
+    <Content Include="Areas\Content\Views\TimeTables\Delete.cshtml" />
+    <Content Include="Areas\Content\Views\TimeTables\Details.cshtml" />
+    <Content Include="Areas\Content\Views\TimeTables\Edit.cshtml" />
+    <Content Include="Areas\Content\Views\TimeTables\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ClassLevels\EditTimeTable.cshtml" />
+    <Content Include="Areas\Student\Views\Panel\StudentTimeTable.cshtml" />
+    <Content Include="Areas\Staff\Views\Panel\TimeTable.cshtml" />
+    <Content Include="Areas\Content\Views\Quotes\Create.cshtml" />
+    <Content Include="Areas\Content\Views\Quotes\Delete.cshtml" />
+    <Content Include="Areas\Content\Views\Quotes\Details.cshtml" />
+    <Content Include="Areas\Content\Views\Quotes\Edit.cshtml" />
+    <Content Include="Areas\Content\Views\Quotes\Index.cshtml" />
+    <Content Include="Areas\Content\Views\Riddles\Index.cshtml" />
+    <Content Include="Areas\Content\Views\Riddles\Details.cshtml" />
+    <Content Include="Areas\Content\Views\Riddles\Create.cshtml" />
+    <Content Include="Areas\Content\Views\Riddles\Edit.cshtml" />
+    <Content Include="Areas\Content\Views\Riddles\Delete.cshtml" />
+    <Content Include="Areas\Staff\Views\Panel\Sylabus.cshtml" />
+    <Content Include="Areas\Staff\Views\Panel\SylabusDetail.cshtml" />
+    <Content Include="Areas\Student\Views\Panel\Sylabus.cshtml" />
+    <Content Include="Areas\Student\Views\Panel\SylabusDetail.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_WebsiteLink.cshtml" />
+    <Content Include="Areas\Admin\Views\DashBoard\Statistics.cshtml" />
+    <Content Include="Areas\Student\Views\Shared\_PrintLayout.cshtml" />
+    <Content Include="Areas\Admin\Views\Settings\UpdateSchoolLogo.cshtml" />
+    <Content Include="Areas\Admin\Views\Settings\SupperSettingsEdit.cshtml" />
+    <Content Include="Areas\Student\Views\Panel\_UserPost.cshtml" />
+    <Content Include="Areas\Staff\Views\Panel\_UserPost.cshtml" />
+    <Content Include="Areas\Student\Views\Panel\Create.cshtml" />
+    <Content Include="Areas\Student\Views\Panel\MyPost.cshtml" />
+    <Content Include="Areas\Student\Views\Panel\Details.cshtml" />
+    <Content Include="Areas\Student\Views\Panel\EditMyPost.cshtml" />
+    <Content Include="Areas\Student\Views\Panel\Delete.cshtml" />
+    <Content Include="Areas\Staff\Views\Panel\Create.cshtml" />
+    <Content Include="Areas\Staff\Views\Panel\MyPost.cshtml" />
+    <Content Include="Areas\Staff\Views\Panel\Details.cshtml" />
+    <Content Include="Areas\Staff\Views\Panel\EditMyPost.cshtml" />
+    <Content Include="Areas\Staff\Views\Panel\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\ResultManagement\BatchResult.cshtml" />
+    <Content Include="Areas\Admin\Views\ResultManagement\StudentsForBatchResult.cshtml" />
+    <Content Include="Areas\Admin\Views\ResultManagement\Preview.cshtml" />
+    <Content Include="Areas\Staff\Views\Panel\PreviewResult.cshtml" />
+    <Content Include="Areas\Admin\Views\ResultManagement\PreviewAndPublish.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_SchoolName.cshtml" />
+    <Content Include="Areas\Staff\Views\Panel\Offline.cshtml" />
+    <Content Include="Areas\Staff\Views\Panel\ClassSubject.cshtml" />
+    <Content Include="Areas\Staff\Views\Panel\View.cshtml" />
+    <Content Include="Areas\SuperUser\Views\AdminUser\UserList.cshtml" />
+    <Content Include="Areas\Staff\Views\Panel\EditRecognitive.cshtml" />
+    <Content Include="Areas\Admin\Views\Settings\SchoolStam.cshtml" />
+    <Content Include="Areas\Admin\Views\Settings\NewStamp.cshtml" />
+    <Content Include="Areas\Admin\Views\ResultManagement\MasterListIndex.cshtml" />
+    <Content Include="Areas\Admin\Views\ResultManagement\MasterList.cshtml" />
+    <Content Include="Areas\Staff\Views\Panel\IndexOfClass.cshtml" />
+    <Content Include="Areas\Admin\Views\ResultManagement\MasterListPreview.cshtml" />
+    <Content Include="Areas\Student\Views\Panel\PrintThirdResult.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_View.cshtml" />
+    <Content Include="Areas\Admin\Views\ClassLevels\EditSupperClass.cshtml" />
+    <Content Include="Areas\Admin\Views\Settings\EmptyExcelFolder.cshtml" />
+    <Content Include="Areas\Admin\Views\ResultManagement\UpdateInformation.cshtml" />
+    <Content Include="Areas\Admin\Views\ResultManagement\UpdateResultRemarkbyEnrolment.cshtml" />
+    <Content Include="Areas\Content\Views\Doc\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\PinManagement\AdminPinIndex.cshtml" />
+    <Content Include="Areas\Admin\Views\PinManagement\EditPin.cshtml" />
+    <Content Include="Areas\Admin\Views\PinManagement\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\ClassLevels\MoveStudents.cshtml" />
+    <Content Include="Areas\Admin\Views\ClassLevels\EditUser.cshtml" />
+    <Content Include="Areas\Staff\Views\Panel\StudentsListInClass.cshtml" />
+    <Content Include="Areas\Staff\Views\Panel\EditWardUser.cshtml" />
+    <Content Include="Areas\Admin\Views\Enrollments\IndexAutoSearch.cshtml" />
+    <Content Include="Areas\SuperUser\Views\ImportFromExcel\Import.cshtml" />
+    <Content Include="Areas\Admin\Views\ResultManagement\CheckClassPublish.cshtml" />
+    <Content Include="Areas\Content\Views\Doc\EditInfo.cshtml" />
+    <Content Include="Areas\Admin\Views\DashBoard\GetSchool.cshtml" />
+    <Content Include="Areas\Admin\Views\Enrollments\EditEnrollment.cshtml" />
+    <Content Include="Areas\Student\Views\Panel\UpdateProfile.cshtml" />
+    <Content Include="Areas\Admin\Views\ResultManagement\ResultPreview.cshtml" />
+    <Content Include="Areas\Admin\Views\ClassLevels\Promotion.cshtml" />
+    <Content Include="Areas\Admin\Views\ClassLevels\New.cshtml" />
+    <Content Include="Areas\SuperUser\Views\WebsiteSettings\Create.cshtml" />
+    <Content Include="Areas\SuperUser\Views\WebsiteSettings\Delete.cshtml" />
+    <Content Include="Areas\SuperUser\Views\WebsiteSettings\Details.cshtml" />
+    <Content Include="Areas\SuperUser\Views\WebsiteSettings\Edit.cshtml" />
+    <Content Include="Areas\SuperUser\Views\WebsiteSettings\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ImageSliders\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\ImageSliders\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\ClassLevels\EnablePromoteAll.cshtml" />
+    <Content Include="Areas\Admin\Views\Settings\AddSchoolToPortal.cshtml" />
+    <Content Include="Areas\Admin\Views\Settings\AddSchoolToPortalSuccess.cshtml" />
+    <Content Include="Areas\Admin\Views\ClassLevels\ClassDetailSubject.cshtml" />
+    <Content Include="Areas\Admin\Views\ClassLevels\ClassSubject.cshtml" />
+    <Content Include="Areas\Staff\Views\Panel\SubjectResultSheet.cshtml" />
+    <Content Include="Areas\Admin\Views\UserManagers\New.cshtml" />
+    <Content Include="Areas\Staff\Views\Panel\EnterScore.cshtml" />
+    <Content Include="Areas\Staff\Views\Panel\PreviewSheet.cshtml" />
+    <Content Include="Areas\Staff\Views\Panel\ScoreSheet.cshtml" />
+    <Content Include="Areas\Staff\Views\Panel\EmptyScoreSheet.cshtml" />
+    <Content Include="Areas\Service\Scoresheet Pdf\ESP Scoresheet.pdf" />
+    <Content Include="Areas\Content\Views\Doc\IndexByEnrolId.cshtml" />
+    <Content Include="Areas\Content\Views\Doc\IndexAllByClass.cshtml" />
+    <Content Include="Areas\SuperUser\Views\ImportFromExcel\UploadCard.cshtml" />
+    <Content Include="Areas\Admin\Views\ImageGalleries\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\ImageGalleries\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\ImageGalleries\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\ImageGalleries\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\ImageGalleries\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ResultManagement\UpdatePsychomotorDomain.cshtml" />
+    <Content Include="Areas\Admin\Views\ResultManagement\UpdateAffectiveDomain.cshtml" />
+    <Content Include="Areas\Admin\Views\SchoolAccounts\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\SchoolAccounts\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\SchoolAccounts\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\SchoolAccounts\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\SchoolAccounts\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\SchoolFees\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\SchoolFees\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\SchoolFees\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\SchoolFees\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\SchoolFees\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ResultManagement\Preview2.cshtml" />
+    <Content Include="Areas\Admin\Views\ResultManagement\ResultPreview2.cshtml" />
+    <Content Include="Areas\Admin\Views\ResultManagement\SchoolFees.cshtml" />
+    <Content Include="Areas\Student\Views\Panel\PrintResult2.cshtml" />
+    <Content Include="Areas\Student\Views\Panel\PrintThirdResult2.cshtml" />
+    <Content Include="Areas\Student\Views\Shared\_PrintLayout2.cshtml" />
+    <Content Include="Areas\Admin\Views\NewsLetters\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\NewsLetters\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\NewsLetters\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\NewsLetters\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\NewsLetters\Index.cshtml" />
+    <Content Include="Areas\WebsiteManager\Views\web.config" />
+    <Content Include="Areas\WebsiteManager\Views\CategoryPages\Create.cshtml" />
+    <Content Include="Areas\WebsiteManager\Views\CategoryPages\Delete.cshtml" />
+    <Content Include="Areas\WebsiteManager\Views\CategoryPages\Details.cshtml" />
+    <Content Include="Areas\WebsiteManager\Views\CategoryPages\Edit.cshtml" />
+    <Content Include="Areas\WebsiteManager\Views\CategoryPages\Index.cshtml" />
+    <Content Include="Areas\WebsiteManager\Views\ContentPages\Create.cshtml" />
+    <Content Include="Areas\WebsiteManager\Views\ContentPages\Delete.cshtml" />
+    <Content Include="Areas\WebsiteManager\Views\ContentPages\Details.cshtml" />
+    <Content Include="Areas\WebsiteManager\Views\ContentPages\Edit.cshtml" />
+    <Content Include="Areas\WebsiteManager\Views\ContentPages\Index.cshtml" />
+    <Content Include="Areas\WebsiteManager\Views\ContentImages\Create.cshtml" />
+    <Content Include="Areas\WebsiteManager\Views\ContentImages\Delete.cshtml" />
+    <Content Include="Areas\WebsiteManager\Views\ContentImages\Details.cshtml" />
+    <Content Include="Areas\WebsiteManager\Views\ContentImages\Edit.cshtml" />
+    <Content Include="Areas\WebsiteManager\Views\ContentImages\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\DashBoard\Calender.cshtml" />
+    <Content Include="Areas\Content\Views\Helps\Create.cshtml" />
+    <Content Include="Areas\Content\Views\Helps\Delete.cshtml" />
+    <Content Include="Areas\Content\Views\Helps\Details.cshtml" />
+    <Content Include="Areas\Content\Views\Helps\Edit.cshtml" />
+    <Content Include="Areas\Content\Views\Helps\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\DashBoard\_Dashboard.cshtml" />
+    <Content Include="Areas\Admin\Views\ResultManagement\Results.cshtml" />
+    <Content Include="Areas\Admin\Views\PinManagement\_CardAnalysis.cshtml" />
+    <Content Include="Areas\Admin\Views\Tickets\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Tickets\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Tickets\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Tickets\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Tickets\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Tickets\CreateResponse.cshtml" />
+    <Content Include="Areas\Admin\Views\Tickets\EditResponse.cshtml" />
+    <Content Include="Areas\Admin\Views\Tickets\DeleteResponse.cshtml" />
+    <Content Include="Areas\Admin\Views\Tickets\_TicketHistory1.cshtml" />
+    <Content Include="Areas\Admin\Views\Tickets\_TicketHistory.cshtml" />
+    <Content Include="Areas\Admin\Views\Tickets\_sticky.cshtml" />
+    <Content Include="Areas\Admin\Views\ResultManagement\OtherTerm.cshtml" />
+    <Content Include="Areas\Content\Views\Doc\EnrollmentWithScore.cshtml" />
+    <Content Include="Areas\Admin\Views\ResultManagement\MasterListAllSessions.cshtml" />
+    <Content Include="Areas\Content\Views\Doc\StudentsInTerm.cshtml" />
+    <Content Include="Areas\Admin\Views\UserManagers\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\UserManagers\Success.cshtml" />
+    <Content Include="Areas\Content\Views\Doc\StaffList.cshtml" />
+    <Content Include="Areas\Student\Views\Panel\ChangePhoto.cshtml" />
+    <Content Include="Areas\Admin\Views\Enrollments\AllEnrollment.cshtml" />
+    <Content Include="Areas\Admin\Views\ResultManagement\EnrolledSubjectLoop.cshtml" />
+    <Content Include="Areas\Staff\Views\Panel\AllAssignments.cshtml" />
+    <Content Include="Areas\Admin\Views\ResultManagement\EditStudentResultClass.cshtml" />
+    <Content Include="Areas\Student\Views\Panel\LoginAccess.cshtml" />
+    <Content Include="Areas\Content\Views\Doc\StaffRegistrationLink.cshtml" />
+    <Content Include="Areas\Admin\Views\UserManagers\StaffRegistration.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_RegistrationLayout.cshtml" />
+    <Content Include="Areas\Admin\Views\Enrollments\FetchUserandTermlyResult.cshtml" />
+    <Content Include="Areas\Admin\Views\Enrollments\EditEnrolment.cshtml" />
+    <Content Include="Areas\Admin\Views\Enrollments\FetchUserCurrentEnrollment.cshtml" />
+    <Content Include="Areas\Admin\Views\Enrollments\FetchUserLast2018Enrollment.cshtml" />
+    <Content Include="Areas\Admin\Views\Enrollments\IndexEnrol.cshtml" />
+    <Content Include="Areas\WebsiteManager\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\WebsiteManager\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\WebsiteManager\Views\CategoryPages\NewStyle.cshtml" />
+    <Content Include="Areas\WebsiteManager\Views\CategoryPages\StyleEdit.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_ResponseMessagePartial.cshtml" />
+    <Content Include="Areas\Admin\Views\Settings\SettingValueIndex.cshtml" />
+    <Content Include="Areas\Admin\Views\Settings\SettingValueDetails.cshtml" />
+    <Content Include="Areas\Admin\Views\Settings\SettingValueCreate.cshtml" />
+    <Content Include="Areas\Admin\Views\Settings\SettingValueEdit.cshtml" />
+    <Content Include="Areas\Admin\Views\Settings\SettingValueDelete.cshtml" />
+    <Content Include="Areas\WebsiteManager\Views\CategoryPages\PageLinks.cshtml" />
+    <Content Include="Areas\WebsiteManager\Views\CategoryPages\Help.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_DescView.cshtml" />
+    <Content Include="Areas\WebsiteManager\Views\Page\ContentPage.cshtml" />
+    <Content Include="Areas\WebsiteManager\Views\Page\ContentView.cshtml" />
+    <Content Include="Areas\WebsiteManager\Views\Page\HallOfFame.cshtml" />
+    <Content Include="Areas\WebsiteManager\Views\Page\Index.cshtml" />
+    <Content Include="Areas\WebsiteManager\Views\Page\itemPage.cshtml" />
+    <Content Include="Areas\WebsiteManager\Views\Page\itemView.cshtml" />
+    <Content Include="Areas\WebsiteManager\Views\Page\PageFame.cshtml" />
+    <Content Include="Areas\WebsiteManager\Views\Page\_AboveFooter.cshtml" />
+    <Content Include="Areas\WebsiteManager\Views\Page\_BlogCrumb.cshtml" />
+    <Content Include="Areas\WebsiteManager\Views\Page\_BlogDetailCrumb.cshtml" />
+    <Content Include="Areas\WebsiteManager\Views\Page\_BlogHome.cshtml" />
+    <Content Include="Areas\WebsiteManager\Views\Page\_Footer.cshtml" />
+    <Content Include="Areas\WebsiteManager\Views\Page\_HallOfFame.cshtml" />
+    <Content Include="Areas\WebsiteManager\Views\Page\_HomeBody.cshtml" />
+    <Content Include="Areas\WebsiteManager\Views\Page\_MenuStrinIitem.cshtml" />
+    <Content Include="Areas\WebsiteManager\Views\Page\_MenuTopHeader.cshtml" />
+    <Content Include="Areas\WebsiteManager\Views\Page\_PageCrumb.cshtml" />
+    <Content Include="Areas\WebsiteManager\Views\Page\_Slider.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_FrontPagePreviewLayout.cshtml" />
+    <Content Include="Areas\WebsiteManager\Views\Blog\Latest.cshtml" />
+    <Content Include="Areas\WebsiteManager\Views\Blog\Read.cshtml" />
+    <Content Include="Areas\Staff\Views\Panel\OfflineDownload.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_OfflineLayout.cshtml" />
+    <Content Include="Areas\Admin\Views\ResultManagement\CummulativeMasterListIndex.cshtml" />
+    <Content Include="Areas\Admin\Views\ResultManagement\CummulativeMasterListAllSessions.cshtml" />
+    <Content Include="Areas\Admin\Views\ResultManagement\CummulativeMasterList.cshtml" />
+    <Content Include="Areas\Admin\Views\ResultManagement\Reconsile.cshtml" />
+    <Content Include="Areas\Admin\Views\ResultManagement\ReconcileEditStudentResult.cshtml" />
+    <Content Include="Areas\Admin\Views\ResultManagement\ReconcileEnrollSubjects.cshtml" />
+    <Content Include="Areas\Admission\Views\Application\Apply.cshtml" />
+    <Content Include="Areas\Admission\Views\Application\FillForm.cshtml" />
+    <Content Include="Areas\Admission\Views\Application\Index.cshtml" />
+    <Content Include="Areas\Admission\Views\Application\Index2.cshtml" />
+    <Content Include="Areas\Admission\Views\Application\Printout.cshtml" />
+    <Content Include="Areas\Admission\Views\Application\Printout_Form.cshtml" />
+    <Content Include="Areas\Admission\Views\Application\Register.cshtml" />
+    <Content Include="Areas\Admin\Views\PartialView\LoginLayout.cshtml" />
+    <Content Include="Areas\Content\Views\Doc\MoveEnrol.cshtml" />
+    <Content Include="Areas\Admin\Views\ResultManagement\ListBatch.cshtml" />
+    <Content Include="Areas\CBTExam\Views\web.config" />
+    <Content Include="Areas\CBTExam\Views\CBTQuestion\Create.cshtml" />
+    <Content Include="Areas\CBTExam\Views\CBTQuestion\Details.cshtml" />
+    <Content Include="Areas\CBTExam\Views\CBTQuestion\Edit.cshtml" />
+    <Content Include="Areas\CBTExam\Views\CBTQuestion\Index.cshtml" />
+    <Content Include="Areas\CBTExam\Views\CBTQuestion\Delete.cshtml" />
+    <Content Include="Areas\CBTExam\Views\CBTOption\Create.cshtml" />
+    <Content Include="Areas\CBTExam\Views\CBTOption\Index.cshtml" />
+    <Content Include="Areas\CBTExam\Views\CBTOption\Edit.cshtml" />
+    <Content Include="Areas\CBTExam\Views\CBTOption\Delete.cshtml" />
+    <Content Include="Areas\CBTExam\Views\CBTSubject\Index.cshtml" />
+    <Content Include="Areas\CBTExam\Views\CBTSubject\Details.cshtml" />
+    <Content Include="Areas\CBTExam\Views\CBTSubject\Create.cshtml" />
+    <Content Include="Areas\CBTExam\Views\CBTSubject\Edit.cshtml" />
+    <Content Include="Areas\CBTExam\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\CBTExam\Views\CBTSubject\Delete.cshtml" />
+    <Content Include="Areas\CBTExam\Views\CBTOption\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Enrollments\ResultAnalysis.cshtml" />
+    <Content Include="Areas\Admin\Views\Enrollments\FetchUserEnrollment.cshtml" />
+    <Content Include="Areas\Financial\Views\web.config" />
+    <Content Include="Areas\Financial\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Financial\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Financial\Views\IncomeSource\Index.cshtml" />
+    <Content Include="Areas\Financial\Views\IncomeSource\Details.cshtml" />
+    <Content Include="Areas\Financial\Views\IncomeSource\Create.cshtml" />
+    <Content Include="Areas\Financial\Views\IncomeSource\Edit.cshtml" />
+    <Content Include="Areas\Financial\Views\IncomeSource\Delete.cshtml" />
+    <Content Include="Areas\Financial\Views\ExpenditureSource\Create.cshtml" />
+    <Content Include="Areas\Financial\Views\ExpenditureSource\Delete.cshtml" />
+    <Content Include="Areas\Financial\Views\ExpenditureSource\Details.cshtml" />
+    <Content Include="Areas\Financial\Views\ExpenditureSource\Edit.cshtml" />
+    <Content Include="Areas\Financial\Views\ExpenditureSource\Index.cshtml" />
+    <Content Include="Areas\Financial\Views\Income\Create.cshtml" />
+    <Content Include="Areas\Financial\Views\Income\Delete.cshtml" />
+    <Content Include="Areas\Financial\Views\Income\Details.cshtml" />
+    <Content Include="Areas\Financial\Views\Income\Edit.cshtml" />
+    <Content Include="Areas\Financial\Views\Income\Index.cshtml" />
+    <Content Include="Areas\SuperUser\Views\ApprovedDevices\Create.cshtml" />
+    <Content Include="Areas\SuperUser\Views\ApprovedDevices\Delete.cshtml" />
+    <Content Include="Areas\SuperUser\Views\ApprovedDevices\Details.cshtml" />
+    <Content Include="Areas\SuperUser\Views\ApprovedDevices\Edit.cshtml" />
+    <Content Include="Areas\SuperUser\Views\ApprovedDevices\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\UserManagers\BatchReg.cshtml" />
+    <Content Include="Areas\Financial\Views\Payment\Index.cshtml" />
+    <Content Include="Areas\Financial\Views\Payment\CurrentCreditPayment.cshtml" />
+    <Content Include="Areas\Financial\Views\Payment\CurrentDebitPayment.cshtml" />
+    <Content Include="Areas\Financial\Views\Payment\CreditPayment.cshtml" />
+    <Content Include="Areas\Financial\Views\Payment\DebitPayment.cshtml" />
+    <Content Include="Areas\Financial\Views\Payment\MakeBankPayment.cshtml" />
+    <Content Include="Areas\Financial\Views\BankStatement\Index.cshtml" />
+    <Content Include="Areas\Financial\Views\BankStatement\CreateStatement.cshtml" />
+    <Content Include="Areas\Financial\Views\Payment\MyPayment.cshtml" />
+    <Content Include="Areas\Financial\Views\Payment\PaymentInfo.cshtml" />
+    <Content Include="Areas\Financial\Views\Payment\MakeDebitPayment.cshtml" />
+    <Content Include="Areas\Financial\Views\Payment\InvoiceDetails.cshtml" />
+    <Content Include="Areas\Financial\Views\Payment\InvoicePrint.cshtml" />
+    <Content Include="Areas\Financial\Views\Payment\GenerateInvoice.cshtml" />
+    <Content Include="Areas\Accomodation\Views\web.config" />
+    <Content Include="Areas\Accomodation\Views\Hostels\Create.cshtml" />
+    <Content Include="Areas\Accomodation\Views\Hostels\Delete.cshtml" />
+    <Content Include="Areas\Accomodation\Views\Hostels\Details.cshtml" />
+    <Content Include="Areas\Accomodation\Views\Hostels\Edit.cshtml" />
+    <Content Include="Areas\Accomodation\Views\Hostels\Index.cshtml" />
+    <Content Include="Areas\Accomodation\Views\Rooms\Create.cshtml" />
+    <Content Include="Areas\Accomodation\Views\Rooms\Delete.cshtml" />
+    <Content Include="Areas\Accomodation\Views\Rooms\Details.cshtml" />
+    <Content Include="Areas\Accomodation\Views\Rooms\Edit.cshtml" />
+    <Content Include="Areas\Accomodation\Views\Rooms\Index.cshtml" />
+    <Content Include="Areas\Accomodation\Views\Beds\Create.cshtml" />
+    <Content Include="Areas\Accomodation\Views\Beds\Delete.cshtml" />
+    <Content Include="Areas\Accomodation\Views\Beds\Details.cshtml" />
+    <Content Include="Areas\Accomodation\Views\Beds\Edit.cshtml" />
+    <Content Include="Areas\Accomodation\Views\Beds\Index.cshtml" />
+    <Content Include="Areas\Financial\Views\Payment\Accomodation.cshtml" />
+    <Content Include="Areas\Accomodation\Views\Allotment\Index.cshtml" />
+    <Content Include="Areas\Accomodation\Views\Allotment\Details.cshtml" />
+    <Content Include="Areas\Accomodation\Views\Allotment\Edit.cshtml" />
+    <Content Include="Areas\Accomodation\Views\Allotment\Delete.cshtml" />
+    <Content Include="Areas\Accomodation\Views\Allotment\MyAccomodation.cshtml" />
+    <Content Include="Areas\SuperDevice\Views\web.config" />
+    <Content Include="Areas\SuperDevice\Views\DeviceManager\AddComputer.cshtml" />
+    <Content Include="Areas\SuperDevice\Views\DeviceManager\AddPhone.cshtml" />
+    <Content Include="Areas\SuperDevice\Views\DeviceManager\Index.cshtml" />
+    <Content Include="Areas\SuperDevice\Views\DeviceManager\EditComputer.cshtml" />
+    <Content Include="Areas\SuperDevice\Views\DeviceManager\EditPhone.cshtml" />
+    <Content Include="Areas\SuperDevice\Views\DeviceManager\Delete.cshtml" />
+    <Content Include="Areas\SuperUser\Views\ImportFromExcel\DeleteCard.cshtml" />
+    <Content Include="Areas\Documentaries\Views\web.config" />
+    <Content Include="Areas\Documentaries\Views\Doc\Create.cshtml" />
+    <Content Include="Areas\Documentaries\Views\Doc\Delete.cshtml" />
+    <Content Include="Areas\Documentaries\Views\Doc\Details.cshtml" />
+    <Content Include="Areas\Documentaries\Views\Doc\Edit.cshtml" />
+    <Content Include="Areas\Documentaries\Views\Doc\Index.cshtml" />
+    <Content Include="Areas\Documentaries\Views\Doc\DocumentaryIndex.cshtml" />
+    <Content Include="Areas\Documentaries\Views\Doc\_DocumentaryMenu.cshtml" />
+    <Content Include="Areas\Admin\Views\PartialView\SchoolIcon.cshtml" />
+    <Content Include="Areas\Admin\Views\ResultArchiveManagement\BatchResult.cshtml" />
+    <Content Include="Areas\Admin\Views\ResultArchiveManagement\CheckClassPublish.cshtml" />
+    <Content Include="Areas\Admin\Views\ResultArchiveManagement\CummulativeMasterList.cshtml" />
+    <Content Include="Areas\Admin\Views\ResultArchiveManagement\CummulativeMasterListAllSessions.cshtml" />
+    <Content Include="Areas\Admin\Views\ResultArchiveManagement\CummulativeMasterListIndex.cshtml" />
+    <Content Include="Areas\Admin\Views\ResultArchiveManagement\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\ResultArchiveManagement\EditStudentResult.cshtml" />
+    <Content Include="Areas\Admin\Views\ResultArchiveManagement\EditStudentResultAdmin.cshtml" />
+    <Content Include="Areas\Admin\Views\ResultArchiveManagement\EditStudentResultClass.cshtml" />
+    <Content Include="Areas\Admin\Views\ResultArchiveManagement\EnrolledSubjectLoop.cshtml" />
+    <Content Include="Areas\Admin\Views\ResultArchiveManagement\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ResultArchiveManagement\ListBatch.cshtml" />
+    <Content Include="Areas\Admin\Views\ResultArchiveManagement\MasterList.cshtml" />
+    <Content Include="Areas\Admin\Views\ResultArchiveManagement\MasterListAllSessions.cshtml" />
+    <Content Include="Areas\Admin\Views\ResultArchiveManagement\MasterListIndex.cshtml" />
+    <Content Include="Areas\Admin\Views\ResultArchiveManagement\MasterListPreview.cshtml" />
+    <Content Include="Areas\Admin\Views\ResultArchiveManagement\Preview.cshtml" />
+    <Content Include="Areas\Admin\Views\ResultArchiveManagement\Preview2.cshtml" />
+    <Content Include="Areas\Admin\Views\ResultArchiveManagement\PreviewAndPublish.cshtml" />
+    <Content Include="Areas\Admin\Views\ResultArchiveManagement\ReconcileEditStudentResult.cshtml" />
+    <Content Include="Areas\Admin\Views\ResultArchiveManagement\ReconcileEnrollSubjects.cshtml" />
+    <Content Include="Areas\Admin\Views\ResultArchiveManagement\Reconsile.cshtml" />
+    <Content Include="Areas\Admin\Views\ResultArchiveManagement\ResultPreview.cshtml" />
+    <Content Include="Areas\Admin\Views\ResultArchiveManagement\ResultPreview2.cshtml" />
+    <Content Include="Areas\Admin\Views\ResultArchiveManagement\Results.cshtml" />
+    <Content Include="Areas\Admin\Views\ResultArchiveManagement\SchoolFees.cshtml" />
+    <Content Include="Areas\Admin\Views\ResultArchiveManagement\Students.cshtml" />
+    <Content Include="Areas\Admin\Views\ResultArchiveManagement\StudentsForBatchResult.cshtml" />
+    <Content Include="Areas\Admin\Views\ResultArchiveManagement\UpdateAffectiveDomain.cshtml" />
+    <Content Include="Areas\Admin\Views\ResultArchiveManagement\UpdateInformation.cshtml" />
+    <Content Include="Areas\Admin\Views\ResultArchiveManagement\UpdatePsychomotorDomain.cshtml" />
+    <Content Include="Areas\Admin\Views\ResultArchiveManagement\UpdateResultRemarkbyEnrolment.cshtml" />
+    <Content Include="Areas\SuperUser\Views\ResultArchive\ArchiveResult3.cshtml" />
+    <Content Include="Areas\Student\Views\ArchiveResult\Result.cshtml" />
+    <Content Include="Areas\Student\Views\ArchiveResult\PrintResult.cshtml" />
+    <Content Include="Areas\Student\Views\ArchiveResult\PrintResult2.cshtml" />
+    <Content Include="Areas\Student\Views\ArchiveResult\PrintThirdResult.cshtml" />
+    <Content Include="Areas\Student\Views\ArchiveResult\PrintThirdResult2.cshtml" />
+    <Content Include="Areas\SuperUser\Views\ResultArchive\ArchiveResult.cshtml" />
+    <Content Include="Areas\SuperUser\Views\ResultArchive\Index.cshtml" />
+    <Content Include="Areas\Staff\Views\Panel\LiveClassList.cshtml" />
+    <Content Include="Areas\Staff\Views\Panel\SingleLiveClass.cshtml" />
+    <Content Include="Areas\Staff\Views\Panel\EditLiveClass.cshtml" />
+    <Content Include="Areas\Staff\Views\Panel\DetailsLiveClass.cshtml" />
+    <Content Include="Areas\Student\Views\Panel\LiveList.cshtml" />
+    <Content Include="Areas\Student\Views\Panel\DetailsLive.cshtml" />
+    <Content Include="Areas\Staff\Views\Panel\EditLiveClass1.cshtml" />
+    <Content Include="Areas\Admin\Views\DataUserRequests\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\DataUserRequests\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\DataUserRequests\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\DataUserRequests\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\DataUserRequests\Index.cshtml" />
+    <Content Include="Areas\Staff\Views\Panel\NewOnLineCourse.cshtml" />
+    <Content Include="Areas\Staff\Views\Panel\OnlineClass.cshtml" />
+    <Content Include="Areas\Staff\Views\Panel\OnlineSubject.cshtml" />
+    <Content Include="Areas\Staff\Views\Panel\OnlineSubjectTopics.cshtml" />
+    <Content Include="Areas\Student\Views\Panel\OnlineClass.cshtml" />
+    <Content Include="Areas\Student\Views\Panel\OnlineSubject.cshtml" />
+    <Content Include="Areas\Student\Views\Panel\OnlineSubjectTopics.cshtml" />
+    <Content Include="Areas\OnlineClass\Views\web.config" />
+    <Content Include="Areas\OnlineClass\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\OnlineClass\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\OnlineClass\Views\Live\Indexold.cshtml" />
+    <Content Include="Areas\OnlineClass\Views\Live\Meeting.cshtml" />
+    <Content Include="Areas\OnlineClass\Views\Live\AllMeetingByUser.cshtml" />
+    <Content Include="Areas\OnlineClass\Views\Live\Index.cshtml" />
+    <Content Include="Areas\OnlineClass\Views\Live\DetailsApi.cshtml" />
+    <Content Include="Areas\Staff\Views\Panel\LiveClassParticipant.cshtml" />
+    <Content Include="Areas\Staff\Views\Panel\LiveClassRecording.cshtml" />
+    <Content Include="Areas\Student\Views\Panel\LiveClassRecord.cshtml" />
+    <Content Include="Areas\Staff\Views\Panel\LiveClassType.cshtml" />
+    <Content Include="Areas\Staff\Views\Panel\MultipleLiveClass.cshtml" />
+    <Content Include="Areas\Admin\Views\Settings\SuperDetails.cshtml" />
+    <Content Include="Areas\Staff\Views\Panel\AddSort.cshtml" />
+    <Content Include="Areas\CBTExam\Views\CBTClass\Create.cshtml" />
+    <Content Include="Areas\CBTExam\Views\CBTClass\Delete.cshtml" />
+    <Content Include="Areas\CBTExam\Views\CBTClass\Details.cshtml" />
+    <Content Include="Areas\CBTExam\Views\CBTClass\Edit.cshtml" />
+    <Content Include="Areas\CBTExam\Views\CBTClass\Index.cshtml" />
+    <Content Include="Areas\CBTExam\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\CBTExam\Views\CBTExamBoard\Index.cshtml" />
+    <Content Include="Areas\CBTExam\Views\CBTExamBoard\Create.cshtml" />
+    <Content Include="Areas\CBTExam\Views\CBTExamBoard\SubjectSetting.cshtml" />
+    <Content Include="Areas\Student\Views\Panel\StudentExamBoard.cshtml" />
+    <Content Include="Areas\CBTExam\Views\CBTExamBoard\Students.cshtml" />
+    <Content Include="Areas\CBTExam\Views\CBTExamBoard\StudentScore.cshtml" />
+    <Content Include="Areas\CBTExam\Views\CBTExamResultManager\OtherTerm.cshtml" />
+    <Content Include="Areas\CBTExam\Views\CBTExamResultManager\Index.cshtml" />
+    <Content Include="Areas\CBTExam\Views\CBTExamResultManager\Students.cshtml" />
+    <Content Include="Areas\CBTExam\Views\CBTExamResultManager\StudentExam.cshtml" />
+    <Content Include="Areas\CBTExam\Views\CBTExamResultManager\StudentExamScore.cshtml" />
+    <Content Include="Areas\Admin\Views\ResultManagement\NewEnrolment.cshtml" />
+    <Content Include="Areas\Admin\Views\ResultManagement\AllStudents.cshtml" />
+    <Content Include="Areas\Admin\Views\Enrollments\StatusResult.cshtml" />
+    <Content Include="Areas\Admin\Views\ResultManagement\MasterListPrint.cshtml" />
+    <Content Include="Areas\SuperUser\Views\AdminUser\CurrentSessionUserList.cshtml" />
+    <Content Include="Areas\Admin\Views\NotificationSettings\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\NotificationSettings\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\NotificationSettings\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\NotificationSettings\Edit.cshtml" />
+    <Content Include="Areas\Student\Views\Panel\ResultWithoutId.cshtml" />
+    <Content Include="Areas\Admission\Views\Admin\Details.cshtml" />
+    <Content Include="Areas\Admission\Views\Admin\Edit.cshtml" />
+    <Content Include="Areas\Admission\Views\Admin\Index.cshtml" />
+    <Content Include="Areas\Admission\Views\Admin\UpdateScore.cshtml" />
+    <Content Include="Areas\Admission\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Admission\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Admission\Views\web.config" />
+    <Content Include="Areas\Admin\Views\ClassLevels\NotOffered.cshtml" />
+    <Content Include="Areas\Admin\Views\ClassLevels\RemoveDuplicateEnrolledSubject.cshtml" />
+    <Content Include="Areas\Admin\Views\PinManagement\AdminPinIndexList.cshtml" />
+    <Content Include="Areas\SuperUser\Views\Tracker\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Sessions\SuperEdit.cshtml" />
+    <Content Include="Areas\Admin\Views\PinManagement\IndexofUsed.cshtml" />
+    <Content Include="Areas\Admin\Views\ClassLevels\NotClassSubjectEnrolled.cshtml" />
+    <Content Include="Areas\Staff\Views\Panel\StudentsList2.cshtml" />
+    <Content Include="Areas\Staff\Views\Panel\EnterScore2.cshtml" />
+    <Content Include="Areas\Admin\Views\ResultManagement\Preview3.cshtml" />
+    <Content Include="Areas\Admin\Views\ResultManagement\ResultPreview3.cshtml" />
+    <Content Include="Areas\Student\Views\Panel\PrintResult3.cshtml" />
+    <Content Include="Areas\Student\Views\Panel\PrintThirdResult3.cshtml" />
+    <Content Include="Areas\Student\Views\ArchiveResult\PrintResult3.cshtml" />
+    <Content Include="Areas\Student\Views\ArchiveResult\PrintThirdResult3.cshtml" />
+    <Content Include="Areas\Admin\Views\ResultArchiveManagement\Preview3.cshtml" />
+    <Content Include="Areas\Admin\Views\ResultArchiveManagement\ResultPreview3.cshtml" />
+    <Content Include="Areas\Admin\Views\ClassLevels\AllIndex.cshtml" />
+    <Content Include="Areas\Content\Views\Doc\MoveClassEnrol.cshtml" />
+    <Content Include="Areas\Admin\Views\Settings\Newsletter.cshtml" />
+    <Content Include="Areas\Admin\Views\Settings\UpdateNewsletter.cshtml" />
+    <Content Include="Areas\Student\Views\Panel\Profile.cshtml" />
+    <Content Include="Areas\Student\Views\Panel\MakePayment.cshtml" />
+    <Content Include="Areas\Financial\Views\Payment\PaymentHistory.cshtml" />
+    <Content Include="Areas\Financial\Views\Payment\Fees.cshtml" />
+    <Content Include="Areas\Financial\Views\Payment\IListPayment.cshtml" />
+    <Content Include="Areas\Financial\Views\Payment\Expenditure.cshtml" />
+    <Content Include="Areas\Financial\Views\Payment\CreateDebit.cshtml" />
+    <Content Include="Areas\Financial\Views\FinanceAccount\Complete.cshtml" />
+    <Content Include="Areas\Student\Views\Panel\Mydocuments.cshtml" />
+    <Content Include="Areas\Student\Views\Panel\Mycertificate.cshtml" />
+    <Content Include="Areas\Student\Views\Panel\Personaltimetable.cshtml" />
+    <Content Include="Areas\Student\Views\Panel\SchoolCalender.cshtml" />
+    <Content Include="Areas\Student\Views\Panel\Myclassmates.cshtml" />
+    <Content Include="Areas\Student\Views\Panel\Myteachers.cshtml" />
+    <Content Include="Areas\Admin\Views\DashBoard\FinancePage.cshtml" />
+    <Content Include="Areas\Financial\Views\Payment\CreatePayment.cshtml" />
+    <Content Include="Areas\Financial\Views\Payment\InitializePayment.cshtml" />
+    <Content Include="Areas\Financial\Views\Payment\AccountStatement.cshtml" />
+    <Content Include="Areas\Admin\Views\ResultManagement\RemoveEnrolSubjectByClass.cshtml" />
+    <Content Include="Areas\Admin\Views\UserManagers\Document.cshtml" />
+    <Content Include="Areas\Financial\Views\Payment\CreatePaymentSession.cshtml" />
+    <Content Include="Areas\Financial\Views\Payment\IndexBySession.cshtml" />
+    <Content Include="Areas\Financial\Views\Payment\IndexSession.cshtml" />
+    <Content Include="Areas\Financial\Views\Payment\IndexAll.cshtml" />
+    <Content Include="Areas\Financial\Views\Payment\CreateNewPayment.cshtml" />
+    <Content Include="Areas\Financial\Views\Payment\ApproveExpenditure.cshtml" />
+    <Content Include="Areas\Financial\Views\Payment\MixRemove.cshtml" />
+    <Content Include="Areas\Content\Views\Doc\OtherTerm.cshtml" />
+    <Content Include="Areas\Content\Views\Doc\IndexBySession.cshtml" />
+    <Content Include="Areas\Account\Views\web.config" />
+    <Content Include="Areas\Account\Views\Shared\_LoginLayout.cshtml" />
+    <Content Include="Areas\Account\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Admin\Views\ClassLevels\StartPromote.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\web.config" />
+    <Content Include="Areas\WebsiteUI\Views\SiteBreadCrumbs\Create.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SiteBreadCrumbs\Delete.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SiteBreadCrumbs\Details.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SiteBreadCrumbs\Edit.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SiteBreadCrumbs\Index.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SiteContacts\Create.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SiteContacts\Delete.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SiteContacts\Details.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SiteContacts\Edit.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SiteContacts\Index.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SiteFooters\Create.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SiteFooters\Delete.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SiteFooters\Details.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SiteFooters\Edit.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SiteFooters\Index.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SiteFooterJS\Create.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SiteFooterJS\Delete.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SiteFooterJS\Details.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SiteFooterJS\Edit.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SiteFooterJS\Index.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SiteGalleries\Create.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SiteGalleries\Delete.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SiteGalleries\Details.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SiteGalleries\Edit.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SiteGalleries\Index.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SiteGalleryLists\Create.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SiteGalleryLists\Delete.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SiteGalleryLists\Details.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SiteGalleryLists\Edit.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SiteGalleryLists\Index.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SiteHeaders\Create.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SiteHeaders\Delete.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SiteHeaders\Details.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SiteHeaders\Edit.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SiteHeaders\Index.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SiteHomeBodies\Create.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SiteHomeBodies\Delete.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SiteHomeBodies\Details.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SiteHomeBodies\Edit.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SiteHomeBodies\Index.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SiteOverrideCSSes\Create.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SiteOverrideCSSes\Delete.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SiteOverrideCSSes\Details.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SiteOverrideCSSes\Edit.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SiteOverrideCSSes\Index.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SitePages\Create.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SitePages\Delete.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SitePages\Details.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SitePages\Edit.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SitePages\Index.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SitePageCategories\Create.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SitePageCategories\Delete.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SitePageCategories\Details.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SitePageCategories\Edit.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SitePageCategories\Index.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SiteSettings\Create.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SiteSettings\Delete.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SiteSettings\Details.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SiteSettings\Edit.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SiteSettings\Index.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SiteSliders\Create.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SiteSliders\Delete.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SiteSliders\Details.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SiteSliders\Edit.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SiteSliders\Index.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SiteNavHeaders\Create.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SiteNavHeaders\Delete.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SiteNavHeaders\Details.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SiteNavHeaders\Edit.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SiteNavHeaders\Index.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SitePages\DetailsMain.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SiteNewsPosts\Create.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SiteNewsPosts\Delete.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SiteNewsPosts\Details.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SiteNewsPosts\Edit.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SiteNewsPosts\Index.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SiteNewsPostLists\Create.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SiteNewsPostLists\Delete.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SiteNewsPostLists\Details.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SiteNewsPostLists\Edit.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SiteNewsPostLists\Index.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SiteHomeBodyAfterNews\Create.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SiteHomeBodyAfterNews\Delete.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SiteHomeBodyAfterNews\Details.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SiteHomeBodyAfterNews\Edit.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SiteHomeBodyAfterNews\Index.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SiteSinglePosts\Create.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SiteSinglePosts\Delete.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SiteSinglePosts\Details.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SiteSinglePosts\Edit.cshtml" />
+    <Content Include="Areas\WebsiteUI\Views\SiteSinglePosts\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Enrollments\EnrolByClass.cshtml" />
+    <Content Include="Areas\Admin\Views\Enrollments\EnrollmentListForClass.cshtml" />
+    <Content Include="Areas\Content\Views\Doc\IndexForList.cshtml" />
+    <Content Include="Areas\Content\Views\Doc\StudentsList.cshtml" />
+    <Content Include="Areas\Admin\Views\StaffProfile\EditUser.cshtml" />
+    <Content Include="Areas\Admin\Views\UserManagers\EditStaff.cshtml" />
+    <Content Include="Areas\Admin\Views\ResultManagement\MasterSubjects.cshtml" />
+    <Content Include="Areas\Content\Views\Doc\EnrollFromAnotherTermInSession.cshtml" />
+    <Content Include="ExcelUpload\mandate8.xlsx" />
+    <Content Include="OnlineCourseUpload\Testing_862_effective-time-management.pdf" />
+    <Content Include="Areas\Student\Views\Panel\Verify.cshtml" />
+    <Content Include="Areas\Staff\Views\Panel\LessonNote.cshtml" />
+    <Content Include="Areas\Staff\Views\Panel\AddLesson.cshtml" />
+    <Content Include="Areas\Staff\Views\Panel\LessonNoteDetail.cshtml" />
+    <Content Include="Areas\Staff\Views\Panel\LessonNoteEdit.cshtml" />
+    <Content Include="Areas\Content\Views\Doc\LessonNote.cshtml" />
+    <Content Include="Areas\Content\Views\Doc\LessonNoteDetail.cshtml" />
+    <Content Include="Areas\Admin\Views\UserManagers\Graduates.cshtml" />
+    <Content Include="Areas\Admin\Views\UserManagers\DropOut.cshtml" />
+    <Content Include="Areas\Admin\Views\UserManagers\NonActiveStaff.cshtml" />
+    <Content Include="Areas\Content\Views\Doc\Success.cshtml" />
+    <Content Include="Areas\Admin\Views\UserManagers\MoveToGraduate.cshtml" />
+    <Content Include="Areas\Admin\Views\ClassLevels\StudentPromotion.cshtml" />
+    <Content Include="Areas\Admin\Views\UserManagers\ReconsileRegNumbers.cshtml" />
+    <None Include="Properties\PublishProfiles\DCH AHIAEKE.pubxml" />
+    <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
+    <None Include="Properties\PublishProfiles\Default Settings1.pubxml" />
+    <None Include="Properties\PublishProfiles\Default Settings10.pubxml" />
+    <None Include="Properties\PublishProfiles\Default Settings11.pubxml" />
+    <None Include="Properties\PublishProfiles\Default Settings12.pubxml" />
+    <None Include="Properties\PublishProfiles\Default Settings13.pubxml" />
+    <None Include="Properties\PublishProfiles\Default Settings14.pubxml" />
+    <None Include="Properties\PublishProfiles\Default Settings15.pubxml" />
+    <None Include="Properties\PublishProfiles\Default Settings16.pubxml" />
+    <None Include="Properties\PublishProfiles\Default Settings17.pubxml" />
+    <None Include="Properties\PublishProfiles\Default Settings18.pubxml" />
+    <None Include="Properties\PublishProfiles\Default Settings19.pubxml" />
+    <None Include="Properties\PublishProfiles\Default Settings2.pubxml" />
+    <None Include="Properties\PublishProfiles\Default Settings20.pubxml" />
+    <None Include="Properties\PublishProfiles\Default Settings21.pubxml" />
+    <None Include="Properties\PublishProfiles\Default Settings22.pubxml" />
+    <None Include="Properties\PublishProfiles\Default Settings23.pubxml" />
+    <None Include="Properties\PublishProfiles\Default Settings3.pubxml" />
+    <None Include="Properties\PublishProfiles\Default Settings4.pubxml" />
+    <None Include="Properties\PublishProfiles\Default Settings5.pubxml" />
+    <None Include="Properties\PublishProfiles\Default Settings6.pubxml" />
+    <None Include="Properties\PublishProfiles\Default Settings7.pubxml" />
+    <None Include="Properties\PublishProfiles\Default Settings8.pubxml" />
+    <None Include="Properties\PublishProfiles\Default Settings9.pubxml" />
+    <None Include="Properties\PublishProfiles\eleme.pubxml" />
+    <None Include="Properties\PublishProfiles\ElemePub.pubxml" />
+    <None Include="Properties\PublishProfiles\extrapoint.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile1.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile2.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile3.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile4.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile5.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile6.pubxml" />
+    <None Include="Properties\PublishProfiles\ics.pubxml" />
+    <None Include="Properties\PublishProfiles\iskool demo.pubxml" />
+    <None Include="Properties\PublishProfiles\otolo.pubxml" />
+    <None Include="Properties\PublishProfiles\PORTAL DEMO.pubxml" />
+    <None Include="Properties\PublishProfiles\portaldnplafia.pubxml" />
+    <None Include="Properties\PublishProfiles\schoolportal.pubxml" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Areas\Account\Views\Shared\Error.cshtml" />
+    <Content Include="Areas\Account\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Account\Views\XYZ\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Areas\Account\Views\XYZ\ConfirmEmail.cshtml" />
+    <Content Include="Areas\Account\Views\XYZ\ExternalLoginConfirmation.cshtml" />
+    <Content Include="Areas\Account\Views\XYZ\ExternalLoginFailure.cshtml" />
+    <Content Include="Areas\Account\Views\XYZ\ForgotPassword.cshtml" />
+    <Content Include="Areas\Account\Views\XYZ\ForgotPasswordConfirmation.cshtml" />
+    <Content Include="Areas\Account\Views\XYZ\Register.cshtml" />
+    <Content Include="Areas\Account\Views\XYZ\ResetPassword.cshtml" />
+    <Content Include="Areas\Account\Views\XYZ\ResetPasswordConfirmation.cshtml" />
+    <Content Include="Areas\Account\Views\XYZ\SendCode.cshtml" />
+    <Content Include="Areas\Account\Views\XYZ\VerifyCode.cshtml" />
+    <Content Include="Areas\Account\Views\Shared\Lockout.cshtml" />
+    <Content Include="Areas\Account\Views\XYZ\ResetUserPassword.cshtml" />
+    <Content Include="Areas\Account\Views\XYZ\ChangePassword.cshtml" />
+    <Content Include="Areas\Account\Views\Shared\_LoginView.cshtml" />
+    <Content Include="Areas\Account\Views\Shared\Errorpage.cshtml" />
+    <Content Include="Areas\Account\Views\XYZ\UserLockout.cshtml" />
+    <Content Include="Areas\Account\Views\Shared\_LockOut.cshtml" />
+    <Content Include="Areas\Account\Views\Shared\View.cshtml" />
+    <Content Include="Areas\Account\Views\XYZ\Login3.cshtml" />
+    <Content Include="Areas\Account\Views\XYZ\Login2.cshtml" />
+    <Content Include="Areas\Account\Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Areas\Account\Views\Shared\_Login2.cshtml" />
+    <Content Include="Areas\Account\Views\Shared\_Login.cshtml" />
+    <Content Include="Areas\Account\Views\XYZ\A2F.cshtml" />
+    <Content Include="Areas\Account\Views\XYZ\Access.cshtml" />
+    <Content Include="Areas\Account\Views\Shared\_DocumentaryLayout.cshtml" />
+    <Content Include="Areas\Account\Views\Shared\_Access.cshtml" />
+    <Content Include="Areas\Account\Views\XYZ\FindProfile.cshtml" />
+    <Content Include="Areas\Account\Views\XYZ\Feedback.cshtml" />
+    <Content Include="Areas\Account\Views\XYZ\Login.cshtml" />
+    <Content Include="Areas\Account\Views\Shared\_login2022.cshtml" />
+    <None Include="Properties\PublishProfiles\wimbigservice-001-site7 - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\wimbigservice-001-site7 - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\xyzqolatv1-001-site4 - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\xyzqolatv1-001-site4 - Web Deploy.pubxml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Aq_Image\Course\" />
+    <Folder Include="Areas\Accomodation\Data\" />
+    <Folder Include="Areas\Accomodation\Views\Shared\" />
+    <Folder Include="Areas\Account\Data\" />
+    <Folder Include="Areas\Admission\Models\" />
+    <Folder Include="Areas\CBTExam\Models\" />
+    <Folder Include="Areas\Content\Models\" />
+    <Folder Include="Areas\Content\Views\DashBoard\" />
+    <Folder Include="Areas\Documentaries\Data\" />
+    <Folder Include="Areas\Documentaries\Views\Shared\" />
+    <Folder Include="Areas\Financial\Data\" />
+    <Folder Include="Areas\OnlineClass\Data\" />
+    <Folder Include="Areas\Staff\Models\" />
+    <Folder Include="Areas\Staff\Views\EventsControl\" />
+    <Folder Include="Areas\Student\Models\" />
+    <Folder Include="Areas\Student\Views\EventStudent\" />
+    <Folder Include="Areas\SuperDevice\Data\" />
+    <Folder Include="Areas\SuperDevice\Views\Shared\" />
+    <Folder Include="Areas\SuperUser\Models\" />
+    <Folder Include="Areas\SuperUser\Views\DataMigration\" />
+    <Folder Include="Areas\WebsiteManager\Models\" />
+    <Folder Include="Areas\WebsiteUI\Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201806261402009_Intial-migration.resx">
+      <DependentUpon>201806261402009_Intial-migration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806261404469_statesandcapital.resx">
+      <DependentUpon>201806261404469_statesandcapital.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807011103153_update1.resx">
+      <DependentUpon>201807011103153_update1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807021332237_fgs.resx">
+      <DependentUpon>201807021332237_fgs.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807081417243_gfd.resx">
+      <DependentUpon>201807081417243_gfd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807140443279_recognitiveDomainandclass.resx">
+      <DependentUpon>201807140443279_recognitiveDomainandclass.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807160353536_batchresultsetting.resx">
+      <DependentUpon>201807160353536_batchresultsetting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807221201045_scriptfull.resx">
+      <DependentUpon>201807221201045_scriptfull.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808152331518_IsOfferred123.resx">
+      <DependentUpon>201808152331518_IsOfferred123.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808280235376_enrolmentRemark.resx">
+      <DependentUpon>201808280235376_enrolmentRemark.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810161542353_google.resx">
+      <DependentUpon>201810161542353_google.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810161546500_google-allowhtml.resx">
+      <DependentUpon>201810161546500_google-allowhtml.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810301112314_UserProfile_Update.resx">
+      <DependentUpon>201810301112314_UserProfile_Update.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810311127254_websitesettings.resx">
+      <DependentUpon>201810311127254_websitesettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810311625309_ImageSliderText.resx">
+      <DependentUpon>201810311625309_ImageSliderText.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811010123559_websiteIcon.resx">
+      <DependentUpon>201811010123559_websiteIcon.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811011500361_promoteall.resx">
+      <DependentUpon>201811011500361_promoteall.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812141241166_dhdhhshshhshshs.resx">
+      <DependentUpon>201812141241166_dhdhhshshhshshs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902081119085_phonenumbercorrection.resx">
+      <DependentUpon>201902081119085_phonenumbercorrection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902081406149_eventupdate.resx">
+      <DependentUpon>201902081406149_eventupdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902090601284_imagegallery.resx">
+      <DependentUpon>201902090601284_imagegallery.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902211010528_positioninclassresult.resx">
+      <DependentUpon>201902211010528_positioninclassresult.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902211544501_affectiveandpsychomotordomain.resx">
+      <DependentUpon>201902211544501_affectiveandpsychomotordomain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903031353463_schoolfeesandschoolaccount.resx">
+      <DependentUpon>201903031353463_schoolfeesandschoolaccount.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903031505137_teacherremarkupdate.resx">
+      <DependentUpon>201903031505137_teacherremarkupdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903121646475_prinoutandfeeupdate.resx">
+      <DependentUpon>201903121646475_prinoutandfeeupdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903151504124_sessionInPincardUpdated.resx">
+      <DependentUpon>201903151504124_sessionInPincardUpdated.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903151709063_SelectPrintouttype.resx">
+      <DependentUpon>201903151709063_SelectPrintouttype.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903221437147_Newsletter.resx">
+      <DependentUpon>201903221437147_Newsletter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904071518218_websitemanager.resx">
+      <DependentUpon>201904071518218_websitemanager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904071700312_contentimage.resx">
+      <DependentUpon>201904071700312_contentimage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904090354204_updatecontenpage.resx">
+      <DependentUpon>201904090354204_updatecontenpage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904091651010_supportticket.resx">
+      <DependentUpon>201904091651010_supportticket.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904091708545_supportticketupdate.resx">
+      <DependentUpon>201904091708545_supportticketupdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904101037598_update-tickettable.resx">
+      <DependentUpon>201904101037598_update-tickettable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904101441504_update-tickettable-2.resx">
+      <DependentUpon>201904101441504_update-tickettable-2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904111808353_helpdata.resx">
+      <DependentUpon>201904111808353_helpdata.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904121147281_ContentPageupdate.resx">
+      <DependentUpon>201904121147281_ContentPageupdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904121207097_CategoryPageupdate.resx">
+      <DependentUpon>201904121207097_CategoryPageupdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904121219530_CategoryPageupdate2.resx">
+      <DependentUpon>201904121219530_CategoryPageupdate2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904121645502_websitecolor.resx">
+      <DependentUpon>201904121645502_websitecolor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904130509124_Newsletterupdate.resx">
+      <DependentUpon>201904130509124_Newsletterupdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904142025031_frontendactivity.resx">
+      <DependentUpon>201904142025031_frontendactivity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904150842562_websitefrontend.resx">
+      <DependentUpon>201904150842562_websitefrontend.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904221711400_Security.resx">
+      <DependentUpon>201904221711400_Security.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905191438231_ShowInWebsiteHomeSettings.resx">
+      <DependentUpon>201905191438231_ShowInWebsiteHomeSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906121612148_settingsvalue.resx">
+      <DependentUpon>201906121612148_settingsvalue.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907191537363_admissionupdate.resx">
+      <DependentUpon>201907191537363_admissionupdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912200939435_bencochanges.resx">
+      <DependentUpon>201912200939435_bencochanges.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001231008389_pinusageoption.resx">
+      <DependentUpon>202001231008389_pinusageoption.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002170848313_finance.resx">
+      <DependentUpon>202002170848313_finance.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002171145107_finance-update.resx">
+      <DependentUpon>202002171145107_finance-update.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002171211364_finance-update-2.resx">
+      <DependentUpon>202002171211364_finance-update-2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003091702293_ClassFees.resx">
+      <DependentUpon>202003091702293_ClassFees.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003091746524_InvoiceUpdate.resx">
+      <DependentUpon>202003091746524_InvoiceUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003101024599_Invoice.resx">
+      <DependentUpon>202003101024599_Invoice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003101555112_paymentamount.resx">
+      <DependentUpon>202003101555112_paymentamount.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003102353128_invoiceupdatee2.resx">
+      <DependentUpon>202003102353128_invoiceupdatee2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003111404102_financeenrolupdate.resx">
+      <DependentUpon>202003111404102_financeenrolupdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003121129121_invoicefinanceupdate.resx">
+      <DependentUpon>202003121129121_invoicefinanceupdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003121208472_financeinvoiceIdupdate.resx">
+      <DependentUpon>202003121208472_financeinvoiceIdupdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003122037430_referenceupdate.resx">
+      <DependentUpon>202003122037430_referenceupdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003131201371_paymenttteeupdate.resx">
+      <DependentUpon>202003131201371_paymenttteeupdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003131248137_approvedeby.resx">
+      <DependentUpon>202003131248137_approvedeby.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003131347514_approvedebyupdate2.resx">
+      <DependentUpon>202003131347514_approvedebyupdate2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003131407457_approvedbyaddedupdated.resx">
+      <DependentUpon>202003131407457_approvedbyaddedupdated.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003161100107_accomodation.resx">
+      <DependentUpon>202003161100107_accomodation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003161548482_accomodationstatus.resx">
+      <DependentUpon>202003161548482_accomodationstatus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003170929545_bedsupdate.resx">
+      <DependentUpon>202003170929545_bedsupdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003181010574_financeaccomodationupdate.resx">
+      <DependentUpon>202003181010574_financeaccomodationupdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003301349144_SuperDeviceUpdate.resx">
+      <DependentUpon>202003301349144_SuperDeviceUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003311032233_Deveiceupdate.resx">
+      <DependentUpon>202003311032233_Deveiceupdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004141014308_paymentcallbackurl.resx">
+      <DependentUpon>202004141014308_paymentcallbackurl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004160936258_Documentary.resx">
+      <DependentUpon>202004160936258_Documentary.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004161108228_DocumentaryUpdate.resx">
+      <DependentUpon>202004161108228_DocumentaryUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004170723354_sortorder.resx">
+      <DependentUpon>202004170723354_sortorder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004281536472_ResultArchive.resx">
+      <DependentUpon>202004281536472_ResultArchive.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004282319161_Archivesss.resx">
+      <DependentUpon>202004282319161_Archivesss.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004291036351_resultarchivesupdate.resx">
+      <DependentUpon>202004291036351_resultarchivesupdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004291122303_ArchiveResultIdUpdate.resx">
+      <DependentUpon>202004291122303_ArchiveResultIdUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004301503012_resultarchiveclassupdate.resx">
+      <DependentUpon>202004301503012_resultarchiveclassupdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005010817421_archiveresultstatus.resx">
+      <DependentUpon>202005010817421_archiveresultstatus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005011004363_Archiveaveragescore.resx">
+      <DependentUpon>202005011004363_Archiveaveragescore.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005121125474_onlineschool.resx">
+      <DependentUpon>202005121125474_onlineschool.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005121211355_onlineschoolnew.resx">
+      <DependentUpon>202005121211355_onlineschoolnew.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005132220239_update-record.resx">
+      <DependentUpon>202005132220239_update-record.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005140452061_update-record-2.resx">
+      <DependentUpon>202005140452061_update-record-2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005141402222_OnlineCourseUpload.resx">
+      <DependentUpon>202005141402222_OnlineCourseUpload.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005191722406_zoomupdate.resx">
+      <DependentUpon>202005191722406_zoomupdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005191809420_zoomupdate2.resx">
+      <DependentUpon>202005191809420_zoomupdate2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005200252118_zoomupdate22.resx">
+      <DependentUpon>202005200252118_zoomupdate22.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005211232155_majorzoomupdate.resx">
+      <DependentUpon>202005211232155_majorzoomupdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005211307007_majorzoomupdate1.resx">
+      <DependentUpon>202005211307007_majorzoomupdate1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008271126459_EnableCBT.resx">
+      <DependentUpon>202008271126459_EnableCBT.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101191134148_PrintedStatus.resx">
+      <DependentUpon>202101191134148_PrintedStatus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103081214349_PreviewResultandSubjectSettings.resx">
+      <DependentUpon>202103081214349_PreviewResultandSubjectSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103081343148_classsubjectsetting.resx">
+      <DependentUpon>202103081343148_classsubjectsetting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103091250449_NotificationSettings.resx">
+      <DependentUpon>202103091250449_NotificationSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103091253533_NotificationContent.resx">
+      <DependentUpon>202103091253533_NotificationContent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104131124060_Tracker.resx">
+      <DependentUpon>202104131124060_Tracker.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104131135521_trackerUpdates.resx">
+      <DependentUpon>202104131135521_trackerUpdates.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106150759539_CBTandIskoolLink.resx">
+      <DependentUpon>202106150759539_CBTandIskoolLink.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202107121046120_ResultUpdates.resx">
+      <DependentUpon>202107121046120_ResultUpdates.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202107141053378_ResultInputUpdates.resx">
+      <DependentUpon>202107141053378_ResultInputUpdates.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202107151125171_ResultArchiveUpdates.resx">
+      <DependentUpon>202107151125171_ResultArchiveUpdates.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202107160931170_subjectandgeneralsetting.resx">
+      <DependentUpon>202107160931170_subjectandgeneralsetting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202107221049424_ShowClassFeatures.resx">
+      <DependentUpon>202107221049424_ShowClassFeatures.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202107261305136_AccomodationandSettingsUpdates.resx">
+      <DependentUpon>202107261305136_AccomodationandSettingsUpdates.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202108100830279_PaystackSecret.resx">
+      <DependentUpon>202108100830279_PaystackSecret.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202108311311489_accounttype.resx">
+      <DependentUpon>202108311311489_accounttype.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202108311340382_paystackcharge.resx">
+      <DependentUpon>202108311340382_paystackcharge.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202108311825307_updatePayment.resx">
+      <DependentUpon>202108311825307_updatePayment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109011612144_updatePaymenttwo.resx">
+      <DependentUpon>202109011612144_updatePaymenttwo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109011836369_finianceInitialization.resx">
+      <DependentUpon>202109011836369_finianceInitialization.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109011938300_finianceInitialization1.resx">
+      <DependentUpon>202109011938300_finianceInitialization1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109020043030_data.resx">
+      <DependentUpon>202109020043030_data.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109020101175_data2.resx">
+      <DependentUpon>202109020101175_data2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109021346326_finance2.resx">
+      <DependentUpon>202109021346326_finance2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109021811467_finance20.resx">
+      <DependentUpon>202109021811467_finance20.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109021836473_finance204.resx">
+      <DependentUpon>202109021836473_finance204.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109021844203_finance2049.resx">
+      <DependentUpon>202109021844203_finance2049.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109030112217_finance20495.resx">
+      <DependentUpon>202109030112217_finance20495.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109030203181_finance20495k.resx">
+      <DependentUpon>202109030203181_finance20495k.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109030303077_finance20495k3.resx">
+      <DependentUpon>202109030303077_finance20495k3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109041201465_updatefinance.resx">
+      <DependentUpon>202109041201465_updatefinance.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109041406260_data1.resx">
+      <DependentUpon>202109041406260_data1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109112236081_hdfh.resx">
+      <DependentUpon>202109112236081_hdfh.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109112317033_checkupdate.resx">
+      <DependentUpon>202109112317033_checkupdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109120035354_h.resx">
+      <DependentUpon>202109120035354_h.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202110011305071_check-payment.resx">
+      <DependentUpon>202110011305071_check-payment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202110081547471_newupdate.resx">
+      <DependentUpon>202110081547471_newupdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202110251456174_graduate.resx">
+      <DependentUpon>202110251456174_graduate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202207041827007_78iu.resx">
+      <DependentUpon>202207041827007_78iu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202207050851247_78iui.resx">
+      <DependentUpon>202207050851247_78iui.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202207051050100_78iuii.resx">
+      <DependentUpon>202207051050100_78iuii.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202207051258118_78iuiie.resx">
+      <DependentUpon>202207051258118_78iuiie.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202207051313491_78iuiiey.resx">
+      <DependentUpon>202207051313491_78iuiiey.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202207051351034_78iuiieyk.resx">
+      <DependentUpon>202207051351034_78iuiieyk.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202207051436088_78iuiieykr.resx">
+      <DependentUpon>202207051436088_78iuiieykr.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202207051521429_updategallery.resx">
+      <DependentUpon>202207051521429_updategallery.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202207051600439_updategallery6.resx">
+      <DependentUpon>202207051600439_updategallery6.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304100927212_updateaverageonclassposition.resx">
+      <DependentUpon>202304100927212_updateaverageonclassposition.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202307311045468_initDisable-results.resx">
+      <DependentUpon>202307311045468_initDisable-results.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202307311158294_initDisable-results-note.resx">
+      <DependentUpon>202307311158294_initDisable-results-note.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202308161020410_lessonnote.resx">
+      <DependentUpon>202308161020410_lessonnote.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202308282148486_ui-update.resx">
+      <DependentUpon>202308282148486_ui-update.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202308290932245_ui-update-3.resx">
+      <DependentUpon>202308290932245_ui-update-3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202308290936186_ui-update-30.resx">
+      <DependentUpon>202308290936186_ui-update-30.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202308291007080_ui-update-38.resx">
+      <DependentUpon>202308291007080_ui-update-38.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202308291141415_ui-update-389.resx">
+      <DependentUpon>202308291141415_ui-update-389.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202308291354132_usermanager-reconsile.resx">
+      <DependentUpon>202308291354132_usermanager-reconsile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202308300359500_configs.resx">
+      <DependentUpon>202308300359500_configs.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:61390/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.14.0\build\Microsoft.ApplicationInsights.DependencyCollector.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.14.0\build\Microsoft.ApplicationInsights.DependencyCollector.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.14.0\build\Microsoft.ApplicationInsights.PerfCounterCollector.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.14.0\build\Microsoft.ApplicationInsights.PerfCounterCollector.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.14.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.14.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.ApplicationInsights.WindowsServer.2.14.0\build\Microsoft.ApplicationInsights.WindowsServer.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.ApplicationInsights.WindowsServer.2.14.0\build\Microsoft.ApplicationInsights.WindowsServer.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.ApplicationInsights.Web.2.14.0\build\Microsoft.ApplicationInsights.Web.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.ApplicationInsights.Web.2.14.0\build\Microsoft.ApplicationInsights.Web.targets'))" />
+  </Target>
+  <Import Project="..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets" Condition="Exists('..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets')" />
+  <Import Project="..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.14.0\build\Microsoft.ApplicationInsights.DependencyCollector.targets" Condition="Exists('..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.14.0\build\Microsoft.ApplicationInsights.DependencyCollector.targets')" />
+  <Import Project="..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.14.0\build\Microsoft.ApplicationInsights.PerfCounterCollector.targets" Condition="Exists('..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.14.0\build\Microsoft.ApplicationInsights.PerfCounterCollector.targets')" />
+  <Import Project="..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.14.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets" Condition="Exists('..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.14.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets')" />
+  <Import Project="..\packages\Microsoft.ApplicationInsights.WindowsServer.2.14.0\build\Microsoft.ApplicationInsights.WindowsServer.targets" Condition="Exists('..\packages\Microsoft.ApplicationInsights.WindowsServer.2.14.0\build\Microsoft.ApplicationInsights.WindowsServer.targets')" />
+  <Import Project="..\packages\Microsoft.ApplicationInsights.Web.2.14.0\build\Microsoft.ApplicationInsights.Web.targets" Condition="Exists('..\packages\Microsoft.ApplicationInsights.Web.2.14.0\build\Microsoft.ApplicationInsights.Web.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

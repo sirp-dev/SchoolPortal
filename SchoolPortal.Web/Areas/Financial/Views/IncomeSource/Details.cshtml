@@ -1,0 +1,40 @@
+﻿@model SchoolPortal.Web.Models.Entities.Finance
+
+@{
+    ViewBag.Title = "Details";
+}
+
+
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <div class="box box-default">
+            <div class="box-header with-border">
+
+                <h3 class="box-title">Income Details</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Title)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Title)
+                    </dd>
+
+                 
+
+                </dl>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+    <!-- /.col -->
+
+
+    <div class="col-md-3"></div>
+
+</div>

@@ -1,0 +1,66 @@
+﻿@model SchoolPortal.Web.Models.Entities.SmsReport
+
+@{
+    ViewBag.Title = "MessageDetails";
+}
+
+<h2>MessageDetails</h2>
+
+<div>
+    <h4>SmsReport</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.SendTo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SendTo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SenderId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SenderId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GroupName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GroupName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Message)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Message)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Comment)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Comment)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateSent)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateSent)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

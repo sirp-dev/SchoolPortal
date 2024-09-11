@@ -1,0 +1,117 @@
+﻿@model SchoolPortal.Web.Models.Entities.SubjectModel
+
+@{
+    ViewBag.Title = "Edit";
+
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section Style {
+
+    <!-- summernote -->
+    <link href="http://v1.exwhyzee.ng/Content/summernote/summernote-bs4.css" rel="stylesheet" />
+}
+
+<div class="row">
+    <!-- left column -->
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+        <!-- general form elements -->
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Edit Subject</h3>
+                @if (TempData["error"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                        @TempData["error"]
+                    </div>
+                }
+            </div>
+
+            <div class="box-body">
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="table-responsive">
+                            <table class="table table-success table-bordered" style="background-color:#3c8dbc; color:#ffffff;">
+
+                                @*<tr>
+                                <th>Class</th>
+                                <td>@ViewBag.data.ClassName</td>
+                            </tr>*@
+                                <tr>
+                                    <th>Subject</th>
+                                    <td>@ViewBag.data.Name</td>
+                                </tr>
+                                <tr>
+                                    <th>School Link</th>
+                                    <td>@ViewBag.data.SchoolLink</td>
+                                </tr>
+
+
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @using (Html.BeginForm("Edit", "CBTSubject", FormMethod.Post, new { role = "form" }))
+            {
+                @*@Html.AntiForgeryToken()*@
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.Id)
+                @Html.HiddenFor(model => model.SchoolClassId)
+                @*@Html.HiddenFor(model => model.SchoolLink)*@
+                @*@Html.HiddenFor(model => model.ClassModelId)*@
+                <input type="hidden" name="ClassModelId" value="@Model.ClassModelId" />
+                <input type="hidden" name="SchoolLink" value="@Model.SchoolLink" />
+                <input type="hidden" name="xgink" value="@ViewBag.xgink" />
+                <input type="hidden" name="unixconverify" value="@ViewBag.unixconverify" />
+                <input type="hidden" name="role" value="@ViewBag.role" />
+
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="box-body">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Name, "Subject", htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-primary">Edit</button>
+                    <a href="javascript: history.back()" class="btn btn-default">Cancel</a>
+                </div>
+
+            }
+
+        </div>
+
+        </div>
+    <div class="col-md-1"></div>
+
+</div>
+
+
+@section Scripts {
+        
+    <!-- Summernote -->
+    <script src="http://v1.exwhyzee.ng/Content/summernote/summernote-bs4.min.js"></script>
+    <script>
+        $(function () {
+            // Summernote
+            $('.textarea').summernote()
+        })
+    </script>
+
+}
+
+

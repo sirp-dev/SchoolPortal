@@ -1,0 +1,78 @@
+﻿@model SchoolPortal.Web.Models.Entities.LessonNote
+
+@{
+    ViewBag.Title = "Lesson Note Detail";
+}
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+        <div class="box box-default">
+            <div class="box-header with-border">
+
+                <h3 class="box-title">
+                    Lesson Note Details
+
+
+
+                </h3>
+
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="">
+                            <table class="table table-success table-bordered" style="background-color:#3c8dbc; color:#ffffff;">
+                                <tr>
+                                    <th>Session</th>
+                                    <td>@Model.Session.SessionYear / @Model.Session.Term</td>
+                                </tr>
+                                <tr>
+                                    <th>Class</th>
+                                    <td>@Model.Subject.ClassLevel.ClassName</td>
+                                </tr>
+                                <tr>
+                                    <th>Subject</th>
+                                    <td>@Model.Subject.SubjectName</td>
+                                </tr>
+                                <tr>
+                                    <th>Topic</th>
+                                    <td>@Model.Topic</td>
+                                </tr>
+                                <tr>
+                                    <th>Date</th>
+                                    <td>@Model.DateCreated</td>
+                                </tr>
+
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="box-body">
+                <span class="pull-right">
+
+                    <a href="javascript: history.back()" class="btn btn-primary">Back</a>
+                </span>
+                <div class="container-fluid">
+                    <h3>Note</h3>
+                    <div class="">
+                        @Html.Raw(Model.Note)
+                    </div>
+
+                </div>
+            </div>
+            <!-- /.box-body -->
+
+
+        </div>
+        <!-- /.box -->
+    </div>
+    <!-- /.col -->
+
+
+    <div class="col-md-1"></div>
+
+</div>
+

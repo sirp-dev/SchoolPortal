@@ -1,0 +1,189 @@
+﻿
+
+@{   
+    Layout = "~/Areas/Admin/Views/Shared/_FrontPagePreviewLayout.cshtml";
+
+    ViewBag.Title = "Home Page dontknow";
+}
+@*@using Exwhyzee.ISkoolPortalFrontEnd.Web.Helper*@
+@using System.Text.RegularExpressions;
+@helper Truncate(string input, int lenght)
+{
+    if (input.Length <= lenght)
+    {
+        @Html.Raw(input)
+    }
+    else
+    {
+        @Html.Raw(input.Substring(0, input.IndexOf(" ", lenght)).ToString())
+    }
+}
+@section HeadArea {
+
+    @Html.Raw(ViewBag.taghead)
+    @Html.Raw(ViewBag.styletag)
+
+}
+@Html.Action("_Slider", "Page")
+
+@Html.Action("_HomeBody", "Page")
+
+
+@Html.Action("_HallOfFame", "Page")
+
+
+@if (ViewBag.blog != null)
+{
+    <section class="blog-home-section">
+        <div class="container">
+            <div class="blog-home-one">
+                <div class="row">
+                    <div class="blog-home-two">
+
+                        @foreach (var item in ViewBag.blog)
+                        {
+                            <a href="@Url.Action("Read", "Blog", new { id = item.Id, source ="xyz", title = item.Title })">
+                                <div class="panel-blog-home">
+                                    <div class="panel">
+                                        <div class="panel-heading">
+                                            <div class="blog-home-title">
+                                                @item.Title
+                                            </div>
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="blog-home-image-one">
+                                                <div class="blog-home-image-two">
+
+                                                    @if (item.PostImagess != null)
+                                                    {
+                                                        <img src="data:image/jpg;base64,@(Convert.ToBase64String(item.PostImagess))" alt="" class="img-responsive img-blog-home">
+                                                    }
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="blog-home-body-one">
+                                                <div class="blog-home-body-two">
+
+                                                    @Truncate(item.PreviewContent, 150) ...<span style="font-weight:900;" class="readmore-blog-home">Read More</span>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel-footer">
+                                            <div class="blog-home-footer-one">
+                                                <div class="blog-home-footer-date">
+                                                    @item.DatePosted
+                                                </div>
+                                                <div class="blog-home-footer-by">
+                                                    @item.PostedBy
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        }
+
+                        @foreach (var item in ViewBag.secondpost)
+                        {
+                            <a href="@Url.Action("Read", "Blog", new { id = item.Id, source ="abc", title = item.Title })">
+                                <div class="panel-blog-home">
+                                    <div class="panel">
+                                        <div class="panel-heading">
+                                            <div class="blog-home-title">
+                                                @item.Title
+                                            </div>
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="blog-home-image-one">
+                                                <div class="blog-home-image-two">
+
+                                                    @if (item.PostImage.Contains(".png") || item.PostImage.Contains(".jpg"))
+                                                    {
+                                                        <img src="@item.PostImage" alt="" class="img-responsive img-blog-home">
+
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="blog-home-body-one">
+                                                <div class="blog-home-body-two">
+
+                                                    @Truncate(item.PreviewContent, 150) ...<span style="font-weight:900;" class="readmore-blog-home">Read More</span>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel-footer">
+                                            <div class="blog-home-footer-one">
+                                                <div class="blog-home-footer-date">
+                                                    @item.DatePosted
+                                                </div>
+                                                <div class="blog-home-footer-by">
+                                                    @item.PostedBy
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        }
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+}
+
+
+
+@if (ViewBag.modal != null)
+{
+    <!-- Modal -->
+    <style>
+        .modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+    <div id="schoolModal" class="modal fade" role="dialog">
+        <div ifass="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+
+                    <h4 class="modal-title">@ViewBag.modal.Title</h4>
+                </div>
+                <div class="modal-body">
+                    @Html.Raw(ViewBag.modal.ContentHome)
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default close" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+}
+
+
+
+@section FooterArea {
+
+    @Html.Raw(ViewBag.jstag)
+    <script>
+        $(window).load(function () {
+            $('#schoolModal').modal('show');
+        });
+    </script>
+
+}

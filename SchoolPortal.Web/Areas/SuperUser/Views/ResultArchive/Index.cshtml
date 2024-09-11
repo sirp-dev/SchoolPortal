@@ -1,0 +1,120 @@
+﻿@model IEnumerable<SchoolPortal.Web.Models.ResultArchive.ArchiveResult>
+@using SchoolPortal.Web.Areas.Service
+
+@{
+    ViewBag.Title = "Result Archive";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    int sn = 0;
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box" style="padding:7px;">
+            <div class="box-header" style="margin-bottom:15px;">
+                <h3 class="box-title"><i class="fa fa-fw fa-file-text-o"></i> Result Archive Management</h3>
+
+                <div class="pull-right">
+
+                    @Html.ActionLink("Archive Result", "ArchiveResult", null, new { @class = "btn btn-primary" })
+
+                </div>
+
+                @if (TempData["Error"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <strong>@TempData["Error"]</strong>
+                    </div>
+                }
+
+                @if (TempData["success"] != null)
+                {
+                    <div class="alert alert-success alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <strong>@TempData["success"]</strong>
+                    </div>
+                }
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+
+                <table id="example1" class="table table-bordered table-hover" border="1">
+
+                    <thead>
+                        <tr>
+                            <th>S/N</th>
+                            <th>
+                                Classes
+                            </th>
+                            <th>Sessions</th>
+                            <th>Number of @GeneralService.StudentorPupil()</th>
+                            <th>Number of Original Result</th>
+                            <th>Number of Archive Result</th>
+                            <th>Status</th>
+                            <th colspan="3" style="text-align:center">Action</th>
+
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                @{sn++;}
+                                <td>@sn</td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ClassLevel.ClassName)
+                                </td>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Session.SessionYear)  @Html.DisplayFor(modelItem => item.Session.Term) Term
+                                </td>
+
+                                <td>
+                                    @item.ClassLevel.Enrollments.Where(x => x.ClassLevelId == item.ClassLevel.Id && x.SessionId == item.Session.Id).Count()
+                                </td>
+
+                                <td>
+                                    @item.ClassLevel.Enrollments.Where(x => (x.ArchiveAverageScore > 0) && x.ClassLevelId == item.ClassLevel.Id && item.SessionId == item.Session.Id).Count()
+                                </td>
+
+                                <td>
+                                    @item.ClassLevel.Enrollments.Where(x => (x.ArchiveAverageScore > 0) && x.ClassLevelId == item.ClassLevel.Id && item.SessionId == item.Session.Id).Count()
+                                </td>
+
+                                <td>
+                                    <button class="btn btn-success">@Html.DisplayFor(modelItem => item.Session.ArchiveStatus)</button>
+                                </td>
+
+
+                                @using (Html.BeginForm("UpdateArchiveResult", "ResultArchive", null, FormMethod.Post))
+                                {
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                    <input type="text" name="classId" value="@item.ClassLevel.Id" hidden="hidden" />
+                                    <input type="text" name="sessId" value="@item.Session.Id" hidden="hidden" />
+
+                                    <td> <button type="submit" class="btn btn-success">Update Archive</button></td>
+
+
+                                }
+                                @using (Html.BeginForm("DeleteArchiveResult", "ResultArchive", null, FormMethod.Post))
+                                {
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                    <input type="text" name="classId" value="@item.ClassLevel.Id" hidden="hidden" />
+                                    <input type="text" name="sessId" value="@item.Session.Id" hidden="hidden" />
+
+                                    <td> <button type="submit" class="btn btn-danger">Delete Archive</button></td>
+
+
+                                }
+
+                                <td> <a href="@Url.Action("Students","ResultArchiveManagement",new { sessId = item.Session.Id, classId = item.ClassLevel.Id,area="Admin"})" class="btn btn-primary">Manage Archive Result</a></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+

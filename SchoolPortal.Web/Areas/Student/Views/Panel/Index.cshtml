@@ -1,0 +1,203 @@
+﻿
+
+
+@{
+    ViewBag.Title = "Index";
+
+}
+
+<div class="row">
+
+    <a href="@Url.Action("Profile", "Panel", new { area="Student"})">
+        <div class="col-md-4 col-sm-6 col-xs-12">
+
+            <div class="info-box" style="background-color: #3c8dbc !important;">
+                <span class="info-box-icon bg-aqua" style="background-color: #3c8dbc !important; "><i class="fa fa-user"></i></span>
+
+                <div class="info-box-content" style=" padding: 30px 10px;">
+                    <span class="info-box-text text-white" style="font-weight:900;color:white !important;">Profile</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+
+        </div>
+    </a>
+
+    <a href="@Url.Action("MakePayment", "Panel", new { area="Student"})">
+        <div class="col-md-4 col-sm-6 col-xs-12">
+
+            <div class="info-box" style="background-color: #26a69a !important;">
+                <span class="info-box-icon bg-aqua" style="background-color: #26a69a !important; "><i class="fa fa-money"></i></span>
+
+                <div class="info-box-content" style=" padding: 30px 10px;">
+                    <span class="info-box-text text-white" style="font-weight:900;color:white !important;">Make Payment</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+
+        </div>
+    </a>
+
+    <a href="@Url.Action("Result", "Panel", new { area="Student"})">
+        <div class="col-md-4 col-sm-6 col-xs-12">
+
+            <div class="info-box" style="background-color: #E26A6A !important;">
+                <span class="info-box-icon bg-aqua" style="background-color: #E26A6A !important; "><i class="fa fa-envelope-square"></i></span>
+
+                <div class="info-box-content" style=" padding: 30px 10px;">
+                    <span class="info-box-text text-white" style="font-weight:900;color:white !important;">Check Result</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+
+        </div>
+    </a>
+
+    <a href="@Url.Action("Mydocuments", "Panel", new { area="Student"})">
+        <div class="col-md-4 col-sm-6 col-xs-12">
+
+            <div class="info-box" style="background-color: #5e738b !important;">
+                <span class="info-box-icon bg-aqua" style="background-color: #5e738b !important; "><i class="fa fa-file"></i></span>
+
+                <div class="info-box-content" style=" padding: 30px 10px;">
+                    <span class="info-box-text text-white" style="font-weight:900;color:white !important;">My Documents</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+
+        </div>
+    </a>
+
+    <a href="@Url.Action("MyPayment", "Payment", new { area="Financial"})">
+        <div class="col-md-4 col-sm-6 col-xs-12">
+
+            <div class="info-box" style="background-color: #8877a9 !important;">
+                <span class="info-box-icon bg-aqua" style="background-color: #8877a9 !important; "><i class="fa fa-money"></i></span>
+
+                <div class="info-box-content" style=" padding: 30px 10px;">
+                    <span class="info-box-text text-white" style="font-weight:900;color:white !important;">My Payments</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+
+        </div>
+    </a>
+
+    <a href="@Url.Action("Mycertificate", "Panel", new { area="Student"})">
+        <div class="col-md-4 col-sm-6 col-xs-12">
+
+            <div class="info-box" style="background-color: #485790 !important;">
+                <span class="info-box-icon bg-aqua" style="background-color: #485790 !important; "><i class="fa fa-download"></i></span>
+
+                <div class="info-box-content" style=" padding: 30px 10px;">
+                    <span class="info-box-text text-white" style="font-weight:900;color:white !important;">My Certificates</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+
+        </div>
+    </a>
+
+
+    <a href="@Url.Action("StudentTimeTable", "Panel", new { area="Student"})">
+        <div class="col-md-4 col-sm-6 col-xs-12">
+
+            <div class="info-box" style="background-color: #ff6a00 !important;">
+                <span class="info-box-icon bg-aqua" style="background-color: #ff6a00 !important; "><i class="fa fa-building-o"></i></span>
+
+                <div class="info-box-content" style=" padding: 30px 10px;">
+                    <span class="info-box-text text-white" style="font-weight:900;color:white !important;">My TimeTable</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+
+        </div>
+    </a>
+
+    <a href="@Url.Action("SchoolCalender", "Panel", new { area="Student"})">
+        <div class="col-md-4 col-sm-6 col-xs-12">
+
+            <div class="info-box" style="background-color: #347e06 !important;">
+                <span class="info-box-icon bg-aqua" style="background-color: #347e06 !important; "><i class="fa fa-calendar-minus-o"></i></span>
+
+                <div class="info-box-content" style=" padding: 30px 10px;">
+                    <span class="info-box-text text-white" style="font-weight:900;color:white !important;">School TimeTable</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+
+        </div>
+    </a>
+
+    <a href="@Url.Action("Personaltimetable", "Panel", new { area="Student"})">
+        <div class="col-md-4 col-sm-6 col-xs-12">
+
+            <div class="info-box" style="background-color: #720d70 !important;">
+                <span class="info-box-icon bg-aqua" style="background-color: #720d70 !important; "><i class="fa fa-file"></i></span>
+
+                <div class="info-box-content" style=" padding: 30px 10px;">
+                    <span class="info-box-text text-white" style="font-weight:900;color:white !important;">Personnal TimeTable</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+
+        </div>
+    </a>
+
+    <a href="@Url.Action("Myclassmates", "Panel", new { area="Student"})">
+        <div class="col-md-4 col-sm-6 col-xs-12">
+
+            <div class="info-box" style="background-color: #0d8774 !important;">
+                <span class="info-box-icon bg-aqua" style="background-color: #0d8774 !important; "><i class="fa fa-users"></i></span>
+
+                <div class="info-box-content" style=" padding: 30px 10px;">
+                    <span class="info-box-text text-white" style="font-weight:900;color:white !important;">My ClassMates</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+
+        </div>
+    </a>
+
+    <a href="@Url.Action("Myteachers", "Panel", new { area="Student"})">
+        <div class="col-md-4 col-sm-6 col-xs-12">
+
+            <div class="info-box" style="background-color: #E26A6A !important;">
+                <span class="info-box-icon bg-aqua" style="background-color: #E26A6A !important; "><i class="fa fa-user-secret"></i></span>
+
+                <div class="info-box-content" style=" padding: 30px 10px;">
+                    <span class="info-box-text text-white" style="font-weight:900;color:white !important;">My Teachers</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+
+        </div>
+    </a>
+    <a href="@Url.Action("Attendance", "Panel", new { area="Student"})">
+        <div class="col-md-4 col-sm-6 col-xs-12">
+
+            <div class="info-box" style="background-color: #5e738b !important;">
+                <span class="info-box-icon bg-aqua" style="background-color: #5e738b !important; "><i class="fa fa-user-secret"></i></span>
+
+                <div class="info-box-content" style=" padding: 30px 10px;">
+                    <span class="info-box-text text-white" style="font-weight:900;color:white !important;">My Attendance</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+
+        </div>
+    </a>
+
+</div>

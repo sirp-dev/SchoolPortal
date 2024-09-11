@@ -1,0 +1,134 @@
+﻿@model PagedList.IPagedList<SchoolPortal.Web.Models.Entities.Enrollment>
+
+@{
+    ViewBag.Title = "IndexEnrol";
+}
+
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+
+            <div class="box-header">
+                Enrollment
+                @*@using (Html.BeginForm("IndexEnrol", "Enrollments", null, FormMethod.Post, new { @class = "" }))
+        {
+
+            <div class="input-group" style="margin-left:10px;">
+                <div class="input-group-btn">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+                <input type="text" name="SearchString" class="form-control" value="@ViewBag.CurrentFilter" placeholder="Search...">
+            </div>
+
+        }*@
+            </div>
+            <div class="box-body">
+                
+
+                <br />
+                <div class="box-body table-responsive no-padding">
+                    <table id="example" class="table table-bordered table-hover" border="1">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>
+                                    class
+                                </th>
+                                <th>
+                                    session
+                                </th>
+                                <th>
+                                    name
+                                </th>
+                                <th>
+                                    Reg number
+                                </th>
+                                <th>
+                                    Average
+                                </th>
+                                <th>
+                                   Cummulative AverageScore
+                                </th>
+                              
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var item in Model)
+                            {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Id)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ClassLevel.ClassName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Session.Term) @Html.DisplayFor(modelItem => item.Session.SessionYear)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.StudentProfile.user.Surname)  @Html.DisplayFor(modelItem => item.StudentProfile.user.FirstName)  @Html.DisplayFor(modelItem => item.StudentProfile.user.OtherName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.StudentProfile.StudentRegNumber)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.AverageScore)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CummulativeAverageScore)
+                                </td>
+                               
+                                <td>
+                                    @Html.ActionLink("Edit", "EditEnrollment", new { id = item.Id }, new { @class = "btn btn-danger" }) 
+                                    @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-info" }) 
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-info" })
+                                </td>
+                            </tr>
+                            }
+
+                    </tbody>
+
+                    </table>
+
+                </div>
+            </div>
+        </div>
+        <!-- /.box-body -->
+    </div>
+    <!-- /.box -->
+    <!-- /.box -->
+</div>
+
+
+
+@section Style {
+
+    <link rel="stylesheet" href="http://v1.exwhyzee.ng/admin/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+}
+
+@section Scripts {
+    <!-- DataTables -->
+    <script src="http://v1.exwhyzee.ng/admin/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="http://v1.exwhyzee.ng/admin/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+
+}
+
+@section Scripts2 {
+    <script>
+        $(function () {
+            $('#example1').DataTable()
+            $('#example2').DataTable({
+                'paging': true,
+                'lengthChange': false,
+                'searching': false,
+                'ordering': true,
+                'info': true,
+                'autoWidth': false
+            })
+        })
+    </script>
+}
+

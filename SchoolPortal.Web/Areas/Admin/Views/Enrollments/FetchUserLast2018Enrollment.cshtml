@@ -1,0 +1,70 @@
+﻿@model IEnumerable<SchoolPortal.Web.Models.Entities.Enrollment>
+@{
+    ViewBag.Title = "FetchUserLast2018Enrollment";
+}
+
+<h2>FetchUserLast2018Enrollment</h2>
+
+@Model.Count()
+
+<table class="table">
+    <tr>
+        <th>
+            id
+        </th>
+        <th>
+            class
+        </th>
+        <th>Username</th>
+        <th>name</th>
+        <th>Profile Id</th>
+        <th>
+            reg no.
+        </th>
+        <th>
+            session
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AverageScore)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CummulativeAverageScore)
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ClassLevel.ClassName)
+            </td>
+            <td>
+                @item.StudentProfile.user.UserName
+            </td>
+            <td>
+                @item.StudentProfile.user.Surname @item.StudentProfile.user.FirstName @item.StudentProfile.user.OtherName
+            </td>
+            <td>@item.StudentProfileId</td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StudentProfile.StudentRegNumber)
+            </td>
+            <td>
+                @item.Session.SessionYear @item.Session.Term
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AverageScore)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CummulativeAverageScore)
+            </td>
+
+            <td></td>
+        </tr>
+    }
+
+</table>

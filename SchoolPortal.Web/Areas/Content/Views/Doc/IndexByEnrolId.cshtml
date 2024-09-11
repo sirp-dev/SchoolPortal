@@ -1,0 +1,103 @@
+﻿@model IEnumerable<SchoolPortal.Web.Models.Entities.Enrollment>
+@using SchoolPortal.Web.Areas.Service
+@{
+    ViewBag.Title = "IndexByEnrolId";
+}
+
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box" style="padding:7px;">
+            <div class="box-header" style="margin-bottom:15px;">
+                <h3 class="box-title"><i class="fa fa-fw fa-file-text-o"></i> All Class List</h3>
+                @if (TempData["success"] != null)
+                {
+                    <div class="alert alert-success alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                        @TempData["success"]
+                    </div>
+                }
+                @if (TempData["error"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                        @TempData["error"]
+                    </div>
+                }
+                @if (User.IsInRole("SuperAdmin"))
+                {
+
+                    @Html.ActionLink("Remove all", "RemoveAll", null, new { @class = "btn btn-info" })
+                }
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+
+
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover" border="1">
+
+
+                        <tr>
+                            <th>Id</th>
+                            <th>Session</th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ClassLevel.ClassName)
+                            </th>
+                            <th>
+                                Reg number
+                            </th>
+                            <th>
+                                name
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.AverageScore)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CummulativeAverageScore)
+                            </th>
+
+                            <th></th>
+                        </tr>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @item.Id
+                                </td>
+                                <td> @item.SessionId | @item.Session.Term @item.Session.SessionYear @item.Session.Status</td>
+                                <td>
+                                  @item.ClassLevelId | @Html.DisplayFor(modelItem => item.ClassLevel.ClassName)
+                                </td>
+
+                                <td>
+                                  @item.StudentProfileId |  @Html.DisplayFor(modelItem => item.StudentProfile.StudentRegNumber)
+                                </td>
+                                <td>
+                                    @item.StudentProfile.user.Surname @item.StudentProfile.user.FirstName @item.StudentProfile.user.OtherName
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.AverageScore)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CummulativeAverageScore)
+                                </td>
+
+                                <td>
+                                    @Html.ActionLink("Remove " + GeneralService.StudentorPupil(), "RemoveSelectedStudent", "Doc", new { id = item.Id }, new { @class = "btn btn-info" })
+
+                                </td>
+                            </tr>
+                        }
+
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

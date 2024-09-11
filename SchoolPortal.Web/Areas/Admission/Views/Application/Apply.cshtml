@@ -1,0 +1,16 @@
+﻿
+@{
+    ViewBag.Title = "Apply";
+    if (User.Identity.IsAuthenticated)
+    {
+        Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    }
+    else
+    {
+        Layout = "~/Areas/Admin/Views/Shared/_View.cshtml";
+    }
+}
+
+
+<h2>Apply</h2>
+

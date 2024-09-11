@@ -1,0 +1,167 @@
+﻿@model SchoolPortal.Web.Models.Entities.Subject
+@using SchoolPortal.Web.Areas.Service
+@{
+    ViewBag.Title = "Edit Subject";
+}
+
+<div class="row">
+    <!-- left column -->
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <!-- general form elements -->
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Edit Subject</h3>
+                @if (TempData["error"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                        @Html.Raw(TempData["error"])
+                    </div>
+                }
+            </div>
+            @using (Html.BeginForm())
+            {
+                @*@Html.AntiForgeryToken()*@
+
+        <div class="box-body">
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.Id)
+            @Html.HiddenFor(model => model.ClassLevelId)
+
+            <div class="form-group">
+                @Html.Label("Subject Name", htmlAttributes: new { @class = "control-label" })
+                <div class="">
+                    @Html.EditorFor(model => model.SubjectName, new { htmlAttributes = new { @class = "form-control", id = "upper", onkeyup = "myUppercase()" } })
+                    @Html.ValidationMessageFor(model => model.SubjectName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            @if (GeneralService.EnabledProjectScore() == true)
+            {
+                <div class="form-group">
+                    @Html.Label("Project Score", htmlAttributes: new { @class = "control-label" })
+                    @*@Html.LabelFor(model => model.TestScore, htmlAttributes: new { @class = "control-label" })*@
+                    <div class="">
+                        @Html.EditorFor(model => model.Project, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Project, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            }
+            @if (GeneralService.EnabledTestScore() == true)
+            {
+                <div class="form-group">
+                    @Html.Label("Test or Assessement Score", htmlAttributes: new { @class = "control-label" })
+                    @*@Html.LabelFor(model => model.TestScore, htmlAttributes: new { @class = "control-label" })*@
+                    <div class="">
+                        @Html.EditorFor(model => model.TestScore, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.TestScore, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            }
+
+            @if (GeneralService.EnabledTestScore2() == true)
+            {
+                <div class="form-group">
+                    @Html.LabelFor(model => model.TestScore2, htmlAttributes: new { @class = "control-label" })
+                    <div class="">
+                        @Html.EditorFor(model => model.TestScore2, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.TestScore2, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            }
+
+            @if (GeneralService.EnabledClassExerciseScore() == true)
+            {
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ClassExercise, htmlAttributes: new { @class = "control-label" })
+                    <div class="">
+                        @Html.EditorFor(model => model.ClassExercise, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ClassExercise, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            }
+
+            @if (GeneralService.EnabledAssessmentScore() == true)
+            {
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Assessment, htmlAttributes: new { @class = "control-label" })
+                    <div class="">
+                        @Html.EditorFor(model => model.Assessment, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Assessment, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            }
+
+            @if (GeneralService.EnabledExamScore() == true)
+            {
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ExamScore, htmlAttributes: new { @class = "control-label" })
+                    <div class="">
+                        @Html.EditorFor(model => model.ExamScore, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ExamScore, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            }
+
+
+            @*<div class="form-group">
+            @Html.Label("Exam Score", htmlAttributes: new { @class = "control-label" })
+            <div class="">
+                @Html.EditorFor(model => model.ExamScore, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ExamScore, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+            @*<div class="form-group">
+            @Html.Label("Assessment Score", htmlAttributes: new { @class = "control-label" })
+            <div class="">
+                @Html.EditorFor(model => model.TestScore, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TestScore, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+            <div class="form-group">
+                @Html.Label("Pass Mark", htmlAttributes: new { @class = "control-label" })
+                <div class="">
+                    @Html.EditorFor(model => model.PassMark, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.PassMark, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Teacher", htmlAttributes: new { @class = "control-label" })
+                <div class="">
+                    @Html.DropDownList("UserId", null, htmlAttributes: new { @class = "form-control select" })
+                    @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ShowSubject, htmlAttributes: new { @class = "control-label" })
+
+                @Html.CheckBoxFor(model => model.ShowSubject, new { @checked = "checked" })
+                @Html.ValidationMessageFor(model => model.ShowSubject, "", new { @class = "text-danger" })
+
+            </div>
+        </div>
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <a href="javascript: history.back()" class="btn btn-default">Cancel</a>
+                </div>
+
+            }
+        </div>
+
+    </div>
+    <div class="col-md-3"></div>
+
+</div>
+
+@section Scripts {
+        @**@
+}

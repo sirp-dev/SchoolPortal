@@ -1,0 +1,80 @@
+﻿@model IEnumerable<SchoolPortal.Web.Models.Entities.Subject>
+
+@{
+    ViewBag.Title = "Subject";
+    int sn = 0;
+}
+
+
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box" style="padding:7px;">
+            <div class="box-header" style="margin-bottom:15px;">
+                <h3 class="box-title"><i class="fa fa-fw fa-book"></i> SUBJECTS</h3>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="table-responsive">
+                                <div class="table-responsive">
+                                    <table class="table table-success table-bordered" style="background-color:#3c8dbc; color:#ffffff;">
+
+                                        <tr>
+                                            <th>Class</th>
+                                            <td>@ViewBag.Classname</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Total Subjects</th>
+                                            <td>@Model.Count()</td>
+                                        </tr>
+
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+                <table class="table table-hover table-bordered">
+                    <tr>
+                        <th>S/N</th>
+
+                        <th>
+                            SUBJECT
+                        </th>
+
+
+                        <th>ACTION</th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            @{sn++;}
+                            <td>@sn</td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.SubjectName)
+                            </td>
+
+
+                            <td>
+
+                                @*@Html.ActionLink("Details", "ResultIndex", new { sessionId = item.Id, subId = ViewBag.SubjectsId })*@
+                                @Html.ActionLink("Update C.A/Exam", "ResultIndex", new { id = item.Id }, new { @class = "btn btn-primary" })
+                                @*@Html.ActionLink("Assignment", "AssignmentList", new { classId = item.ClassLevelId, subId = item.Id, subjectname = item.SubjectName }, new { @class = "btn btn-primary" })*@
+                                @Html.ActionLink("Assignment", "AssignmentList", new { classId = item.ClassLevelId, subId = item.Id }, new { @class = "btn btn-primary" })
+
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+</div>

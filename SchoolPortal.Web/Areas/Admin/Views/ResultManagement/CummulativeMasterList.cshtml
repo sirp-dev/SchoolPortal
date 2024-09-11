@@ -1,0 +1,368 @@
+﻿
+
+@model IEnumerable<SchoolPortal.Web.Models.Dtos.EnrolledStudentsByClassDto>
+@using SchoolPortal.Web.Areas.Service
+@{
+    ViewBag.Title = "Cummulative MasterList";
+    int sno = 0;
+
+}
+
+<style>
+    .verticalTableHeader {
+        text-align: center;
+        white-space: nowrap;
+        transform-origin: 50% 50%;
+        -webkit-transform: rotate(90deg);
+        -moz-transform: rotate(90deg);
+        -ms-transform: rotate(90deg);
+        -o-transform: rotate(90deg);
+        transform: rotate(90deg);
+    }
+
+        .verticalTableHeader:before {
+            content: '';
+            padding-top: 60%; /* takes width as reference, + 10% for faking some extra padding */
+            display: inline-block;
+            vertical-align: middle;
+        }
+</style>
+
+
+
+
+
+<div class="row">
+    <div class="col-xs-12" id="test">
+
+        <div class="box">
+            <div class="box-header">
+                <span style="color:#337ab7;font-size:30px;"><i class="fa fa-fw fa-users" style="color:#337ab7;"></i>Cummulative Master List </span>   <span style="font-size:15px;">@ViewBag.Session - @ViewBag.Class </span>
+                <h4>Form Teacher (@ViewBag.formteacher)</h4>
+
+                <div class="pull-right">
+                    @Html.ActionLink("Back To Result Management", "Index", null, new { @class = "btn btn-primary " })
+
+                </div>
+            </div>
+            <div class="box-body">
+                @if (TempData["Report"] != null)
+                {
+                    <div class="alert alert-success alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <strong>@TempData["Report"]</strong>
+                    </div>
+                }
+                @if (TempData["Error"] != null)
+                {
+                    <div class="alert alert-success alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <strong>@TempData["Error"]</strong>
+                    </div>
+                }
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive master">
+                <table class="table table-hover table-border" border="1">
+                    <tr style="border:1px solid #808080;">
+                        @if (GeneralService.SubjectCount(ViewBag.ClassId) == 0)
+                        {
+                            <th colspan="5" style="font-weight:900;font-size:17px;">
+                                NO RECORD FOUND
+                            </th>
+                        }
+                    </tr>
+
+                    <tr>
+                        <th>S/N</th>
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            Reg. no.
+                        </th>
+                        <th colspan="3">  Term Cum. AVe. Score</th>
+                        <th>
+                            Cum. Ave. Score
+                        </th>
+                        <th>
+                            Remark
+                        </th>
+
+                        @if (ViewBag.showPosOnClassResult == true)
+                        {
+                            <th>Position</th>
+                        }
+                        else
+                        {
+
+                        }
+
+
+
+                        @foreach (var subn in GeneralService.SubjectName(ViewBag.ClassId))
+                        {
+                            <th colspan="3">
+                                @subn.SubjectName
+                            </th>
+                        }
+                    </tr>
+                    <tr style="border:1px solid #808080;">
+                        <th colspan="3"></th>
+                        <th class="verticalTableHeader">1<sup>st</sup></th>
+                        <th class="verticalTableHeader">2<sup>nd</sup></th>
+                        <th class="verticalTableHeader">3<sup>rd</sup></th>
+                        <th></th>
+                        <th></th>
+                        @if (ViewBag.showPosOnClassResult == true)
+                        {
+                            <th></th>
+                        }
+                        else
+                        {
+
+                        }
+                        @foreach (var subn in GeneralService.SubjectName(ViewBag.ClassId))
+                        {
+                            <th class="verticalTableHeader">1<sup>st</sup></th>
+                            <th class="verticalTableHeader">2<sup>nd</sup></th>
+                            <th class="verticalTableHeader">3<sup>rd</sup></th>
+                        }
+
+
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+
+                        if (GeneralService.MasterListRemark(item.EnrollmentId) == "Pass")
+                        {
+                            <tr style="border:1px solid #808080;background-color:#e4ebe7;">
+                                <td>
+                                    @{ sno++; }
+                                    @sno
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.StudentName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.StudentRegNumber)
+                                </td>
+                                <td>
+
+                                    @GeneralService.FirstTermCum(item.EnrollmentId, item.SessionYear)
+                                </td>
+                                <td>
+
+                                    @GeneralService.SecondTermCum(item.EnrollmentId, item.SessionYear)
+                                </td>
+                                <td>
+
+                                    @GeneralService.ThirdTermCum(item.EnrollmentId, item.SessionYear)
+                                </td>
+                                <td>
+
+                                    @item.CummulativeAverageScore
+                                </td>
+                                <td>
+
+                                    @GeneralService.MasterListRemark(item.EnrollmentId)
+                                </td>
+
+                                @if (ViewBag.showPosOnClassResult == true)
+                                {
+                                    <td>
+
+                                        @PrintService.CummulativeMasterListPosition(item.EnrollmentId)
+                                    </td>
+                                }
+                                else
+                                {
+
+                                }
+
+
+                                @foreach (var subn in GeneralService.SubjectName(ViewBag.ClassId))
+                                {
+
+
+                                    foreach (var subdata in GeneralService.CumTotalScoresBysession(item.EnrollmentId, item.SessionYear, subn.Id))
+                                    {
+                                        <td>
+                                            @if (subdata == 0)
+                                            {
+                                                <text>-</text>
+                                            }
+                                            else if (subdata != null)
+                                            {
+                                                @Math.Round(subdata, 0)
+                                            }
+                                            else
+                                            {
+                                                <text>-</text>
+                                            }
+                                        </td>
+
+                                    }
+                                }
+
+                            </tr>
+                        }
+                        else
+                        {
+                            <tr style="border:1px solid #808080;background-color:#dbc6c6;">
+                                <td>
+                                    @{ sno++; }
+                                    @sno
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.StudentName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.StudentRegNumber)
+                                </td>
+                                <td>
+
+                                    @GeneralService.FirstTermCum(item.EnrollmentId, item.SessionYear)
+                                </td>
+                                <td>
+
+                                    @GeneralService.SecondTermCum(item.EnrollmentId, item.SessionYear)
+                                </td>
+                                <td>
+
+                                    @GeneralService.ThirdTermCum(item.EnrollmentId, item.SessionYear)
+                                </td>
+                                <td>
+
+                                    @item.CummulativeAverageScore
+                                </td>
+                                <td>
+
+                                    @GeneralService.MasterListRemark(item.EnrollmentId)
+                                </td>
+
+                                @if (ViewBag.showPosOnClassResult == true)
+                                {
+                                    <td>
+
+                                        @PrintService.CummulativeMasterListPosition(item.EnrollmentId)
+                                    </td>
+                                }
+                                else
+                                {
+
+                                }
+
+
+
+                                @foreach (var subn in GeneralService.SubjectName(ViewBag.ClassId))
+                                {
+
+
+                                    foreach (var subdata in GeneralService.CumTotalScoresBysession(item.EnrollmentId, item.SessionYear, subn.Id))
+                                    {
+                                        <td>
+
+                                            @if (subdata == 0)
+                                            {
+                                                <text>-</text>
+                                            }
+                                            else if (subdata != null)
+                                            {
+                                                @Math.Round(subdata, 0)
+                                            }
+                                            else
+                                            {
+                                                <text>-</text>
+                                            }
+                                        </td>
+
+                                    }
+                                }
+
+                            </tr>
+                        }
+
+                    }
+
+                </table>
+                <br />
+                <div class="clearfix"></div>
+                <div class="text-center">
+                    <button onclick="window.print()" style="text-align:center;" class="btn btn-sm btn-primary">Print</button>
+                    <button style="text-align:center;" class="btn btn-sm btn-primary" id="button-a">Download Cum Master List Sheet</button>
+                </div>
+                @*<div class="text-center">
+            <button onclick="myFunction()" style="text-align:center;" class="btn btn-primary">Print</button>
+
+        </div>*@
+                @*<div style="margin-left: auto; margin-right: auto; width: 16%"><a href="" class="btn btn-primary xyz-button" onclick="printSelection(document.getElementById('test'));return false">Print</a></div>*@
+            </div>
+
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+    <!-- /.col -->
+</div>
+
+
+@section Scripts {
+
+
+}
+
+@section Style {
+
+
+}
+
+@section Scripts2 {
+        
+
+    <script lang="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.15.1/xlsx.full.min.js"></script>
+    <script src="http://v1.exwhyzee.ng/Content/FileSaver.js-master/FileSaver.js-master/dist/FileSaver.min.js"></script>
+    <script>
+        var wb = XLSX.utils.table_to_book(document.getElementById('mytable'), { sheet: "Sheet JS" });
+        var wbout = XLSX.write(wb, { bookType: 'xlsx', bookSST: true, type: 'binary' });
+        function s2ab(s) {
+            var buf = new ArrayBuffer(s.length);
+            var view = new Uint8Array(buf);
+            for (var i = 0; i < s.length; i++) view[i] = s.charCodeAt(i) & 0xFF;
+            return buf;
+        }
+        $("#button-a").click(function () {
+            console.log(document.getElementById('name').value)
+
+            saveAs(new Blob([s2ab(wbout)], { type: "application/octet-stream" }), document.getElementById('name').value + '.xlsx');
+        });
+    </script>
+
+
+   
+
+    <script src="http://v1.exwhyzee.ng/admin/main.js"></script>
+}
+
+@*<script type="text/javascript">
+
+        function printSelection(node) {
+
+            var content = node.innerHTML
+            var pwin = window.open('', 'print_content', 'width=800,height=500');
+
+            pwin.document.open();
+            pwin.document.write('<html><body onload="window.print()">' + content + '</body></html>');
+            pwin.document.close();
+
+            setTimeout(function () { pwin.close(); }, 1000);
+
+        }
+
+
+
+
+
+    </script>*@
+

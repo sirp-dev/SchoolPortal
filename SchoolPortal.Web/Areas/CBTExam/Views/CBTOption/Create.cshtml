@@ -1,0 +1,140 @@
+﻿@model SchoolPortal.Web.Models.Entities.OptionModel
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    int sn = 0;
+
+}
+
+@section Style {
+
+    <!-- summernote -->
+    <link href="http://v1.exwhyzee.ng/Content/summernote/summernote-bs4.css" rel="stylesheet" />
+}
+
+<div class="row">
+    <!-- left column -->
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+        <!-- general form elements -->
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Add Option</h3>
+                @if (TempData["error"] != null)
+                {
+                    <div class="alert alert-danger">
+                        <strong>ops!</strong> @TempData["error"]
+                    </div>
+                }
+                @if (ViewBag.option != null)
+                {
+                    foreach (var i in ViewBag.option)
+                    {
+
+                        <div class="alert alert-success alert-dismissible">
+                            @{
+                                sn++;
+                            }
+                            @using (Html.BeginForm("RemoveOption", "CBTOption", FormMethod.Post, new { role = "form" }))
+                            {
+
+                                <input type="hidden" name="xgink" value="@ViewBag.xgink" />
+                                <input type="hidden" name="unixconverify" value="@ViewBag.unixconverify" />
+                                <input type="hidden" name="role" value="@ViewBag.role" />
+                                <input type="hidden" name="id" value="@i.Id" />
+                                <input type="hidden" name="qId" value="@ViewBag.qId" />
+                                @*@Html.AntiForgeryToken()*@
+
+                                <div class="close" aria-label="close">
+                                    <input type="submit" value="&times;" disabled="disabled">
+                                </div>
+                            }
+
+                            @sn) @Html.Raw(i.Name)
+                            <br>
+                            Correct Answer:
+                            @if (i.IsAnswer == false)
+                            {
+                                <span style="color:#920f0f">@i.IsAnswer</span>
+                            }
+                            else if (i.IsAnswer == true)
+                            {
+                                <span style="color:#ffffff;font-weight:900;">@i.IsAnswer</span>
+                            }
+                        </div>
+
+                    }
+
+                }
+                else
+                {
+                    <div class="alert alert-danger">
+                        <strong>No Option Added Yet!</strong>
+                    </div>
+                }
+
+                <br />
+                <br />
+            </div>
+            @using (Html.BeginForm("Create", "CBTOption", FormMethod.Post, new { role = "form" }))
+            {
+                @*@Html.AntiForgeryToken()*@
+
+                <input type="hidden" name="xgink" value="@ViewBag.xgink" />
+                <input type="hidden" name="unixconverify" value="@ViewBag.unixconverify" />
+                <input type="hidden" name="role" value="@ViewBag.role" />
+                <input type="hidden" name="qId" value="@ViewBag.qId " />
+
+                <div class="box-body">
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Name, "Option", htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+                            <textarea class="textarea" placeholder="Place some text here" name="Name" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.IsAnswer, htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+                            <div class="">
+                                @Html.EditorFor(model => model.IsAnswer)
+                                @Html.ValidationMessageFor(model => model.IsAnswer, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-primary">Create</button>
+                    <button type="button" onclick="location.href='@Url.Action("Index","CBTQuestion",new { unixconverify = ViewBag.unixconverify, xgink = ViewBag.xgink, role = ViewBag.role,area ="CBTExam" })'" class="btn btn-success">
+                        Finish
+                    </button>
+                </div>
+            }
+
+        </div>
+
+    </div>
+    <div class="col-md-1"></div>
+
+</div>
+
+
+@section Scripts {
+        
+    <!-- Summernote -->
+    <script src="http://v1.exwhyzee.ng/Content/summernote/summernote-bs4.min.js"></script>
+    <script>
+        $(function () {
+            // Summernote
+            $('.textarea').summernote({ height: 300, minHeight: null, maxHeight: null, focus: !0 })
+        })
+    </script>
+
+}

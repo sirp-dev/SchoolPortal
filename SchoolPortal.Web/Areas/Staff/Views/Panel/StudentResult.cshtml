@@ -1,0 +1,113 @@
+﻿@model IEnumerable<SchoolPortal.Web.Models.Entities.EnrolledSubject>
+@using SchoolPortal.Web.Areas.Service
+@{
+    ViewBag.Title = "Result";
+    int sn = 0;
+}
+
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box" style="padding:7px;">
+            <div class="box-header" style="margin-bottom:15px;">
+                <div class="pull-right">
+                    @*@using (Html.BeginForm("UpdateStudentResult", "Panel", new { id = ViewBag.EnrollmentId }))
+                        {
+                            <input type="submit" value="Update Result" class="btn btn-success" />
+                            @Html.ActionLink("Back To "+GeneralService.StudentorPupil()+"s In Class", "StudentsInClass", new { id = ViewBag.ClassId }, new { @class = "btn btn-primary" })
+                        }*@
+
+                </div>
+
+                <h3 class="box-title"><i class="fa fa-fw fa-file-text-o"></i> @ViewBag.Name (@ViewBag.ClassLevel) (@ViewBag.Session)</h3>
+                <br />
+            </div>
+            <div class="box-header">
+                @if (TempData["error"] != null)
+                {<div class="alert alert-danger alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                        @TempData["error"]
+                    </div>
+                }
+                @if (TempData["success"] != null)
+                {
+                    <div class="alert alert-success alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                        @TempData["success"]
+                    </div>
+                }
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+                <table class="table table-hover">
+
+                    <tr>
+                        <th>S/N</th>
+                        <th>
+                            Subject
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.TestScore)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ExamScore)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.TotalScore)
+                        </th>
+
+                        <th>
+                            @Html.DisplayNameFor(model => model.Grade)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Remark)
+                        </th>
+
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            @{sn++;}
+                            <td>@sn</td>
+                            <td>
+                                @item.Subject.SubjectName
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TestScore)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ExamScore)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TotalScore)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Grade)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Remark)
+                            </td>
+
+                        </tr>
+                    }
+
+                </table>
+            </div>
+            <!-- /.box-body -->
+
+            <div class="box-body">
+                <div class="panel btn-primary" style="padding:10px;">
+
+                    <h2 style="border-bottom:1px dotted #ffffff;" class="page-header">Average: [@ViewBag.Sum]</h2>
+                    <p>Position:  @ViewData["Position"] out of @ViewBag.TotalStudents</p>
+
+                </div>
+            </div>
+        </div>
+        <!-- /.box -->
+    </div>
+</div>

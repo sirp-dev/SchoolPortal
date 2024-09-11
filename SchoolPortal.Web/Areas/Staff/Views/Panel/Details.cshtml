@@ -1,0 +1,158 @@
+﻿
+@model SchoolPortal.Web.Models.Entities.Post
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="row">
+    <!-- left column -->
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <!-- general form elements -->
+        <div class="box box-primary">
+            <div class="box-header with-border">
+
+                @if (TempData["error"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                        @TempData["error"]
+                    </div>
+                }
+            </div>
+
+            <div class="box-body">
+                <div class="timeline-item">
+                    <span class="time"><i class="fa fa-clock-o"></i> @Model.DatePosted.ToString("dd MMM, yyyy h:m tt")</span> <span class="text-danger Bold">by</span> <i class="text-primary Bold">@Model.PostedBy</i>
+
+                    <h2 class="timeline-header text-center"><a href="#">@Model.Title</a> </h2>
+                    @if (Model.PostImages.Count() > 0)
+                    {
+
+                        <div class="timeline-body text-center" style="padding:50px;">
+
+                            <img src="data:image/jpg;base64,@(Convert.ToBase64String(Model.PostImages.OrderByDescending(x=>x.Id).FirstOrDefault().ImageContent))" style="margin-left:auto;margin-right:auto;" class="img-responsive" />
+                        </div>
+                    }
+
+                    <div class="timeline-body text-justify text-center">
+                        @Html.Raw(Model.Content)
+
+                    </div>
+                    <div class="timeline-body text-justify text-center">
+                        <h4>More Images</h4>
+                        <div class="row">
+                            @foreach (var img in Model.PostImages.OrderByDescending(x => x.Id).Skip(1).ToList())
+                            {
+                                if (img.FileName != null)
+                                {
+                                    <div class="col-md-3">
+                                        <img src="data:image/jpg;base64,@(Convert.ToBase64String(img.ImageContent))" class="img-responsive" />
+                                    </div>
+
+
+                                }
+                            }
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+
+                    <div class="timeline-footer">
+
+                        <div class="btn btn-primary btn-xs pull-right">
+
+
+                            <a class="btn btn-primary btn-xs"><i class="fa fa-globe"></i> @Model.WhoCanSeePost</a>
+                            <a class="btn btn-primary btn-xs"><i class="fa fa-comment"></i> @Model.Comments.Count()</a>
+
+                        </div>
+
+                        <a class="btn btn-social-icon btn-facebook btn-xs"><i class="fa fa-facebook"></i></a>
+
+                    </div>
+                    <br />
+                    <div class="box direct-chat direct-chat-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title"><i class="fa fa-comment"></i> Comments (@Model.Comments.Count())</h3>
+
+
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <!-- Conversations are loaded here -->
+                            <div class="direct-chat-messages">
+                                <!-- Message. Default to the left -->
+                                @foreach (var comment in Model.Comments)
+                                {
+                                    if (comment.Username == User.Identity.Name)
+                                    {
+                                        <div class="direct-chat-msg">
+                                            <div class="direct-chat-info clearfix">
+                                                <span class="direct-chat-name pull-left">@comment.Username</span>
+                                                <span class="direct-chat-timestamp pull-right">@comment.DateCommented.ToString("dd MMM, yyyy h:m tt")</span>
+                                            </div>
+                                            <!-- /.direct-chat-info -->
+                                            <img class="direct-chat-img" src="http://v1.exwhyzee.ng/admin/comment.png" alt="comment"><!-- /.direct-chat-img -->
+                                            <div class="direct-chat-text">
+                                                @comment.Content
+                                            </div>
+                                            <!-- /.direct-chat-text -->
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="direct-chat-msg right">
+                                            <div class="direct-chat-info clearfix">
+                                                <span class="direct-chat-name pull-right">@comment.Username</span>
+                                                <span class="direct-chat-timestamp pull-left">@comment.DateCommented.ToString("dd MMM, yyyy h:m tt")</span>
+                                            </div>
+
+                                            <img class="direct-chat-img" src="http://v1.exwhyzee.ng/admin/comment.png" alt="comment"><!-- /.direct-chat-img -->
+                                            <div class="direct-chat-text">
+                                                @comment.Content
+                                            </div>
+                                            <!-- /.direct-chat-text -->
+                                        </div>
+                                    }
+
+                                    <!-- /.direct-chat-msg -->
+                                    <!-- Message to the right -->
+
+                                    <!-- /.direct-chat-msg -->
+                                }
+
+                            </div>
+                            <!--/.direct-chat-messages-->
+                            <!-- Contacts are loaded here -->
+                            <!-- /.direct-chat-pane -->
+                        </div>
+                        <!-- /.box-body -->
+                        <div class="box-footer">
+                            @using (Html.BeginForm("UpdateComment", "Panel", new { id = Model.Id }, FormMethod.Post, null))
+                            {
+                                @*@Html.AntiForgeryToken()*@
+                                <div class="input-group">
+                                    <input type="text" name="Content" placeholder="Type Comment ..." class="form-control">
+                                    <span class="input-group-btn">
+                                        <button type="submit" class="btn btn-primary btn-flat">Comment</button>
+                                    </span>
+                                </div>
+                            }
+                        </div>
+                        <!-- /.box-footer-->
+                    </div>
+                </div>
+
+
+
+            </div>
+
+
+        </div>
+
+    </div>
+    <div class="col-md-3"></div>
+
+</div>

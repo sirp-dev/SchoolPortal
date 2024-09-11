@@ -1,0 +1,158 @@
+﻿@model SchoolPortal.Web.Models.Entities.Finance
+@using SchoolPortal.Web.Areas.Service
+@{
+    ViewBag.Title = "Invoice Printout";
+}
+
+
+<div class="wrapper">
+    <!-- Main content -->
+    <section class="invoice">
+        <div class="row">
+            <div class="col-12">
+                <h5>
+                    <i class="fa fa-globe"></i> @ViewBag.set.SchoolName Payment For @Model.Title
+                    <small class="float-right">Date: @Model.Date.ToString("dd-MMM-yyyy hh:mm:tt")</small>
+                </h5>
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- info row -->
+        <div class="row invoice-info">
+            <div class="col-sm-4 invoice-col">
+                Account Information
+
+                @if (ViewBag.bank.Count == 1)
+                {
+                    foreach (var i in ViewBag.bank)
+                    {
+                        <address>
+                            <strong>Bank Name: </strong>@i.BankName<br>
+                            <strong>Account Name: </strong>@i.AccountName<br>
+                            <strong>Account Number: </strong>@i.BankAccountNumber<br>
+                            <strong>Account Type: </strong>@i.AccountType<br>
+
+                        </address>
+                    }
+                }
+                else if (ViewBag.bank.Count == 2)
+                {
+                    foreach (var i in ViewBag.bank)
+                    {
+                        <address>
+                            <strong>Bank Name: </strong>@i.BankName<br>
+                            <strong>Account Name: </strong>@i.AccountName<br>
+                            <strong>Account Number: </strong>@i.BankAccountNumber<br>
+                            <strong>Account Type: </strong>@i.AccountType<br>
+
+                        </address>
+                    }
+
+                }
+                else if (ViewBag.bank.Count == 3)
+                {
+                    foreach (var i in ViewBag.bank.Take(3))
+                    {
+                        <address>
+                            <strong>Bank Name: </strong>@i.BankName<br>
+                            <strong>Account Name: </strong>@i.AccountName<br>
+                            <strong>Account Number: </strong>@i.BankAccountNumber<br>
+                            <strong>Account Type: </strong>@i.AccountType<br>
+
+                        </address>
+                    }
+
+                }
+
+
+            </div>
+            <!-- /.col -->
+            <div class="col-sm-4 invoice-col">
+                Student Information
+                <address>
+                    <strong>
+                        @ViewBag.stdName.StudentProfile.user.Surname @ViewBag.stdName.StudentProfile.user.FirstName @ViewBag.stdName.StudentProfile.user.OtherName
+
+                    </strong><br>
+                    @ViewBag.pro.user.ContactAddress<br>
+                    Phone: @ViewBag.pro.user.Phone<br>
+                    Email: @ViewBag.pro.user.Email
+                </address>
+            </div>
+            <!-- /.col -->
+            <div class="col-sm-4 invoice-col">
+                <b>Invoice No: @Model.InvoiceNumber</b> <br>
+                <b>Invoice ID:</b> @Model.Id<br>
+                <b>Amount:</b><span style="font-weight:900;font-size:15px;"> &#8358;@string.Format("{0:C}", Model.Amount).Replace(".00", "").Replace("$", "")</span>
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- Table row -->
+        <div class="row">
+            <div class="col-12 table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Total Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>@Model.Title</td>
+                            <td>#@Model.Amount</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+
+        <div class="row">
+            <!-- accepted payments column -->
+            <div class="col-6">
+                <p class="lead">Payment Methods:</p>
+                <img src="http://v1.exwhyzee.ng/Content/PaymentImage/visa.png" alt="Visa" />
+                <img src="http://v1.exwhyzee.ng/Content/PaymentImage/mastercard.png" alt="Mastercard" />
+                <img src="http://v1.exwhyzee.ng/Content/PaymentImage/american-express.png" alt="American Express" />
+                <img src="http://v1.exwhyzee.ng/Content/PaymentImage/paypal2.png" alt="Paypal" />
+
+                <p class="text-muted well well-sm shadow-none" style="margin-top: 10px;">
+                    <ul>
+                        <li>To make payment by cash print the invoice and take it to your school Financial department for further processing</li>
+                        <li>
+                            To make back payment copy or print the account statement of the school also print the invoice take it to the bank <br />
+                            and payment come back and upload the image of the teller
+                        </li>
+                        <li>To make online payment click on the button which will take to a page to enter your card details</li>
+                    </ul>
+                </p>
+            </div>
+            <!-- /.col -->
+            <div class="col-6">
+                <p class="lead">Generated Date @Model.Date.ToString("dd-MMM-yyyy hh:mm:tt")</p>
+
+                <div class="table-responsive">
+                    <table class="table">
+                        <tr>
+                            <th>Total Amount:</th>
+                            <td>#@Model.Amount</td>
+                        </tr>
+
+                    </table>
+                </div>
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </section>
+    <!-- /.content -->
+</div>
+<!-- ./wrapper -->
+
+<script type="text/javascript">
+
+    window.addEventListener("load", window.print());
+</script>

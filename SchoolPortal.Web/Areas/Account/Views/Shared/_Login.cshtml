@@ -1,0 +1,80 @@
+﻿<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>Login | @ViewBag.sch</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="" />
+
+    <link href="http://v1.exwhyzee.ng/admin/login2/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="http://v1.exwhyzee.ng/admin/login2/css/hover-min.css" rel="stylesheet" />
+    <!-- Custom Theme files -->
+
+    <link href="http://v1.exwhyzee.ng/admin/login2/css/school.css" rel="stylesheet" />
+    @if (ViewBag.schimage != null)
+    {
+        <link rel="icon" href="data:image/jpg;base64,@(Convert.ToBase64String(ViewBag.schimage))" type="image/jpg">
+    }
+    @*<link rel="icon" href="http://v1.exwhyzee.ng/admin/schoolportal.png" type="image/jpg">*@
+    <link href="http://v1.exwhyzee.ng/admin/login2/css/animate.min.css" rel="stylesheet" />
+    @if (ViewBag.bg != null)
+    {
+        <style>
+            body {
+                /*          background: linear-gradient(0deg,rgba(128, 128, 128, 0.95),rgba(128, 128, 128, 0.85)),url('../../Content/images/schbackground.jpg');*/
+                /*    background: linear-gradient(0deg,rgba(128, 128, 128, 0.95),rgba(128, 128, 128, 0.85)),url(https://media.istockphoto.com/vectors/stationery-background-school-tools-seamless-pattern-art-education-vector-id1199159394);*/
+                background-image: url('http://v1.exwhyzee.ng/img/schbackground.jpg');
+                background-size: cover;
+            }
+        </style>
+    }
+    else
+    {
+        <style></style>
+    }
+    <style>
+        b {
+            color: rgb(128, 128, 128)
+        }
+
+        label {
+            margin-bottom: .3rem;
+        }
+    </style>
+</head>
+
+
+@*<body class="" style="background-color:#3c8dbc;">*@
+<body class="">
+    <div class="text-center animated  fadeInDown">
+        @if (ViewBag.schimage != null)
+        {
+            <div style="border-radius: 50%;padding:20px;">
+                <img class="text-center logoPad img-responsive" src="data:image/jpg;base64,@(Convert.ToBase64String(ViewBag.schimage))" style="max-height:120px;padding:25px;border-radius: 50%;">
+            </div>
+        }
+        else
+        {
+
+        }
+    </div>
+    <div class="container" style="margin-top:20px;">
+        <h5 class="text-center text-info animated fadeInDown" style="font-weight:900;color:#ffffff !important;text-transform:capitalize !important;">@ViewBag.sch</h5>
+
+    </div>
+
+    @RenderBody()
+    @*<div class="text-center">
+            <p> <a href="DirectResult.html" class="hvr-grow text-info"><strong> Check Result </strong></a></p>
+        </div>*@
+
+    <footer>
+        <p class="text-center" style="color:#ffffff;"><a href="http://www.exwhyzee.ng" style="color:#ffffff;text-decoration:underline;"><small>Powered By: Exwhyzee Technologies  Ltd </small></a></p>
+    </footer>
+    <script src="http://v1.exwhyzee.ng/admin/login2/js/jquery.min.js"></script>
+    <script src="http://v1.exwhyzee.ng/admin/login2/js/bootstrap.min.js"></script>
+    <script src="http://v1.exwhyzee.ng/admin/login2/js/bootstrap.bundle.min.js"></script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

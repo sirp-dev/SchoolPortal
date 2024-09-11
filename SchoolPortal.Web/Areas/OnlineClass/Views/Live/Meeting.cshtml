@@ -1,0 +1,159 @@
+﻿@model SchoolPortal.Web.Models.Dtos.Zoom.RootobjectDetails
+
+@{
+    ViewBag.Title = "Meeting";
+}
+
+<h2>Meeting</h2>
+
+<div>
+    <h4>RootobjectDetails</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.uuid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.uuid)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.host_id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.host_id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.topic)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.topic)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.type)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.type)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.start_time)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.start_time)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.duration)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.duration)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.timezone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.timezone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.agenda)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.agenda)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.created_at)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.created_at)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.start_url)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.start_url)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.join_url)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.join_url)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.password)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.password)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.h323_password)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.h323_password)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.pstn_password)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.pstn_password)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.encrypted_password)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.encrypted_password)
+        </dd>
+
+
+        <div class="">
+            @Model.settings.alternative_hosts
+            @Model.settings.auto_recording
+            @Model.settings.enforce_login
+            @Model.settings.alternative_hosts
+            @Model.settings.alternative_hosts
+            @Model.settings.alternative_hosts
+            @Model.settings.alternative_hosts
+            @Model.settings.alternative_hosts
+            @Model.settings.alternative_hosts
+            @Model.settings.alternative_hosts
+        </div>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

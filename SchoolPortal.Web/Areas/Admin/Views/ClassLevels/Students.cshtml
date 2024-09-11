@@ -1,0 +1,407 @@
+﻿@model IEnumerable<SchoolPortal.Web.Models.Dtos.ClassStudentsDto>
+@using System.Data.Entity
+@using SchoolPortal.Web.Areas.Service
+@{
+    ViewBag.Title = GeneralService.StudentorPupil() + "s";
+    var abc = new SchoolPortal.Web.Models.ApplicationDbContext();
+    //  string url = HttpContext.Current.Request.Url.AbsoluteUri;
+
+    string returnUrl = HttpContext.Current.Request.Url.AbsolutePath;
+
+    // string host = HttpContext.Current.Request.Url.Host;
+}
+
+<style>
+    .table1 td, .table1 th {
+        padding: 8px !important;
+        vertical-align: central !important;
+    }
+</style>
+
+<div class="row">
+    <div class="col-xs-12">
+
+        <div class="box">
+            <div class="box-header">
+                <span style="color:#337ab7;font-size:30px;"><i class="fa fa-fw fa-users" style="color:#337ab7;"></i> @GeneralService.StudentorPupil()<span>s</span> in @ViewBag.ClassName</span>   <span style="font-size:15px;">Total @GeneralService.StudentorPupil()<span>s</span> [@ViewBag.count]  </span>
+
+                <div style="float:right;">
+
+                    @Html.ActionLink("New " + GeneralService.StudentorPupil(), "New", new { classId = ViewBag.classid }, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Promote " + GeneralService.StudentorPupil(), "StudentPromotion", new { classId = ViewBag.classid }, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Back To Class List", "Index", null, new { @class = "btn btn-primary" })
+
+                </div>
+            </div>
+            <div class="box-body">
+                @if (TempData["success"] != null)
+                {
+                    <div class="alert alert-success alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <strong>@TempData["success"]</strong>
+                    </div>
+                }
+                @if (TempData["error"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <strong>@TempData["error"]</strong>
+                    </div>
+                }
+            </div>
+            <!-- /.box-header -->
+            @*@if (Request.Browser.IsMobileDevice == true)
+                {
+                    <div class="box-body table-responsive">
+                        <table id="example1" class="table table1 table-bordered table-hover" border="1">
+                            <thead>
+                                <tr>
+                                    <th>S/N</th>
+
+                                    <th>
+                                        Name
+                                    </th>
+                                    <th>
+                                        Reg No.
+                                    </th>
+
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    int sno = 0;
+                                }
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @{ sno++; }
+                                            @sno
+                                        </td>
+
+
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.FullName)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.StudentRegNumber)
+                                        </td>
+
+                                        <td>
+                                            @{ var check = abc.Defaulters.FirstOrDefault(x => x.ProfileId == item.ProfileId);}
+
+                                            <div class="dropdown">
+                                                <button class="btn btn-mobile btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                                                    Action
+                                                    <span class="caret"></span>
+                                                </button>
+                                                <ul class="dropdown-menu" style="border-left:1px dotted #337ab7;">
+                                                    <li class="text-color-success">@Html.ActionLink("Details", "StudentProfile", "StudentProfiles", new { id = item.ProfileId }, null)</li>
+                                                    <li class="text-color-danger">@Html.ActionLink("Remove " + GeneralService.StudentorPupil(), "RemoveStudent", "Enrollments", new { id = item.EnrollmentId, ReturnUrl = returnUrl }, null)</li>
+
+
+                                                </ul>
+                                            </div>
+                                            @if (User.IsInRole("SuperAdmin"))
+                                            {
+                                                @Html.ActionLink("Remove " + GeneralService.StudentorPupil(), "RemoveStudentFromSession", "Enrollments", new { id = item.EnrollmentId, ReturnUrl = returnUrl }, null)
+
+
+                                                @Html.ActionLink("Edit", "EditUser", new { id = item.ProfileId }, new { @class = "btn btn-mobile btn-promary" })
+                                                @Html.ActionLink("Del", "DeleteUser", "AdminUser", new { userid = item.UserId, area = "SUperUser" }, new { @class = "btn btn-mobile btn-danger" })
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+
+                        </table>
+                    </div>
+                }
+                else
+                {*@
+            <div id="divTableDataHolder" class="box-body table-responsive no-padding">
+
+
+                <table id="studentRecord" class="table table-hover">
+                    @*<div class="box-body table-responsive">
+                        <table id="example1" class="table table-bordered table-hover" border="1">*@
+                    <thead>
+                        <tr>
+                            <th>S/N</th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.UserName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.FullName)
+                            </th>
+                            <th>
+                                @GeneralService.StudentorPupil() Reg Number
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.PhoneNumber)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.EmailAddress)
+                            </th>
+                            <th>Update Email/Phone Number</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            int sno = 0;
+                        }
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @{ sno++; }
+                                    @sno
+                                </td>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.UserName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.FullName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.StudentRegNumber)
+                                </td>
+                                <td class="userId" style="display:none;">
+
+                                    <span class="userId" style="display:none;">@item.UserId</span>
+
+                                </td>
+                                <td class="PhoneNumber">
+
+                                    <span>@Html.DisplayFor(modelItem => item.PhoneNumber)</span>
+                                    <input type="text" value="@item.PhoneNumber" style="display:none" />
+                                </td>
+                                <td class="EmailAddress">
+
+                                    <span>@Html.DisplayFor(modelItem => item.EmailAddress)</span>
+                                    <input type="text" value="@item.EmailAddress" style="display:none" />
+                                </td>
+                                <td>
+                                    <a class="Edit btn btn-primary" href="javascript:;">Edit</a>
+                                    <a class="Update btn btn-warning" href="javascript:;" style="display:none">Update</a>
+                                </td>
+
+                                <td>
+                                    @{ var check = abc.Defaulters.FirstOrDefault(x => x.ProfileId == item.ProfileId);}
+
+                                    <div class="dropdown">
+                                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                                            Action
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" style="border-left:1px dotted #337ab7;">
+
+                                            <li class="text-color-success">@Html.ActionLink("Details", "StudentProfile", "StudentProfiles", new { id = item.ProfileId }, null)</li>
+                                            @if (User.IsInRole("SuperAdmin") || User.IsInRole("Delettor") || User.IsInRole("Admin"))
+                                            {
+                                                <li class="text-color-danger">@Html.ActionLink("Remove " + GeneralService.StudentorPupil(), "RemoveStudent", "Enrollments", new { id = item.EnrollmentId, ReturnUrl = returnUrl }, null)</li>
+                                            }
+
+                                            @if (check == null)
+                                            {
+                                                <li class="text-color-warning">
+                                                    @Html.ActionLink("Block " + GeneralService.StudentorPupil(), "BlockStudent", new { profleid = item.ProfileId, classId = item.ClassId })
+                                                </li>
+                                            }
+                                            else
+                                            {
+                                                <li class="text-color-warning">
+                                                    @Html.ActionLink("Unblock " + GeneralService.StudentorPupil(), "UnBlockStudent", new { id = check.Id })
+                                                </li>
+                                            }
+                                            @if (User.IsInRole("SuperAdmin"))
+                                            {
+                                                <li>
+                                                    @Html.ActionLink("Super Edit", "EditUser", new { id = item.ProfileId }, new { @class = "" })
+
+                                                </li>
+                                                <li>
+                                                    @Html.ActionLink("super Del", "DeleteUser", "AdminUser", new { userid = item.UserId, area = "SUperUser" }, new { @class = "" })
+
+                                                </li>
+                                            }
+                                        </ul>
+                                    </div>
+
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+    <!-- /.col -->
+</div>
+
+
+
+@section Scripts {
+    <script src="http://v1.exwhyzee.ng/admin/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="http://v1.exwhyzee.ng/admin/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+
+    @*<script type="text/javascript" src="http://ajax.cdnjs.com/ajax/libs/json2/20110223/json2.js"></script>*@
+    <script src="http://v1.exwhyzee.ng/Content/angular/json2.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            //////Remove the dummy row if data present.
+            ////if ($("#studentRecord tr").length > 2) {
+            ////    $("#studentRecord tr:eq(1)").remove();
+            ////}
+        });
+        function AppendRow(row, studentRecordId, subjectId, enrollmentId, gradingOption, testScore, examScore) {
+            //Bind id.
+            $(".userId", row).find("span").html(userId);
+
+            //Bind TestScore.
+            $(".PhoneNumber", row).find("span").html(PhoneNumber);
+            $(".EmailAddress", row).find("input").val(EmailAddress);
+
+            //Bind Country.
+            $(".PhoneNumber", row).find("span").html(PhoneNumber);
+            $(".EmailAddress", row).find("input").val(EmailAddress);
+            $("#studentRecord").append(row);
+        };
+
+
+
+        //Edit event handler.
+        $("body").on("click", "#studentRecord .Edit", function () {
+            var row = $(this).closest("tr");
+            $("td", row).each(function () {
+                if ($(this).find("input").length > 0) {
+                    $(this).find("input").show();
+                    $(this).find("span").hide();
+                }
+            });
+
+            row.find(".Update").show();
+            row.find(".Cancel").show();
+            row.find(".Delete").hide();
+            $(this).hide();
+        });
+
+        //Update event handler.
+        $("body").on("click", "#studentRecord .Update", function () {
+            var row = $(this).closest("tr");
+            $("td", row).each(function () {
+                if ($(this).find("input").length > 0) {
+                    var span = $(this).find("span");
+                    var input = $(this).find("input");
+                    span.html(input.val());
+                    span.show();
+                    input.hide();
+                }
+            });
+            row.find(".Edit").show();
+            row.find(".Delete").show();
+            row.find(".Cancel").hide();
+            $(this).hide();
+
+            var student = {};
+            student.UserId = row.find(".userId").find("span").html();
+            student.EmailAddress = row.find(".EmailAddress").find("span").html();
+            student.PhoneNumber = row.find(".PhoneNumber").find("span").html();
+            console.log(student)
+            console.log("sda")
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("UpdateStudentRecord", "ClassLevels", new { area = "Admin" })",
+                data: JSON.stringify(student),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json"
+            });
+        });
+
+    </script>
+
+}
+
+
+
+@section Scripts2 {
+    <script>
+        $(function () {
+            $('#example1').DataTable()
+            $('#example2').DataTable({
+                'paging': true,
+                'lengthChange': false,
+                'searching': false,
+                'ordering': true,
+                'info': true,
+                'autoWidth': false
+            })
+        })
+    </script>
+    <script>
+        function sortTable() {
+            var table, rows, switching, i, x, y, shouldSwitch;
+            table = document.getElementById("studentRecord");
+            switching = true;
+            /* Make a loop that will continue until
+            no switching has been done: */
+            while (switching) {
+                // Start by saying: no switching is done:
+                switching = false;
+                rows = table.getElementsByTagName("TR");
+                /* Loop through all table rows (except the
+                first, which contains table headers): */
+                for (i = 1; i < (rows.length - 1); i++) {
+                    // Start by saying there should be no switching:
+                    shouldSwitch = false;
+                    /* Get the two elements you want to compare,
+                    one from current row and one from the next: */
+                    x = rows[i].getElementsByTagName("TD")[0];
+                    y = rows[i + 1].getElementsByTagName("TD")[0];
+                    // Check if the two rows should switch place:
+                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                        // If so, mark as a switch and break the loop:
+                        shouldSwitch = true;
+                        break;
+                    }
+                }
+                if (shouldSwitch) {
+                    /* If a switch has been marked, make the switch
+                    and mark that a switch has been done: */
+                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                    switching = true;
+                }
+            }
+        }
+    </script>
+    <script>
+        $(document).on("click", ".modalLink", function () {
+
+            var sId = $(event.relatedTarget).data('StudentId'); //camelCase, you have - separated data attr
+            $(this).find('input[type="hidden"]').val(sId);
+            $('#StudentId').val($(this).data('id'));
+            $('#subId').val($(this).data('sub-id'));
+            $('#sessionId').val($(this).data('sess-id'));
+
+            $(".modal-body .hiddenid").val(passedID);
+        });
+
+        function myFunction() {
+            window.print();
+        }
+    </script>
+}
+
+
+
+
+

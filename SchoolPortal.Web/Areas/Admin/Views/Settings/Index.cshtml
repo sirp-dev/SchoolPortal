@@ -1,0 +1,169 @@
+﻿@model SchoolPortal.Web.Models.Dtos.SettingsDto
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<div class="row">
+   
+    <div class="col-md-12">
+        <div class="box box-primary">
+            <div class="box-header">
+                <h2>School Settings</h2>
+            </div>
+            <div class="box-body text-center" style="border-bottom:1.5px solid #3c8dbc";>
+                <div class="" style="">
+                    @if (Model.Image != null)
+                    {
+                        <img src="data:image/jpg;base64,@(Convert.ToBase64String(Model.Image))" class="img-circle img-responsive" style="margin-left:auto;margin-right:auto;max-height:300px;max-width:300px;" />
+
+                    }
+                    else
+                    {
+                        <img src="" class="img-circle img-responsive" style="margin-left:auto;margin-right:auto;max-height:300px;max-width:300px;" />
+
+                    }
+                </div>
+                <h3>@Model.SchoolName</h3>
+                <h4>( @Model.SchoolInitials )</h4>
+            </div>
+            <div class="box-body">
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs pull-right">
+                        <li><a href="#tab_1-1" data-toggle="tab">E-Mail</a></li>
+                        <li><a href="#tab_2-2" data-toggle="tab">Academics/Results</a></li>
+                        <li><a href="#tab_3-2" data-toggle="tab">SMS</a></li>
+                        <li class="active"><a href="#tab_4-2" data-toggle="tab">School Profile</a></li>
+
+                        <li class="pull-left header"><i class="fa fa-gears"></i> Settings</li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane" id="tab_1-1">
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <tr>
+                                        <th>Email From</th>
+                                        <td>@Model.EmailFrom</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Mail Host</th>
+                                        <td>@Model.MailHost</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Port</th>
+                                        <td>@Model.Port</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Mail Username</th>
+                                        <td>@Model.MailUsername</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Mail Password</th>
+                                        <td>@Model.MailPassword</td>
+                                    </tr>
+                                    <tr>
+                                        <th>SSL Enabled</th>
+                                        <td>@Html.CheckBoxFor(model => model.SslEnabled)</td>
+                                    </tr>
+                                </table>
+                            </div>
+                          
+                        </div>
+                        <!-- /.tab-pane -->
+                        <div class="tab-pane" id="tab_2-2">
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <tr>
+                                        <th>Exam Score</th>
+                                        <td>@Model.ExamScore</td>
+
+                                    </tr>
+                                    <tr>
+                                        <th>Assessment Score</th>
+                                        <td>@Model.AccessmentScore</td>
+
+                                    </tr>
+                                    <tr>
+                                        <th>Pass Mark</th>
+                                        <td>@Model.Passmark</td>
+
+                                    </tr>
+                                    <tr>
+                                        <th>Promotion By Trial</th>
+                                        <td>@Model.PromotionByTrial</td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>Show Cumulative Result For Third Term</th>
+                                        <td>@Html.CheckBoxFor(model => model.ShowCumulativeResultForThirdTerm)</td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>Default Enrollment Remark</th>
+                                        <td>@Model.DefaultEnrollmentRemark</td>
+                                    </tr>
+
+                                </table>
+                            </div>
+                        </div>
+                        <!-- /.tab-pane -->
+                        <div class="tab-pane" id="tab_3-2">
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <tr>
+                                        <th>SMS Username</th>
+                                        <td>@Model.SmsUsername</td>
+                                    </tr>
+                                    <tr>
+                                        <th>SMS Password</th>
+                                        <td>@Model.SmsPassword</td>
+                                    </tr>
+                                   
+                                </table>
+                            </div>
+                        </div>
+                        <div class="tab-pane active" id="tab_4-2">
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                  
+                                    <tr>
+                                        <th>School Address</th>
+                                        <td>@Model.SchoolAddress</td>
+                                    </tr>
+                                    <tr>
+                                        <th>School Address 2</th>
+                                        <td>@Model.SchoolAddress2</td>
+                                    </tr>
+                                    <tr>
+                                        <th>State</th>
+                                        <td>@Model.State</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Country</th>
+                                        <td>@Model.Country</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Contact Email</th>
+                                        <td>@Model.ContactEmail</td>
+                                    </tr>
+                                  
+                                </table>
+                            </div>
+                        </div>
+                        <!-- /.tab-pane -->
+                    </div>
+                    <!-- /.tab-content -->
+                </div>
+            </div>
+            <div class="box-footer">
+                @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary" })
+                <a href="javascript: history.back()" class="btn btn-default">Cancel</a>
+            </div>
+        </div>
+        <!-- Custom Tabs (Pulled to the right) -->
+        
+        <!-- nav-tabs-custom -->
+    </div>
+    <!-- /.col -->
+</div>

@@ -1,0 +1,323 @@
+﻿@using SchoolPortal.Web.Areas.Service
+
+<style>
+    .bg-pink {
+        background-color: #bb880a;
+    }
+
+    .bg-puple {
+        background-color: #eb176a;
+    }
+</style>
+
+<!-- Small boxes (Stat box) -->
+<div class="row">
+    <div class="col-lg-12 col-xs-12">
+
+        <h5 style="font-weight:900;">School Statistic</h5>
+    </div>
+    <div class="col-lg-3 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-aqua">
+            <div class="inner">
+                <h3>@ViewBag.EnrolledStudents</h3>
+
+                <p>Enrolled @GeneralService.StudentorPupil()<span>s</span></p>
+            </div>
+            <div class="icon">
+                <i class="fa fa-graduation-cap"></i>
+            </div>
+            <a href="@Url.Action("EnrolledStudents", "Enrollments", new { area="Admin"})" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+    <!-- ./col -->
+    <div class="col-lg-3 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-green">
+            <div class="inner">
+                <h3>@ViewBag.Staff</h3>
+
+                <p>Staff</p>
+            </div>
+            <div class="icon">
+                <i class="fa fa-user"></i>
+            </div>
+            <a href="@Url.Action("Staff", "UserManagers", new { area="Admin"})" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+    <!-- ./col -->
+    <div class="col-lg-3 col-xs-6">
+        <!-- small box -->
+        @if (ViewBag.batchstatus == "TRUE")
+        {
+            <div class="small-box bg-yellow">
+                <div class="inner">
+                    <h3 style="text-wrap:normal;">@ViewBag.avelableresult  </h3>
+
+                    <p>Results <strong>(current term)</strong></p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-eraser"></i>
+                </div>
+                <a href="@Url.Action("Results", "ResultManagement", new { area = "Admin" })" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        }
+        else
+        {
+            <div class="small-box bg-yellow">
+                <div class="inner">
+                    <h3 style="text-wrap:normal;">@ViewBag.cardavialable <span style="font-size:16px !important;">(@ViewBag.cardusedcurrentterm Used)</span> </h3>
+
+                    <p>Cards <strong>(current term)</strong></p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-cc-discover"></i>
+                </div>
+                <a href="@Url.Action("Index", "PinManagement", new { area = "Admin" })" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        }
+    </div>
+    <!-- ./col -->
+    <div class="col-lg-3 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-red">
+            <div class="inner">
+                <h3 style="text-wrap:normal;">@ViewBag.classes <span style="font-size:16px !important;"> @*(@ViewBag.classesJss JSS) (@ViewBag.classesSss SSS)*@ </span></h3>
+
+                <p>Classes</p>
+
+            </div>
+
+            <div class="icon">
+
+                <i class="fa fa-building"></i>
+
+            </div>
+
+            <a href="@Url.Action("Index", "ClassLevels", new { area="Admin"})" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+
+        </div>
+
+    </div>
+    <!-- ./col -->
+</div>
+ @if (GeneralService.IsFinanceEnabled() == true)
+    {
+<div class="row">
+    <div class="col-lg-12 col-xs-12">
+
+        <h5 style="font-weight:900;">Financial Statistic</h5>
+    </div>
+    <div class="col-lg-4 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-green">
+            <div class="inner">
+                <h3 style="text-wrap:normal;">&#8358;@string.Format("{0:C}", 00000).Replace(".00", "").Replace("$", "") </h3>
+
+                <p>Total Amount in Bank</p>
+
+            </div>
+
+            <div class="icon">
+
+                <i class="fa fa-bar-chart-o"></i>
+
+            </div>
+
+            <a href="@Url.Action("Index", "ClassLevels", new { area="Admin"})" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+
+        </div>
+
+    </div>
+    <div class="col-lg-4 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-primary">
+            <div class="inner">
+                <h3 style="text-wrap:normal;">&#8358;@string.Format("{0:C}", 00000).Replace(".00", "").Replace("$", "") </h3>
+
+                <p>Total Amount in Cash</p>
+
+            </div>
+
+            <div class="icon">
+
+                <i class="fa fa-pie-chart"></i>
+
+            </div>
+
+            <a href="@Url.Action("Index", "ClassLevels", new { area="Admin"})" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+
+        </div>
+
+    </div>
+    <div class="col-lg-4 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-red">
+            <div class="inner">
+                <h3 style="text-wrap:normal;">&#8358;@string.Format("{0:C}", 00000).Replace(".00", "").Replace("$", "") </h3>
+
+                <p>Debtors Amount</p>
+
+            </div>
+
+            <div class="icon">
+
+                <i class="fa fa-pied-piper"></i>
+
+            </div>
+
+            <a href="@Url.Action("Index", "ClassLevels", new { area="Admin"})" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+<div class="row">
+    <div class="col-lg-12 col-xs-12">
+
+        <h5 style="font-weight:900;">Payment Mode Statistic</h5>
+        <hr style="border: 3px solid #2b689c !important;" />
+    </div>
+    @foreach (var i in ViewBag.income)
+    {
+        <div class="row">
+            <div class="col-lg-12 col-xs-12">
+
+                <h5 style="font-weight:900;">@i.Title Statistic</h5>
+            </div>
+            <div class="col-lg-4 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-green">
+                    <div class="inner">
+                        <h3 style="text-wrap:normal;">00000 </h3>
+
+                        <p>Completed Payment</p>
+
+                    </div>
+
+                    <div class="icon">
+
+                        <i class="fa fa-file-archive-o"></i>
+
+                    </div>
+
+                    <a href="@Url.Action("Index", "ClassLevels", new { area="Admin"})" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+
+                </div>
+
+            </div>
+            <div class="col-lg-4 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-yellow">
+                    <div class="inner">
+                        <h3 style="text-wrap:normal;">0000 </h3>
+
+                        <p>Part Payment</p>
+
+                    </div>
+
+                    <div class="icon">
+
+                        <i class="fa fa-genderless"></i>
+
+                    </div>
+
+                    <a href="@Url.Action("Index", "ClassLevels", new { area="Admin"})" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+
+                </div>
+
+            </div>
+            <div class="col-lg-4 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-red">
+                    <div class="inner">
+                        <h3 style="text-wrap:normal;">00000 </h3>
+
+                        <p>Debtors</p>
+
+                    </div>
+
+                    <div class="icon">
+
+                        <i class="fa fa-pied-piper"></i>
+
+                    </div>
+
+                    <a href="@Url.Action("Index", "ClassLevels", new { area="Admin"})" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-4 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-pink">
+                    <div class="inner">
+                        <h3 style="text-wrap:normal;">&#8358;@string.Format("{0:C}", 00000).Replace(".00", "").Replace("$", "") </h3>
+
+                        <p>Payment By Bank</p>
+
+                    </div>
+
+                    <div class="icon">
+
+                        <i class="fa fa-bank"></i>
+
+                    </div>
+
+                    <a href="@Url.Action("Index", "ClassLevels", new { area="Admin"})" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+
+                </div>
+
+            </div>
+            <div class="col-lg-4 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-puple">
+                    <div class="inner">
+                        <h3 style="text-wrap:normal;">&#8358;@string.Format("{0:C}", 00000).Replace(".00", "").Replace("$", "") </h3>
+
+                        <p>Payment By Cash</p>
+
+                    </div>
+
+                    <div class="icon">
+
+                        <i class="fa fa-money"></i>
+
+                    </div>
+
+                    <a href="@Url.Action("Index", "ClassLevels", new { area="Admin"})" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+
+                </div>
+
+            </div>
+            <div class="col-lg-4 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-red">
+                    <div class="inner">
+                        <h3 style="text-wrap:normal;">&#8358;@string.Format("{0:C}", 00000).Replace(".00", "").Replace("$", "") </h3>
+
+                        <p>Total Debtors</p>
+
+                    </div>
+
+                    <div class="icon">
+
+                        <i class="fa fa-pied-piper"></i>
+
+                    </div>
+
+                    <a href="@Url.Action("Index", "ClassLevels", new { area="Admin"})" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+
+                </div>
+
+            </div>
+        </div>
+
+    }
+</div>
+}

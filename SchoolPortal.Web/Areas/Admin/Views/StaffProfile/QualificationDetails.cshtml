@@ -1,0 +1,50 @@
+﻿@model SchoolPortal.Web.Models.Entities.Qualification
+
+@{
+    ViewBag.Title = "QualificationDetails";
+}
+
+<h2>QualificationDetails</h2>
+
+<div>
+    <h4>Qualification</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NameOfInstitution)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NameOfInstitution)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.YearObtained)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.YearObtained)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CertificateObtained)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CertificateObtained)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserId)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "EditQualification", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "MyQualification")
+</p>

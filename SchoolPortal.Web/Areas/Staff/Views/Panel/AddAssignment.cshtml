@@ -1,0 +1,197 @@
+﻿@model SchoolPortal.Web.Models.Entities.Assignment
+
+@{
+    ViewBag.Title = "New Assignment";
+}
+
+<div class="row">
+    <!-- left column -->
+    <div class="col-md-12">
+        <!-- general form elements -->
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">
+                    New Assignment
+                    @if (ViewBag.subjectname != null)
+                    {
+                        <span>(@ViewBag.subjectname)</span>
+                    }
+                    @if (ViewBag.classname != null)
+                    {
+                        <span>Class: (@ViewBag.classname)</span>
+                    }
+
+                </h3>
+                @if (TempData["error"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                        @TempData["error"]
+                    </div>
+                }
+
+                @if (TempData["success"] != null)
+                {
+                    <div class="alert alert-success alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                        @TempData["success"]
+                    </div>
+                }
+            </div>
+            @using (Html.BeginForm())
+            {
+                @*@Html.AntiForgeryToken()*@
+
+            <div class="box-body">
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label" })
+                    <div class="">
+                        @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label" })
+                    <div class="">
+                        <textarea class="textarea" placeholder="Place some text here" name="Description" id="mytextarea"
+                                  style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+
+                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DateSubmitionEnds, htmlAttributes: new { @class = "control-label" })
+                    <div class="">
+                        @Html.EditorFor(model => model.DateSubmitionEnds, new { htmlAttributes = new { @class = "form-control", id = "datepicker" } })
+                        @Html.ValidationMessageFor(model => model.DateSubmitionEnds, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+                @if (ViewBag.classid == 0)
+                {
+                    <div class="form-group">
+                        Class
+                        <div class="">
+                            @Html.DropDownList("classId", ViewBag.ClassLevelId as SelectList, "--choose class--", htmlAttributes: new { @class = "form-control select", id = "classesId" })
+                            @Html.ValidationMessageFor(model => model.ClassLevelId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                }
+
+
+                @if (ViewBag.subname == 0 && ViewBag.classid == 0)
+                {
+                    <div class="form-group">
+                        Subject
+                        <div class="">
+                            <div class="">
+                                <select id="Subject" name="SubjectId" class="form-control"></select>
+                            </div>
+                            @Html.ValidationMessageFor(model => model.SubjectId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                }
+                else if (ViewBag.subname == 0 && ViewBag.classid != null)
+                {
+                    <div class="form-group">
+                        Subject
+                        <div class="">
+                            @Html.DropDownList("SubjectId", ViewBag.SubjectId as SelectList, "--choose subject--", htmlAttributes: new { @class = "form-control select", id = "classesId" })
+                            @Html.ValidationMessageFor(model => model.SubjectId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="form-group">
+                        Subject
+                        <div class="">
+                            @Html.DropDownList("SubjectId", ViewBag.SubjectId as SelectList, "--choose subject--", htmlAttributes: new { @class = "form-control select", id = "classesId" })
+                            @Html.ValidationMessageFor(model => model.SubjectId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <input type="hidden" value="@ViewBag.subname" name="SubjectId" />
+                    @Html.ValidationMessageFor(model => model.SubjectId, "", new { @class = "text-danger" })
+                }
+            </div>
+
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <a href="javascript: history.back()" class="btn btn-default">Cancel</a>
+                </div>
+
+            }
+        </div>
+
+    </div>
+
+</div>
+
+
+@section Style {
+    <link rel="stylesheet" href="http://v1.exwhyzee.ng/admin/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+    @*<link rel="stylesheet" href="http://v1.exwhyzee.ng/admin/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">*@
+}
+
+@section Scripts {
+    <!-- DataTables -->
+        
+    @*<script src="http://v1.exwhyzee.ng/admin/bower_components/ckeditor/ckeditor.js"></script>*@
+    <!-- Bootstrap WYSIHTML5 -->
+    @*<script src="http://v1.exwhyzee.ng/admin/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>*@
+    <script src="http://v1.exwhyzee.ng/admin/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+}
+
+@section Scripts2 {
+    <script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
+    <script>
+        tinymce.init({
+            selector: 'textarea',
+            relative_urls: false,
+            remove_script_host: false,
+            convert_urls: true,
+            height: 500,
+            plugins: [
+                "advlist autolink lists link image charmap print preview anchor",
+                "searchreplace visualblocks code fullscreen",
+                "insertdatetime media table contextmenu paste imagetools wordcount"
+            ],
+            toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+            imagetools_cors_hosts: ['www.tinymce.com', 'codepen.io'],
+            content_css: [
+                '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+                '//www.tinymce.com/css/codepen.min.css'
+            ]
+        });
+    </script>
+    <script type="text/jscript">
+        $(function () {
+            $('#classesId').change(function () {
+                $.getJSON('/EventsControl/SubjectByClass/' + $('#classesId').val(), function (data) {
+                    var items = '<option>Select a Subject</option>';
+                    console.log(data);
+                    console.log("check");
+                    $.each(data, function (i, local) {
+                        items += "<option value='" + local.Value + "'>" + local.Text + "</option>";
+                    });
+                    $('#Subject').html(items);
+                    console.log(items);
+                    console.log("check 2");
+                });
+            });
+        });
+    </script>
+}
+

@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+<head>
+    <meta charset="utf-8">
+    <title>Result Printout</title>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+
+    <meta name="viewport" content="initial-scale = 1.0, maximum-scale = 1.0, user-scalable = no, width =device-width">
+
+    @*<link href="~/Areas/Student/Views/Shared/print.css" rel="stylesheet" media="print" />*@
+
+    <link rel="icon" href="http://v1.exwhyzee.ng/admin/schoolportal.png" type="image/x-icon" />
+    <style>
+        @@media print {
+            #test {
+                page-break-inside: avoid;
+            }
+        }
+
+        @@media print {
+            .watermark {
+                display: inline;
+                position: fixed !important;
+                opacity: 0.25;
+                font-size: 3em;
+                width: 100%;
+                text-align: center;
+                z-index: 1000;
+                top: 700px;
+                right: 5px;
+            }
+
+            #over img {
+                margin-left: auto;
+                margin-right: auto;
+                display: block;
+            }
+
+            .done td {
+                border: 1px solid #ffffff;
+            }
+
+            a[href]:after {
+                content: none !important;
+            }
+
+            .header, .hide {
+                visibility: hidden
+            }
+        }
+    </style>
+    @*<style>
+
+
+                @@media print {
+                    * {
+                        -webkit-print-color-adjust: exact;
+                    }
+
+                    body {
+                        background-image: url(data:image/jpg;base64,@(Convert.ToBase64String(Model.SchoolLogo)));
+                        background-repeat: no-repeat;
+                    }
+                #over img {
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+        }
+                .done td{
+                border:1px solid #ffffff;
+                }
+                 a[href]:after {
+                content: none !important;
+            }
+            </style>*@
+
+    <style type="text/css">
+        .xyz-content .xyz-postcontent-0 .layout-item-0 {
+            border-right-style: solid;
+            border-bottom-style: solid;
+            border-right-width: 1px;
+            border-bottom-width: 1px;
+            border-right-color: #B3B5AA;
+            border-bottom-color: #B3B5AA;
+            padding-right: 10px;
+            padding-left: 10px;
+        }
+
+        .ie7 .xyz-post .xyz-layout-cell {
+            border: none !important;
+            padding: 0 !important;
+        }
+
+        .ie6 .xyz-post .xyz-layout-cell {
+            border: none !important;
+            padding: 0 !important;
+        }
+
+        #over img {
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+        }
+    </style>
+
+</head>
+<body>
+    
+    <div class="container-fluid">
+        @RenderBody()
+    </div>
+
+</body>
+@RenderSection("scripts", required: false)
+</html>

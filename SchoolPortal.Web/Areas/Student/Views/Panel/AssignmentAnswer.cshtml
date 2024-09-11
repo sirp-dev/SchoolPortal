@@ -1,0 +1,127 @@
+﻿@model SchoolPortal.Web.Models.Entities.AssignmentAnswer
+
+@{
+    ViewBag.Title = "AssignmentAnswer";
+}
+
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+        <div class="box box-default">
+            <div class="box-header with-border">
+
+                <h3 class="box-title">Assignment Answer</h3>
+
+                @if (TempData["error"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                        @TempData["error"]
+                    </div>
+                }
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="">
+                            <table class="table table-success table-bordered" style="background-color:#3c8dbc; color:#ffffff;">
+                                <tr>
+                                    <th>Session</th>
+                                    <td>@ViewBag.assignment.Session.SessionYear / @ViewBag.assignment.Session.Term</td>
+                                </tr>
+                                <tr>
+                                    <th>Class</th>
+                                    <td>@ViewBag.assignment.ClassLevel.ClassName</td>
+                                </tr>
+                                <tr>
+                                    <th>Subject</th>
+                                    <td>@ViewBag.assignment.Subject.SubjectName</td>
+                                </tr>
+                                <tr>
+                                    <th>Title</th>
+                                    <td>@ViewBag.assignment.Title</td>
+                                </tr>
+                                <tr>
+                                    <th>Last Submission Date</th>
+                                    <td>@ViewBag.assignment.DateSubmitionEnds</td>
+                                </tr>
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="box-body">
+
+                <div class="container-fluid">
+                    <h3>Question</h3>
+                    <div class="" style="">
+                        @Html.Raw(ViewBag.assignment.Description)
+                    </div>
+                </div>
+            </div>
+            <!-- /.box-body -->
+            @*"AssignmentAnswer", "Panel", new { id = ViewBag.Id }, FormMethod.Post*@
+            @using (Html.BeginForm())
+            {
+                @*@Html.AntiForgeryToken()*@
+
+                <div class="box-body">
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <h3>Answer</h3>
+                    <div class="form-group">
+                        <div class="">
+                            <textarea class="textarea" placeholder="Place some text here" name="Answer" id="mytextarea"
+                                      style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+
+                            @Html.ValidationMessageFor(model => model.Answer, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <a href="javascript: history.back()" class="btn btn-default">Cancel</a>
+                </div>
+
+            }
+
+        </div>
+        <!-- /.box -->
+    </div>
+    <!-- /.col -->
+
+
+    <div class="col-md-1"></div>
+
+</div>
+@section Style {
+
+    <link rel="stylesheet" href="http://v1.exwhyzee.ng/admin/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+}
+
+@section Scripts {
+    <!-- DataTables -->
+        
+    <script src="http://v1.exwhyzee.ng/admin/bower_components/ckeditor/ckeditor.js"></script>
+    <!-- Bootstrap WYSIHTML5 -->
+    <script src="http://v1.exwhyzee.ng/admin/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+
+}
+
+@section Scripts2 {
+
+    <script src="http://v1.exwhyzee.ng/admin/tinymce/js/tinymce/tinymce.min.js"></script>
+    @*<script src='https://cloud.tinymce.com/stable/tinymce.min.js'></script>*@
+    <script>
+        tinymce.init({
+            selector: '#mytextarea'
+        });
+    </script>
+
+}

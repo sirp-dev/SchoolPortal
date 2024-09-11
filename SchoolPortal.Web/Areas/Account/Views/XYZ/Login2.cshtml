@@ -1,0 +1,92 @@
+﻿@using SchoolPortal.Web.Models
+@model LoginViewModel
+@{
+    /**/
+
+    ViewBag.Title = "Log in";
+    //Layout = "~/Views/Shared/_LoginView.cshtml";
+    //Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Login.cshtml";
+
+}
+
+@if (TempData["error"] != null)
+{
+    <div class="alert alert-danger alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+        @TempData["error"]
+    </div>
+}
+
+@*<div class="text-center animated  fadeInDown">
+    <img class="text-center logoPad " src="data:image/jpg;base64,@(Convert.ToBase64String(ViewBag.schimage))">
+
+</div>
+<h2 class="text-center text-info animated fadeInDown">@ViewBag.sch</h2>*@
+@*<h6 class="text-center text-danger animated fadeInDown">Naze, Owerri</h6>*@
+
+@using (Html.BeginForm("Login", "XYZ", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "", id = "logon" }))
+{
+    @*@Html.AntiForgeryToken()*@
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group has-feedback">
+        <input type="text" name="Username" class="form-control" placeholder="Username">
+
+        @Html.ValidationMessageFor(m => m.Username, "", new { @class = "text-danger" })
+    </div>
+    <div class="input-group">
+        <input id="password" name="Password" type="password" class="form-control" placeholder="password">
+        <span class="input-group-btn">
+            <button id="show_password" class="btn btn-secondary" type="button">
+                <span class="glyphicon glyphicon-eye-open"></span>
+            </button>
+        </span>
+        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-xs-8">
+            <div class="checkbox icheck">
+                <label>
+                    <input type="checkbox" name="RememberMe"> Remember Me
+                </label>
+            </div>
+        </div>
+        <!-- /.col -->
+        <div class="col-xs-4">
+            <button type="submit" class="btn btn-primary btn-block btn-flat" onclick="">Sign In</button>
+        </div>
+        <!-- /.col -->
+    </div>
+}
+@using SchoolPortal.Web.Areas.Service
+@{
+
+    string url = HttpContext.Current.Request.Url.AbsoluteUri;
+    Logger.log(User.Identity.Name, url.ToString());
+
+}
+
+
+@section Scripts {
+        @**@
+    <script>
+        $('#show_password').hover(function functionName() {
+            //Change the attribute to text
+            $('#password').attr('type', 'text');
+            $('.glyphicon').removeClass('glyphicon-eye-open').addClass('glyphicon-eye-close');
+        }, function () {
+            //Change the attribute back to password
+            $('#password').attr('type', 'password');
+            $('.glyphicon').removeClass('glyphicon-eye-close').addClass('glyphicon-eye-open');
+        }
+        );
+    </script>
+    <script>
+        $('form').submit(function () {
+            $(this).find("button[type='submit']").prop('disabled', true);
+        });
+    </script>
+}

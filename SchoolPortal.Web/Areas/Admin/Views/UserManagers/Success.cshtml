@@ -1,0 +1,48 @@
+﻿
+@{
+    ViewBag.Title = "Success";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <!-- left column -->
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <!-- general form elements -->
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">User Removal</h3>
+               
+            </div>
+            <div class="box-body">
+                @if (ViewBag.m != null)
+                {
+                <div class="alert alert-success alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                    @ViewBag.m<br />
+                    @TempData["a1"] <br />
+                    @TempData["a2"]<br />
+                    @TempData["a3"]<br />
+                    @TempData["a4"]<br />
+                    @TempData["a5"]<br />
+                    @TempData["a6"]<br />
+                    @TempData["a7"]<br />
+                    @TempData["a8"]<br />
+                    @TempData["a9"]<br />
+                    @TempData["a10"]<br />
+                    @TempData["a11"]<br />
+                </div>
+                }
+            </div>
+            <div class="box-footer">
+                @Html.ActionLink("Back To Users", "Index", "UserManagers", new { area = "Admin" }, new { @class = "btn btn-primary", style = "border-radius:0px !important;" })
+
+            </div>
+
+            
+        </div>
+
+    </div>
+    <div class="col-md-3"></div>
+
+</div>

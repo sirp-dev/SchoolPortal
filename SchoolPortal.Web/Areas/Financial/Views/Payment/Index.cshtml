@@ -1,0 +1,228 @@
+﻿
+
+@model PagedList.IPagedList<SchoolPortal.Web.Models.Entities.Finance>
+@using PagedList.Mvc;
+<link href="http://v1.exwhyzee.ng/Content/PagedList.css" rel="stylesheet" />
+
+@using SchoolPortal.Web.Areas.Service
+
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box" style="padding:7px;">
+            <div class="box-header" style="margin-bottom:15px;">
+                <h3 class="box-title"><i class="fa fa-fw fa-file-text-o"></i> Income Management for @ViewBag.session</h3>
+
+                <div class="box-tools">
+                    @Html.ActionLink("New Payment", "CreatePayment", null, new { @class = "btn btn-primary", style = "padding: 7px;" })
+                    @Html.ActionLink("New Graduate Payment", "CreateNewPayment", null, new { @class = "btn btn-danger", style = "padding: 7px;" })
+
+                </div>
+                @if (TempData["success"] != null)
+                {
+                    <div class="alert alert-success alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                        @TempData["success"]
+                    </div>
+                }
+            </div>
+            <div class="row" style="margin-bottom:10px;">
+
+
+                @using (Html.BeginForm())
+                {
+                    <div class="col-md-3" style="padding-left:0px;">
+                        <div class="input-group" style="margin-left:0px;">
+                            <div class="input-group-btn">
+                                <button type="submit" class="btn btn-primary" value="@ViewBag.CurrentFilter">Search</button>
+                            </div>
+                            <!-- /btn-group -->
+                            <input type="text" name="SearchString" value="@ViewBag.CurrentFilter" class="form-control" placeholder="Search...">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card mini-stats-wid">
+                            <div class="card-body">
+                                <div class="media">
+
+                                    <input type="date" name="DateOne" placeholder="Start Date" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card mini-stats-wid">
+                            <div class="card-body">
+                                <div class="media">
+                                    <input type="date" name="DateTwo" placeholder="End Date" class="form-control" />
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3" style="padding-right:0px;">
+                        <div class="card mini-stats-wid">
+                            <div class="card-body">
+                                <div class="media">
+                                    <select name="Duration" class="form-control">
+                                        <option value="UseDate">Use Date Range</option>
+                                        <option value="All">All</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                }
+
+
+                <h6 class="card-title mb-4 float-sm-left" style="margin-bottom:10px;">Search Result from <strong><i><sup>@*@ViewBag.StartDate.ToString("ddd dd MMM, yyyy")*@ ----</sup></i></strong>  to <strong><i><sup>-----@*@ViewBag.EndDate.ToString("ddd dd MMM, yyyy")*@</sup></i></strong></h6>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+                <table id="example19" class="table table-bordered table-hover" border="1">
+
+                    <thead>
+                        <tr class="bg-primary">
+                            <th>S/N</th>
+                            <th>Teller</th>
+                            <th>
+                                Title
+                            </th>
+                            <th>Student</th>
+                            <th>Class</th>
+                            <th>Amount</th>
+
+                            <th>Approved</th>
+                            <th>
+                                Status
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            int sno = 0;
+                        }
+                        @foreach (var item in Model)
+                        {
+                            try
+                            {
+                                <tr>
+                                    <td>
+                                        @{ sno++; }
+                                        @sno
+                                    </td>
+                                    <td>
+                                        @item.TellerNumber
+                                    </td>
+                                    <td>
+                                        <a href="" data-toggle="modal" data-target="#modal-@item.Id">
+                                            @item.Title
+                                        </a>
+
+                                    </td>
+
+                                    <td>
+                                        <a href="@Url.Action("PaymentInfo", new { id = item.Id })">
+                                            @item.Enrollment.StudentProfile.user.Surname @item.Enrollment.StudentProfile.user.FirstName @item.Enrollment.StudentProfile.user.OtherName
+
+                                        </a></td>
+                                    <td>@item.Enrollment.ClassLevel.ClassName</td>
+                                    <td>&#8358;@string.Format("{0:C}", item.Amount).Replace(".00", "").Replace("$", "")</td>
+
+
+                                    @if (item.FinanceSource == SchoolPortal.Web.Models.Entities.FinanceSource.Online)
+                                    {
+                                        <td>Online</td>
+                                    }
+                                    else if (item.FinanceSource == SchoolPortal.Web.Models.Entities.FinanceSource.Bank)
+                                    {
+                                        if (item.ApprovedById == null)
+                                        {
+                                            <td></td>
+                                        }
+                                        else
+                                        {
+                                            <td>@item.ApprovedBy.UserName</td>
+                                        }
+
+                                    }
+
+                                    <td>
+                                        @item.TransactionStatus
+                                    </td>
+
+                                </tr>
+                            }
+                            catch (Exception c) { }
+
+
+
+                            <!-- /.modal -->
+                        }
+
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th colspan="5">Total</th>
+                            <th>&#8358;@string.Format("{0:C}", Model.Sum(x => x.Amount)).Replace(".00", "").Replace("$", "")</th>
+                            <th colspan="2"></th>
+                        </tr>
+                    </tfoot>
+                </table>
+
+                <div class="container text-center page" style="margin-left:auto;margin-right:auto;">
+
+                    <p>Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount</p>
+
+                    @Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page }))
+                </div>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+</div>
+
+
+
+
+
+@section Style {
+
+    <link rel="stylesheet" href="http://v1.exwhyzee.ng/admin/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+}
+
+@section Scripts {
+    <!-- DataTables -->
+    <script src="http://v1.exwhyzee.ng/admin/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="http://v1.exwhyzee.ng/admin/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+
+}
+
+@section Scripts2 {
+    <script>
+        $(function () {
+            $('#example1').DataTable()
+            $('#example2').DataTable({
+                'paging': true,
+                'lengthChange': false,
+                'searching': false,
+                'ordering': true,
+                'info': true,
+                'autoWidth': false
+            })
+        })
+    </script>
+}
+
+
+

@@ -1,0 +1,106 @@
+﻿@model SchoolPortal.Web.Models.Dtos.ApiSchoolInfoDto
+
+@{
+    ViewBag.Title = "GetSchool";
+}
+
+<h2>GetSchool</h2>
+
+<div>
+    <h4>ApiSchoolInfoDto</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.SchoolName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SchoolName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SchoolAddress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SchoolAddress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SchoolCurrentPrincipal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SchoolCurrentPrincipal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ClassCount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ClassCount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EnrolStudentsCount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EnrolStudentsCount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Url)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Url)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Usedcard)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Usedcard)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NonUsedcard)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NonUsedcard)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Totalcard)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Totalcard)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalStaff)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotalStaff)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CurrentSession)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CurrentSession)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

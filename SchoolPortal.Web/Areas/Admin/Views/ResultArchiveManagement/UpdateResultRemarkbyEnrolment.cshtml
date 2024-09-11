@@ -1,0 +1,115 @@
+﻿@model SchoolPortal.Web.Models.Entities.Enrollment
+
+@{
+    ViewBag.Title = "Update Result Remark";
+}
+
+
+<div class="row">
+    <!-- left column -->
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <!-- general form elements -->
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Update Remark</h3>
+                @if (TempData["message"] != null)
+                {
+                    <div class="alert alert-success alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                        @TempData["message"]
+                    </div>
+                }
+                @if (TempData["error"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                        @TempData["error"]
+                    </div>
+                }
+            </div>
+            @using (Html.BeginForm())
+            {
+                @*@Html.AntiForgeryToken()*@
+
+            <div class="box-body">
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.Id)
+                @Html.HiddenFor(model => model.ClassLevelId)
+                @Html.HiddenFor(model => model.StudentProfileId)
+                @Html.HiddenFor(model => model.SessionId)
+                @Html.HiddenFor(model => model.AverageScore)
+                @Html.HiddenFor(model => model.CummulativeAverageScore)
+
+               
+                <div class="form-group">
+                    @Html.LabelFor(model => model.EnrollmentRemark1, htmlAttributes: new { @class = "control-label" })
+                    <div class="">
+                        <input type="text" name="Enroll1" value="@ViewBag.enr.EnrollmentRemark1" class="form-control" />
+                        @Html.ValidationMessageFor(model => model.EnrollmentRemark1, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.EnrollmentRemark2, htmlAttributes: new { @class = "control-label" })
+                    <div class="">
+                        <input type="text" name="Enroll2" value="@ViewBag.enr.EnrollmentRemark2" class="form-control" />
+                        @Html.ValidationMessageFor(model => model.EnrollmentRemark2, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                @*<div class="form-group">
+                    @Html.LabelFor(model => model.NextResumption, htmlAttributes: new { @class = "control-label" })
+                    <div class="">
+                        <input type="text" name="NextTerm2" value="@ViewBag.enr.NextResumption" class="form-control" />
+                        @Html.ValidationMessageFor(model => model.NextResumption, "", new { @class = "text-danger" })
+                    </div>
+                </div>*@
+
+
+                @*<div class="form-group">
+            @Html.LabelFor(model => model.EnrollmentRemark, htmlAttributes: new { @class = "control-label" })
+            <div class="">
+                @Html.EditorFor(model => model.EnrollmentRemark, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.EnrollmentRemark, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.EnrollmentRemark2, htmlAttributes: new { @class = "control-label" })
+            <div class="">
+                @Html.EditorFor(model => model.EnrollmentRemark2, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.EnrollmentRemark2, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.NextResumption, htmlAttributes: new { @class = "control-label" })
+            <div class="">
+                @Html.EditorFor(model => model.NextResumption, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NextResumption, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+            </div>
+
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <a href="javascript: history.back()" class="btn btn-default">Cancel</a>
+                </div>
+
+            }
+        </div>
+
+    </div>
+    <div class="col-md-3"></div>
+
+</div>
+
+
+@section Scripts {
+    
+}

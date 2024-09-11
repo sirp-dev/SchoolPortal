@@ -1,0 +1,76 @@
+﻿@model SchoolPortal.Web.Models.Entities.Ticket
+
+@{
+                /**/
+
+                ViewBag.Title = "Create";
+                Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box" style="padding:7px;">
+            <div class="box-header" style="margin-bottom:15px;">
+                <h3 class="box-title"><i class="fa fa-fw fa-file-text-o"></i> Support Ticket</h3>
+
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body no-padding">
+                <div class="row">
+                    <div class="col-md-4">
+                        @Html.Action("_TicketHistory", "Tickets")
+                    </div>
+                    <div class="col-md-8">
+                        <div class="box box-primary" style="border: 1px solid #3c8dbc;">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">New Complaint Ticket</h3>
+                            </div>
+
+
+                            @using (Html.BeginForm())
+                            {
+                                @*@Html.AntiForgeryToken()*@
+
+
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                <div class="box-body">
+
+                                   
+                                    <!-- textarea -->
+                                    <div class="form-group">
+                                        <label>Complaint</label>
+                                        <textarea class="form-control" name="Complain" rows="8" placeholder="Enter ..."></textarea>
+                                        @Html.ValidationMessageFor(model => model.Complain, "", new { @class = "text-danger" })
+                                    </div>
+
+                                    <!-- select -->
+                                    <div class="form-group">
+                                        <label>Priority</label>
+                                        @Html.EnumDropDownListFor(model => model.Priority, "Choose Priority Level", htmlAttributes: new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Priority, "", new { @class = "text-danger" })
+                                    </div>
+
+                                </div>
+                                <div class="box-footer">
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                                <!-- /.box-body -->
+
+
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+</div>
+
+<!-- /.box-header -->
+
+
+@section Scripts {
+        
+}

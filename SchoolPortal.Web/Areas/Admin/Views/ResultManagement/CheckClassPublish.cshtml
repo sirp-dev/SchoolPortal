@@ -1,0 +1,94 @@
+﻿@model IEnumerable<SchoolPortal.Web.Models.Entities.ClassLevel>
+@using SchoolPortal.Web.Areas.Service
+
+@{
+    ViewBag.Title = "CheckClassPublish";
+}
+
+<h2>CheckClassPublish</h2>
+
+
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box" style="padding:7px;">
+            <div class="box-header" style="margin-bottom:15px;">
+                <h3 class="box-title"><i class="fa fa-fw fa-file-text-o"></i> All Class List</h3>
+
+
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover" border="1">
+                        <tr>
+                            <th>S/N</th>
+                            <th>Class</th>
+                            <th>Published</th>
+                            <th></th>
+                        </tr>
+                        @{int sno = 0;
+                        }
+                        @foreach (var c in Model)
+                        {
+
+                            <tr>
+                                @{ sno++; }
+
+                                <td>@sno</td>
+                                <td>@c.ClassName</td>
+                                <td>
+                                    @GeneralService.CheckPublish(ViewBag.ssId, c.Id)
+                                </td>
+                                <td>
+
+                                    @if (GeneralService.CheckPublish(ViewBag.ssId, c.Id) == "true")
+                                    {
+                                        @Html.ActionLink("Unpublish", "Publish", new { id = c.Id, sesid = ViewBag.ssId }, new { @class = "btn btn-warning" })
+                                    }
+                                    else
+                                    {
+                                        @Html.ActionLink("Publish", "Publish", new { id = c.Id, sesid = ViewBag.ssId }, new { @class = "btn btn-primary" })
+
+                                    }
+
+                                </td>
+                            </tr>
+
+                        }
+                    </table>
+                    <br clear="all" style="page-break-before:always !important;" />
+                </div>
+
+
+            </div>
+        </div>
+        <div class="text-center">
+            <button onclick="myFunction()" style="text-align:center;" class="btn btn-primary">Print</button>
+
+        </div>
+        <script type="text/javascript">
+
+            //function printSelection(node) {
+
+            //    var content = node.innerHTML
+            //    var pwin = window.open('', 'print_content', 'width=800,height=500');
+
+            //    pwin.document.open();
+            //    pwin.document.write('<html><body onload="window.print()">' + content + '</body></html>');
+            //    pwin.document.close();
+
+            //    setTimeout(function () { pwin.close(); }, 1000);
+
+            //}
+
+
+            function myFunction() {
+                window.print();
+            }
+
+
+        </script>
+    </div>
+</div>

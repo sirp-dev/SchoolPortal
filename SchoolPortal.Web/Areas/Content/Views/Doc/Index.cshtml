@@ -1,0 +1,279 @@
+﻿@model IEnumerable<SchoolPortal.Web.Models.Dtos.ClassLevelListDto>
+@using SchoolPortal.Web.Areas.Service
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box" style="padding:7px;">
+            <div class="box-header" style="margin-bottom:15px;">
+                <h3 class="box-title" style="font-weight:900;"><i class="fa fa-fw fa-file-text-o"></i> Comprehensive Class List</h3>
+
+
+                @if (User.IsInRole("SuperAdmin") || User.IsInRole("Admin"))
+                {
+                    @Html.ActionLink("Other Session", "OtherTerm", "Doc", null, new { @class = "btn btn-primary btn-sm", style = "margin-bottom:5px;" })
+                }
+
+                @if (TempData["success"] != null)
+                {
+                    <div class="alert alert-success alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                        @TempData["success"]
+                    </div>
+                }
+                @if (TempData["error"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                        @TempData["error"]
+                    </div>
+                }
+
+
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+
+                @foreach (var item in Model)
+                {
+
+
+                    <h3 class="box-title">@item.ClassLevelName</h3>
+                    <h5>Form Teacher (@item.FormTeacher)  (@GeneralService.Studentlist(item.Id).Count() @GeneralService.StudentorPupil()<text>s</text>)</h5>
+                    <div class="table-responsive">
+                        <table id="example1" class="table table-bordered table-hover" border="1">
+                            <tr>
+                                <th>S/N</th>
+                                <th>Username</th>
+                                <th>Full Name</th>
+                                <th>Registration Number</th>
+                                <th>Update</th>
+                                @if (User.IsInRole("Admin") || User.IsInRole("SuperAdmin"))
+                                {
+                                    <th class="noprint">Action</th>
+                                }
+                            </tr>
+                            @{int sno = 0;
+                            }
+                            @foreach (var students in GeneralService.Studentlist(item.Id).OrderBy(x => x.StudentProfile.user.Surname))
+                            {
+                                if (GeneralService.Studentlist(item.Id).Count() > 0)
+                                {
+                                    <tr>
+                                        @{ sno++; }
+
+                                        <td>@sno</td>
+                                        <td>@students.StudentProfile.user.UserName</td>
+                                        <td>@students.StudentProfile.user.Surname @students.StudentProfile.user.FirstName @students.StudentProfile.user.OtherName</td>
+                                        <td>@students.StudentProfile.StudentRegNumber</td>
+                                        <td>
+                                            @if (students.EnableLiveClass == true)
+                                            {
+                                                @Html.ActionLink("Disable Live Class", "UpdateOnlineData", new { id = students.Id }, new { @class = "noprint" })
+
+                                            }
+                                            else
+                                            {
+                                                @Html.ActionLink("Enable Live Class", "UpdateOnlineData", new { id = students.Id }, new { @class = "noprint" })
+                                            }
+                                        </td>
+                                        @if (User.IsInRole("SuperAdmin") || User.IsInRole("Admin"))
+                                        {
+                                            <td class="noprint">
+
+
+                                                <div class="dropdown">
+                                                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                                                        Action
+                                                        <span class="caret"></span>
+                                                    </button>
+                                                    <ul class="dropdown-menu">
+                                                        <li>
+                                                            @Html.ActionLink("Edit", "EditInfo", new { id = students.StudentProfile.UserId }, new { @class = "noprint" })
+
+                                                        </li>
+                                                        <li>
+                                                            @Html.ActionLink("Unenroll " + GeneralService.StudentorPupil(), "Removefromsession", "Doc", new { id = students.StudentProfileId }, new { @class = "noprint" })
+
+                                                        </li>
+                                                        <li>
+                                                            @Html.ActionLink("Move " + GeneralService.StudentorPupil(), "MoveEnrol", "Doc", new { id = students.Id, Ocid = item.Id }, new { @class = "noprint" })
+
+                                                        </li>
+                                                        <li>
+                                                            @Html.ActionLink("Is Dropout", "Dropout", "Doc", new { id = students.StudentProfileId }, new { @class = "noprint", target="_blank" })
+
+                                                        </li>
+                                                        @if (User.IsInRole("SuperAdmin"))
+                                                        {
+
+                                                        }
+
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        }
+
+
+
+                                    </tr>
+                                }
+                                else if (GeneralService.Studentlist(item.Id).Count() < 0)
+                                {
+
+                                    <tr>
+                                        <th colspan="4" style="text-align:center;">No record Found</th>
+                                    </tr>
+                                }
+
+
+                            }
+                        </table>
+                        <br clear="all" style="page-break-before:always !important;" />
+                    </div>
+
+                }
+
+            </div>
+            @if (User.IsInRole("SuperAdmin"))
+            {
+                <a href="@Url.Action("RemoveAllFromCurrentLatest","Doc",new { area ="Content" })" class="btn btn-medium btn-danger remove">Remove all In Term</a>
+                @*<a href="@Url.Action("EnrollFromAnotherTermInSession","Doc",new { area ="Content" })" class="btn btn-medium btn-success remove">Enroll From Another Term In Session</a>*@
+
+            }
+
+            @*<div class="box-body">
+                <div class="alert bg-danger" style="background-color:#ec121c;color:#ffffff;">
+                    @if (User.IsInRole("SuperAdmin"))
+                    {
+                        <h2 style="border-bottom:1px dotted #ffffff;" class="page-header">DELETE ALL STUDENT IN A TERM</h2>
+
+                        <p> Clicking on the "Remove all In Term" will delete the @GeneralService.StudentorPupil()<span>s</span> in this session and term. Before clicking, please make sure you really want to delete student in that term because this action cannot be reversed.</p><br />
+
+
+                        <a href="@Url.Action("RemoveAllFromCurrentLatest","Doc",new { area ="Content" })" class="btn btn-medium btn-info remove">Remove all In Term</a>
+
+
+                    }
+
+                </div>
+            </div>*@
+        </div>
+        <div class="text-center">
+            @*<button onclick="myFunction()" style="text-align:center;" class="btn btn-primary">Print</button>*@
+            <button onclick="window.print()" style="text-align:center;" class="btn btn-primary">Print</button>
+
+        </div>
+
+
+
+
+        @section Style {
+
+            <link rel="stylesheet" href="http://v1.exwhyzee.ng/admin/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+        }
+
+        @section Scripts {
+            <!-- DataTables -->
+            <script src="http://v1.exwhyzee.ng/admin/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+            <script src="http://v1.exwhyzee.ng/admin/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+
+        }
+
+        @section Scripts2 {
+
+            <script type="text/javascript">
+
+                //function printSelection(node) {
+
+                //    var content = node.innerHTML
+                //    var pwin = window.open('', 'print_content', 'width=800,height=500');
+
+                //    pwin.document.open();
+                //    pwin.document.write('<html><body onload="window.print()">' + content + '</body></html>');
+                //    pwin.document.close();
+
+                //    setTimeout(function () { pwin.close(); }, 1000);
+
+                //}
+
+
+                function myFunction() {
+                    window.print();
+                }
+
+
+            </script>
+
+            <script>
+                $(function () {
+                    $('#example1').DataTable()
+                    $('#example2').DataTable({
+                        'paging': true,
+                        'lengthChange': false,
+                        'searching': false,
+                        'ordering': true,
+                        'info': true,
+                        'autoWidth': false
+                    })
+                })
+            </script>
+
+
+            <script type="text/javascript">
+
+                $(document).ready(function () {
+
+                    $('.remove').on('click', function (e, data) {
+                        if (!data) {
+                            handleRemove(e, 1);
+                        } else {
+                            window.location = $(this).attr("href");
+                        }
+                    });
+                });
+
+
+                function handleRemove(e, stop) {
+                    if (stop) {
+                        e.preventDefault();
+                        Swal.fire({
+                            title: "Are you sure?",
+                            text: "Are you sure you want to delete students/pupils in this term, this action cannot be revert!",
+                            type: "warning",
+                            showCancelButton: !0,
+                            confirmButtonText: "Yes, delete it!",
+                            cancelButtonText: "No, cancel!",
+                            confirmButtonClass: "btn btn-success mt-2",
+                            cancelButtonClass: "btn btn-danger ml-2 mt-2",
+                            buttonsStyling: !1
+                        }).
+                            then(function (t) {
+                                t.value ? $(e.target).trigger('click', {}) && Swal.fire({
+                                    title: "Deleted!",
+                                    text: "Your file has been deleted.",
+                                    type: "success",
+
+                                }) : t.dismiss === Swal.DismissReason.cancel && Swal.fire({
+                                    title: "Cancelled",
+                                    text: "Your Report is safe :)",
+                                    type: "error"
+                                })
+                            })
+
+                    }
+                };
+
+            </script>
+        }
+
+
+
+    </div>
+</div>
+

@@ -1,0 +1,70 @@
+﻿@model IEnumerable<SchoolPortal.Web.Models.Entities.Ticket>
+
+<style>
+   
+</style>
+<!-- /.box-header -->
+<div class="box-body" style="padding:0px;border: 1px solid #3c8dbc;">
+    <!-- See dist/js/pages/dashboard.js to activate the todoList plugin -->
+    @if (Model.Count() < 1)
+    {
+        <div class="box" style="margin-bottom: 0px;">
+
+            <div class="box-body">
+               <h3>No Complain Available</h3>
+            </div>
+           
+        </div>
+    }
+    @foreach (var item in Model)
+    {
+        <div class="box" style="margin-bottom: 0px;">
+
+            <div class="box-body">
+                <a href="@Url.Action("Details", "Tickets", new { id = item.Id })">
+                    <p> @item.TicketNumber - @item.Complain</p>
+                </a>
+            </div>
+            <div class="box-footer">
+                @if (item.Closed == true)
+                {
+                    <small class="label label-danger pull-left" style="padding:4px;"><i class="fa fa-check-square"></i> Closed</small>
+                }
+                else
+                {
+                    <small class="label label-primary pull-left" style="padding:4px;"><i class="fa fa-check-square-o"></i> Active</small>
+                    <span>&nbsp;</span> <span>&nbsp;</span>
+                }
+                <span>&nbsp;</span>
+                @if (item.Responses.Count() > 0)
+                {
+                    if (item.Responses.OrderBy(c => c.Date).FirstOrDefault().RepliedBy.ToLower() == "superadmin")
+                    {
+                        <span>&nbsp;</span> <small class="label label-success pull-left" style="padding:4px;margin-left:4px;"><i class="fa fa-reply"></i> replied</small>
+
+                    }
+                    else
+                    {
+                        <span>&nbsp;</span> <small class="label label-success pull-left" style="padding:4px;margin-left:4px;"><i class="fa fa-genderless"></i> open</small>
+
+                    }
+                    <span>&nbsp;</span>
+                }
+                else
+                {
+                    <span>&nbsp;</span> <small class="label label-success pull-left" style="padding:4px;margin-left:4px;"><i class="fa fa-genderless"></i> open</small>
+
+                }
+
+                <small class="label label-default pull-right"><i class="fa fa-clock-o"></i> @item.Date.ToShortDateString()</small>
+            </div>
+            <!-- /.box-body -->
+
+
+
+        </div>
+    }
+
+
+</div>
+<!-- /.box-body -->

@@ -1,0 +1,82 @@
+﻿@model SchoolPortal.Web.Models.UI.SitePageCategory
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <!-- left column -->
+    <div class="col-md-12">
+        <div class="box box-primary">
+            <div class="box-header">
+                <h3>Site Page Category</h3>
+            </div>
+            <div class="box-body">
+                @using (Html.BeginForm())
+                {
+                    @*@Html.AntiForgeryToken()*@
+
+                    <div class="form-horizontal">
+                        <h4>SitePageCategory</h4>
+                        <hr />
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Show, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                <div class="checkbox">
+                                    @Html.EditorFor(model => model.Show)
+                                    @Html.ValidationMessageFor(model => model.Show, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Create" class="btn btn-default" />
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                <div>
+                    @Html.ActionLink("Back to List", "Index")
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts2 {
+
+        
+    <script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
+    <script>
+        tinymce.init({
+            selector: 'textarea',
+            relative_urls: false,
+            remove_script_host: false,
+            convert_urls: true,
+            height: 500,
+            plugins: [
+                "advlist autolink lists link image charmap print preview anchor",
+                "searchreplace visualblocks code fullscreen",
+                "insertdatetime media table contextmenu paste imagetools wordcount"
+            ],
+            toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+            imagetools_cors_hosts: ['www.tinymce.com', 'codepen.io'],
+            content_css: [
+                '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+                '//www.tinymce.com/css/codepen.min.css'
+            ]
+        });
+    </script>
+}
+

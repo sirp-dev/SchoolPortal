@@ -1,0 +1,183 @@
+﻿
+
+@model PagedList.IPagedList<SchoolPortal.Web.Models.Entities.StaffProfile>
+@using PagedList.Mvc;
+<link href="http://v1.exwhyzee.ng/Content/PagedList.css" rel="stylesheet" />
+@using SchoolPortal.Web.Areas.Service
+@{
+    ViewBag.Title = "All Staff";
+    //var roles = ((string[])ViewBag.Roles).OrderBy(x => x);
+}
+
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box panel-primary">
+
+            <div class="box-header">
+                <h3 class="box-title"><i class="fa fa-fw fa-user-plus"></i> Non Staff Management (@Model.Count() / @ViewBag.countallS)</h3>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-1"></div>
+
+                <div class="col-md-5">
+                    @using (Html.BeginForm())
+                    {
+
+                        <div class="input-group" style="margin-left:10px;">
+                            <div class="input-group-btn">
+                                <button type="submit" class="btn btn-primary" value="@ViewBag.CurrentFilter">Search</button>
+                            </div>
+                            <!-- /btn-group -->
+                            <input type="text" name="SearchString" value="@ViewBag.CurrentFilter" class="form-control" placeholder="Search...">
+                        </div>
+
+                    }
+                </div>
+                <div class="col-md-5">
+                    <div class="btn-group pull-right">
+
+
+                        <span class="dropdown">
+                            <button class="btn btn-primary dropdown-toggle" style="border-radius:0px !important;" type="button" data-toggle="dropdown">
+                                Filter
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" style="border:1px solid #3c8dbc;">
+                                <li> @Html.ActionLink("Active", "Active", null, new { @class = "" })</li>
+                                <li>
+                                    @Html.ActionLink("Expelled", "Expelled", null, new { @class = "" })
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Withdrawn", "Withdrawn", null, new { @class = "" })
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Archived", "Archived", null, new { @class = "" })
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Suspended", "Suspended", null, new { @class = "" })
+                                </li>
+
+                                <li>
+                                    @Html.ActionLink(GeneralService.StudentorPupil() + "s", "AllStudents", null, new { @class = "btn btn-primary" })
+                                </li>
+                                <li>@Html.ActionLink("Users", "Index", null, new { @class = "" })</li>
+
+                            </ul>
+                        </span>
+
+                    </div>
+
+                </div>
+                <div class="col-md-1"></div>
+            </div>
+
+            <br />
+            <!-- /.box-header -->
+            <div class="box-body table-responsive border-table">
+
+
+                <br />
+
+                <table border="1" class="table table-bordered table-hover">
+
+                    <tr>
+                        <th>
+                            FULL NAME
+                        </th>
+                        <th>
+                            USERNAME
+                        </th>
+                        <th>
+                            CREATION DATE
+                        </th>
+                        <th>
+                            STATUS
+                        </th>
+                        <th>
+                            REGISTERED BY
+                        </th>
+                        @foreach (var item in ViewBag.Roles)
+                        {
+                            <th>@item.Name.ToUpper()</th>
+                        }
+                        <th>ACTION</th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @item.user.Surname @item.user.FirstName @item.user.OtherName
+                            </td>
+
+                            <td>
+                                @item.user.UserName
+                            </td>
+                            <td>
+                                @item.user.DateRegistered
+                            </td>
+                            <td>
+                                @if (item.user.Status == SchoolPortal.Web.Models.Entities.EntityStatus.Active)
+                                {
+                                    <span class="text-success">@Html.DisplayFor(modelItem => item.user.Status)</span>
+                                }
+                                else if (item.user.Status == SchoolPortal.Web.Models.Entities.EntityStatus.Expelled)
+                                {
+                                    <span class="text-danger">@Html.DisplayFor(modelItem => item.user.Status)</span>
+                                }
+                                else if (item.user.Status == SchoolPortal.Web.Models.Entities.EntityStatus.Suspeneded)
+                                {
+                                    <span class="text-warning">@Html.DisplayFor(modelItem => item.user.Status)</span>
+                                }
+                                else if (item.user.Status == SchoolPortal.Web.Models.Entities.EntityStatus.Archived)
+                                {
+                                    <span class="text-primary">@Html.DisplayFor(modelItem => item.user.Status)</span>
+                                }
+                                else if (item.user.Status == SchoolPortal.Web.Models.Entities.EntityStatus.Withdrawn)
+                                {
+                                    <span class="text-warning">@Html.DisplayFor(modelItem => item.user.Status)</span>
+                                }
+                                else
+                                {
+                                    @Html.DisplayFor(modelItem => item.user.Status)
+                                }
+                            </td>
+                            <td>
+                                @item.user.RegisteredBy
+                            </td>
+                            @foreach (var role in ViewBag.Roles)
+                            {
+                                <td>
+                                    @using (Html.BeginForm("UserToRole", "UserManagers"))
+                                    {
+                                        <input type="hidden" value="@item.Id" name="userId" />
+                                        <input type="hidden" value="@role.Name" name="rolename" />
+                                        <input type="checkbox" class="icheckbox_minimal-blue" name="ischecked" onclick="this.form.submit();" value="true" checked="@GeneralService.IsUserInRole(item.user.Id, role.Name)" />
+
+                                    }
+                                </td>
+                            }
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-warning" })
+                            </td>
+                        </tr>
+                    }
+                </table>
+                <div class="container text-center page" style="margin-left:auto;margin-right:auto;">
+
+                    <p>Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount</p>
+
+                    @Html.PagedListPager(Model, page => Url.Action("AllStaff",
+    new { page }))
+                </div>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+        <!-- /.box -->
+    </div>
+    <!-- /.col -->
+</div>

@@ -1,0 +1,28 @@
+﻿@model SchoolPortal.Web.Models.Entities.ContentPage
+
+@{
+    ViewBag.Title = Model.Title;
+    ViewBag.mTitle = Model.MetaTage;
+    ViewBag.mDesc = Model.MetaDescription;
+    ViewBag.mKey = Model.MetaKeyword;
+
+        Layout = "~/Areas/Admin/Views/Shared/_FrontPagePreviewLayout.cshtml";
+
+
+}
+
+@Html.Action("_PageCrumb", "Page")
+
+
+@Html.Raw(Model.Content)
+@section HeadArea {
+
+    @Html.Raw(ViewBag.taghead)
+    @Html.Raw(ViewBag.styletag)
+
+}
+
+@section FooterArea {
+
+    @Html.Raw(ViewBag.jstag)
+}

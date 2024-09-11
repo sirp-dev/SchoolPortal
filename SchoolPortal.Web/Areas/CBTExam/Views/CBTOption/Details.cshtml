@@ -1,0 +1,73 @@
+﻿@model SchoolPortal.Web.Models.Entities.OptionModel
+@using SchoolPortal.Web.Areas.Service
+@{
+    ViewBag.Title = "Option Detail";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+        <div class="box box-default">
+            <div class="box-header with-border">
+
+                <h3 class="box-title">Option Details</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="table-responsive">
+                            <table class="table table-success table-bordered" style="background-color:#3c8dbc; color:#ffffff;">
+                                <tr>
+                                    <th>School Link</th>
+                                    <td>@ViewBag.Detail.SchoolLink</td>
+                                </tr>
+                                <tr>
+                                    <th>Correct Option</th>
+                                    <td>@ViewBag.Detail.IsAnswer</td>
+                                </tr>
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @*<div class="box-body">
+
+                <div class="container-fluid">
+                    <h3>Question</h3>
+                    <div class="" style="max-height:200px;overflow:scroll;">
+                        @Html.Raw(ViewBag.Detail.QuestionModel.Name)
+                    </div>
+                </div>
+            </div>*@
+
+            <div class="box-body">
+
+                <div class="container-fluid">
+                    <h3>Option</h3>
+                    <div class="" style="max-height:200px;overflow:scroll;">
+                        @Html.Raw(ViewBag.Detail.Name)
+                    </div>
+                </div>
+            </div>
+            <!-- /.box-body -->
+
+            <div class="box-footer">
+                <a class="btn btn-primary" href="http://@GeneralService.PortalLink()/CBTExam/CBTOption/Edit?id=@ViewBag.Detail.Id&unixconverify=@User.Identity.Name&xgink=@GeneralService.PortalLink()&role=superadmin"><i class="fa fa-edit"></i> Edit  </a>
+                <a href="javascript: history.back()" class="btn btn-default">Cancel</a>
+            </div>
+
+        </div>
+        <!-- /.box -->
+    </div>
+    <!-- /.col -->
+
+
+    <div class="col-md-1"></div>
+
+</div>
+

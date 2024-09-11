@@ -1,0 +1,158 @@
+﻿@model SchoolPortal.Web.Models.RegisterViewModel
+@using SchoolPortal.Web.Areas.Service
+@{
+
+    ViewBag.Title = "New " + GeneralService.StudentorPupil();
+}
+@using SchoolPortal.Web.Areas.Service
+
+
+<div class="row">
+    <!-- left column -->
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <!-- general form elements -->
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">New @GeneralService.StudentorPupil()</h3>
+                @if (TempData["error"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                        @TempData["error"]<br />
+                        @TempData["error1"]
+                    </div>
+                }
+                @if (TempData["success"] != null)
+                {
+                    <div class="alert alert-success alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <strong>@Html.Raw(TempData["success"])</strong>
+                    </div>
+                }
+            </div>
+            @using (Html.BeginForm("New", "UserManagers", FormMethod.Post, new { @class = "", role = "form", enctype = "multipart/form-data" }))
+            {
+                @*@Html.AntiForgeryToken()*@
+
+
+            <div class="box-body">
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <input type="email" name="Email" value="email@e.e" class="hide" hidden="hidden" />
+                <div class="form-group">
+                    @*@Html.Label("Choose a class for new student", new { @class = "control-label" })*@
+
+                    <label class="control-label">Choose a class for new @GeneralService.StudentorPupil()</label>
+                    <div class="">
+                        @Html.DropDownList("classId", ViewBag.ClassLevelId as SelectList, "Choose", new { @class = "form-control", required = "required" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.Label("Username", new { @class = "control-label" })
+                    @Html.Label("(can be conbination of surname and first name)", new { @class = "control-label" })
+                    <div class="">
+                        @Html.TextBoxFor(m => m.Username, new { @class = "form-control" })
+                    </div>
+                </div>
+                @*<div class="form-group">
+                    @Html.LabelFor(m => m.Email, new { @class = "control-label" })
+                    <div class="">
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                    </div>
+                </div>*@
+                <div class="row">
+                    <div class="col-md-6" style="padding-left:0px;">
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Password, new { @class = "control-label" })
+                            <div class="">
+                                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6"style="padding-right:0px;">
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.ConfirmPassword, new { @class = "control-label" })
+                            <div class="">
+                                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-4" style="padding-left:0px;">
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Surname, new { @class = "control-label" })
+                            <div class="">
+                                @Html.TextBoxFor(m => m.Surname, new { @class = "form-control", id = "upper", onkeyup = "myUppercase()" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.FirstName, new { @class = "control-label" })
+                            <div class="">
+                                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", id = "upper3", onkeyup = "myUppercase3()" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4" style="padding-right:0px;">
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.OtherName, new { @class = "control-label" })
+                            <div class="">
+                                @Html.TextBoxFor(m => m.OtherName, new { @class = "form-control", id = "upper4", onkeyup = "myUppercase4()" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    @Html.Label("Last School Attended", new { @class = "control-label" })
+                    <div class="">
+                        @Html.TextBox("LastSchoolAttended", null, new { @class = "form-control", id = "upper2", onkeyup = "myUppercase2()" })
+                    </div>
+                </div>
+
+
+
+            </div>
+
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-primary">Register</button>
+                    <a href="javascript: history.back()" class="btn btn-default">Cancel</a>
+                </div>
+
+            }
+        </div>
+
+    </div>
+    <div class="col-md-2"></div>
+
+</div>
+
+
+
+@section Scripts {
+        @**@
+
+    <script type="text/jscript">
+        $(function () {
+            $('#StateOfOrigin').change(function () {
+                $.getJSON('/UserManagers/LgaList/' + $('#StateOfOrigin').val(), function (data) {
+                    var items = '<option>Select a Local Government</option>';
+                    $.each(data, function (i, local) {
+                        items += "<option value='" + local.Value + "'>" + local.Text + "</option>";
+                    });
+                    $('#LGA').html(items);
+                });
+            });
+        });
+    </script>
+
+    <script src="http://v1.exwhyzee.ng/admin/main.js"></script>
+}
+

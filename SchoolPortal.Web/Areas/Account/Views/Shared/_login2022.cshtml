@@ -1,0 +1,122 @@
+﻿
+<!DOCTYPE html>
+<!-- saved from url=(0100)https://storage.googleapis.com/theme-vessel-items/checking-sites/oddo-2-html/HTML/main/login-12.html -->
+<html lang="zxx">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>
+        Login | @ViewBag.sch
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- External CSS libraries -->
+    <link type="text/css" rel="stylesheet" href="http://v1.exwhyzee.ng/newloginschool/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="http://v1.exwhyzee.ng/newloginschool/font-awesome.min.css">
+    <link type="text/css" rel="stylesheet" href="http://v1.exwhyzee.ng/newloginschool/flaticon.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+    <!-- Favicon icon -->
+    @if (ViewBag.schimage != null)
+    {
+        <link rel="icon" href="data:image/jpg;base64,@(Convert.ToBase64String(ViewBag.schimage))" type="image/jpg">
+    }
+    <!-- Google fonts -->
+    <!-- Custom Stylesheet -->
+    <link type="text/css" rel="stylesheet" href="http://v1.exwhyzee.ng/newloginschool/style.css">
+
+    <style>
+        .login-12 .bg-img {
+            background: url(http://v1.exwhyzee.ng/images/imglogin.jpg) top left repeat;
+            background-size: cover;
+            top: 0;
+            bottom: 0;
+            opacity: 1;
+            z-index: 999;
+            min-height: 100vh;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+        }
+
+        .login-12 .animated-text h1 {
+            display: block;
+            text-shadow: 0 0 80px rgb(255 255 255 / 50%);
+            background: url(http://v1.exwhyzee.ng/images/animated-text-2.png) repeat-y;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            -webkit-animation: aitf 80s linear infinite;
+            -webkit-transform: translate3d(0, 0, 0);
+            -webkit-backface-visibility: hidden;
+        }
+
+        .login-12 .btn-primary {
+            background: #5d7fdd;
+        }
+    </style>
+</head>
+<body id="top" data-new-gr-c-s-check-loaded="14.1052.0" data-gr-ext-installed="">
+    <div class="page_loader"></div>
+
+    <!-- Login 12 start -->
+    <div class="login-12">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xl-4 col-lg-5 col-md-12 form-info">
+                    <div class="form-section">
+                        <div class="logo clearfix">
+                            @if (ViewBag.schimage != null)
+                            {
+
+                                <a href="/">
+                                    <img src="data:image/jpg;base64,@(Convert.ToBase64String(ViewBag.schimage))" alt="logo">
+                                </a>
+                            }
+
+                        </div>
+                        <h3>Login to Your Account</h3>
+
+                        <div class="login-inner-form">
+
+                            @RenderBody()
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-8 col-lg-7 col-md-12 bg-img">
+                    <div class="lines">
+                        <div class="line"></div>
+                        <div class="line"></div>
+                        <div class="line"></div>
+                        <div class="line"></div>
+                        <div class="line"></div>
+                        <div class="line"></div>
+                    </div>
+                    <div class="info">
+                        <div class="animated-text">
+                            <h3>Welcome <span>to @ViewBag.sch</span></h3>
+                        </div>
+                        <p>
+                            “Education is the most powerful weapon which you can use to change the world”
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Login 12 end -->
+    <!-- External JS libraries -->
+    <script src="http://v1.exwhyzee.ng/newloginschool/jquery-3.6.0.min.js"></script>
+    <script src="http://v1.exwhyzee.ng/newloginschool/bootstrap.bundle.min.js"></script>
+    <script src="http://v1.exwhyzee.ng/newloginschool/jquery.validate.min.js"></script>
+    <script src="http://v1.exwhyzee.ng/newloginschool/app.js"></script>
+    <!-- Custom JS Script -->
+    @RenderSection("scripts", required: false)
+
+
+</body>
+
+</html>

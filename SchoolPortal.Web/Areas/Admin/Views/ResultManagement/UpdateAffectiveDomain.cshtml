@@ -1,0 +1,172 @@
+﻿@model SchoolPortal.Web.Models.Entities.AffectiveDomain
+
+@{
+    ViewBag.Title = "UpdateAffectiveDomain";
+}
+
+
+<div class="row">
+    <!-- left column -->
+
+    <div class="col-md-12">
+        <!-- general form elements -->
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Update Affective Domain</h3>
+
+                @if (TempData["message"] != null)
+                {
+                    <div class="alert alert-success alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                        @TempData["message"]
+                    </div>
+                }
+                @if (TempData["error"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                        @TempData["error"]
+                    </div>
+                }
+            </div>
+
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="table-responsive">
+                            <table class="table table-success table-bordered" style="background-color:#3c8dbc; color:#ffffff;">
+                                <tr>
+                                    <th>Attentiveness</th>
+                                    <td>@Model.Attentiveness</td>
+                                </tr>
+                                <tr>
+                                    <th>Honesty</th>
+                                    <td>@Model.Honesty</td>
+                                </tr>
+                                <tr>
+                                    <th>Neatness</th>
+                                    <td>@Model.Neatness</td>
+                                </tr>
+                                <tr>
+                                    <th>Punctuality</th>
+                                    <td>@Model.Punctuality</td>
+                                </tr>
+                                <tr>
+                                    <th>Relationship</th>
+                                    <td>@Model.Relationship</td>
+
+                                </tr>
+                               
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- /.box-body -->
+            <!-- /.box -->
+
+
+            @using (Html.BeginForm())
+            {
+                @*@Html.AntiForgeryToken()*@
+                <div class="box-body">
+
+
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.Id)
+                    @Html.HiddenFor(model => model.EnrolmentId)
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Attentiveness, htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+                            <select name="Attentiveness" class="form-control">
+                                <option value="Excellent">Excellent</option>
+                                <option value="Very Good">Very Good</option>
+                                <option value="Good">Good</option>
+                                <option value="Pass">Pass</option>
+                                <option value="Fair">Fair</option>
+                                <option value="Fail">Fail</option>
+                            </select>
+                            @Html.ValidationMessageFor(model => model.Attentiveness, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Honesty, htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+                            <select name="Honesty" class="form-control">
+                                <option value="Excellent">Excellent</option>
+                                <option value="Very Good">Very Good</option>
+                                <option value="Good">Good</option>
+                                <option value="Pass">Pass</option>
+                                <option value="Fair">Fair</option>
+                                <option value="Fail">Fail</option>
+                            </select>
+                            @Html.ValidationMessageFor(model => model.Honesty, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Neatness, htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+                            <select name="Neatness" class="form-control">
+                                <option value="Excellent">Excellent</option>
+                                <option value="Very Good">Very Good</option>
+                                <option value="Good">Good</option>
+                                <option value="Pass">Pass</option>
+                                <option value="Fair">Fair</option>
+                                <option value="Fail">Fail</option>
+                            </select>           
+                            @Html.ValidationMessageFor(model => model.Neatness, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Punctuality, htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+                            <select name="Punctuality" class="form-control">
+                                <option value="Excellent">Excellent</option>
+                                <option value="Very Good">Very Good</option>
+                                <option value="Good">Good</option>
+                                <option value="Pass">Pass</option>
+                                <option value="Fair">Fair</option>
+                                <option value="Fail">Fail</option>
+                            </select>        
+                            @Html.ValidationMessageFor(model => model.Punctuality, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Relationship, htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+                            <select name="Relationship" class="form-control">
+                                <option value="Excellent">Excellent</option>
+                                <option value="Very Good">Very Good</option>
+                                <option value="Good">Good</option>
+                                <option value="Pass">Pass</option>
+                                <option value="Fair">Fair</option>
+                                <option value="Fail">Fail</option>
+                            </select>                                       
+                            @Html.ValidationMessageFor(model => model.Relationship, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                   
+
+
+
+                </div>
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <a href="javascript: history.back()" class="btn btn-default">Cancel</a>
+                </div>
+            }
+        </div>
+    </div>
+</div>

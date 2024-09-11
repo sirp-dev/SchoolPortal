@@ -1,0 +1,157 @@
+﻿@model IEnumerable<SchoolPortal.Web.Models.Entities.ClassLevel>
+@using SchoolPortal.Web.Areas.Service
+
+@{
+    ViewBag.Title = "Promotion";
+    int sn = 0;
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box" style="padding:7px;">
+            <div class="box-header" style="margin-bottom:15px;">
+                <h3 class="box-title"><i class="fa fa-fw fa-file-text-o"></i> Promotion Management</h3>
+
+
+                @if (TempData["message"] != null)
+                {
+                    <div class="alert btn-primary alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                        @TempData["message"]
+                    </div>
+                }
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+
+                @if (ViewBag.setting.PromotionByMathsAndEng == true)
+                {
+                    <div class="alert alert-warning alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+
+
+                        <span>promotion of @GeneralService.StudentorPupil() is Based on if their cummulative scores for mathematics and english is above passmark score of your class</span>
+                    </div>
+                }
+                else if (ViewBag.setting.PromoteAll == true)
+                {
+                    <div class="alert alert-warning alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+
+                        <span>All @GeneralService.StudentorPupil() will be promoted.</span>
+                    </div>
+                }
+                else
+
+                {
+                    <div class="alert alert-warning alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+
+                        <span>promotion of @GeneralService.StudentorPupil() is Based on if their cummulative Average is above passmark score of your class</span>
+                    </div>
+                    <div class="alert btn-primary alert-dismissible">
+                        <span>
+                            Note: If you want to promote all the students, go to the setting and check the <strong>Promote All</strong> to true
+
+                        </span>
+                    </div>
+
+                }
+                <table id="example1" class="table table-bordered table-hover" border="1">
+
+                    <thead>
+                        <tr>
+                            <th>S/N</th>
+                            <th>
+                                Classes
+                            </th>
+                            <th>
+                                Passmark
+                            </th>
+                            <th colspan="3">
+                                Current Session(@ViewBag.sessionc.SessionYear)
+                            </th>
+                            <th colspan="3">Status from cummulative</th>
+                            <th>Promotion Session</th>
+                            <th>Promotion Class</th>
+
+                            <th>Action</th>
+
+
+                        </tr>
+                        <tr>
+                            <th colspan="3"></th>
+                            <th colspan="3">Total @GeneralService.StudentorPupil() Per Term</th>
+                            <th colspan="3">Total Number of Pass/Fail/None </th>
+
+                            <th colspan="3"></th>
+
+                        </tr>
+                        <tr>
+
+                            <th colspan="3"></th>
+                            <th>1st Term</th>
+                            <th>2nd Term</th>
+                            <th>3rd Term</th>
+                            <th>Pass</th>
+                            <th>Fail</th>
+                            <th>No <br /> Record</th>
+                            <th colspan="2"></th>
+                            <th></th>
+
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                @{sn++;}
+                                <td>@sn</td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ClassName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Passmark)
+                                </td>
+                                @foreach (var u in GeneralService.ClassList(item.Id))
+                                {
+                                    <td>@u</td>
+                                }
+                                <td style="background-color:#00a65a;color:#ffffff;">@GeneralService.PromotionPass(item.Id)</td>
+                                <td style="background-color:#dd4b39;color:#ffffff;">@GeneralService.PromotionFail(item.Id)</td>
+                                <td style="background-color:#f39c12;color:#ffffff;">@GeneralService.PromotionNull(item.Id)</td>
+                                @using (Html.BeginForm("Promoting", "ClassLevels", null, FormMethod.Post))
+                                {
+                                    @*@Html.AntiForgeryToken()*@
+
+
+
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                    <input type="text" name="oldclassid" value="@item.Id" hidden="hidden" />
+                                    <input type="text" name="oldsessionid" value="@ViewBag.sessionc.Id" hidden="hidden" />
+                                    <td>
+                                        @Html.DropDownList("sess", ViewBag.sessionId as SelectList, "choose a session", htmlAttributes: new { @class = "form-control", required = "Choose a session" })
+
+                                    </td>
+                                    <td>
+                                        @Html.DropDownList("classId", GeneralService.DropdownClasses(item.Id), htmlAttributes: new { @class = "form-control", required = "Choose a class" })
+
+                                    </td>
+                                    <td>
+                                        <button type="submit" class="btn btn-primary">Promote</button>
+                                    </td>
+
+
+                                }
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+

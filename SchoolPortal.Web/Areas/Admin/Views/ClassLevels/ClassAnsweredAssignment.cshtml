@@ -1,0 +1,139 @@
+﻿@model IEnumerable<SchoolPortal.Web.Models.Entities.AssignmentAnswer>
+@using SchoolPortal.Web.Areas.Service
+@{
+    ViewBag.Title = "ClassAnsweredAssignment";
+}
+
+<div class="row">
+    <div class="col-xs-12">
+
+        <div class="box">
+            <div class="box-header">
+                <h3>@ViewBag.AssignmentInfo.ClassLevel.ClassName Submitted Assignments</h3>
+                @*<h3>@ViewBag.AssignmentInfo.Session.Term</h3>
+                <h3>@ViewBag.AssignmentInfo.Session.SessionYear</h3>*@
+         
+            </div>
+            <div class="box-body">
+                @if (TempData["success"] != null)
+                {
+                    <div class="alert alert-success alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <strong>@TempData["success"]</strong>
+                    </div>
+                }
+                @if (TempData["error"] != null)
+                {
+                    <div class="alert alert-success alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <strong>@TempData["error"]</strong>
+                    </div>
+                }
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive">
+                <table id="example1" class="table table-bordered table-hover" border="1">
+                    <thead>
+                        <tr>
+                           
+                            <th>S/N</th>
+                            <th>
+                                @GeneralService.StudentorPupil() Name
+                            </th>
+                            <th>
+                                @GeneralService.StudentorPupil() Reg. NO.
+                            </th>
+                            <th>
+                               Date Answered
+                            </th>
+
+
+                            <th>
+                                Has Been Accessed
+                            </th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            int sno = 0;
+                        }
+                        @foreach (var item in Model)
+                        {
+                        <tr>
+                            <td>
+                                @{ sno++; }
+                                @sno
+                            </td>
+                            <td>
+                                @item.User.Surname @item.User.FirstName @item.User.OtherName
+                            </td>
+                            <td>
+                                @*@item.StudentProfile.StudentRegNumber*@
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DateAnswered)
+                            </td>
+                            
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Assessed)
+                            </td>
+
+                            <td>
+
+                                <div class="dropdown">
+                                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                                        Action
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" style="border-left:1px dotted #337ab7;">
+                                        <li class="text-color-success">@Html.ActionLink("Details", "AnswerDetail", new { id = item.Id, studentId = item.StudentId }, null)</li>
+                                       
+                                    </ul>
+                                </div>
+
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+    <!-- /.col -->
+</div>
+
+
+
+@section Style {
+
+    <link rel="stylesheet" href="http://v1.exwhyzee.ng/admin/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+}
+
+@section Scripts {
+    <!-- DataTables -->
+    <script src="http://v1.exwhyzee.ng/admin/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="http://v1.exwhyzee.ng/admin/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+
+}
+
+@section Scripts2 {
+    <script>
+        $(function () {
+            $('#example1').DataTable()
+            $('#example2').DataTable({
+                'paging': true,
+                'lengthChange': false,
+                'searching': false,
+                'ordering': true,
+                'info': true,
+                'autoWidth': false
+            })
+        })
+    </script>
+
+}
+

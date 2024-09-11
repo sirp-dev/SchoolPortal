@@ -1,0 +1,191 @@
+﻿
+
+@model PagedList.IPagedList<SchoolPortal.Web.Models.ApplicationUser>
+@using PagedList.Mvc;
+<link href="http://v1.exwhyzee.ng/Content/PagedList.css" rel="stylesheet" />
+@using SchoolPortal.Web.Areas.Service
+@{
+    ViewBag.Title = "Drop Outs";
+ }
+
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box panel-primary">
+
+            <div class="box-header">
+                <h3 class="box-title"><i class="fa fa-fw fa-user-plus"></i>Drop Outs (User Management) (@Model.Count() / @ViewBag.countall)</h3>
+                @if (TempData["success"] != null)
+                {
+                    <div class="alert alert-success alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <strong>@TempData["success"]</strong>
+                    </div>
+                }
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-6" style="padding-left:0px;">
+                    @using (Html.BeginForm())
+                    {
+
+                        <div class="input-group" style="margin-left:10px;">
+                            <div class="input-group-btn">
+                                <button type="submit" class="btn btn-primary" value="@ViewBag.CurrentFilter">Search</button>
+                            </div>
+                            <!-- /btn-group -->
+                            <input type="text" name="SearchString" value="@ViewBag.CurrentFilter" class="form-control" placeholder="Search...">
+                        </div>
+
+                    }
+                </div>
+                <div class="col-md-6" style="padding-right:5px;">
+
+                    <div class="btn-group pull-right">
+
+
+                        <span class="dropdown pull-right">
+                            <button class="btn btn-primary dropdown-toggle" style="border-radius:0px !important;" type="button" data-toggle="dropdown">
+                                Filter
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" style="border:1px solid #3c8dbc;">
+                                <li> @Html.ActionLink("Active", "Active", null, new { @class = "" })</li>
+                                <li>
+                                    @Html.ActionLink("Expelled", "Expelled", null, new { @class = "" })
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Withdrawn", "Withdrawn", null, new { @class = "" })
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Archived", "Archived", null, new { @class = "" })
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Suspended", "Suspended", null, new { @class = "" })
+                                </li>
+                                <li>
+                                    @Html.ActionLink(GeneralService.StudentorPupil() + "s", "AllStudents", null, new { @class = "" })
+                                </li>
+                                <li>    @Html.ActionLink("Staff", "AllStaff", null, new { @class = "" })</li>
+
+                            </ul>
+                        </span>
+                        <span class=" pull-right">
+                            @Html.ActionLink("Reset User Password", "ResetUserPassword", "XYZ", new { area = "Account" }, new { @class = "btn btn-danger", style = "border-radius:0px !important;" })
+                        </span>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <br />
+            <!-- /.box-header -->
+            <div class="box-body table-responsive border-table">
+
+
+                <br />
+
+                <table border="1" class="table table-bordered table-hover">
+
+                    <tr>
+                       
+                        <th>
+                            FULL NAME
+                        </th>
+                        <th>
+                            USERNAME
+                        </th>
+                        <th>
+                            CREATION DATE
+                        </th>
+                        <th>
+                            STATUS
+                        </th>
+                        <th>
+                            REGISTERED BY
+                        </th>
+ 
+                        <th>ACTION</th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            
+                            <td>
+                                @item.Surname @item.FirstName @item.OtherName
+                            </td>
+
+                            <td>
+                                @item.UserName
+                            </td>
+                            <td>
+                                @item.DateRegistered
+                            </td>
+                            <th>
+
+                                @if (item.Status == SchoolPortal.Web.Models.Entities.EntityStatus.Active)
+                                {
+                                    <span class="text-success">@Html.DisplayFor(modelItem => item.Status)</span>
+                                }
+                                else if (item.Status == SchoolPortal.Web.Models.Entities.EntityStatus.Expelled)
+                                {
+                                    <span class="text-danger">@Html.DisplayFor(modelItem => item.Status)</span>
+                                }
+                                else if (item.Status == SchoolPortal.Web.Models.Entities.EntityStatus.Suspeneded)
+                                {
+                                    <span class="text-warning">@Html.DisplayFor(modelItem => item.Status)</span>
+                                }
+                                else if (item.Status == SchoolPortal.Web.Models.Entities.EntityStatus.Archived)
+                                {
+                                    <span class="text-primary">@Html.DisplayFor(modelItem => item.Status)</span>
+                                }
+                                else if (item.Status == SchoolPortal.Web.Models.Entities.EntityStatus.Withdrawn)
+                                {
+                                    <span class="text-warning">@Html.DisplayFor(modelItem => item.Status)</span>
+                                }
+                                else
+                                {
+                                    @Html.DisplayFor(modelItem => item.Status)
+                                }
+                            </th>
+                            <td>
+                                @item.RegisteredBy
+                            </td>
+                           
+
+                            <td>
+
+                                @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-warning" })
+                                @if (item.IsLocked == true)
+                                {
+                                    @Html.ActionLink("Unblock", "Islocked", new { UserId = item.Id }, new { @class = "btn btn-success" })
+                                }
+                                else
+                                {
+                                    @Html.ActionLink("Block", "Islocked", new { UserId = item.Id }, new { @class = "btn btn-danger" })
+                                }
+
+
+
+                            </td>
+                        </tr>
+                    }
+                </table>
+                <div class="container text-center page" style="margin-left:auto;margin-right:auto;">
+
+                    <p>Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount</p>
+
+                    @Html.PagedListPager(Model, page => Url.Action("DropOut",
+    new { page }))
+                </div>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+        <!-- /.box -->
+    </div>
+    <!-- /.col -->
+</div>

@@ -1,0 +1,89 @@
+﻿@model IEnumerable<SchoolPortal.Web.Models.Entities.AttendanceDetail>
+
+@{
+    ViewBag.Title = "Attendance";
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box" style="padding:7px;">
+            <div class="box-header" style="margin-bottom:15px;">
+                <h3 class="box-title"><i class="fa fa-fw fa-file-text-o"></i> My Attendance (@Model.Count(x => x.IsPresent == true) Present) (@Model.Count(x => x.IsPresent == false) Absent)</h3>
+
+               
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+                <table id="example1" class="table table-bordered table-hover" border="1">
+
+                    <thead>
+                        <tr>
+                            <th>S/N</th>
+                            <th>
+                                Date
+                            </th>
+                            <th>
+                               Present
+                            </th>
+                           
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            int sno = 0;
+                        }
+                        @foreach (var item in Model)
+                        {
+                        <tr>
+                            <td>
+                                @{ sno++; }
+                                @sno
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Attendance.Date) (@Html.DisplayFor(modelItem => item.Attendance.Date.DayOfWeek))
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IsPresent)
+                            </td>
+                           
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+</div>
+
+
+
+
+@section Style {
+
+    <link rel="stylesheet" href="http://v1.exwhyzee.ng/admin/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+}
+
+@section Scripts {
+    <!-- DataTables -->
+    <script src="http://v1.exwhyzee.ng/admin/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="http://v1.exwhyzee.ng/admin/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+
+}
+
+@section Scripts2 {
+    <script>
+        $(function () {
+            $('#example1').DataTable()
+            $('#example2').DataTable({
+                'paging': true,
+                'lengthChange': false,
+                'searching': false,
+                'ordering': true,
+                'info': true,
+                'autoWidth': false
+            })
+        })
+    </script>
+}

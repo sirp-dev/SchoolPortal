@@ -1,0 +1,80 @@
+﻿
+@model IEnumerable<SchoolPortal.Web.Models.Dtos.EnrolledSubjectDto>
+@using SchoolPortal.Web.Areas.Service
+@{
+    ViewBag.Title = "Offline";
+    int n = 0;
+    ViewBag.usethis = "usesthis";
+    Layout = "~/Areas/Admin/Views/Shared/_OfflineLayout.cshtml";
+    ViewBag.Title = ViewBag.Class + " | " + ViewBag.Subject + " | " + ViewBag.SessionOne + "(Assessment =  " + ViewBag.acc + ")(Exam =  | " + ViewBag.exam + ")";
+}
+
+<link rel="stylesheet" href="http://v1.exwhyzee.ng/tables/datatables.min.css">
+
+
+<hr style="border:2px solid #3c8dbc;" />
+
+
+@*<div id="" class="m-datatable table-responsive no-padding">
+
+        <table id="datatable" class="table table-hover" border="1">
+            <tr>
+                <td colspan="6">  @ViewBag.Class | @ViewBag.Subject | @ViewBag.SessionOne (Assessment = @ViewBag.acc) (Exam = @ViewBag.exam)</td>
+            </tr>
+            <thead>
+
+
+                <tr>
+                    <th>S/N</th>
+                    <th>
+                        Full Name
+                    </th>
+                    <th>
+                        Unique Id
+                    </th>
+                    <th>
+                        Reg. NO.
+                    </th>
+                    <th>
+                        Assessment Score
+                    </th>
+                    <th>
+                        Exam Score
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        @{n++;}
+                        <td>@n</td>
+                        <td>
+                            @item.FullName
+                        </td>
+                        <td>
+                            @item.Id
+
+                        </td>
+
+
+                        <td>
+                            @GeneralService.RegNumByEnrolId(item.Enrollments.StudentProfileId)
+                        </td>
+                        <td class="">
+                            @Html.DisplayFor(modelItem => item.TestScore)
+
+
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ExamScore)
+
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>*@

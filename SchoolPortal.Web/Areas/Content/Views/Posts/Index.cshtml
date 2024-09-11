@@ -1,0 +1,133 @@
+﻿@*@model IEnumerable<SchoolPortal.Web.Models.Entities.Post>*@
+@model PagedList.IPagedList<SchoolPortal.Web.Models.Entities.Post>
+@using PagedList.Mvc;
+<link href="http://v1.exwhyzee.ng/Content/PagedList.css" rel="stylesheet" />
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box" style="padding:7px;">
+            <div class="box-header" style="margin-bottom:15px;">
+                <h3 class="box-title"><i class="fa fa-fw fa-file-text-o"></i> Post / Content Management</h3>
+               
+                <div class="box-tools">
+                    @Html.ActionLink("New Post", "Create", null, new { @class = "btn btn-primary", style = "padding: 7px;" })
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4">
+                        @using (Html.BeginForm("Index", "Posts", null, FormMethod.Post, new { @class = "" }))
+                        {
+
+                            <div class="input-group" style="margin-left:10px;">
+                                <div class="input-group-btn">
+                                    <button type="submit" class="btn btn-primary">Search</button>
+                                </div>
+                                <!-- /btn-group -->
+                                <input type="text" name="SearchString" class="form-control" value="@ViewBag.CurrentFilter" placeholder="Search...">
+                            </div>
+
+                        }
+
+                    </div>
+                    <div class="col-md-4"></div>
+                </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+                <table id="example1" class="table table-bordered table-hover" border="1">
+
+                    <tr>
+                        <th>
+                            Title
+                        </th>
+
+                        <th>
+                            DatePosted
+                        </th>
+                        <th>
+                            Status
+                        </th>
+                        <th>
+                            PostedBy
+                        </th>
+                        <th>
+                            who can see
+                        </th>
+                        <th>
+                            page Type
+                        </th>
+                        <th>
+                            Sort Order
+                        </th>
+
+                        <th></th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Title)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DatePosted)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Status)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PostedBy)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.WhoCanSeePost)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PageType)
+                            </td>
+
+
+                            <td>
+                                @item.SortOrder
+                            </td>
+                            <td>
+
+                                <div class="dropdown">
+                                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                                        Action
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+
+                                        <li class="text-color-warning">@Html.ActionLink("Edit", "Edit", new { id = item.Id }, null)</li>
+                                        @*@*<li class="text-color-success">@Html.ActionLink("Details", "Details", new { id = item.Id }, null)</li>**@
+                                        <li class="text-color-success">@Html.ActionLink("Details", "PostDetails", new { id = item.Id }, null)</li>
+
+                                        <li class="text-color-danger">@Html.ActionLink("Delete", "Delete", new { id = item.Id }, null)</li>
+
+                                    </ul>
+                                </div>
+
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+                <div class="container text-center page" style="margin-left:auto;margin-right:auto;">
+
+                    <p>Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount</p>
+
+                    @Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page }))
+                </div>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+</div>
+

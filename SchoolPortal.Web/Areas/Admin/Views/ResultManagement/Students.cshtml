@@ -1,0 +1,475 @@
+﻿@model IEnumerable<SchoolPortal.Web.Models.Dtos.EnrolledStudentsByClassDto>
+@using SchoolPortal.Web.Areas.Service
+@{
+    ViewBag.Title = @GeneralService.StudentorPupil() + "s";
+    int sn = 0;
+
+}
+
+<div class="row">
+    <div class="col-xs-12">
+
+        <div class="box">
+            <div class="box-header">
+                <span style="color:#337ab7;font-size:30px;"><i class="fa fa-fw fa-users" style="color:#337ab7;"></i> Class List </span>   <span style="font-size:15px;">@ViewBag.Session - @ViewBag.Class </span>
+                <h4>Form Teacher (@ViewBag.formteacher) (@Model.Count() @GeneralService.StudentorPupil()s)</h4>
+
+                <div class="pull-right">
+
+
+
+                    @using (Html.BeginForm("UpdateClassResult", "ResultManagement", new { id = ViewBag.ClassId, session = ViewBag.sessionId }))
+                    {
+                        if (ViewBag.enablePreviewResult == true)
+                        {
+
+                            
+                            if (ViewBag.Disableresults == false)
+                            {
+                               
+                            
+                            if (ViewBag.sett.PrintOutOption == SchoolPortal.Web.Models.Entities.PrintOutOption.PrintOutOne)
+                            {
+                                @Html.ActionLink("Result Preview", "ResultPreview", new { sessId = ViewBag.sessionId, classId = ViewBag.ClassId }, new { @class = "btn btn-primary", target = "_blank" })
+                            }
+                            else if (@ViewBag.sett.PrintOutOption == SchoolPortal.Web.Models.Entities.PrintOutOption.PrintOutTwo)
+                            {
+                                @Html.ActionLink("Result Preview", "ResultPreview2", new { sessId = ViewBag.sessionId, classId = ViewBag.ClassId }, new { @class = "btn btn-primary", target = "_blank" })
+                            }
+                            else if (@ViewBag.sett.PrintOutOption == SchoolPortal.Web.Models.Entities.PrintOutOption.PrintOutThree)
+                            {
+                                if (GeneralService.TotalCAScore(ViewBag.sessionId) == null || GeneralService.TotalCAScore(ViewBag.sessionId) == 0)
+                                {
+                                    @Html.ActionLink("Result Preview", "ResultPreview2", new { sessId = ViewBag.sessionId, classId = ViewBag.ClassId }, new { @class = "btn btn-primary", target = "_blank" })
+                                }
+                                else
+                                {
+                                    @Html.ActionLink("Result Preview", "ResultPreview3", new { sessId = ViewBag.sessionId, classId = ViewBag.ClassId }, new { @class = "btn btn-primary", target = "_blank" })
+                                    }
+
+                                }
+                            }
+                        }
+
+                        <input type="submit" value="Update Class Result" class="btn btn-success" />
+                        @Html.ActionLink("Back To Result Management", "Index", null, new { @class = "btn btn-primary" })
+
+                    }
+
+                </div>
+            </div>
+            <div class="box-body">
+                @if (TempData["Report"] != null)
+                {
+                    <div class="alert alert-success alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <strong>@TempData["Report"]</strong>
+                    </div>
+                }
+                @if (TempData["Error"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <strong>@TempData["Error"]</strong>
+                    </div>
+                }
+                @if (TempData["success"] != null)
+                {
+                    <div class="alert alert-success alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <strong>@TempData["success"]</strong>
+                    </div>
+                }
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive">
+                <table class="table table-hover">
+
+                    <tr>
+                        <th>S/N</th>
+                        <th>
+                            @GeneralService.StudentorPupil() Name
+                        </th>
+                        <th>
+                            Reg. Number
+                        </th>
+
+                        <th>
+                            Average Score
+                        </th>
+
+                        @*<th>
+                                Cummulative Score
+                            </th>*@
+                        @if (ViewBag.showPosOnClassResult == true)
+                        {
+                            <th>Position</th>
+                        }
+                        else
+                        {
+
+                        }
+
+                        <th>
+                            Total Subjects
+                        </th>
+                        <th></th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            @{sn++;}
+                            <td>@sn</td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.StudentName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.StudentRegNumber)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AverageScore)
+                            </td>
+
+                            @*<td>
+                                    @Html.DisplayFor(modelItem => item.CummulativeAverageScore)
+                                </td>*@
+                            @if (ViewBag.showPosOnClassResult == true)
+                            {
+                                <td>
+                                    @PrintService.MasterListPosition(item.EnrollmentId)
+                                </td>
+                            }
+                            else
+                            {
+
+                            }
+                            <td>
+
+                                @* @Html.DisplayFor(modelItem => item.SubjectCount)*@
+                                @GeneralService.SubjectCountPerStudent(item.EnrollmentId)
+
+                            </td>
+                            <td>
+                                @if (ViewBag.Check == "Not Published")
+                                {
+
+                                    <div class="dropdown">
+                                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                                            Action
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li class="text-color-warning">
+                                                @Html.ActionLink("Edit Result", "EditStudentResult", new { id = item.Id }, new { @class = "" })
+                                            </li>
+
+                                            @*<li class="text-color-warning">
+                                                    @Html.ActionLink("Add School Fee", "SchoolFees", new { StudentId = item.EnrollmentId, classId = ViewBag.ClassId, sessionId = ViewBag.sessionId }, new { @class = "" })
+                                                </li>*@
+                                            <li class="text-color-warning">
+                                                @Html.ActionLink("Recognitive Domain", "UpdateInformation", new { StudentId = item.EnrollmentId, classId = ViewBag.ClassId, sessionId = ViewBag.sessionId }, new { @class = "" })
+                                            </li>
+                                            <li class="text-color-warning">
+                                                @Html.ActionLink("Psychomotor Domain", "UpdatePsychomotorDomain", new { StudentId = item.EnrollmentId, classId = ViewBag.ClassId, sessionId = ViewBag.sessionId }, new { @class = "" })
+                                            </li>
+                                            <li class="text-color-warning">
+                                                @Html.ActionLink("Affective Domain", "UpdateAffectiveDomain", new { StudentId = item.EnrollmentId, classId = ViewBag.ClassId, sessionId = ViewBag.sessionId }, new { @class = "" })
+                                            </li>
+
+                                            <li class="text-color-warning">
+                                                @Html.ActionLink("Result Remark ", "UpdateResultRemarkbyEnrolment", new { EnrolId = item.EnrollmentId, classId = ViewBag.ClassId, sessionId = ViewBag.sessionId }, new { @class = "" })
+                                            </li>
+
+                                            @if (User.IsInRole("SuperAdmin"))
+                                            {
+                                                <li class="text-color-warning">
+                                                    @Html.ActionLink("Edit Result Admin", "EditStudentResultAdmin", new { id = item.Id }, new { @class = "" })
+                                                </li>
+                                                <li class="text-color-warning">
+                                                    @Html.ActionLink("Reconcile Edit Result", "ReconcileEditStudentResult", new { id = item.Id }, new { @class = "" })
+                                                </li>
+
+                                                <li class="text-color-danger">
+                                                    @Html.ActionLink("Reconcile Enrollsubject by class", "ReconcileEnrollSubjects", new { classid = ViewBag.ClassId }, new { @class = "" })
+                                                </li>
+
+
+                                            }
+                                        </ul>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <button class="btn btn-primary">Result Has been Published</button>
+                                }
+
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            </div>
+
+            <div class="box-body">
+                <div class="alert bg-primary" style="background-color:#337ab7;color:#ffffff;">
+                    @if (ViewBag.Check == "Not Published")
+                    {
+                        <h2 style="border-bottom:1px dotted #ffffff;" class="page-header">PUBLISH RESULT</h2>
+
+                        <p> Clicking on the "Publish Result" will enable the @GeneralService.StudentorPupil()<span>s</span> check this session's result online. Before clicking, please make sure that all results has been entered for each of the students in the class.</p><br />
+                        using (Html.BeginForm("PublishResult", "ResultManagement", new { id = ViewBag.Id, classId = ViewBag.ClassId }))
+                        {
+                            <input type="submit" value="Publish Result" class="btn btn-medium btn-success" />
+                        }
+
+                    }
+                    else if (ViewBag.Check == "Published")
+                    {
+                        <h2 style="border-bottom:1px dotted #ffffff;" class="alert bg-primary">UNPUBLISH RESULT</h2>
+
+                        <p> If you click on "Unpublish Result" the @GeneralService.StudentorPupil()<span>s</span> wont be able to check their results online.</p><br />
+                        using (Html.BeginForm("UnpublishResult", "ResultManagement", new { id = ViewBag.Id, classId = ViewBag.ClassId }))
+                        {
+                            <input type="submit" value="Unpublish Result" class="btn btn-medium btn-warning" />
+                        }
+
+                    }
+                </div>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+    <!-- /.col -->
+</div>
+
+
+
+<div class="modal modal-primary fade" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Cognitive Domain</h4>
+            </div>
+
+            @using (Html.BeginForm("UpdateInformation", "ResultManagement", null, FormMethod.Post, null))
+            {
+                @*@Html.AntiForgeryToken()*@
+
+
+                <input type="hidden" name="StudentId" id="StudentId" value="" />
+                <input type="hidden" name="classId" id="classId" value="" />
+                <input type="hidden" name="sessionId" id="sessionId" value="" />
+                <div class="modal-body">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="form-group">
+                        @Html.Label("Rememberance", htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+
+                            <select class="form-control" name="Rememberance">
+                                <option value="Very good">Very good</option>
+                                <option value="Good">Good</option>
+                                <option value="Poor">Poor</option>
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("Understanding", htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+
+                            <select class="form-control" name="Understanding">
+                                <option value="Very good">Very good</option>
+                                <option value="Good">Good</option>
+                                <option value="Poor">Poor</option>
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("Application", htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+
+                            <select class="form-control" name="Application">
+                                <option value="Very good">Very good</option>
+                                <option value="Good">Good</option>
+                                <option value="Poor">Poor</option>
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("Analyzing", htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+
+                            <select class="form-control" name="Analyzing">
+                                <option value="Very good">Very good</option>
+                                <option value="Good">Good</option>
+                                <option value="Poor">Poor</option>
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("Evaluation", htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+
+                            <select class="form-control" name="Evaluation">
+                                <option value="Very good">Very good</option>
+                                <option value="Good">Good</option>
+                                <option value="Poor">Poor</option>
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("Creativity", htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+
+                            <select class="form-control" name="Creativity">
+                                <option value="Very good">Very good</option>
+                                <option value="Good">Good</option>
+                                <option value="Poor">Poor</option>
+
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-outline">Save changes</button>
+                </div>
+            }
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+
+@if (User.IsInRole("SuperAdmin"))
+{
+    <h5 class="text-danger">What ever you do cant be undone... Read Well..</h5>
+    @Html.ActionLink("Remove All Student subject... Admin Only", "EnrolledSubjectLoop", new { id = ViewBag.ClassId }, new { @class = "btn btn-primary" })
+   <br /> @Html.ActionLink("Unenroll all student and enrolled subject... Admin Only", "EnrollmentEnrolledSubjectLoop", new { id = ViewBag.ClassId }, new { @class = "btn btn-danger" })
+
+}
+<div class="modal modal-primary fade" id="RemarkModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Cognitive Domain</h4>
+            </div>
+
+            <form>
+                @*@Html.AntiForgeryToken()*@
+
+
+                @*<input type="hidden" name="StudentId" id="StudentId" value="" />
+                    <input type="hidden" name="classId" id="classId" value="" />
+                    <input type="hidden" name="sessionId" id="sessionId" value="" />*@
+
+
+
+
+                <div class="modal-body">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="form-group">
+                        <label>@GeneralService.StudentorPupil() Remark</label>
+                        <div class="">
+
+                            <input type="text" name="Remark" id="myremark" class="form-control" />
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Close</button>
+                    <button type="button" onclick="RemarkUpdate(1)" class="btn btn-outline">Save changes</button>
+                </div>
+            </form>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+
+@section Scripts {
+    
+
+    <script>
+        //// Store
+        //localStorage.setItem("lastname", "Smith");
+        //// Retrieve
+        //document.getElementById("result").innerHTML = localStorage.getItem("lastname");
+
+        $("a[name=rem]").on("click", function () {
+            var a = $(this).attr("data-id");
+            var b = $(this).attr("data-sessid");
+            var c = $(this).attr("data-classid");
+            console.log(a, b, c)
+            localStorage.setItem("a1", a);
+            localStorage.setItem("a2", b);
+            localStorage.setItem("a3", c);
+
+        });
+
+         function RemarkUpdate(id) {
+
+          var d = document.getElementById("myremark").value;
+             var student = {};
+             student.EnrolId = localStorage.getItem("a1");
+             student.classId = localStorage.getItem("a2");
+             student.sessionId = localStorage.getItem("a3");
+             student.Remark = d;
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("UpdateResultRemarkbyEnrolment", "ResultManagement", new { area = "Admin" })",
+                data: JSON.stringify(student),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json"
+             });
+             $("#RemarkModal").modal("hide");
+             location.reload();
+             @*var reload = {};
+             reload.classId = localStorage.getItem("a2");
+             reload.sessionId = localStorage.getItem("a3");
+              $.ajax({
+                type: "POST",
+                url: "@Url.Action("Students", "ResultManagement", new { area = "Admin" })",
+                  data: JSON.stringify(reload),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json"
+             });
+
+
+             console.log(student)
+             console.log(reload)*@
+
+
+             @*location.href = '@Url.Action("", "ResultManagement")?sessId=' + localStorage.getItem("a3") + '&classId=' + localStorage.getItem("a2");
+             var sfd = '@Url.Action("Students", "ResultManagement")?sessId=' + localStorage.getItem("a3") + '&classId=' + localStorage.getItem("a2");
+             console.log(sfd)*@
+        }
+
+        //$(function () {
+        //    var a = ("#RemarkModal").data("id");
+        //    var b = ("#RemarkModal").data("sessid");
+        //    var c = ("#RemarkModal").data("classid");
+
+
+        //});
+    </script>
+}
+

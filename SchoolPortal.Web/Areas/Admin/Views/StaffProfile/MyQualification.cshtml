@@ -1,0 +1,51 @@
+﻿@model IEnumerable<SchoolPortal.Web.Models.Entities.Qualification>
+
+@{
+    ViewBag.Title = "MyQualification";
+}
+
+<h2>MyQualification</h2>
+
+<p>
+    @Html.ActionLink("Add Qualification", "AddQualification")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.NameOfInstitution)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.YearObtained)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CertificateObtained)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserId)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.NameOfInstitution)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.YearObtained)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CertificateObtained)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserId)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "EditQualification", new { id=item.Id }) |
+            @Html.ActionLink("Details", "QualificationDetails", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "DeleteQualification", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

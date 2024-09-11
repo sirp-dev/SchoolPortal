@@ -1,0 +1,124 @@
+﻿@model IEnumerable<SchoolPortal.Web.Models.Entities.EnrolledSubject>
+
+@{
+    ViewBag.Title = "PreviewAndPublish";
+}
+
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box" style="padding:7px;">
+            <div class="box-header" style="margin-bottom:15px;">
+                <h2 class="box-title"><i class="fa fa-fw fa-file-text-o"></i> Results For @ViewBag.Fullname </h2><small> ( @ViewBag.Class )</small>
+                <span class="pull-right">
+                    @using (Html.BeginForm("UpdateStudentResult", "ResultManagement", new { id = ViewBag.EnrollmentId }))
+                    {
+                        @Html.ActionLink("Preview Result", "PreviewAndPublish", new { id = ViewBag.EnrollmentId }, new { @class = "btn btn-sm btn-primary" })
+
+                        <input type="submit" value="Update Result" class="btn btn-success" />
+
+                    }
+                </span>
+            </div>
+            <div class="box-header">
+                @if (TempData["error"] != null)
+                {<div class="alert alert-danger">
+                        <p>@TempData["error"]</p>
+                    </div>
+                }
+                @if (TempData["success"] != null)
+                {
+                    <div class="alert alert-success">
+                        <p>@TempData["success"]</p>
+                    </div>
+                }
+                @if (TempData["msg"] != null)
+                {
+                    <div class="alert alert-success">
+                        <p>@TempData["msg"]</p>
+                    </div>
+                }
+
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+                <table class="table table-hover">
+
+                    <tr>
+                        <th>
+                            Subject
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.TestScore)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ExamScore)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.TotalScore)
+                        </th>
+
+                        <th>
+                            @Html.DisplayNameFor(model => model.Grade)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Remark)
+                        </th>
+                        <th></th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @item.Subject.SubjectName
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TestScore)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ExamScore)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TotalScore)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Grade)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Remark)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-primary" })
+
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            </div>
+            <!-- /.box-body -->
+            <div class="box-body">
+                <div class="panel btn-primary" style="padding:10px;">
+                    <span class="pull-right">
+                        @Html.ActionLink("Back to Class List", "Students", new { sessId = ViewBag.SessionId, classId = ViewBag.ClassId }, new { @class = "btn btn-default" })
+
+                    </span>
+                    <h2 style="border-bottom:1px dotted #ffffff;" class="page-header">Average: [@ViewBag.Sum]</h2>
+                    @if (ViewBag.showPosOnClassResult == true)
+                    {
+                        <p>Position:  @ViewData["Position"] out of @ViewBag.TotalStudents</p>
+                    }
+                    else
+                    {
+
+                    }
+
+                    </div>
+            </div>
+        </div>
+        <!-- /.box -->
+    </div>
+</div>
+

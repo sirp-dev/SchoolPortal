@@ -1,0 +1,92 @@
+﻿@model SchoolPortal.Web.Models.Entities.Response
+
+@{
+    ViewBag.Title = "CreateResponse";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+<div class="row">
+    <!-- left column -->
+    <div class="col-md-12">
+        <!-- general form elements -->
+        <div class="box box-primary">
+
+            @using (Html.BeginForm())
+            {
+                @*@Html.AntiForgeryToken()*@
+
+                <div class="box-body">
+
+                    <div class="">
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @if (User.IsInRole("SuperAdmin"))
+                        {
+                            <textarea name="Message" id="textarea" class="form-control"></textarea>
+                        }
+                        else
+                        {
+
+                            <textarea class="form-control" name="Message" rows="15" placeholder="Respond"></textarea>
+                        }
+                        @Html.ValidationMessageFor(model => model.Message, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <a href="javascript: history.back()" class="btn btn-default">Cancel</a>
+                </div>
+
+
+
+            }
+        </div>
+    </div>
+</div>
+
+
+
+@if (User.IsInRole("SuperAdmin"))
+{
+
+
+    @section Scripts2 {
+
+            
+        <script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
+        <script>
+            tinymce.init({
+                selector: 'textarea',
+                relative_urls: false,
+                remove_script_host: false,
+                convert_urls: true,
+                height: 500,
+                plugins: [
+                    "advlist autolink lists link image charmap print preview anchor",
+                    "searchreplace visualblocks code fullscreen",
+                    "insertdatetime media table contextmenu paste imagetools wordcount"
+                ],
+                toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+                imagetools_cors_hosts: ['www.tinymce.com', 'codepen.io'],
+                content_css: [
+                    '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+                    '//www.tinymce.com/css/codepen.min.css'
+                ]
+            });
+        </script>
+    }
+}
+else
+{
+
+
+
+    @section Scripts2 {
+
+            
+
+    }
+}

@@ -1,0 +1,396 @@
+﻿
+@model IEnumerable<SchoolPortal.Web.Models.Dtos.EnrolledStudentsByClassDto>
+@using SchoolPortal.Web.Areas.Service
+@{
+    ViewBag.Title = "MasterList";
+    int sno = 0;
+
+}
+
+<style>
+    .verticalTableHeader {
+        text-align: center;
+        white-space: nowrap;
+        transform-origin: 50% 50%;
+        -webkit-transform: rotate(90deg);
+        -moz-transform: rotate(90deg);
+        -ms-transform: rotate(90deg);
+        -o-transform: rotate(90deg);
+        transform: rotate(90deg);
+    }
+
+        .verticalTableHeader:before {
+            content: '';
+            padding-top: 60%; /* takes width as reference, + 10% for faking some extra padding */
+            display: inline-block;
+            vertical-align: middle;
+        }
+</style>
+
+
+<div class="row">
+    <div class="col-xs-12" id="test">
+
+        <div class="box">
+            <div class="box-header">
+                <span style="color:#337ab7;font-size:30px;"><i class="fa fa-fw fa-users" style="color:#337ab7;"></i> Master List </span>   <span style="font-size:15px;">@ViewBag.Session - @ViewBag.Class </span>
+                <h4>Form Teacher (@ViewBag.formteacher)</h4>
+
+                <div class="pull-right">
+                    @Html.ActionLink("Back To Result Management", "Index", null, new { @class = "btn btn-primary " })
+
+                </div>
+            </div>
+            <div class="box-body">
+                @if (TempData["Report"] != null)
+                {
+                    <div class="alert alert-success alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <strong>@TempData["Report"]</strong>
+                    </div>
+                }
+                @if (TempData["Error"] != null)
+                {
+                    <div class="alert alert-success alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <strong>@TempData["Error"]</strong>
+                    </div>
+                }
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive master">
+
+                <input type="hidden" value="Master List @ViewBag.Session-@ViewBag.Class" id="name" />
+                <table id="mytable" class="table table-hover table-border" border="1">
+
+                    <tr>
+                        <th colspan="10" style="font-weight:900;font-size:17px;">
+                            @GeneralService.SchoolName()
+                        </th>
+                        <td colspan="10" style="font-weight:900;font-size:17px;">Master List @ViewBag.Session - @ViewBag.Class </td>
+                    </tr>
+
+                    <tr style="border:1px solid #808080;">
+                        @if (GeneralService.SubjectCount(ViewBag.ClassId) == 0)
+                        {
+                            <th colspan="5" style="font-weight:900;font-size:17px;">
+                                NO RECORD FOUND
+                            </th>
+                        }
+                    </tr>
+
+                    <tr>
+                        <th>S/N</th>
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            Reg. no.
+                        </th>
+
+                        <th>
+                            Ave. Score
+                        </th>
+                        <th>
+                            Remark
+                        </th>
+
+                        @if (ViewBag.showPosOnClassResult == true)
+                        {
+                            <th>Position</th>
+                        }
+                        else
+                        {
+
+                        }
+
+                        <th>
+                            No. of Sub
+                        </th>
+
+
+                        @foreach (var subn in GeneralService.SubjectName(ViewBag.ClassId))
+                        {
+                            <th colspan="3">
+                                @subn.SubjectName
+                            </th>
+                        }
+                        <th></th>
+                    </tr>
+                    <tr style="border:1px solid #808080;">
+                        <th colspan="7"></th>
+
+                        @foreach (var subn in GeneralService.SubjectName(ViewBag.ClassId))
+                        {
+                            <th class="verticalTableHeader">C.A</th>
+                            <th class="verticalTableHeader">Exam</th>
+                            <th class="verticalTableHeader">Total</th>
+                        }
+                        <th>Total</th>
+
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+
+                        if (GeneralService.MasterListRemark2(item.EnrollmentId) == "Pass")
+                        {
+                            <tr style="border:1px solid #808080;background-color:#e4ebe7;">
+                                <td>
+                                    @{ sno++; }
+                                    @sno
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.StudentName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.StudentRegNumber)
+                                </td>
+
+                                <td>
+
+                                    @item.AverageScore
+                                </td>
+                                <td>
+
+                                    @GeneralService.MasterListRemark2(item.EnrollmentId)
+                                </td>
+
+                                @if (ViewBag.showPosOnClassResult == true)
+                                {
+                                    <td>
+
+                                        @PrintService.MasterListPosition(item.EnrollmentId)
+                                    </td>
+                                }
+                                else
+                                {
+
+                                }
+
+                                <td>
+                                    @GeneralService.SubjectCountPerStudent(item.EnrollmentId)
+
+
+                                </td>
+                                @Html.Action("MasterSubjects", new { enrId = item.EnrollmentId })
+
+                                @*@foreach (var subn in GeneralService.SubjectScores(item.EnrollmentId))
+                                    {
+                                        if (GeneralService.IsPrintOutThree() == true && (GeneralService.TotalStudentCAScore(item.EnrollmentId) == null || GeneralService.TotalStudentCAScore(item.EnrollmentId) == 0))
+                                        {
+                                            <td>
+                                                @if (subn.TotalCA == 0)
+                                                {
+
+                                                    if (subn.TestScore == 0)
+                                                    {
+                                                        <text>-</text>
+                                                    }
+                                                    else
+                                                    {
+                                                        @Math.Round(subn.TestScore ?? 0)
+
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    @Math.Round(subn.TotalCA ?? 0)
+
+                                                }
+                                            </td>
+                                        }
+                                        else if (GeneralService.TotalStudentCAScore(item.EnrollmentId) != null || GeneralService.TotalStudentCAScore(item.EnrollmentId) != 0)
+                                        {
+                                            <td>
+                                                @if (subn.TotalCA == 0)
+                                                {
+                                                    if (subn.TestScore == 0)
+                                                    {
+                                                        <text>-</text>
+                                                    }
+                                                    else
+                                                    {
+                                                        @Math.Round(subn.TestScore ?? 0)
+
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    @Math.Round(subn.TotalCA ?? 0)
+
+                                                }
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td>
+                                                @if (subn.TestScore == 0)
+                                                {
+                                                    <text> -</text>
+                                                }
+                                                else
+                                                {
+                                                    @Math.Round(subn.TestScore ?? 0)
+
+                                                }
+                                            </td>
+                                        }
+
+                                        <td>
+                                            @if (subn.ExamScore == 0)
+                                            {
+                                                <text>-</text>
+                                            }
+                                            else
+                                            {
+                                                @Math.Round(subn.ExamScore ?? 0)
+
+                                            }
+
+                                        </td>
+                                        <td>
+                                            @if (subn.TotalScore == 0)
+                                            {
+                                                <text>-</text>
+                                            }
+                                            else
+                                            {
+                                                @Math.Round(subn.TotalScore ?? 0)
+
+                                            }
+
+                                        </td>
+                                    }*@
+                                <td>
+
+                                    @Math.Round(GeneralService.TotalScore(item.EnrollmentId) ?? 0)
+                                </td>
+                            </tr>
+                        }
+                        else
+                        {
+                <tr style="border:1px solid #808080;background-color:#dbc6c6;">
+                    <td>
+                        @{ sno++; }
+                        @sno
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StudentName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StudentRegNumber)
+                    </td>
+
+                    <td>
+
+                        @item.AverageScore
+                    </td>
+                    <td>
+
+                        @GeneralService.MasterListRemark2(item.EnrollmentId)
+                    </td>
+
+                    @if (ViewBag.showPosOnClassResult == true)
+                    {
+                        <td>
+
+                            @PrintService.MasterListPosition(item.EnrollmentId)
+                        </td>
+                    }
+                    else
+                    {
+
+                    }
+
+                    <td>
+                        @GeneralService.SubjectCountPerStudent(item.EnrollmentId)
+
+
+                    </td>
+                    @Html.Action("MasterSubjects", new { enrId = item.EnrollmentId })
+                    <td>
+
+                        @Math.Round(GeneralService.TotalScore(item.EnrollmentId) ?? 0)
+                    </td>
+                </tr>
+                        }
+
+                    }
+
+                </table>
+                <br />
+                <div class="clearfix"></div>
+                <div class="text-center">
+                    @*<button onclick="myFunction()" style="text-align:center;" class="btn btn-primary">Print Result</button>*@
+                    <button onclick="window.print()" style="text-align:center;" class="btn btn-sm btn-primary">Print</button>
+                    @*<a href="@Url.Action("MasterListPrint","ResultManagement",new {sessId =ViewBag.Id,classId=ViewBag.ClassId, area ="Admin"})" style="text-align:center;" class="btn btn-sm btn-primary">Print</a>*@
+                    <button style="text-align:center;" class="btn btn-sm btn-primary" id="button-a">Download Master List Sheet</button>
+                </div>
+                @*<div style="margin-left: auto; margin-right: auto; width: 16%"><a href="" class="btn btn-primary xyz-button" onclick="printSelection(document.getElementById('test'));return false">Print</a></div>*@
+            </div>
+
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+    <!-- /.col -->
+</div>
+
+@section Scripts {
+
+
+}
+
+@section Style {
+
+
+}
+
+
+@section Scripts2 {
+    @**@
+
+    <script lang="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.15.1/xlsx.full.min.js"></script>
+    <script src="http://v1.exwhyzee.ng/Content/FileSaver.js-master/FileSaver.js-master/dist/FileSaver.min.js"></script>
+    <script>
+        var wb = XLSX.utils.table_to_book(document.getElementById('mytable'), { sheet: "Sheet JS" });
+        var wbout = XLSX.write(wb, { bookType: 'xlsx', bookSST: true, type: 'binary' });
+        function s2ab(s) {
+            var buf = new ArrayBuffer(s.length);
+            var view = new Uint8Array(buf);
+            for (var i = 0; i < s.length; i++) view[i] = s.charCodeAt(i) & 0xFF;
+            return buf;
+        }
+        $("#button-a").click(function () {
+            console.log(document.getElementById('name').value)
+
+            saveAs(new Blob([s2ab(wbout)], { type: "application/octet-stream" }), document.getElementById('name').value + '.xlsx');
+        });
+    </script>
+
+
+    <script type="text/javascript">
+
+                                                                    //function printSelection(node) {
+
+                                                                    //    var content = node.innerHTML
+                                                                    //    var pwin = window.open('', 'print_content', 'width=800,height=500');
+
+                                                                    //    pwin.document.open();
+                                                                    //    pwin.document.write('<html><body onload="window.print()">' + content + '</body></html>');
+                                                                    //    pwin.document.close();
+
+                                                                    //    setTimeout(function () { pwin.close(); }, 1000);
+
+                                                                    //}
+
+                                                                                //function myFunction() {
+                                                                                //    window.print();
+                                                                                //}
+
+    </script>
+
+
+    <script src="http://v1.exwhyzee.ng/admin/main.js"></script>
+}

@@ -1,0 +1,117 @@
+﻿@model IEnumerable<SchoolPortal.Web.Models.Dtos.Zoom.User>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.first_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.last_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.type)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.pmi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.timezone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.verified)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.created_at)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.last_login_time)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.language)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.phone_number)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dept)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.last_client_version)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.pic_url)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.first_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.last_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.type)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.pmi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.timezone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.verified)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.created_at)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.last_login_time)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.language)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.phone_number)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dept)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.last_client_version)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.pic_url)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>

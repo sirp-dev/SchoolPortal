@@ -1,0 +1,139 @@
+﻿@model SchoolPortal.Web.Models.UI.SiteSetting
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <!-- left column -->
+    <div class="col-md-12">
+        <div class="box box-primary">
+            <div class="box-header">
+                <h3>Site Settings</h3>
+            </div>
+            <div class="box-body">
+                <div>
+                    <h4>SiteSetting</h4>
+                    <hr />
+                    <dl class="dl-horizontal">
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Show)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Show)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.EmailOne)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.EmailOne)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.EmailTwo)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.EmailTwo)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.EmailThree)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.EmailThree)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.PhoneOne)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.PhoneOne)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.PhoneTwo)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.PhoneTwo)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.PhoneThree)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.PhoneThree)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.AddressOne)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.AddressOne)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.AddressTwo)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.AddressTwo)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.AddressThree)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.AddressThree)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Host)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Host)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.PX)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.PX)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Sender)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Sender)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Receiver)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Receiver)
+                        </dd>
+
+                    </dl>
+                </div>
+                <p>
+                    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+                    @Html.ActionLink("Back to List", "Index")
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

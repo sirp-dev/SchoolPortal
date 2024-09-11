@@ -1,0 +1,164 @@
+﻿
+@model IEnumerable<SchoolPortal.Web.Models.Dtos.EnrolledStudentsByClassArchiveDto>
+@using SchoolPortal.Web.Areas.Service
+@{
+    ViewBag.Title = "MasterList Preview";
+    int sn = 1;
+
+}
+
+@section Style {
+
+    <style>
+    </style>}
+
+
+
+
+
+<div class="row">
+    <div class="col-xs-12">
+
+        <div class="box">
+            <div class="box-header">
+                <span style="color:#337ab7;font-size:30px;"><i class="fa fa-fw fa-users" style="color:#337ab7;"></i> Class List </span>   <span style="font-size:15px;">@ViewBag.Session - @ViewBag.Class </span>
+                <h4>Form Teacher (@ViewBag.formteacher)</h4>
+
+                <div class="pull-right">
+                    @Html.ActionLink("Back To Result Management", "Index", null, new { @class = "btn btn-primary" })
+
+                </div>
+            </div>
+            <div class="box-body">
+                @if (TempData["Report"] != null)
+                {
+                    <div class="alert alert-success alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <strong>@TempData["Report"]</strong>
+                    </div>
+                }
+                @if (TempData["Error"] != null)
+                {
+                    <div class="alert alert-success alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <strong>@TempData["Error"]</strong>
+                    </div>
+                }
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive master">
+                <table class="table table-hover table-bordered" style="border:1px;">
+                    <tr>
+                        @if (GeneralService.SubjectArchiveCount(ViewBag.ClassId) == 0)
+                        {
+                            <th colspan="5" style="font-weight:900;font-size:17px;">
+                                NO RECORD FOUND
+                            </th>
+                        }
+                    </tr>
+
+                    <tr>
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            Reg. no.
+                        </th>
+
+                        <th>
+                            Ave.
+                        </th>
+                        @if (ViewBag.showPosOnClassResult)
+                        {
+                            <th>Position</th>
+                        }
+                        else
+                        {
+
+                        }
+
+                        <th>
+                            No. of Sub
+                        </th>
+
+
+                        @foreach (var subn in GeneralService.SubjectArchiveName(ViewBag.ClassId))
+                        {
+                            <th colspan="3">
+                                @subn.SubjectName
+                            </th>
+                        }
+                    </tr>
+                    <tr>
+                        <th colspan="5"></th>
+
+                        @foreach (var subn in GeneralService.SubjectArchiveName(ViewBag.ClassId))
+                        {
+                           
+                            <th>TOT</th>
+                        }
+
+                        <th>T Ave</th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StudentName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StudentRegNumber)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AverageScore)
+                        </td>
+
+
+                        <td>
+                            @(sn++)
+                        </td>
+
+
+                        }
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SubjectCount)
+                        </td>
+                        @foreach (var subn in GeneralService.SubjectArchiveScores(item.EnrollmentId))
+                        {
+
+                            <td>
+                                @subn.TotalScore
+                            </td>
+                        }
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AverageScore)
+                        </td>
+
+                        @if (ViewBag.showPosOnClassResult)
+                        {
+                            <td>
+
+                                @PrintArchiveService.MasterListPosition(item.EnrollmentId)
+                            </td>
+                        }
+                        else
+                        {
+
+                        }
+                    </tr>
+                    }
+
+                </table>
+            </div>
+
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+    <!-- /.col -->
+</div>
+
+
+

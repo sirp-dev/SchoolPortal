@@ -1,0 +1,86 @@
+﻿@model IEnumerable<SchoolPortal.Web.Models.Entities.ClassLevel>
+@using SchoolPortal.Web.Areas.Service
+@{
+    ViewBag.Title = "ClassLevel";
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box" style="padding:7px;">
+            <div class="box-header" style="margin-bottom:15px;">
+                <h3 class="box-title"><i class="fa fa-fw fa-file-text-o"></i>Class</h3>
+
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive" style="overflow:visible !important;">
+                <table class="table">
+                    <tr>
+                        <th>
+                          Class Name
+                        </th>
+
+                        <th></th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ClassName)
+                            </td>
+
+                            <td>
+
+                                <div class="dropdown">
+                                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                                        Action
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        @if (Request.Browser.IsMobileDevice == true)
+                                        {
+                                            <li>
+                                                @Html.ActionLink("Update " + GeneralService.StudentorPupil() + "s Info", "StudentsListInClass", new { id = item.Id }, new { @class = "" })
+                                            </li>
+                                            <li>
+                                                @Html.ActionLink(GeneralService.StudentorPupil() + "s", "StudentsInClass", new { id = item.Id }, new { @class = "" })
+                                            </li>
+
+                                            <li>
+                                                @Html.ActionLink("Class Details", "Details", "ClassLevels", new { id = item.Id, area = "Admin" }, new { @class = "" })
+                                            </li>
+                                            <li>
+                                                @Html.ActionLink("Subjects", "ClassSubject", "Panel", new { classId = item.Id }, new { @class = "" })
+                                            </li>
+                                        }
+                                        else
+                                        {
+
+                                            <li>
+                                                @Html.ActionLink("Update " + GeneralService.StudentorPupil() + "s Info", "StudentsListInClass", new { id = item.Id }, new { @class = "" })
+                                            </li>
+                                            <li>
+                                                @Html.ActionLink(GeneralService.StudentorPupil() + "s", "StudentsInClass", new { id = item.Id }, new { @class = "" })
+                                            </li>
+                                            <li>
+                                                @Html.ActionLink("Class Details", "Details", "ClassLevels", new { id = item.Id, area = "Admin" }, new { @class = "" })
+                                            </li>
+                                            <li>
+                                                @Html.ActionLink("Subjects", "ClassSubject", "Panel", new { classId = item.Id }, new { @class = "" })
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+
+
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+</div>

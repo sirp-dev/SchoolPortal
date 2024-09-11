@@ -1,0 +1,330 @@
+﻿
+@{
+    ViewBag.Title = "MultipleLiveClass";
+}
+
+
+@model SchoolPortal.Web.Models.Dtos.Zoom.OnlineZoomDto
+@using Microsoft.AspNet.Identity;
+@{
+    ViewBag.Title = "NewLiveClass";
+}
+
+<div class="row">
+    <!-- left column -->
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <!-- general form elements -->
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">New Concurrent Online Class</h3>
+                @if (TempData["error"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                        @TempData["error"]
+                    </div>
+                }
+            </div>
+        </div>
+        @using (Html.BeginForm("NewLiveClass", "Panel", new { area = "Staff" }, FormMethod.Post, new { id = "", enctype = "multipart/form-data" }))
+        {
+            <input type="hidden" name="multy" value="multy" />
+            @*@Html.AntiForgeryToken()*@
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="box box-solid">
+
+                <div class="box-body border-radius-none">
+
+                    <div class="form-group">
+                        <label>Class Date</label>
+
+                        <div class="input-group date">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <input type="text" class="form-control pull-right" placeholder="DD/MM/YYYY" name="ClassDate" id="datepicker">
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+
+                    <div class="bootstrap-timepicker">
+                        <div class="form-group">
+                            <label>Class Time</label>
+
+                            <div class="input-group">
+                                <input type="text" name="ClassTime" class="form-control timepicker">
+
+                                <div class="input-group-addon">
+                                    <i class="fa fa-clock-o"></i>
+                                </div>
+                            </div>
+                            <!-- /.input group -->
+                        </div>
+                        <!-- /.form group -->
+                    </div>
+                </div>
+                <!-- /.box-body -->
+                <!-- /.box-footer -->
+            </div>
+            <div class="box box-solid">
+                <div class="box-header">
+                    <h3 class="box-title bg-success">First Concurrent Class</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn bg-danger btn-sm" data-widget="collapse">
+                            <i class="fa fa-square"></i> min/max
+                        </button>
+
+                    </div>
+                </div>
+                <div class="box-body">
+
+
+                    <div class="form-group">
+                        Class
+                        <div class="">
+                            @Html.DropDownList("ClassLevelId1", ViewBag.classList as SelectList, "Select a Class", new { id = "classname1", @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        Subject
+                        <div class="">
+
+                            <select id="subject1" name="SubjectId1" class="form-control"></select>
+                        </div>
+                    </div>
+
+
+
+                    <div class="form-group">
+                        @Html.Label("Class Duration", htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+                            @Html.Editor("Duration1", new { htmlAttributes = new { @class = "form-control", type = "number", placeholder = "IN MINUTE" } })
+                        </div>
+                    </div>
+                    @if (User.IsInRole("Admin") || User.IsInRole("SuperAdmin"))
+                    {
+                        <div class="form-group">
+                            Class
+                            <div class="">
+                                @Html.DropDownList("UserId1", ViewBag.User as SelectList, "Select a Teacher", new { id = "classname", @class = "form-control" })
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        string uid = User.Identity.GetUserId();
+                        <input type="hidden" value="@uid" name="UserId1" />
+                    }
+                    <div class="form-group">
+                        @Html.Label("Topic Description", htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+                            <textarea class="form-control" name="Description1"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("Class Password", htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+                            @Html.Editor("ClassPassword1", new { htmlAttributes = new { @class = "form-control", placeholder = "Password" } })
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="box box-solid">
+                <div class="box-header">
+                    <h3 class="box-title bg-primary">Second Concurrent Class</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn bg-danger btn-sm" data-widget="collapse">
+                            <i class="fa fa-square"></i> min/max
+                        </button>
+
+                    </div>
+                </div>
+                <div class="box-body">
+
+
+                    <div class="form-group">
+                        Class
+                        <div class="">
+                            @Html.DropDownList("ClassLevelId2", ViewBag.classList as SelectList, "Select a Class", new { id = "classname2", @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        Subject
+                        <div class="">
+
+                            <select id="subject2" name="SubjectId2" class="form-control"></select>
+                        </div>
+                    </div>
+
+
+
+                    <div class="form-group">
+                        @Html.Label("Class Duration", htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+                            @Html.Editor("Duration2", new { htmlAttributes = new { @class = "form-control", type = "number", placeholder = "IN MINUTE" } })
+                        </div>
+                    </div>
+                    @if (User.IsInRole("Admin") || User.IsInRole("SuperAdmin"))
+                    {
+                        <div class="form-group">
+                            Class
+                            <div class="">
+                                @Html.DropDownList("UserId2", ViewBag.User as SelectList, "Select a Teacher", new { id = "classname", @class = "form-control" })
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        string uid = User.Identity.GetUserId();
+                        <input type="hidden" value="@uid" name="UserId2" />
+                    }
+                    <div class="form-group">
+                        @Html.Label("Topic Description", htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+                            <textarea class="form-control" name="Description2"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("Class Password", htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+                            @Html.Editor("ClassPassword2", new { htmlAttributes = new { @class = "form-control", placeholder = "Password" } })
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="box box-solid">
+                <div class="box-header">
+                    <h3 class="box-title bg-info">Third Concurrent Class</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn bg-danger btn-sm" data-widget="collapse">
+                            <i class="fa fa-square"></i> minimize
+                        </button>
+
+                    </div>
+                </div>
+                <div class="box-body">
+
+
+                    <div class="form-group">
+                        Class
+                        <div class="">
+                            @Html.DropDownList("ClassLevelId3", ViewBag.classList as SelectList, "Select a Class", new { id = "classname3", @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        Subject
+                        <div class="">
+
+                            <select id="subject3" name="SubjectId3" class="form-control"></select>
+                        </div>
+                    </div>
+
+
+
+                    <div class="form-group">
+                        @Html.Label("Class Duration", htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+                            @Html.Editor("Duration3", new { htmlAttributes = new { @class = "form-control", type = "number", placeholder = "IN MINUTE" } })
+                        </div>
+                    </div>
+                    @if (User.IsInRole("Admin") || User.IsInRole("SuperAdmin"))
+                    {
+                        <div class="form-group">
+                            Class
+                            <div class="">
+                                @Html.DropDownList("UserId3", ViewBag.User as SelectList, "Select a Teacher", new { id = "classname", @class = "form-control" })
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        string uid = User.Identity.GetUserId();
+                        <input type="hidden" value="@uid" name="UserId3" />
+                    }
+                    <div class="form-group">
+                        @Html.Label("Topic Description", htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+                            <textarea class="form-control" name="Description3"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("Class Password", htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+                            @Html.Editor("ClassPassword3", new { htmlAttributes = new { @class = "form-control", placeholder = "Password" } })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="box box-solid bg-teal-gradient">
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <a href="javascript: history.back()" class="btn btn-default">Cancel</a>
+                </div>
+
+
+            </div>
+        }
+    </div>
+    <div class="col-md-3"></div>
+
+</div>
+
+
+
+@section Scripts2 {
+        @**@
+
+
+    <script type="text/jscript">
+        $(function () {
+            $('#classname1').change(function () {
+                $.getJSON('/Staff/Panel/SubjectList/' + $('#classname1').val(), function (data) {
+                    var items = '<option>Select a Subject</option>';
+                    $.each(data, function (i, local) {
+                        items += "<option value='" + local.Value + "'>" + local.Text + "</option>";
+                    });
+                    console.log(data)
+                    $('#subject1').html(items);
+                });
+            });
+        });
+    </script>
+    <script type="text/jscript">
+        $(function () {
+            $('#classname2').change(function () {
+                $.getJSON('/Staff/Panel/SubjectList/' + $('#classname2').val(), function (data) {
+                    var items = '<option>Select a Subject</option>';
+                    $.each(data, function (i, local) {
+                        items += "<option value='" + local.Value + "'>" + local.Text + "</option>";
+                    });
+                    console.log(data)
+                    $('#subject2').html(items);
+                });
+            });
+        });
+    </script>
+    <script type="text/jscript">
+        $(function () {
+            $('#classname3').change(function () {
+                $.getJSON('/Staff/Panel/SubjectList/' + $('#classname3').val(), function (data) {
+                    var items = '<option>Select a Subject</option>';
+                    $.each(data, function (i, local) {
+                        items += "<option value='" + local.Value + "'>" + local.Text + "</option>";
+                    });
+                    console.log(data)
+                    $('#subject3').html(items);
+                });
+            });
+        });
+    </script>
+
+    <script src="http://v1.exwhyzee.ng/admin/main.js"></script>
+
+}
+
+
+

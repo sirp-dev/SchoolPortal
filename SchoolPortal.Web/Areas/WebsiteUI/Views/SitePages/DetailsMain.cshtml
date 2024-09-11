@@ -1,0 +1,98 @@
+﻿@model SchoolPortal.Web.Models.UI.SitePage
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+
+    ViewBag.Title = "DetailsMain";
+}
+
+<h2>DetailsMain</h2>
+
+<div>
+    <h4>SitePage</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.SitePageCategory.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SitePageCategory.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Content)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Content)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PageLink)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PageLink)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Show)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Show)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IsNews)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsNews)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PreviewContent)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PreviewContent)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MainPage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MainPage)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SubPage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SubPage)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FooterPage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FooterPage)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SortOrder)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SortOrder)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,20 @@
+﻿@model SchoolPortal.Web.Models.Entities.Setting
+    @if (Model != null)
+    {
+
+
+        if (Model.SchoolInitials != null || Model.SchoolInitials != "")
+        {
+        <span class="logo-mini"><b>@Model.SchoolInitials.Substring(0, 1)</b>@Model.SchoolInitials.Substring(1, 2)</span>
+        <!-- logo for regular state and mobile devices -->
+        <span class="logo-lg"><b>@Model.SchoolInitials</b></span>
+        }
+        else
+        {
+        <span class="logo-mini"><b>Non</b></span>
+        <!-- logo for regular state and mobile devices -->
+        <span class="logo-lg"><b>NON</b></span>
+        }
+
+
+    }

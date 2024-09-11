@@ -1,0 +1,31 @@
+﻿@model SchoolPortal.Web.Models.Entities.Documentary
+
+@{
+    Layout = "~/Views/Shared/_DocumentaryLayout.cshtml";
+    ViewBag.Title = "Documentary";
+}
+<div class="row">
+    <!-- left column -->
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <!-- TO DO List -->
+        <div class="box box-primary">
+            <div class="box-header">
+                <i class="fa fa-gamepad"></i>
+                <h3 class="box-title">@Model.Title</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <h5>Description</h5>
+                <p style="text-align:justify;">@Html.Raw(Model.Description)</p>
+
+                <h5>Date</h5>
+                <p style="text-align:justify;">@Html.Raw(Model.DateCreated)</p>
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer clearfix no-border">
+
+            </div>
+        </div>
+        <!-- /.box -->
+    </div>

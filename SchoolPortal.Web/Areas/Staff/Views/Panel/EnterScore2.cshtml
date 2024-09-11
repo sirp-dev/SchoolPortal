@@ -1,0 +1,865 @@
+﻿@model IEnumerable<SchoolPortal.Web.Models.Dtos.EnrolledSubjectDto>
+@using SchoolPortal.Web.Areas.Service
+@{
+    ViewBag.Title = "Update Score";
+    int n = 0;
+}
+
+
+<div class="row">
+    <!-- left column -->
+
+    <div class="col-md-12">
+        <!-- general form elements -->
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Assessment And Exam Score Entry</h3>
+                @if (TempData["error"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                        @TempData["error"]
+                    </div>
+                }
+
+                @if (TempData["success"] != null)
+                {
+                    <div class="alert alert-success alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                        @TempData["success"]
+                    </div>
+                }
+            </div>
+            @using (Html.BeginForm("EnterScore2", "Panel", new { area = "Staff" }, FormMethod.Post))
+            {
+                @*@Html.AntiForgeryToken()*@
+
+                <div class="box-body">
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Class</label>
+                                <div class="">
+                                    @Html.DropDownList("ClassL", ViewBag.ClassL as List<SelectListItem>, "Select a class", new { id = "classesId", @class = "form-control" })
+                                    @* @Html.DropDownList("ClassLevelId", null, "Select a class", htmlAttributes: new { @class = "form-control" })*@
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Subject</label>
+                                <div class="">
+                                    <select id="Subject" name="subId" class="form-control"></select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+                <div class="box-footer">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button type="submit" class="btn btn-primary">Fetch</button>
+                            <a href="javascript: history.back()" class="btn btn-default">Cancel</a>
+                        </div>
+                    </div>
+
+                </div>
+
+            }
+        </div>
+
+
+
+    </div>
+</div>
+<style>
+    #studentRecord tr, td, th {
+        padding: 2px !important;
+    }
+</style>
+@if (Model != null)
+{
+
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box" style="padding:7px;">
+                <div class="box-header noprint" style="margin-bottom:15px;">
+                    <div class="pull-right">
+
+                        @using (Html.BeginForm("ReloadEnterscore", "Panel", new { area = "Staff", id = ViewBag.SubjectId, sessionId = ViewBag.SessionId, classId = ViewBag.ClassLevelId }, FormMethod.Post, null))
+                        {
+
+                            @Html.ActionLink("Subject Position", "SubjectResultSheet", new { subId = ViewBag.SubjectId, sessionId = ViewBag.sessionId }, new { @class = "btn btn-sm btn-primary" })
+                            @Html.ActionLink("Preview Result", "PreviewResult", new { subId = ViewBag.SubjectId, sessionId = ViewBag.SessionId }, new { @class = "btn btn-sm btn-primary", target = "_blank" })
+
+
+
+                            <input type="submit" value="Reload" class="btn btn-sm btn-danger" />
+                            @Html.ActionLink("Finish", "ResultIndex", new { id = ViewBag.SubjectId }, new { @class = "btn btn-sm btn-primary" })
+
+                        }
+                        <br />
+                        @if (User.IsInRole("SuperAdmin"))
+                        {
+                            using (Html.BeginForm("DeleteEnrollSubject", "Panel", new { area = "Staff", id = ViewBag.SubjectId, sessionId = ViewBag.SessionId, classId = ViewBag.ClassLevelId }, FormMethod.Post, null))
+                            {
+                                <input type="submit" value="Delete Student" class="btn btn-sm btn-danger" />
+                            }
+
+                            @*using (Html.BeginForm("AdminReloadEnterscore", "Panel", new { area = "Staff", id = ViewBag.SubjectId, sessionId = ViewBag.SessionId, classId = ViewBag.ClassLevelId }, FormMethod.Post, null))
+                                {
+                                    <input type="submit" value="Admin Update and Remove Other" class="btn btn-sm btn-danger remove" />
+                                }
+
+                                using (Html.BeginForm("AdminReloadEnterscore2", "Panel", new { area = "Staff", id = ViewBag.SubjectId, sessionId = ViewBag.SessionId, classId = ViewBag.ClassLevelId }, FormMethod.Post, null))
+                                {
+                                    <input type="submit" value="Admin Remove Other and Update" class="btn btn-sm btn-danger remove1" />
+                                }*@
+                        }
+                    </div>
+                    <h3 class="box-title" style="text-transform:uppercase;"><i class="fa fa-fw fa-users"></i> @GeneralService.StudentorPupil()<span>'s</span> LIST</h3>
+
+                </div>
+
+                <div class="box-header noprint">
+                    <div class="alert alert-info alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+
+                        <span class="text-primary" style="text-transform:uppercase;"> @GeneralService.StudentorPupil()<span>'s</span> LIST:</span> If there are no students on this List, please click on the red <span class="text-primary">"RELOAD STUDENTS"</span> button above to load students.
+
+                    </div>
+                    @if (TempData["msg"] != null)
+                    {
+                        <div class="alert alert-success alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                            @TempData["msg"]
+                        </div>
+                    }
+
+
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="box-body table-responsive">
+                            <table class="table table-success table-bordered" style="background-color:#3c8dbc; color:#ffffff;">
+                                <tr>
+                                    <th colspan="2" class="text-center">CLASS DETAILS</th>
+
+                                </tr>
+                                <tr>
+                                    <th>Class</th>
+                                    <td>@ViewBag.Class</td>
+                                </tr>
+                                <tr>
+                                    <th>Teacher</th>
+                                    <td>@ViewBag.subteacher</td>
+                                </tr>
+                                <tr>
+                                    <th>Subject</th>
+                                    <td>@ViewBag.Subject</td>
+                                </tr>
+                                <tr>
+                                    <th>Session</th>
+                                    <td>@ViewBag.Session</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+
+                @if (Request.Browser.IsMobileDevice == true)
+                {
+                    <div id="divTableDataHolder" class="box-body table-responsive no-padding">
+                        <style>
+                            table td, th {
+                                white-space: normal !important;
+                                font-size: 10px;
+                            }
+                        </style>
+
+                        <table id="studentRecord" class="table table-hover">
+                            <tr>
+                                <th colspan="8">
+                                    @if (Request.Browser.IsMobileDevice == true)
+                                    {
+                                        <span style="font-size:14px !important;font-weight:800;"> @Html.Raw(TempData["setting"])</span>
+                                    }
+                                    else
+                                    {
+                                        <span style="font-size:18px !important;font-weight:800;"> @Html.Raw(TempData["setting"])</span>
+                                    }
+                                </th>
+                            </tr>
+                            <tr>
+                                <th> S/N</th>
+                                <th>
+                                    NAME
+                                </th>
+                                <th style="display:none;"></th>
+
+
+                                <th>
+                                    PROJECT
+                                </th>
+                                <th>
+                                    CLASS EXCERCISE
+                                </th>
+                                <th>
+                                    1ST TEST
+                                </th>
+                                <th>
+                                    2ND TEST
+                                </th>
+                                <th>
+                                    ASSESSMENT
+                                </th>
+                                <th>
+                                    EXAM SCORE
+                                </th>
+                                <th>IS OFFERED</th>
+
+                                <th></th>
+                            </tr>
+
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    @{n++;}
+                                    <td>@n</td>
+                                    <td style="font-size:8px;">
+                                        @if (User.IsInRole("SuperAdmin"))
+                                        {
+                                            <a href="@Url.Action("AddSort", "Panel", new { id = item.Id })" target="_blank">
+
+                                                @item.FullName
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            @item.FullName
+                                        }
+
+                                    </td>
+
+                                    <td class="studentRecordId" style="display:none;">
+                                        <span style="display:none;">@item.Id</span>
+
+
+                                    </td>
+                                    <td class="subjectId" style="display:none;">
+
+                                        <span class="subjectId" style="display:none;">@item.SubjectId</span>
+
+                                    </td>
+                                    <td class="enrollmentId" style="display:none;">
+
+                                        <span class="enrollmentId" style="display:none;">@item.EnrollmentId</span>
+
+                                    </td>
+                                    <td class="gradingOption" style="display:none;">
+
+                                        <span class="gradingOption" style="display:none;">@item.GradingOption</span>
+
+                                    </td>
+
+                                    <td class="Project">
+                                        <span>@Html.DisplayFor(modelItem => item.Project)</span>
+                                        <input type="number" value="@item.Project" style="display:none" />
+                                    </td>
+                                    <td class="ClassExercise">
+                                        <span>@Html.DisplayFor(modelItem => item.ClassExercise)</span>
+                                        <input type="number" value="@item.ClassExercise" style="display:none" />
+                                    </td>
+                                    <td class="TestScore">
+                                        <span>@Html.DisplayFor(modelItem => item.TestScore)</span>
+                                        <input type="number" value="@item.TestScore" style="display:none" />
+                                    </td>
+                                    <td class="TestScore2">
+                                        <span>@Html.DisplayFor(modelItem => item.TestScore2)</span>
+                                        <input type="number" value="@item.TestScore2" style="display:none" />
+                                    </td>
+                                    <td class="Assessment">
+                                        <span>@Html.DisplayFor(modelItem => item.Assessment)</span>
+                                        <input type="number" value="@item.Assessment" style="display:none" />
+                                    </td>
+                                    <td class="ExamScore">
+                                        <span>@Html.DisplayFor(modelItem => item.ExamScore)</span>
+                                        <input type="number" value="@item.ExamScore" style="display:none" />
+                                    </td>
+
+                                    <td class="IsOffered">
+
+                                        <input type="checkbox" class="icheckbox_minimal-blue" name="ischecked" onclick="IsOffered(@item.Id)" id="@item.Id" value="@item.IsOffered" checked="@item.IsOffered" />
+
+                                    </td>
+
+                                    @*<td class="TestScore">
+
+                                            <span>@Html.DisplayFor(modelItem => item.TestScore)</span>
+                                            <input type="number" value="@item.TestScore" style="display:none;width:40px !important;" />
+                                        </td>
+                                        <td class="ExamScore">
+
+                                            <span>@Html.DisplayFor(modelItem => item.ExamScore)</span>
+                                            <input type="number" value="@item.ExamScore" style="display:none;width:40px !important;" />
+                                        </td>*@
+
+
+                                    <td>
+
+                                        @if (ViewBag.booling == "true")
+                                        {
+                                            <a class="btn btn-primary">Result Has Been Published</a>
+                                        }
+                                        else if (ViewBag.booling == "false")
+                                        {
+
+
+                                            <a class="Edit btn btn-primary btn-xs" href="javascript:;">Edit</a>
+                                            <a class="Update btn btn-warning btn-xs" href="javascript:;" style="display:none">Update</a><br /><br />
+                                            @*@Html.ActionLink("Edit Single", "Edit", new { id = item.Id, sessId = ViewBag.SessionId }, new { @class = "btn btn-success btn-xs" })*@
+
+                                            @*if (User.IsInRole("SuperAdmin"))
+                                                {
+                                                    using (Html.BeginForm("DeleteEnrollSubject", "Panel", new { area = "Staff", id = item.Id, sessionId = ViewBag.SessionId }, FormMethod.Post, null))
+                                                    {
+                                                        <input type="submit" value="Delete Enroll Student Subject" class="btn btn-sm btn-danger" />
+                                                    }
+                                                }*@
+                                        }
+
+
+                                    </td>
+                                </tr>
+                            }
+
+                        </table>
+
+                        @*<input type="button" id="btnExport" value=" Export Table data into Excel " />*@
+                    </div>
+                }
+                else
+                {
+
+                    <div id="divTableDataHolder" class="box-body table-responsive no-padding">
+
+
+                        <table id="studentRecord" class="table table-hover">
+                            <tr>
+                                <th colspan="12">
+                                    @Html.Raw(TempData["setting"])
+                                    @Html.Raw(TempData["setting1"])
+                                    @Html.Raw(TempData["setting2"])
+                                    @Html.Raw(TempData["setting3"])
+                                    @Html.Raw(TempData["setting4"])
+                                    @Html.Raw(TempData["setting5"])
+                                    @Html.Raw(TempData["setting6"])
+                                    @*@Html.Raw(TempData["setting"])*@
+                                </th>
+                            </tr>
+                            <tr>
+                                <th> S/N</th>
+                                <th> S/ORDER</th>
+                                <th>
+                                    FULL NAME
+                                </th>
+                                <th style="display:none;"></th>
+
+                                <th>
+                                    REG. NO.
+                                </th>
+                                <th>
+                                    PROJECT
+                                </th>
+                                <th>
+                                    CLASS EXCERCISE
+                                </th>
+                                <th>
+                                    1ST TEST
+                                </th>
+                                <th>
+                                    2ND TEST
+                                </th>
+                                <th>
+                                    ASSESSMENT
+                                </th>
+                                <th>
+                                    EXAM SCORE
+                                </th>
+                                <th>IS OFFERED</th>
+
+                                <th></th>
+                            </tr>
+
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    @{n++;}
+                                    <td>@n</td>
+                                    <td>@item.SortOrder</td>
+                                    <td>
+                                        @if (User.IsInRole("SuperAdmin"))
+                                        {
+                                            <a href="@Url.Action("AddSort", "Panel", new { id = item.Id })" target="_blank">
+
+                                                @item.FullName
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            @item.FullName
+                                        }
+
+                                    </td>
+
+                                    <td class="studentRecordId" style="display:none;">
+                                        <span style="display:none;">@item.Id</span>
+
+
+                                    </td>
+                                    <td class="subjectId" style="display:none;">
+
+                                        <span class="subjectId" style="display:none;">@item.SubjectId</span>
+
+                                    </td>
+                                    <td class="enrollmentId" style="display:none;">
+
+                                        <span class="enrollmentId" style="display:none;">@item.EnrollmentId</span>
+
+                                    </td>
+                                    <td class="gradingOption" style="display:none;">
+
+                                        <span class="gradingOption" style="display:none;">@item.GradingOption</span>
+
+                                    </td>
+
+                                    <td>
+                                        @GeneralService.RegNumByEnrolId(item.Enrollments.StudentProfileId)
+                                    </td>
+                                    <td class="Project">
+                                        <span>@Html.DisplayFor(modelItem => item.Project)</span>
+                                        <input type="number" value="@item.Project" style="display:none" />
+                                    </td>
+                                    <td class="ClassExercise">
+                                        <span>@Html.DisplayFor(modelItem => item.ClassExercise)</span>
+                                        <input type="number" value="@item.ClassExercise" style="display:none" />
+                                    </td>
+                                    <td class="TestScore">
+                                        <span>@Html.DisplayFor(modelItem => item.TestScore)</span>
+                                        <input type="number" value="@item.TestScore" style="display:none" />
+                                    </td>
+                                    <td class="TestScore2">
+                                        <span>@Html.DisplayFor(modelItem => item.TestScore2)</span>
+                                        <input type="number" value="@item.TestScore2" style="display:none" />
+                                    </td>
+                                    <td class="Assessment">
+                                        <span>@Html.DisplayFor(modelItem => item.Assessment)</span>
+                                        <input type="number" value="@item.Assessment" style="display:none" />
+                                    </td>
+                                    <td class="ExamScore">
+                                        <span>@Html.DisplayFor(modelItem => item.ExamScore)</span>
+                                        <input type="number" value="@item.ExamScore" style="display:none" />
+                                    </td>
+                                    <td class="IsOffered">
+
+                                        <input type="checkbox" class="icheckbox_minimal-blue" name="ischecked" onclick="IsOffered(@item.Id)" id="@item.Id" value="@item.IsOffered" checked="@item.IsOffered" />
+
+                                    </td>
+
+                                    <td>
+                                        @if (ViewBag.booling == "true")
+                                        {
+                                            <a class="btn btn-primary">Result Has Been Published</a>
+                                        }
+                                        else if (ViewBag.booling == "false")
+                                        {
+
+
+                                            <a class="Edit btn btn-primary" href="javascript:;">Edit</a>
+                                            <a class="Update btn btn-warning" href="javascript:;" style="display:none">Update</a>
+                                            @Html.ActionLink("Edit Single", "Edit", new { id = item.Id, sessId = ViewBag.SessionId }, new { @class = "btn btn-success" })
+
+                                            @*if (User.IsInRole("SuperAdmin"))
+                                                {
+                                                    using (Html.BeginForm("DeleteEnrollSubject", "Panel", new { area = "Staff", id = item.Id, sessionId = ViewBag.SessionId }, FormMethod.Post, null))
+                                                    {
+                                                        <input type="submit" value="Delete Enroll Student Subject" class="btn btn-sm btn-danger" />
+                                                    }
+                                                }*@
+                                        }
+
+                                    </td>
+                                </tr>
+                            }
+
+                        </table>
+
+                        @*<input type="button" id="btnExport" value=" Export Table data into Excel " />*@
+                    </div>
+                }
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </div>
+    </div>
+
+
+}
+
+@using SchoolPortal.Web.Areas.Service
+@{
+
+    string url = HttpContext.Current.Request.Url.AbsoluteUri;
+    Logger.log(User.Identity.Name, url.ToString() + "||" + ViewBag.Subject + "||" + ViewBag.Subject);
+
+}
+@section Style {
+
+    <link rel="stylesheet" href="http://v1.exwhyzee.ng/admin/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+    <style>
+        @@media print {
+            .noprint {
+                display: none;
+            }
+        }
+    </style>
+
+}
+
+
+
+@section Scripts {
+    <script src="http://v1.exwhyzee.ng/admin/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="http://v1.exwhyzee.ng/admin/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+        @**@
+    @*<script type="text/javascript" src="http://ajax.cdnjs.com/ajax/libs/json2/20110223/json2.js"></script>*@
+    <script src="http://v1.exwhyzee.ng/Content/angular/json2.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            //////Remove the dummy row if data present.
+            ////if ($("#studentRecord tr").length > 2) {
+            ////    $("#studentRecord tr:eq(1)").remove();
+            ////}
+        });
+        function AppendRow(row, studentRecordId, subjectId, enrollmentId, gradingOption, Project, ClassExercise, TestScore, TestScore2, Assessment, ExamScore) {
+            //Bind id.
+            $(".studentRecordId", row).find("span").html(studentRecordId);
+            $(".subjectId", row).find("span").html(subjectId);
+            $(".enrollmentId", row).find("span").html(enrollmentId);
+            $(".gradingOption", row).find("span").html(gradingOption);
+
+            //Bind Project.
+            $(".Project", row).find("span").html(Project);
+            $(".Project", row).find("input").val(Project);
+
+            //Bind ClassExercise.
+            $(".ClassExercise", row).find("span").html(ClassExercise);
+            $(".ClassExercise", row).find("input").val(ClassExercise);
+
+            //Bind TestScore.
+            $(".TestScore", row).find("span").html(TestScore);
+            $(".TestScore", row).find("input").val(TestScore);
+
+            //Bind TestScore2.
+            $(".TestScore2", row).find("span").html(TestScore2);
+            $(".TestScore2", row).find("input").val(TestScore2);
+
+            //Bind Assessment.
+            $(".Assessment", row).find("span").html(Assessment);
+            $(".Assessment", row).find("input").val(Assessment);
+
+            //Bind Exam Score.
+            $(".ExamScore", row).find("span").html(ExamScore);
+            $(".ExamScore", row).find("input").val(ExamScore);
+
+            $("#studentRecord").append(row);
+        };
+
+
+
+        //Edit event handler.
+        $("body").on("click", "#studentRecord .Edit", function () {
+            var row = $(this).closest("tr");
+            $("td", row).each(function () {
+                if ($(this).find("input").length > 0) {
+                    $(this).find("input").show();
+                    $(this).find("span").hide();
+                }
+            });
+
+            row.find(".Update").show();
+            row.find(".Cancel").show();
+            row.find(".Delete").hide();
+            $(this).hide();
+        });
+
+        //Update event handler.
+        $("body").on("click", "#studentRecord .Update", function () {
+            var row = $(this).closest("tr");
+            $("td", row).each(function () {
+                if ($(this).find("input").length > 0) {
+                    var span = $(this).find("span");
+                    var input = $(this).find("input");
+                    span.html(input.val());
+                    span.show();
+                    input.hide();
+                }
+            });
+            row.find(".Edit").show();
+            row.find(".Delete").show();
+            row.find(".Cancel").hide();
+            $(this).hide();
+
+            var student = {};
+            student.Id = row.find(".studentRecordId").find("span").html();
+            student.SubjectId = row.find(".subjectId").find("span").html();
+            student.EnrollmentId = row.find(".enrollmentId").find("span").html();
+            student.GradingOption = row.find(".gradingOption").find("span").html();
+            student.Project = row.find(".Project").find("span").html();
+            student.ClassExercise = row.find(".ClassExercise").find("span").html();
+            student.TestScore = row.find(".TestScore").find("span").html();
+            student.TestScore2 = row.find(".TestScore2").find("span").html();
+            student.Assessment = row.find(".Assessment").find("span").html();
+            student.ExamScore = row.find(".ExamScore").find("span").html();
+            console.log(student)
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("UpdateScore", "Panel", new { area = "Staff" })",
+                data: JSON.stringify(student),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json"
+            });
+        });
+
+    </script>
+    <script>
+        function IsOffered(id) {
+
+            var student = {};
+            student.Id = id
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("IsOffered", "Panel", new { area = "Staff" })",
+                data: JSON.stringify(student),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json"
+
+            });
+            console.log(student)
+        }
+
+
+    </script>
+    <script>
+        $("#btnExport").click(function (e) {
+            window.open('data:application/vnd.ms-excel,' + $('#dvData').html());
+            e.preventDefault();
+        });
+        $("[id$=myButtonControlID]").click(function (e) {
+            window.open('data:application/vnd.ms-excel,' + encodeURIComponent($('div[id$=divTableDataHolder]').html()));
+
+            this.download = name;
+            return true;
+            e.preventDefault();
+        });
+    </script>
+    <script type="text/jscript">
+        $(function () {
+            $('#classesId').change(function () {
+                $.getJSON('/EventsControl/SubjectByClass/' + $('#classesId').val(), function (data) {
+                    var items = '<option>Select a Subject</option>';
+                    console.log(data);
+                    console.log("check");
+                    $.each(data, function (i, local) {
+                        items += "<option value='" + local.Value + "'>" + local.Text + "</option>";
+                    });
+                    $('#Subject').html(items);
+                    console.log(items);
+                    console.log("check 2");
+                });
+            });
+        });
+    </script>
+}
+
+
+
+@section Scripts2 {
+    <script>
+        $(function () {
+            $('#example1').DataTable()
+            $('#example2').DataTable({
+                'paging': true,
+                'lengthChange': false,
+                'searching': false,
+                'ordering': true,
+                'info': true,
+                'autoWidth': false
+            })
+        })
+    </script>
+    <script>
+        function sortTable() {
+            var table, rows, switching, i, x, y, shouldSwitch;
+            table = document.getElementById("studentRecord");
+            switching = true;
+            /* Make a loop that will continue until
+            no switching has been done: */
+            while (switching) {
+                // Start by saying: no switching is done:
+                switching = false;
+                rows = table.getElementsByTagName("TR");
+                /* Loop through all table rows (except the
+                first, which contains table headers): */
+                for (i = 1; i < (rows.length - 1); i++) {
+                    // Start by saying there should be no switching:
+                    shouldSwitch = false;
+                    /* Get the two elements you want to compare,
+                    one from current row and one from the next: */
+                    x = rows[i].getElementsByTagName("TD")[0];
+                    y = rows[i + 1].getElementsByTagName("TD")[0];
+                    // Check if the two rows should switch place:
+                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                        // If so, mark as a switch and break the loop:
+                        shouldSwitch = true;
+                        break;
+                    }
+                }
+                if (shouldSwitch) {
+                    /* If a switch has been marked, make the switch
+                    and mark that a switch has been done: */
+                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                    switching = true;
+                }
+            }
+        }
+    </script>
+    <script>
+        $(document).on("click", ".modalLink", function () {
+
+            var sId = $(event.relatedTarget).data('StudentId'); //camelCase, you have - separated data attr
+            $(this).find('input[type="hidden"]').val(sId);
+            $('#StudentId').val($(this).data('id'));
+            $('#subId').val($(this).data('sub-id'));
+            $('#sessionId').val($(this).data('sess-id'));
+
+            $(".modal-body .hiddenid").val(passedID);
+        });
+
+        function myFunction() {
+            window.print();
+        }
+    </script>
+
+
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $('.remove').on('click', function (e, data) {
+                if (!data) {
+                    handleRemove(e, 1);
+                } else {
+                    window.location = $(this).attr("href");
+                }
+            });
+        });
+
+
+        function handleRemove(e, stop) {
+            if (stop) {
+                e.preventDefault();
+                Swal.fire({
+                    title: "Are you sure?",
+                    text: "This will remove enrolled subject that is not same ID with subject and update subject with same ID.You won't be able to revert this!",
+                    type: "warning",
+                    showCancelButton: !0,
+                    confirmButtonText: "Yes, delete it!",
+                    cancelButtonText: "No, cancel!",
+                    confirmButtonClass: "btn btn-success mt-2",
+                    cancelButtonClass: "btn btn-danger ml-2 mt-2",
+                    buttonsStyling: !1
+                }).
+                    then(function (t) {
+                        t.value ? $(e.target).trigger('click', {}) && Swal.fire({
+                            title: "Deleted!",
+                            text: "Your file has been deleted.",
+                            type: "success",
+
+                        }) : t.dismiss === Swal.DismissReason.cancel && Swal.fire({
+                            title: "Cancelled",
+                            text: "Your Report is safe :)",
+                            type: "error"
+                        })
+                    })
+
+            }
+        };
+
+    </script>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $('.remove1').on('click', function (e, data) {
+                if (!data) {
+                    handleRemove1(e, 1);
+                } else {
+                    window.location = $(this).attr("href");
+                }
+            });
+        });
+
+
+        function handleRemove1(e, stop) {
+            if (stop) {
+                e.preventDefault();
+                Swal.fire({
+                    title: "Are you sure?",
+                    text: "This will remove enrolled subject that is same ID with subject and update subject with different ID. You won't be able to revert this!",
+                    type: "warning",
+                    showCancelButton: !0,
+                    confirmButtonText: "Yes, delete it!",
+                    cancelButtonText: "No, cancel!",
+                    confirmButtonClass: "btn btn-success mt-2",
+                    cancelButtonClass: "btn btn-danger ml-2 mt-2",
+                    buttonsStyling: !1
+                }).
+                    then(function (t) {
+                        t.value ? $(e.target).trigger('click', {}) && Swal.fire({
+                            title: "Deleted!",
+                            text: "Your file has been deleted.",
+                            type: "success",
+
+                        }) : t.dismiss === Swal.DismissReason.cancel && Swal.fire({
+                            title: "Cancelled",
+                            text: "Your Report is safe :)",
+                            type: "error"
+                        })
+                    })
+
+            }
+        };
+
+    </script>
+}
+
+
+
+

@@ -1,0 +1,80 @@
+﻿@model SchoolPortal.Web.Models.Entities.Enrollment
+@using SchoolPortal.Web.Areas.Service
+
+@{
+    ViewBag.Title = "Enrollment With Score";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="row">
+    <!-- left column -->
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <!-- general form elements -->
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">@GeneralService.StudentorPupil() Has Score</h3>
+                @if (TempData["error"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                        @TempData["error"]
+                    </div>
+                }
+            </div>
+         
+                <div class="box-body">
+
+                    <table class="table table-bordered table-hover" border="1">
+                        <tr>
+                            <th>Full Name</th>
+                            <td>@Model.StudentProfile.user.Surname @Model.StudentProfile.user.FirstName @Model.StudentProfile.user.OtherName </td>
+                        </tr>
+                        <tr>
+                            <th>Registration Number</th>
+                            <td>@Model.StudentProfile.StudentRegNumber</td>
+                        </tr>
+                        <tr>
+                            <th>Session</th>
+                            <td>@Model.Session.SessionYear - @Model.Session.Term</td>
+                        </tr>
+                        <tr>
+                            <th>Class</th>
+                            <td>@Model.ClassLevel.ClassName</td>
+                        </tr>
+                        <tr>
+                            <th>Average Score</th>
+                            <td>@Model.AverageScore</td>
+                        </tr>
+
+                        <tr>
+                            <th>Cum. Score</th>
+                            <td>@Model.CummulativeAverageScore</td>
+                        </tr>
+
+                    </table>
+                </div>
+
+                <div class="box-footer">
+                    @Html.ActionLink("Continue to Remove " + GeneralService.StudentorPupil(), "RemoveWithScore", "Doc", new { id = Model.StudentProfileId }, new { @class = "btn btn-info" })
+
+                    <a href="javascript: history.back()" class="btn btn-default">Cancel</a>
+                </div>
+
+            
+        </div>
+
+    </div>
+    <div class="col-md-3"></div>
+
+</div>
+
+@section Scripts {
+        @**@
+
+
+}
+

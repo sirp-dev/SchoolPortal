@@ -1,0 +1,65 @@
+﻿@using SchoolPortal.Web.Areas.Service;
+@{
+    ViewBag.Title = "LiveClassType";
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box" style="padding:7px;">
+            <div class="box-header" style="margin-bottom:15px;">
+
+                <div class="alert alert-success alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <h4><i class="icon fa fa-ban"></i> What is Single Class?</h4>
+                    <p>Single Class is having just one single class at a particular time.</p>
+                </div>
+                <div class="alert alert-success alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <h4><i class="icon fa fa-ban"></i> What is Concurrent Class?</h4>
+                    <p>Concurrent Class is having morethan one single class at a particular time. can be two or three class at a time.</p>
+                </div>
+
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+                <div class="row">
+
+
+                    <div class="col-md-6">
+                        @Html.ActionLink("Set up single class", "SingleLiveClass", "Panel", new {area="Staff" }, new { @class="btn btn-primary", style="width:100%;"})
+                    </div>
+                    <div class="col-md-6">
+                        @if (GeneralService.MultipleZoomEnable() == true)
+                        {
+
+                            @Html.ActionLink("Set up multiple class instance", "MultipleLiveClass", "Panel", new { area = "Staff" }, new { @class = "btn btn-success", style = "width:100%;" })
+                        }
+                        else
+                        {
+                        <a data-toggle="modal" data-target="#student1Modal" class = "btn btn-success", style = "width:100%;">
+                            Set up multiple class instance
+                        </a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="student1Modal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Access Denied</h4>
+            </div>
+            <div class="modal-body">
+                <p>This feature is not enabled. Thank you. Contact your administrator for assistance</p>
+            </div>
+
+        </div>
+
+    </div>
+</div>

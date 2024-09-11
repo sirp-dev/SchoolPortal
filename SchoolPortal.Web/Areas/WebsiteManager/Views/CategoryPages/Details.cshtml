@@ -1,0 +1,113 @@
+﻿@model SchoolPortal.Web.Models.Entities.CategoryPage
+
+@{
+                /**/
+
+                ViewBag.Title = "Details";
+                Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <!-- left column -->
+
+    <div class="col-md-12">
+        <!-- general form elements -->
+
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Category Page Details</h3>
+                @if (Model.Publish == SchoolPortal.Web.Models.Entities.PagePublish.Publish)
+                {
+                    @Html.ActionLink("Unpublish", "UpdatePublishPage", new { id = Model.Id }, new { @class = "btn btn-primary", style = "padding: 7px;" })
+
+
+                }
+                else
+                {
+                    @Html.ActionLink("Publish", "UpdatePublishPage", new { id = Model.Id }, new { @class = "btn btn-primary", style = "padding: 7px;" })
+
+                }
+            </div>
+            <div class="box-body">
+
+                <div>
+
+                    <dl class="dl-horizontal">
+                        <dt>
+                            @Html.DisplayNameFor(model => model.MenuDescription)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.MenuDescription)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Title)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Title)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.SortOrder)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.SortOrder)
+                        </dd>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.ShowInHome)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.ShowInHome)
+                        </dd>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.ContentHome)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.ContentHome)
+                        </dd>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Content)
+                        </dt>
+
+                        <dd>
+                            @Html.Raw(Model.Content)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.MetaTage)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.MetaTage)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.MetaDescription)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.MetaDescription)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.MetaKeyword)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.MetaKeyword)
+                        </dd>
+
+                    </dl>
+                </div>
+                <p>
+                    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+                    @Html.ActionLink("Back to List", "Index")
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

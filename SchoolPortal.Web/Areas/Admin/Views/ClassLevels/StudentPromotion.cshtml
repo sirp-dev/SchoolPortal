@@ -1,0 +1,381 @@
+﻿
+@model IEnumerable<SchoolPortal.Web.Models.Dtos.ClassStudentsDto>
+
+
+
+@using SchoolPortal.Web.Areas.Service
+
+@{
+    ViewBag.Title = "StudentPromotion";
+}
+<div class="row">
+    <!-- left column -->
+
+    <div class="col-md-12">
+        <!-- general form elements -->
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Promotion of @GeneralService.StudentorPupil()<span>s</span> To @ViewBag.classd</h3>
+                @if (TempData["error"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                        @TempData["error"]
+                    </div>
+                }
+                @if (TempData["success"] != null)
+                {
+                    <div class="alert alert-success alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                        @TempData["success"]
+                    </div>
+                }
+            </div>
+            @using (Html.BeginForm("StudentPromotion", "ClassLevels", new { area = "Admin" }, FormMethod.Get))
+            {
+                @*@Html.AntiForgeryToken()*@
+
+                <input type="hidden" value="@ViewBag.classdId" name="classId" />
+                <div class="box-body">
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                Select Session
+                                <div class="">
+                                    @Html.DropDownList("sessId", ViewBag.sessionId as SelectList, "choose a session", htmlAttributes: new { @class = "form-control", required = "Choose a session" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+
+                                Select Class
+                                <div class="">
+                                    @Html.DropDownList("newclassId", ViewBag.ClassLevelId as SelectList, "choose a class", htmlAttributes: new { @class = "form-control", required = "Choose a class" })
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="box-footer">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button type="submit" class="btn btn-primary">List @GeneralService.StudentorPupil()<span>s</span></button>
+                            <a href="javascript: history.back()" class="btn btn-default">Cancel</a>
+                        </div>
+                    </div>
+
+                </div>
+
+            }
+        </div>
+
+
+        <style>
+            .table1 td, .table1 th {
+                padding: 8px !important;
+                vertical-align: central !important;
+            }
+        </style>
+        @if (ViewBag.classdNN != null)
+        {
+            <div class="box">
+                <div class="box-header">
+                    <span style="color:#337ab7;font-size:30px;">
+                        <i class="fa fa-fw fa-users" style="color:#337ab7;"></i>
+                        Promote
+                        @GeneralService.StudentorPupil()<span>s</span> from @ViewBag.classdNN to @ViewBag.classd
+                    </span> <br />
+                    <span style="font-size:15px;">
+                        Total @GeneralService.StudentorPupil()<span>s</span> [@Model.Count()]
+                    </span>
+                </div>
+
+                <div id="divTableDataHolder" class="box-body table-responsive no-padding">
+
+                    @using (Html.BeginForm("StudentPromotionUpdate", "ClassLevels", new { area = "Admin" }, FormMethod.Post, new { id = "updateForm" }))
+                    {
+                        <div class="box">
+                            <input type="hidden" value="@ViewBag.classdId" name="classId" />
+
+                            <table id="studentRecord" class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>S/N</th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.UserName)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.FullName)
+                                        </th>
+                                        <th>
+                                            @GeneralService.StudentorPupil() Reg Number
+                                        </th>
+                                        <th>
+                                            Status
+                                        </th>
+                                        <th>
+                                            Promote
+                                        </th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{
+                                        int sno = 0;
+                                    }
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @{ sno++; }
+                                                @sno
+                                            </td>
+
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.UserName)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.FullName)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Regnumber)
+                                            </td>
+                                            <td>
+
+                                                @if (!item.Status.Contains("false"))
+                                                {
+                                                    <span class="btn btn-success">@item.Status</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="btn btn-warning">Pending</span>
+                                                }
+
+                                            </td>
+                                            <td>
+                                                @*@Html.CheckBox("selectedStudents", false, new { value = item.ProfileId })*@
+                                                @if (item.Status.Contains("false"))
+                                                {
+                                                    <input type="checkbox" name="selectedStudents" value="@item.ProfileId" /> <span>Add for Promotion</span>
+
+                                                }
+                                                else
+                                                {
+                                                    <span>---</span>
+                                                }
+                                            </td>
+
+                                        </tr>
+                                    }
+                                </tbody>
+
+                            </table>
+                        </div>
+                        <div class="box-footer">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button type="submit" class="btn btn-primary">Promote Selected @GeneralService.StudentorPupil()<span>s</span></button>
+                                    @* <button type="button" id="submitBtn" class="btn btn-primary">Promote Selected @GeneralService.StudentorPupil()<span>s</span></button>*@
+
+                                    <a href="javascript: history.back()" class="btn btn-default">Cancel</a>
+                                </div>
+                            </div>
+
+                        </div>
+                    }
+                </div>
+
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        }
+    </div>
+    <!-- /.col -->
+</div>
+
+
+
+@section Scripts {
+    <script src="http://v1.exwhyzee.ng/admin/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="http://v1.exwhyzee.ng/admin/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+
+    @*<script type="text/javascript" src="http://ajax.cdnjs.com/ajax/libs/json2/20110223/json2.js"></script>*@
+    <script src="http://v1.exwhyzee.ng/Content/angular/json2.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            //////Remove the dummy row if data present.
+            ////if ($("#studentRecord tr").length > 2) {
+            ////    $("#studentRecord tr:eq(1)").remove();
+            ////}
+        });
+        function AppendRow(row, studentRecordId, subjectId, enrollmentId, gradingOption, testScore, examScore) {
+            //Bind id.
+            $(".userId", row).find("span").html(userId);
+
+            //Bind TestScore.
+            $(".PhoneNumber", row).find("span").html(PhoneNumber);
+            $(".EmailAddress", row).find("input").val(EmailAddress);
+
+            //Bind Country.
+            $(".PhoneNumber", row).find("span").html(PhoneNumber);
+            $(".EmailAddress", row).find("input").val(EmailAddress);
+            $("#studentRecord").append(row);
+        };
+
+
+
+        //Edit event handler.
+        $("body").on("click", "#studentRecord .Edit", function () {
+            var row = $(this).closest("tr");
+            $("td", row).each(function () {
+                if ($(this).find("input").length > 0) {
+                    $(this).find("input").show();
+                    $(this).find("span").hide();
+                }
+            });
+
+            row.find(".Update").show();
+            row.find(".Cancel").show();
+            row.find(".Delete").hide();
+            $(this).hide();
+        });
+
+        //Update event handler.
+        $("body").on("click", "#studentRecord .Update", function () {
+            var row = $(this).closest("tr");
+            $("td", row).each(function () {
+                if ($(this).find("input").length > 0) {
+                    var span = $(this).find("span");
+                    var input = $(this).find("input");
+                    span.html(input.val());
+                    span.show();
+                    input.hide();
+                }
+            });
+            row.find(".Edit").show();
+            row.find(".Delete").show();
+            row.find(".Cancel").hide();
+            $(this).hide();
+
+            var student = {};
+            student.UserId = row.find(".userId").find("span").html();
+            student.EmailAddress = row.find(".EmailAddress").find("span").html();
+            student.PhoneNumber = row.find(".PhoneNumber").find("span").html();
+            console.log(student)
+            console.log("sda")
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("UpdateStudentRecord", "ClassLevels", new { area = "Admin" })",
+                data: JSON.stringify(student),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json"
+            });
+        });
+
+    </script>
+
+}
+
+
+
+@section Scripts2 {
+
+    <script>
+        $(document).ready(function () {
+            $('#submitBtn').on('click', function () {
+                var selectedStudents = [];
+
+                // Iterate through checkboxes and add selected student IDs to the array
+                $('input[name="selectedStudents"]:checked').each(function () {
+                    selectedStudents.push($(this).val());
+                });
+
+                console.log("mmmmmmmmmm")
+                console.log(selectedStudents)
+                console.log("ssssssssssss")
+                // Set the selected students as a hidden field value before submitting the form
+                $('#updateForm').append('<input type="hidden" name="selectedStudents" value="' + selectedStudents.join(',') + '">');
+
+                // Submit the form
+                $('#updateForm').submit();
+            });
+        });
+    </script>
+
+    <script>
+        $(function () {
+            $('#example1').DataTable()
+            $('#example2').DataTable({
+                'paging': true,
+                'lengthChange': false,
+                'searching': false,
+                'ordering': true,
+                'info': true,
+                'autoWidth': false
+            })
+        })
+    </script>
+    <script>
+        function sortTable() {
+            var table, rows, switching, i, x, y, shouldSwitch;
+            table = document.getElementById("studentRecord");
+            switching = true;
+            /* Make a loop that will continue until
+            no switching has been done: */
+            while (switching) {
+                // Start by saying: no switching is done:
+                switching = false;
+                rows = table.getElementsByTagName("TR");
+                /* Loop through all table rows (except the
+                first, which contains table headers): */
+                for (i = 1; i < (rows.length - 1); i++) {
+                    // Start by saying there should be no switching:
+                    shouldSwitch = false;
+                    /* Get the two elements you want to compare,
+                    one from current row and one from the next: */
+                    x = rows[i].getElementsByTagName("TD")[0];
+                    y = rows[i + 1].getElementsByTagName("TD")[0];
+                    // Check if the two rows should switch place:
+                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                        // If so, mark as a switch and break the loop:
+                        shouldSwitch = true;
+                        break;
+                    }
+                }
+                if (shouldSwitch) {
+                    /* If a switch has been marked, make the switch
+                    and mark that a switch has been done: */
+                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                    switching = true;
+                }
+            }
+        }
+    </script>
+    <script>
+        $(document).on("click", ".modalLink", function () {
+
+            var sId = $(event.relatedTarget).data('StudentId'); //camelCase, you have - separated data attr
+            $(this).find('input[type="hidden"]').val(sId);
+            $('#StudentId').val($(this).data('id'));
+            $('#subId').val($(this).data('sub-id'));
+            $('#sessionId').val($(this).data('sess-id'));
+
+            $(".modal-body .hiddenid").val(passedID);
+        });
+
+        function myFunction() {
+            window.print();
+        }
+    </script>
+}
+

@@ -1,0 +1,215 @@
+﻿
+@{
+    ViewBag.Title = "LiveList";
+}
+@using SchoolPortal.Web.Areas.Service;
+@model IEnumerable<SchoolPortal.Web.Models.Entities.OnlineZoom>
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box" style="padding:7px;">
+            <div class="box-header" style="margin-bottom:15px;">
+                <h3 class="box-title"><i class="fa fa-fw fa-file-text-o"></i> Online Class</h3>
+
+
+
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+                @if (GeneralService.ZoomEnable() == true)
+                {
+                    <table id="example1" class="table table-bordered table-hover" border="1">
+
+                        <thead>
+                            <tr>
+                                <th>S/N</th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ClassLevel.ClassName)
+                                </th>
+                                <th>
+                                    Subject Name
+                                </th>
+                                <th>Records</th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ClassDate)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ClassTime)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Duration)
+                                </th>
+                                <th>
+                                    Teacher Name
+                                </th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                int sno = 0;
+                            }
+                            @foreach (var item in Model.OrderByDescending(x => x.DateCreated))
+                            {
+
+                                <tr>
+                                    <td>
+                                        @{ sno++; }
+                                        @sno
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ClassLevel.ClassName)
+                                    </td>
+                                    <td>
+                                        @if (ViewBag.data.EnableLiveClass == true)
+                                        {
+                                            <a href="@Url.Action("DetailsLive", "Panel", new { area = "Student", id = item.MeetingId })">
+                                                @item.Subject.SubjectName (click for details)
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <a data-toggle="modal" data-target="#studentModal">
+                                                @item.Subject.SubjectName (click for details)
+                                            </a>
+                                        }
+                                    </td>
+                                    <td>
+                                         @if (ViewBag.data.EnableLiveClass == true)
+                                        {
+                                        if (!String.IsNullOrEmpty(item.MeetingUUId))
+                                        {
+                                            @Html.ActionLink("View Record", "LiveClassRecord", new { id = item.MeetingUUId }, null)
+                                        }
+                                        else
+                                        {
+                                            <a data-toggle="modal" data-target="#studentModal1">
+                                               View Record
+                                            </a>
+                                        }
+                                        }
+                                        else
+                                        {
+                                            <a data-toggle="modal" data-target="#studentModal">
+                                                @item.Subject.SubjectName (click for details)
+                                            </a>
+                                        }
+
+                                    </td>
+
+                                    <td>
+                                      
+                                            @Html.DisplayFor(modelItem => item.ClassDate)
+                                       
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ClassTime)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Duration) min
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.User.Surname)
+                                        @Html.DisplayFor(modelItem => item.User.FirstName)
+                                        @Html.DisplayFor(modelItem => item.User.OtherName)
+                                    </td>
+
+                                </tr>
+
+                            }
+                        </tbody>
+                    </table>
+
+                }
+                else
+                {
+                    <div class="alert alert-danger alert-dismissible">
+                        <h4><i class="icon fa fa-ban"></i> Online Learning not enabled.</h4>
+
+                    </div>
+                }
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+</div>
+
+<div id="studentModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Access Denied</h4>
+            </div>
+            <div class="modal-body">
+                <p>Dear @ViewBag.data.StudentProfile.user.Surname, you have not meet the requirement to access the live class. contact your form teacher. thank you</p>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+<div id="studentModal1" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Access Denied</h4>
+            </div>
+            <div class="modal-body">
+                <p>Not available</p>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+@section Style {
+
+    <link rel="stylesheet" href="http://v1.exwhyzee.ng/admin/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+}
+
+@section Scripts {
+    <!-- DataTables -->
+    <script src="http://v1.exwhyzee.ng/admin/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="http://v1.exwhyzee.ng/admin/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+
+}
+
+@section Scripts2 {
+    <script>
+        $(function () {
+            $('#example1').DataTable()
+            $('#example2').DataTable({
+                'paging': true,
+                'lengthChange': false,
+                'searching': false,
+                'ordering': true,
+                'info': true,
+                'autoWidth': false
+            })
+        })
+    </script>
+    <script type="text/JavaScript">
+        //courtesy of BoogieJack.com
+        function killCopy(e) {
+            return false
+        }
+        function reEnable() {
+            return true
+        }
+        document.onselectstart = new Function("return false")
+        if (window.sidebar) {
+            document.onmousedown = killCopy
+            document.onclick = reEnable
+        }
+    </script>
+}
+
+

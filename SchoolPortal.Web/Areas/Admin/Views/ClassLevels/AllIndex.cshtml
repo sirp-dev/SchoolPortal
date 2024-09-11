@@ -1,0 +1,133 @@
+﻿@model IEnumerable<SchoolPortal.Web.Models.Dtos.ClassLevelListDto>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box" style="padding:7px;">
+            <div class="box-header" style="margin-bottom:15px;">
+                <h3 class="box-title"><i class="fa fa-fw fa-file-text-o"></i> Class Management</h3>
+
+                <div class="box-tools">
+                    @Html.ActionLink("New Class", "NewClass", null, new { @class = "btn btn-primary", style = "padding: 7px;" })
+                </div>
+                @if (TempData["success"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                        @TempData["success"]
+                    </div>
+                }
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+                <table id="example1" class="table table-bordered table-hover" border="1">
+
+                    <thead>
+                        <tr>
+                            <th>S/N</th>
+                            <th>
+                                Class
+                            </th>
+                            <th>
+                                Form Teacher
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            int sno = 0;
+                        }
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @{ sno++; }
+                                    @sno
+                                </td>
+                                <td>
+                                    @item.ClassLevelName
+                                </td>
+                                <td>
+                                    @item.FormTeacher
+                                </td>
+                                <td>
+
+                                    <div class="dropdown">
+                                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                                            Action
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            @if (User.IsInRole("SuperAdmin") || User.IsInRole("Admin") || User.IsInRole("Edittor"))
+                                            {
+                                                <li>
+                                                    @Html.ActionLink("Add New Subject", "AddSubject", new { id = item.Id }, new { @class = "" })
+
+                                                </li>
+                                            }
+
+                                            <li class="text-color-success">@Html.ActionLink("Details", "Details", new { id = item.Id }, null)</li>
+
+                                            @if (User.IsInRole("SuperAdmin") || User.IsInRole("Edittor"))
+                                            {
+                                                <li class="text-color-warning">@Html.ActionLink("Edit", "EditClass", new { id = item.Id }, null)</li>
+                                            }
+
+                                            @if (User.IsInRole("SuperAdmin") || User.IsInRole("Delettor"))
+                                            {
+                                                <li class="text-color-danger">@Html.ActionLink("Delete", "DeleteClass", new { id = item.Id }, null)</li>
+                                                <li class="text-color-warning">@Html.ActionLink("Edit Supper", "EditSupperClass", new { id = item.Id }, null)</li>
+                                            }
+                                        </ul>
+                                    </div>
+
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+</div>
+
+
+
+
+@section Style {
+
+    <link rel="stylesheet" href="http://v1.exwhyzee.ng/admin/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+}
+
+@section Scripts {
+    <!-- DataTables -->
+    <script src="http://v1.exwhyzee.ng/admin/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="http://v1.exwhyzee.ng/admin/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+
+}
+
+@section Scripts2 {
+    <script>
+        $(function () {
+            $('#example1').DataTable()
+            $('#example2').DataTable({
+                'paging': true,
+                'lengthChange': false,
+                'searching': false,
+                'ordering': true,
+                'info': true,
+                'autoWidth': false
+            })
+        })
+    </script>
+}
+
+

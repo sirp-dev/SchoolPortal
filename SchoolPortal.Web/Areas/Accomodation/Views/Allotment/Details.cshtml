@@ -1,0 +1,61 @@
+﻿@model SchoolPortal.Web.Models.Entities.HostelAllotment
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <div class="box box-default">
+            <div class="box-header with-border">
+
+                <h3 class="box-title">Hostel Allotment Details</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <dl class="dl-horizontal">
+
+                    <dt>
+                        Student Name
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.User.Surname) @Html.DisplayFor(model => model.User.FirstName) @Html.DisplayFor(model => model.User.OtherName)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Hostel.Name)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Hostel.Name)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.HostelRoom.Name)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.HostelRoom.Name)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.HostelBed.BedNo)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.HostelBed.BedNo)
+                    </dd>
+                </dl>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+    <!-- /.col -->
+
+
+    <div class="col-md-3"></div>
+
+</div>

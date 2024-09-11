@@ -1,0 +1,43 @@
+﻿@model SchoolPortal.Web.Models.Entities.ImageModel
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ImageModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FileName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FileName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ContentType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ContentType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ImageContent)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ImageContent)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

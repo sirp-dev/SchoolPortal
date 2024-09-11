@@ -1,0 +1,140 @@
+﻿@model SchoolPortal.Web.Models.Entities.DataUserRequest
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>DataUserRequest</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FullName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FullName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateOfBirth)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateOfBirth)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ParentName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ParentName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StudentsPhoneNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StudentsPhoneNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ParentsPhoneNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ParentsPhoneNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ParentsOccupation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ParentsOccupation)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ClassName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ClassName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FormTeacher)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FormTeacher)
+        </dd>
+
+    </dl>
+</div>
+@Html.ActionLink("Search by the name", "Details", new { id = Model.Id, searchString = Model.FullName }, new { @class = "btn btn-primary" })
+
+@if (ViewBag.userreturn != null)
+{
+
+    <table border="1" class="table table-bordered table-hover">
+
+        <tr>
+            <th>
+                REG NO.
+            </th>
+            <th>
+                FULL NAME
+            </th>
+            <th>
+                USERNAME
+            </th>
+            <th>
+                CLASS
+            
+            </th>
+
+            <th>ACTION</th>
+        </tr>
+
+
+
+        @foreach (var item in ViewBag.userreturn)
+        {
+    <tr>
+       
+        <td>
+           @item.StudentRegNumberPin
+
+        </td>
+        <td>
+            @item.Surname @item.FirstName @item.OtherName
+        </td>
+
+        <td>
+            @item.UserName
+        </td>
+        <td>
+            @item.EnrolledClass
+        </td>
+        
+
+        <td>
+            @TempData["error"]
+            <br />
+            @Html.ActionLink("Reset and send text and email", "ResetAndSendText", new { id = Model.Id, uid =  item.UserId })
+
+        </td>
+    </tr>
+        }
+    </table>
+
+}
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

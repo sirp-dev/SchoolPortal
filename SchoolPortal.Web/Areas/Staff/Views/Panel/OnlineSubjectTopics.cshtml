@@ -1,0 +1,169 @@
+﻿@model PagedList.IPagedList<SchoolPortal.Web.Models.Entities.OnlineCourseUpload>
+@using PagedList.Mvc;
+<link href="http://v1.exwhyzee.ng/Content/PagedList.css" rel="stylesheet" />
+
+@{
+    ViewBag.Title = "Details";
+}
+
+
+<div class="row">
+
+    <div class="col-md-12 col-xs-12 col-sm-12">
+        @foreach (var item in Model)
+        {
+            <div class="box box-default">
+                <div class="box-header with-border">
+
+                    <h3 class="box-title">Course Topics</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="table-responsive">
+                                <table class="table table-success table-bordered" style="background-color:#3c8dbc; color:#ffffff;">
+
+                                    <tr>
+                                        <th>CLASS</th>
+                                        <td>@item.ClassLevel.ClassName</td>
+
+                                    </tr>
+
+                                    <tr>
+
+                                        <th>SUBJECT</th>
+                                        <td>@item.Subject.SubjectName</td>
+                                    </tr>
+                                    <tr>
+                                        <th>TOPIC</th>
+                                        <td>@item.Topic</td>
+                                    </tr>
+
+
+
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-body">
+
+                    <div class="container-fluid">
+                        <h3 style="font-weight:bold">Content</h3>
+                        <hr style="border:1px solid #000000" />
+                        <div class="" style="max-height:600px;overflow:scroll; font-size:16px;">
+                            @Html.Raw(item.Description)
+                        </div>
+                    </div>
+                </div>
+                <div class="box-body">
+
+                    <div class="container-fluid">
+
+                        <div class="">
+
+                            @if (item.UploadType == SchoolPortal.Web.Models.Entities.UploadType.PDF)
+                            {
+                                <h3 style="font-weight:bold">PDF</h3>
+                                <hr style="border:1px solid #000000" />
+                                <div class='embed-responsive' style='padding-bottom:150%'>
+                                    <embed src="@Html.Raw(Url.Content(item.Upload))#toolbar=0" type='application/pdf' width='100%' height='100%' />
+                                </div>
+
+                                <div class="box-body">
+                                    <a class="btn btn-primary" href="@Html.Raw(Url.Content(item.Upload))" download="">Download File</a>
+                                </div>
+                            }
+                            else if (item.UploadType == SchoolPortal.Web.Models.Entities.UploadType.Word)
+                            {
+                                <h3 style="font-weight:bold">Word Document</h3>
+                                <hr style="border:1px solid #000000" />
+
+                                <div class="box-body">
+                                    <a class="btn btn-primary" href="@Html.Raw(Url.Content(item.Upload))" download="">Download File</a>
+                                </div>
+                            }
+
+                            else if (item.UploadType == SchoolPortal.Web.Models.Entities.UploadType.Excel)
+                            {
+                                <h3 style="font-weight:bold">Excel Document</h3>
+                                <hr style="border:1px solid #000000" />
+
+                                <div class="box-body">
+                                    <a class="btn btn-primary" href="@Html.Raw(Url.Content(item.Upload))" download="">Download File</a>
+                                </div>
+                            }
+                            else if (item.UploadType == SchoolPortal.Web.Models.Entities.UploadType.Powerpoint)
+                            {
+                                <h3 style="font-weight:bold">PowerPoint Presentation</h3>
+                                <hr style="border:1px solid #000000" />
+
+                                <div class="box-body">
+                                    <a class="btn btn-primary" href="@Html.Raw(Url.Content(item.Upload))" download="">Download File</a>
+                                </div>
+                            }
+                            else if (item.UploadType == SchoolPortal.Web.Models.Entities.UploadType.Audio)
+                            {
+                                <h3 style="font-weight:bold">Audio</h3>
+                                <hr style="border:1px solid #000000" />
+                                <div class="box-body">
+                                    <audio width="100%" controls>
+                                        <source src="@Html.Raw(Url.Content(item.Upload))" type="audio/ogg">
+                                        <source src="@Html.Raw(Url.Content(item.Upload))" type="audio/mpeg">
+                                        Your browser does not support the audio element.
+                                    </audio>
+                                    <a class="btn btn-primary" href="@Html.Raw(Url.Content(item.Upload))" download="">Download File</a>
+                                </div>
+                               
+                            }
+                            else if (item.UploadType == SchoolPortal.Web.Models.Entities.UploadType.Video)
+                            { <h3 style="font-weight:bold">Video</h3>
+                                <hr style="border:1px solid #000000" />
+                                <div class="box-body">
+
+                                    <video width="100%" height="400px" controls>
+                                        <source src="@Html.Raw(Url.Content(item.Upload))" type="video/mp4">
+                                        <source src="@Html.Raw(Url.Content(item.Upload))" type="video/ogg">
+                                        Your browser does not support HTML5 video.
+                                    </video>
+                                    <a class="btn btn-primary" href="@Html.Raw(Url.Content(item.Upload))" download="">Download File</a>
+                                </div>
+
+                            }
+
+                            else
+                            {
+                                <span class="label label-warning">No File To View Or Download!</span>
+                            }
+
+                        </div>
+
+
+                    </div>
+                </div>
+                <!-- /.box-body -->
+
+
+
+            </div>
+            <div class="box-footer clearfix">
+
+
+
+                <div class="container text-center page" style="margin-left:auto;margin-right:auto;">
+
+                    <p>Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount</p>
+
+                    @Html.PagedListPager(Model, page => Url.Action("OnlineSubjectTopics", new { subId = ViewBag.SubjectId, page }))
+                </div>
+            </div>
+        }
+        <!-- /.box -->
+        <!-- /.col -->
+    </div>
+
+</div>
+
+
+

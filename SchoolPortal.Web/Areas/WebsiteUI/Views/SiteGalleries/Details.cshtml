@@ -1,0 +1,24 @@
+﻿@model SchoolPortal.Web.Models.UI.SiteGallery
+
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    @Html.Raw(ViewBag.head)
+    @Html.Raw(ViewBag.overridecss)
+</head>
+
+<body>
+    @Html.Raw(Model.UpperSection)
+    @foreach (var x in ViewBag.post)
+    {
+        @Html.Raw(x.Content)
+    }
+    @Html.Raw(Model.LowerSection)
+    @Html.Raw(ViewBag.footerJs)
+</body>
+</html>

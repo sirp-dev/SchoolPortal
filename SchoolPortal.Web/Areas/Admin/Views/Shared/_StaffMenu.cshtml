@@ -1,0 +1,153 @@
+﻿@using SchoolPortal.Web.Areas.Service
+@using SchoolPortal.Web.Models.Entities
+
+<li class="header">STAFF NAVIGATION</li>
+<li><a href="@Url.Action("Index", "Panel", new { area="Staff"})"><i class="fa fa-dashboard"></i> <span>Staff Dashboard</span></a></li>
+@*<li style="background-color:#dd4b39;color:#000000;"><a href="@Url.Action("LiveClassList", "Panel", new { area="Staff"})"><i class="fa fa-book"></i> <span> Online Classes</span></a></li>*@
+@if (User.IsInRole("FinanceEntry"))
+{
+
+    if (GeneralService.IsFinanceEnabled() == true)
+    {
+        <li class="treeview">
+            <a href="#">
+                <i class="fa fa-money"></i> <span style="color:#e2a1a1;font-weight:900;"> Finance</span>
+                <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </a>
+            <ul class="treeview-menu">
+
+                
+
+                <li><a href="@Url.Action("Index", "Payment", new { area = "Financial" })"><i class="fa fa-money"></i> <span> Inflow</span></a></li>
+                <li><a href="@Url.Action("Expenditure", "Payment", new { area = "Financial" })"><i class="fa fa-money"></i> <span> Outflow</span></a></li>
+
+
+                
+
+ <li><a href="@Url.Action("AccountStatement", "Payment", new { area = "Financial" })"><i class="fa fa-money"></i> <span> Account Statement</span></a></li>
+
+            </ul>
+        </li>
+    }
+
+}
+
+    <li style="background-color:#dd4b39;color:#000000;" class="treeview">
+        <a href="#">
+            <i class="fa fa-book"></i> <span> Online Classes <span class="label label-danger">New</span></span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+            </span>
+        </a>
+        <ul class="treeview-menu">
+
+            <li><a href="@Url.Action("NewOnLineCourse", "Panel", new { area="Staff"})"><i class="fa fa-circle-o"></i> <span> Upload Subject Material</span></a></li>
+            <li><a href="@Url.Action("OnLineClass", "Panel", new { area="Staff"})"><i class="fa fa-circle-o"></i> <span>View Subject Material</span></a></li>
+            <li><a href="@Url.Action("LiveClassList", "Panel", new { area="Staff"})"><i class="fa fa-circle-o"></i> <span> Live Class</span></a></li>
+        </ul>
+    </li>
+    <li><a href="@Url.Action("Qualification", "Panel", new { area="Staff"})"><i class="fa fa-certificate"></i> <span>Qualifications</span></a></li>
+    <li><a href="@Url.Action("IndexOfClass", "Panel", new { area="Staff"})"><i class="fa fa-building"></i> <span>Class</span></a></li>
+
+    @if (GeneralService.IsPrintOutThree() == true)
+    {
+        <li><a href="@Url.Action("EnterScore2", "Panel", new { area="Staff"})"><i class="fa fa-book"></i> <span>Score Entry</span></a></li>
+    }
+    else
+    {
+        <li><a href="@Url.Action("EnterScore", "Panel", new { area="Staff"})"><i class="fa fa-book"></i> <span>Score Entry</span></a></li>
+    }
+
+    <li><a href="@Url.Action("ScoreSheet", "Panel", new { area="Staff"})"><i class="fa fa-book"></i> <span>Score Sheet</span></a></li>
+    <li><a href="@Url.Action("Offline", "Panel", new { area="Staff"})"><i class="fa fa-book"></i> <span>Offline Result</span></a></li>
+    <li><a href="@Url.Action("TimeTable", "Panel", new { area="Staff"})"><i class="fa fa-book"></i> <span>Time Table</span></a></li>
+    <li><a href="@Url.Action("Sylabus", "Panel", new { area="Staff"})"><i class="fa fa-book"></i> <span>Syllable</span></a></li>
+
+    <li><a href="@Url.Action("Subject", "Panel", new { area="Staff"})"><i class="fa fa-book"></i> <span>Subject</span></a></li>
+    <li><a href="@Url.Action("Result", "Panel", new { area="Student"})"><i class="fa fa-book"></i> <span>Print @GeneralService.StudentorPupil() Result</span></a></li>
+
+    <li><a href="@Url.Action("MyPost", "Panel", new { area="Staff"})"><i class="fa fa-lock"></i> <span>My Post</span></a></li>
+
+    @if (GeneralService.CBTEnable() == true)
+    {
+        <li class="treeview">
+            <a href="#">
+                <i class="fa fa-certificate"></i> <span> Learning Aid</span> <span class="label label-danger">New</span>
+                <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </a>
+            <ul class="treeview-menu">
+                @*<li><a href="http://cbt.iskools.com/?xgink=@GeneralService.PortalLink()"><i class="fa fa-certificate"></i> CBT <span class="label label-danger">New</span> </a></li>*@
+                @*<li><a href="http://localhost:58920/?xgink=@GeneralService.PortalLink()"><i class="fa fa-certificate"></i> CBT <span class="label label-danger">New</span> </a></li>*@
+
+                @if (User.IsInRole("Admin"))
+                {
+                    <li><a href="http://cbt.iskools.com/?unixconverify=@User.Identity.Name&xgink=@GeneralService.PortalLink()&role=admin"><i class="fa fa-certificate"></i> CBT <span class="label label-danger">New</span> </a></li>
+
+                }
+                else if (User.IsInRole("SuperAdmin"))
+                {
+                    <li><a href="http://cbt.iskools.com/?unixconverify=@User.Identity.Name&xgink=@GeneralService.PortalLink()&role=superadmin"><i class="fa fa-certificate"></i> CBT <span class="label label-danger">New</span> </a></li>
+
+                }
+                else if (User.IsInRole("Student"))
+                {
+                    <li><a href="http://cbt.iskools.com/?unixconverify=@User.Identity.Name&xgink=@GeneralService.PortalLink()&role=student"><i class="fa fa-certificate"></i> CBT <span class="label label-danger">New</span> </a></li>
+
+                }
+                else if (User.IsInRole("Staff"))
+                {
+                    <li><a href="http://cbt.iskools.com/?unixconverify=@User.Identity.Name&xgink=@GeneralService.PortalLink()&role=staff"><i class="fa fa-certificate"></i> CBT <span class="label label-danger">New</span> </a></li>
+
+                }
+
+                <li><a href="http://iskools.com/ELibrary/Ebooks"><i class="fa fa-book"></i> E-Library <span class="label label-danger">New</span></a></li>
+                <li><a href="http://iskools.com/Simulations/Initializer"><i class="fa fa-play-circle-o"></i> Science Practical <span class="label label-danger">New</span></a></li>
+                <li><a href="http://iskools.com/Games/Initializer"><i class="fa fa-gamepad"></i> Games <span class="label label-danger">New</span></a></li>
+
+
+            </ul>
+        </li>
+
+
+        <li class="treeview">
+            <a href="#">
+                <i class="fa fa-desktop"></i> <span> CBT Management </span> <span class="label label-danger">New</span>
+                <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </a>
+            <ul class="treeview-menu">
+
+                @if (User.IsInRole("SuperAdmin"))
+                {
+                    @*<li><a href="http://localhost:61390/CBTExam/CBTQuestion?unixconverify=@User.Identity.Name&xgink=@GeneralService.PortalLink()&role=superadmin"><i class="fa fa-question"></i> Questions <span class="label label-danger">New</span> </a></li>*@
+                    @*<li><a href="http://@GeneralService.PortalLink()/CBTExam/CBTSubject/Index?unixconverify=@User.Identity.Name&xgink=@GeneralService.PortalLink()&role=superadmin"><i class="fa fa-book"></i>CBT Subject <span class="label label-danger">New</span> </a></li>*@
+                    <li><a href="http://@GeneralService.PortalLink()/CBTExam/CBTQuestion/Index?unixconverify=@User.Identity.Name&xgink=@GeneralService.PortalLink()&role=superadmin"><i class="fa fa-question-circle-o"></i> CBT Question <span class="label label-danger">New</span> </a></li>
+                    @*<li><a href="http://@GeneralService.PortalLink()/CBTExam/CBTOption?unixconverify=@User.Identity.Name&xgink=@GeneralService.PortalLink()&role=superadmin"><i class="fa fa-question"></i> Options <span class="label label-danger">New</span> </a></li>*@
+                }
+                @if (User.IsInRole("Admin"))
+                {
+                    @*<li><a href="http://@GeneralService.PortalLink()/CBTExam/CBTSubject/Index?unixconverify=@User.Identity.Name&xgink=@GeneralService.PortalLink()&role=admin"><i class="fa fa-book"></i>CBT Subject <span class="label label-danger">New</span> </a></li>*@
+                    <li><a href="http://@GeneralService.PortalLink()/CBTExam/CBTQuestion/Index?unixconverify=@User.Identity.Name&xgink=@GeneralService.PortalLink()&role=admin"><i class="fa fa-question-circle-o"></i>CBT Question <span class="label label-danger">New</span> </a></li>
+                    @*<li><a href="http://@GeneralService.PortalLink()/CBTExam/CBTOption?unixconverify=@User.Identity.Name&xgink=@GeneralService.PortalLink()&role=superadmin"><i class="fa fa-question"></i> Options <span class="label label-danger">New</span> </a></li>*@
+
+                }
+
+
+                else if (User.IsInRole("Staff"))
+                {
+                    @*<li><a href="http://@GeneralService.PortalLink()/CBTExam/CBTSubject/Index?unixconverify=@User.Identity.Name&xgink=@GeneralService.PortalLink()&role=staff"><i class="fa fa-book"></i>CBT Subject <span class="label label-danger">New</span> </a></li>*@
+                    <li><a href="http://@GeneralService.PortalLink()/CBTExam/CBTQuestion/Index?unixconverify=@User.Identity.Name&xgink=@GeneralService.PortalLink()&role=staff"><i class="fa fa-question-circle-o"></i>CBT Question <span class="label label-danger">New</span> </a></li>
+                    @*<li><a href="http://@GeneralService.PortalLink()/CBTExam/CBTOption?unixconverify=@User.Identity.Name&xgink=@GeneralService.PortalLink()&role=superadmin"><i class="fa fa-question"></i> Options <span class="label label-danger">New</span> </a></li>*@
+
+                }
+            </ul>
+        </li>
+    }
+
+
+    <li><a href="@Url.Action("ChangePassword", "Account", new { area=""})"><i class="fa fa-lock"></i> <span>Change Password</span></a></li>

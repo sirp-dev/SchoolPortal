@@ -1,0 +1,206 @@
+﻿@model SchoolPortal.Web.Models.ResultArchive.EnrolledSubjectArchive
+@using SchoolPortal.Web.Areas.Service
+@{
+    ViewBag.Title = "Edit";
+}
+
+<div class="row">
+    <!-- left column -->
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <!-- general form elements -->
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Update Score</h3>
+
+                <div class="table-responsive">
+                    <table class="table table-success table-bordered" style="background-color:#3c8dbc; color:#ffffff;">
+                        <tr>
+                            <th>@GeneralService.StudentorPupil() Name</th>
+                            <td>@ViewBag.StudentsName</td>
+                        </tr>
+                        <tr>
+                            <th>Session</th>
+                            <td>@ViewBag.sessionname</td>
+                        </tr>
+                        <tr>
+                            <th>Class</th>
+                            <td>@ViewBag.c</td>
+                        </tr>
+                        <tr>
+                            <th>C/A</th>
+                            <td>@ViewBag.acc</td>
+                        </tr>
+                        <tr>
+                            <th>Exam</th>
+                            <td>@ViewBag.exam</td>
+                        </tr>
+                       
+                    </table>
+                </div>
+                @if (TempData["msg"] != null)
+                {
+                    <div class="alert alert-success alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <strong>@TempData["msg"]</strong>
+                    </div>
+                }
+                @if (TempData["error"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <strong>@TempData["error"]</strong>
+                    </div>
+                }
+            </div>
+            @using (Html.BeginForm("Edit", "ResultArchiveManagement", new { returnUrl = ViewBag.returnUrl }, FormMethod.Post))
+            {
+                @*@Html.AntiForgeryToken()*@
+
+        <div class="box-body">
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.Id)
+            @Html.HiddenFor(model => model.EnrollmentId)
+
+
+            @{
+                var checkPrint = GeneralService.IsPrintOutThree();
+            }
+            @if (checkPrint == true)
+            {
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Project, htmlAttributes: new { @class = "control-label" })
+                    <div class="">
+                        @Html.EditorFor(model => model.Project, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Project, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ClassExercise, htmlAttributes: new { @class = "control-label" })
+                    <div class="">
+                        @Html.EditorFor(model => model.ClassExercise, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ClassExercise, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.TestScore, htmlAttributes: new { @class = "control-label" })
+                    <div class="">
+                        @Html.EditorFor(model => model.TestScore, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.TestScore, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.TestScore2, htmlAttributes: new { @class = "control-label" })
+                    <div class="">
+                        @Html.EditorFor(model => model.TestScore2, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.TestScore2, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Assessment, htmlAttributes: new { @class = "control-label" })
+                    <div class="">
+                        @Html.EditorFor(model => model.Assessment, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Assessment, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ExamScore, htmlAttributes: new { @class = "control-label" })
+                    <div class="">
+                        @Html.EditorFor(model => model.ExamScore, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ExamScore, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            }
+            else
+            {
+                if (GeneralService.EnabledProjectScore() == true)
+                {
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Project, htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+                            @Html.EditorFor(model => model.Project, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Project, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                }
+                if (GeneralService.EnabledTestScore() == true)
+                {
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.TestScore, htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+                            @Html.EditorFor(model => model.TestScore, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.TestScore, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                }
+
+                if (GeneralService.EnabledTestScore2() == true)
+                {
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.TestScore2, htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+                            @Html.EditorFor(model => model.TestScore2, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.TestScore2, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                }
+
+                if (GeneralService.EnabledClassExerciseScore() == true)
+                {
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ClassExercise, htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+                            @Html.EditorFor(model => model.ClassExercise, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.ClassExercise, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                }
+
+                if (GeneralService.EnabledAssessmentScore() == true)
+                {
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Assessment, htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+                            @Html.EditorFor(model => model.Assessment, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Assessment, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                }
+
+                if (GeneralService.EnabledExamScore() == true)
+                {
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ExamScore, htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+                            @Html.EditorFor(model => model.ExamScore, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.ExamScore, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                }
+
+
+            }
+        </div>
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-primary">Update</button>
+                    <a href="javascript: history.back()" class="btn btn-default">Cancel</a>
+                </div>
+
+            }
+        </div>
+
+    </div>
+    <div class="col-md-3"></div>
+
+</div>
+
+
+
+@section Scripts {
+        
+}

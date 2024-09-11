@@ -1,0 +1,174 @@
+﻿@model IEnumerable<SchoolPortal.Web.Models.Dtos.Zoom.Recording_Files>
+
+@{
+    ViewBag.Title = "LiveClassRecording";
+}
+
+
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box" style="padding:7px;">
+            @if (Model != null)
+            {
+                <div class="box-header" style="margin-bottom:15px;">
+                    <h3 class="box-title"><i class="fa fa-fw fa-file-text-o"></i> Live Class Recordings</h3>
+                    <a href="javascript: history.back()" class="btn btn-danger pull-right" style="margin-bottom:10px;">Back</a>
+
+                    <table class="table table-bordered table-hover">
+                        <tr>
+                            <th>Class</th>
+                            <td>@ViewBag.prof.ClassLevel.ClassName</td>
+                        </tr>
+                        <tr>
+                            <th>Subject</th>
+                            <td> @ViewBag.prof.Subject.SubjectName</td>
+                        </tr>
+                        <tr>
+                            <th>Teacher</th>
+                            <td>
+                                @ViewBag.prof.User.Surname
+                                @ViewBag.prof.User.FirstName
+                                @ViewBag.prof.User.OtherName
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body table-responsive no-padding">
+                    <table id="example1" class="table table-bordered table-hover" border="1">
+
+                        <thead>
+                            <tr>
+                                <th>S/N</th>
+                                <th>
+                                    Record Start
+                                </th>
+
+                                <th>
+                                    Record End
+                                </th>
+                                <th>
+                                    Type
+                                </th>
+                                <th>
+                                    Size
+                                </th>
+                                <th>
+                                    Play
+                                </th>
+                                <th>
+                                    Download
+                                </th>
+                                <th>Status</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                int sno = 0;
+                            }
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @{ sno++; }
+                                        @sno
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.recording_start)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.recording_end)
+                                    </td>
+                                    <td>
+                                        @item.recording_type.Replace("_", " ")
+                                    </td>
+                                    <td>
+                                        @{
+                                            float mb = (item.file_size / 1024f) / 1024f;
+                                        }
+                                        @mb.ToString("0.00")<span>MB</span>
+                                    </td>
+                                    <td>
+                                        <a href="@Html.DisplayFor(modelItem => item.play_url)">
+                                            <button class="btn btn-primary btn-sm">Play Now</button>
+                                        </a>
+
+                                    </td>
+                                    <td>
+                                        <a href="@Html.DisplayFor(modelItem => item.download_url)">
+                                            Downlaod
+                                        </a>
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.status)
+                                    </td>
+
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.box-body -->
+            }
+            else
+            {
+                <div class="alert alert-danger alert-dismissible">
+                    <h4><i class="icon fa fa-ban"></i> No data Yet. Class Has not been concluded</h4>
+
+                </div>
+            }
+        </div>
+        <!-- /.box -->
+    </div>
+</div>
+
+
+
+
+@section Style {
+
+    <link rel="stylesheet" href="http://v1.exwhyzee.ng/admin/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+}
+
+@section Scripts {
+    <!-- DataTables -->
+    <script src="http://v1.exwhyzee.ng/admin/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="http://v1.exwhyzee.ng/admin/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+
+}
+
+@section Scripts2 {
+    <script>
+        $(function () {
+            $('#example1').DataTable()
+            $('#example2').DataTable({
+                'paging': true,
+                'lengthChange': false,
+                'searching': false,
+                'ordering': true,
+                'info': true,
+                'autoWidth': false
+            })
+        })
+    </script>
+    <script type="text/JavaScript">
+        //courtesy of BoogieJack.com
+        function killCopy(e) {
+            return false
+        }
+        function reEnable() {
+            return true
+        }
+        document.onselectstart = new Function("return false")
+        if (window.sidebar) {
+            document.onmousedown = killCopy
+            document.onclick = reEnable
+        }
+    </script>
+}
+
+
+
+

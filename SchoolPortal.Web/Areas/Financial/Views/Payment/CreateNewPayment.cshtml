@@ -1,0 +1,173 @@
+﻿@model SchoolPortal.Web.Models.Entities.FinanceInitializer
+
+@{
+    ViewBag.Title = "CreateNewPayment";
+}
+
+<div class="row">
+    <!-- left column -->
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <!-- general form elements -->
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">
+                    Create New Payment
+
+                </h3>
+               
+                @if (TempData["error"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                        @TempData["error"]<br />
+                        @TempData["error1"]
+                    </div>
+                }
+                @if (TempData["success"] != null)
+                {
+                    <div class="alert alert-success alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <strong>@Html.Raw(TempData["success"])</strong>
+                    </div>
+                }
+            </div>
+
+
+            <div class="box-body">
+
+                @using (Html.BeginForm())
+                {
+                    @*@Html.AntiForgeryToken()*@
+
+                <div class="">
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="form-group">
+                        @Html.Label("Surname", new { @class = "control-label" })
+                        <div class="">
+                            @Html.TextBox("Surname", null, new { @class = "form-control", required= "required" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("First Name", new { @class = "control -label" })
+                        <div class="">
+                            @Html.TextBox("FirstName", null, new { @class = "form-control", required = "required" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("Other Name", new { @class = "control -label" })
+                        <div class="">
+                            @Html.TextBox("OtherName", null, new { @class = "form-control", required = "required" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("Email", new { @class = "control -label" })
+                        <div class="">
+                            @Html.TextBox("Email", null, new { @class = "form-control", required = "required" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("Phone Number", new { @class = "control -label" })
+                        <div class="">
+                            @Html.TextBox("PhoneNumber", null, new { @class = "form-control", required = "required" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.Label("Contact Address", new { @class = "control -label" })
+                        <div class="">
+                            @Html.TextBox("Address", null, new { @class = "form-control", required = "required" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("State of Origin", new { @class = "control -label" })
+                        <div class="">
+                            @Html.DropDownList("State", ViewBag.StateOfOrigin as SelectList, "Select a State", new { id = "", @class = "form-control", required = "required" })
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.Label("Class Name", new { @class = "control-label" })
+                        <div class="">
+                            @Html.DropDownList("Classid", ViewBag.ClassLevelId as SelectList, "Select a Class", new { id = "", @class = "form-control", required = "required" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("Payment Type", new { @class = "control-label" })
+                        <div class="">
+                            @Html.DropDownList("PaymentAmountId", ViewBag.Income as SelectList, "Select a Payment", new { id = "", @class = "form-control", required = "required" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.Label("Teller Number", htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+                            @Html.Editor("teller", new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        @Html.Label("Amount in teller must match the amount above", htmlAttributes: new { @class = "control-label" })
+
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.FinanceSource, htmlAttributes: new { @class = "control-label" })
+                        (@Html.Label("Only Teller is Accepted", htmlAttributes: new { @class = "control-label" }))
+
+                    </div>
+
+
+                    <div class="form-group">
+                        <div class="">
+                            <input type="submit" value="Continue" class="btn btn-default" />
+                        </div>
+                    </div>
+                </div>
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts {
+        
+
+    <script type="text/jscript">
+        $(function () {
+            $('#StateOfOrigin').change(function () {
+                $.getJSON('/Payment/StudentList/' + $('#StateOfOrigin').val(), function (data) {
+                    var items = '<option>Select Student</option>';
+                    $.each(data, function (i, local) {
+                        items += "<option value='" + local.Value + "'>" + local.Text + "</option>";
+                    });
+                    $('#LGA').html(items);
+                });
+            });
+
+
+        });
+    </script>
+    <script type="text/jscript">
+        $(function () {
+            $('#StateOfOrigin').change(function () {
+                $.getJSON('/Payment/ClaassPaymentList/' + $('#StateOfOrigin').val(), function (data) {
+                    var items = '<option>Select Payment</option>';
+                    $.each(data, function (i, local) {
+                        items += "<option value='" + local.Value + "'>" + local.Text + "</option>";
+                    });
+                    $('#Pay').html(items);
+                });
+            });
+        });
+    </script>
+    <script src="http://v1.exwhyzee.ng/admin/main.js"></script>
+}

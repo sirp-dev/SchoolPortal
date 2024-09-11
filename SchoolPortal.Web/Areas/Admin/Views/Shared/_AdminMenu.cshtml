@@ -1,0 +1,500 @@
+﻿@using SchoolPortal.Web.Areas.Service
+@using SchoolPortal.Web.Models.Entities
+@if (User.IsInRole("SuperAdmin"))
+{
+
+    <li class="header">WEBSITE EDITOR</li>
+
+    <li class="treeview">
+        <a href="#">
+            <i class="fa fa-building-o"></i> <span>Website UI</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+            </span>
+        </a>
+        <ul class="treeview-menu">
+            <li><a href="@Url.Action("Index", "SiteBreadCrumbs", new { area = "WebsiteUI" })"><i class="fa fa-circle-o"></i> Site BreadCrumbs</a></li>
+            <li><a href="@Url.Action("Index", "SiteContacts", new { area = "WebsiteUI" })"><i class="fa fa-circle-o"></i> Site Contact</a></li>
+            <li><a href="@Url.Action("Index", "SiteFooterJS", new { area = "WebsiteUI" })"><i class="fa fa-circle-o"></i> Site FooterJS</a></li>
+            <li><a href="@Url.Action("Index", "SiteFooters", new { area = "WebsiteUI" })"><i class="fa fa-circle-o"></i> Site Footer</a></li>
+            <li><a href="@Url.Action("Index", "SiteGalleries", new { area = "WebsiteUI" })"><i class="fa fa-circle-o"></i> Site Galleries</a></li>
+            <li><a href="@Url.Action("Index", "SiteGalleryLists", new { area = "WebsiteUI" })"><i class="fa fa-circle-o"></i> Site Gallery Lists</a></li>
+            <li><a href="@Url.Action("Index", "SiteHeaders", new { area = "WebsiteUI" })"><i class="fa fa-circle-o"></i> Site Headers</a></li>
+            <li><a href="@Url.Action("Index", "SiteNavHeaders", new { area = "WebsiteUI" })"><i class="fa fa-circle-o"></i> Site Nav Headers</a></li>
+            <li><a href="@Url.Action("Index", "SiteHomeBodies", new { area = "WebsiteUI" })"><i class="fa fa-circle-o"></i> Site Home Body</a></li>
+            <li><a href="@Url.Action("Index", "SiteHomeBodyAfterNews", new { area = "WebsiteUI" })"><i class="fa fa-circle-o"></i> Site Home Body News</a></li>
+            <li><a href="@Url.Action("Index", "SiteOverrideCSSes", new { area = "WebsiteUI" })"><i class="fa fa-circle-o"></i> Site Override CSS</a></li>
+            <li><a href="@Url.Action("Index", "SitePageCategories", new { area = "WebsiteUI" })"><i class="fa fa-circle-o"></i> Site Page Category</a></li>
+            <li><a href="@Url.Action("Index", "SitePages", new { area = "WebsiteUI" })"><i class="fa fa-circle-o"></i> Site Pages</a></li>
+            <li><a href="@Url.Action("Index", "SiteSettings", new { area = "WebsiteUI" })"><i class="fa fa-circle-o"></i> Site Settings</a></li>
+            <li><a href="@Url.Action("Index", "SiteSliders", new { area = "WebsiteUI" })"><i class="fa fa-circle-o"></i>  Site Sliders</a></li>
+            <li><a href="@Url.Action("Index", "SiteNewsPosts", new { area = "WebsiteUI" })"><i class="fa fa-circle-o"></i>  Site News Posts</a></li>
+            <li><a href="@Url.Action("Index", "SiteNewsPostLists", new { area = "WebsiteUI" })"><i class="fa fa-circle-o"></i>  Site News Posts List</a></li>
+            <li><a href="@Url.Action("Index", "SiteSinglePosts", new { area = "WebsiteUI" })"><i class="fa fa-circle-o"></i>  Site Single Posts</a></li>
+
+            <li><a href="@Url.Action("Index", "ContentImages", new { area="WebsiteManager"})"><i class="fa fa-circle-o"></i> Page Images</a></li>
+
+        </ul>
+    </li>
+}
+    <li class="header">ADMIN NAVIGATION</li>
+    <li><a href="@Url.Action("Index", "DashBoard", new { area="Admin"})"><i class="fa fa-dashboard"></i> <span>Admin Dashboard</span></a></li>
+
+    <li style="background-color:#dd4b39;color:#000000;" class="treeview">
+        <a href="#">
+            <i class="fa fa-book"></i> <span> Online Class <span class="label label-danger">New</span></span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+            </span>
+        </a>
+        <ul class="treeview-menu">
+
+            <li><a href="@Url.Action("LiveClassList", "Panel", new { area="Staff"})"><i class="fa fa-circle-o"></i> <span> Live Class</span></a></li>
+            <li><a href="@Url.Action("OnLineClass", "Panel", new { area="Staff"})"><i class="fa fa-circle-o"></i> <span>Uploaded Class</span></a></li>
+
+        </ul>
+    </li>
+
+    <li class="treeview">
+        <a href="#">
+            <i class="fa fa-building-o"></i> <span> School Management</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+            </span>
+        </a>
+        <ul class="treeview-menu">
+            <li><a href="@Url.Action("Index", "Sessions", new { area="Admin"})"><i class="fa fa-circle-o"></i> Session Management</a></li>
+            <li><a href="@Url.Action("Index", "ClassLevels", new { area="Admin"})"><i class="fa fa-circle-o"></i> Class Management</a></li>
+
+            @if (User.IsInRole("SuperAdmin"))
+            {         
+                <li><a href="@Url.Action("StartPromote", "ClassLevels", new { area = "Admin" })"><i class="fa fa-circle-o"></i> Promotion Management</a></li>
+
+                <li><a href="@Url.Action("Promotion", "ClassLevels", new { area = "Admin" })"><i class="fa fa-circle-o"></i> Promotion Management</a></li>
+                <li><a href="@Url.Action("NewEnrolment", "ResultManagement", new { area = "Admin" })"><i class="fa fa-circle-o"></i> New Enrollement***</a></li>
+            }
+        </ul>
+    </li>
+    <li class="treeview">
+        <a href="#">
+            <i class="fa fa-book"></i> <span> Enrollment Management</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+            </span>
+        </a>
+        <ul class="treeview-menu">
+            <li><a href="@Url.Action("Index", "Enrollments", new { area="Admin"})"><i class="fa fa-circle-o"></i>Non-Enrolled @GeneralService.StudentorPupil()<span>'s</span></a></li>
+            <li><a href="@Url.Action("EnrolledStudents", "Enrollments", new { area="Admin"})"><i class="fa fa-circle-o"></i> Enrolled @GeneralService.StudentorPupil()<span>s</span></a></li>
+            <li><a href="@Url.Action("EnrolByClass", "Enrollments", new { area="Admin"})"><i class="fa fa-circle-o"></i> Enrollement By Class</a></li>
+        </ul>
+    </li>
+
+    <li class="treeview">
+        <a href="#">
+            <i class="fa fa-user"></i> <span> @GeneralService.StudentorPupil() Management</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+            </span>
+        </a>
+        <ul class="treeview-menu">
+            <li><a href="@Url.Action("NewStudent", "UserManagers", new { area="Admin"})"><i class="fa fa-user"></i> Add New @GeneralService.StudentorPupil()</a></li>
+            @*<li><a href="@Url.Action("New", "UserManagers", new { area="Admin"})"><i class="fa fa-user"></i> Add New @GeneralService.StudentorPupil()</a></li>*@
+
+            <li><a href="@Url.Action("Students", "UserManagers", new { area="Admin"})"><i class="fa fa-users"></i>All @GeneralService.StudentorPupil()</a></li>
+            <li><a href="@Url.Action("Graduates", "UserManagers", new { area="Admin"})"><i class="fa fa-circle-o"></i> Graduates</a></li>
+            <li><a href="@Url.Action("DropOut", "UserManagers", new { area="Admin"})"><i class="fa fa-circle-o"></i> Drop Out</a></li>
+
+        </ul>
+    </li>
+    <li class="treeview">
+        <a href="#">
+            <i class="fa fa-user"></i> <span> Staff Management</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+            </span>
+        </a>
+        <ul class="treeview-menu">
+            <li><a href="@Url.Action("NewStaff", "UserManagers", new { area="Admin"})"><i class="fa fa-user"></i>  Add New Staff</a></li>
+
+            <li><a href="@Url.Action("Staff", "UserManagers", new { area="Admin"})"><i class="fa fa-users"></i> Active Staff</a></li>
+            <li><a href="@Url.Action("NonActiveStaff", "UserManagers", new { area="Admin"})"><i class="fa fa-users"></i> Non Active Staff</a></li>
+
+        </ul>
+    </li>
+
+
+
+    <li class="treeview">
+        <a href="#">
+            <i class="fa fa-user"></i> <span> User Management</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+            </span>
+        </a>
+        <ul class="treeview-menu">
+            <li><a href="@Url.Action("Index", "UserManagers", new { area="Admin"})"><i class="fa fa-circle-o"></i> Users</a></li>
+            <li><a href="@Url.Action("Roles", "UserManagers", new { area="Admin"})"><i class="fa fa-circle-o"></i> Roles</a></li>
+           </ul>
+    </li>
+    <li class="treeview">
+        <a href="#">
+            <i class="fa fa-user"></i> <span> Result Management</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+            </span>
+        </a>
+        <ul class="treeview-menu">
+            <li><a href="@Url.Action("Index", "ResultManagement", new { area="Admin"})"><i class="fa fa-bar-chart-o"></i> <span> Manage Result</span></a></li>
+            <li><a href="@Url.Action("IndexOfClass", "Panel", new { area="Staff"})"><i class="fa fa-building"></i> <span>Classes</span></a></li>
+            <li><a href="@Url.Action("Subject", "Panel", new { area="Staff"})"><i class="fa fa-book"></i> <span>Subject</span></a></li>
+            @if (GeneralService.IsPrintOutThree() == true)
+            {
+                <li><a href="@Url.Action("EnterScore2", "Panel", new { area="Staff"})"><i class="fa fa-book"></i> <span>Score Entry</span></a></li>
+            }
+            else
+            {
+                <li><a href="@Url.Action("EnterScore", "Panel", new { area="Staff"})"><i class="fa fa-book"></i> <span>Score Entry</span></a></li>
+            }
+
+
+            <li><a href="@Url.Action("ScoreSheet", "Panel", new { area="Staff"})"><i class="fa fa-book"></i> <span>Score Sheet</span></a></li>
+            <li><a href="@Url.Action("Offline", "Panel", new { area="Staff"})"><i class="fa fa-book"></i> <span>Offline Result</span></a></li>
+            @if (GeneralService.IsPrintOutTwo() == true || GeneralService.IsPrintOutThree() == true)
+            {
+                <li><a href="@Url.Action("Index", "NewsLetters", new { area = "Admin" })"><i class="fa fa-book"></i> <span>News Letter On Result</span></a></li>
+            }
+
+            @if (GeneralService.IsNewsletterPageContentEnable() == true && GeneralService.IsPrintOutOne() == true)
+            {
+                <li><a href="@Url.Action("Newsletter", "Settings", new { area = "Admin" })"><i class="fa fa-book"></i> <span>Newsletter</span></a></li>
+            }
+            <li><a href="@Url.Action("Result", "Panel", new { area="Student"})"><i class="fa fa-book"></i> <span>Print @GeneralService.StudentorPupil() Result</span></a></li>
+            @*<li><a href="#"><i class="fa fa-bar-chart-o"></i> <span> Batch Result</span></a></li>*@
+            @if (GeneralService.IsBatchresult() == true)
+            {
+                <li><a href="@Url.Action("BatchResult", "ResultManagement", new { area="Admin"})"><i class="fa fa-bar-chart-o"></i> <span> Batch Result</span></a></li>
+
+            }
+            <li><a href="@Url.Action("MasterListIndex", "ResultManagement", new { area="Admin"})"><i class="fa fa-bar-chart-o"></i> <span> Master List</span></a></li>
+            <li><a href="@Url.Action("CummulativeMasterListIndex", "ResultManagement", new { area="Admin"})"><i class="fa fa-bar-chart-o"></i> <span>Cummulative Master List</span></a></li>
+
+
+        </ul>
+    </li>
+
+
+    <li><a href="@Url.Action("Index", "PinManagement", new { area="Admin"})"><i class="fa fa-id-card"></i> <span> Pin Card Management</span></a></li>
+    <li><a href="@Url.Action("Index", "HallOfFames", new { area="Admin"})"><i class="fa fa-id-card"></i> <span> Hall Of Fame</span></a></li>
+    <li><a href="@Url.Action("Index", "Admin", new { area="Admission"})"><i class="fa fa-dashboard"></i> <span>Admission</span></a></li>
+
+    @if (GeneralService.IsFinanceEnabled() == true)
+    {
+        <li class="treeview">
+            <a href="#">
+                <i class="fa fa-money"></i> <span style="color:#e2a1a1;font-weight:900;"> Finance Management</span>
+                <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </a>
+            <ul class="treeview-menu">
+
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-money"></i> <span> Financial Source</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="@Url.Action("Index", "IncomeSource", new { area = "Financial" })"><i class="fa fa-circle-o"></i> Source of Income</a></li>
+                        <li><a href="@Url.Action("Index", "ExpenditureSource", new { area = "Financial" })"><i class="fa fa-circle-o"></i> Source of Expenditure</a></li>
+                    </ul>
+
+                </li>
+
+                <li><a href="@Url.Action("Index", "Payment", new { area="Financial"})"><i class="fa fa-money"></i> <span> Current Inflow</span></a></li>
+                <li><a href="@Url.Action("IndexSession", "Payment", new { area="Financial"})"><i class="fa fa-money"></i> <span> Inflow By Session</span></a></li>
+                <li><a href="@Url.Action("IndexAll", "Payment", new { area="Financial"})"><i class="fa fa-money"></i> <span> All Inflow</span></a></li>
+                @*<li><a href="@Url.Action("PaymentHistory", "Payment", new { area="Financial"})"><i class="fa fa-money"></i> <span> Payment History</span></a></li>*@
+                <li><a href="@Url.Action("Expenditure", "Payment", new { area="Financial"})"><i class="fa fa-money"></i> <span> Outflow</span></a></li>
+
+
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-money"></i> <span> Status</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="@Url.Action("Complete", "Account", new { area = "Financial" })"><i class="fa fa-circle-o"></i> Complete Payment</a></li>
+                        <li><a href="@Url.Action("Part", "Account", new { area = "Financial" })"><i class="fa fa-circle-o"></i> Part Payment</a></li>
+                        <li><a href="@Url.Action("NotPaid", "Account", new { area = "Financial" })"><i class="fa fa-circle-o"></i> Not Paid</a></li>
+                    </ul>
+
+                </li>
+
+
+                <li><a href="@Url.Action("Index", "BankStatement", new { area="Financial"})"><i class="fa fa-money"></i> <span> Bank Accounts</span></a></li>
+                <li><a href="@Url.Action("ListAllPaymentsAndNon", "Payment", new { area="Financial"})"><i class="fa fa-money"></i> <span> All Students Payment</span></a></li>
+                <li><a href="@Url.Action("AccountStatement", "Payment", new { area="Financial"})"><i class="fa fa-money"></i> <span> AccountStatement</span></a></li>
+
+
+                @*<li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-bar-chart"></i> <span> Financial Analysis</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="@Url.Action("CurrentCreditPayment", "Payment", new { area = "Financial" })"><i class="fa fa-circle-o"></i> Income</a></li>
+                            <li><a href="@Url.Action("CurrentDebitPayment", "Payment", new { area = "Financial" })"><i class="fa fa-circle-o"></i> Expenditure</a></li>
+                            <li><a href="@Url.Action("Index", "Payment", new { area = "Financial" })"><i class="fa fa-circle-o"></i> Analysis</a></li>
+                            <li><a href="@Url.Action("Index", "BankStatement", new { area = "Financial" })"><i class="fa fa-circle-o"></i> Account Statement</a></li>
+
+                        </ul>
+
+                    </li>*@
+                @*<li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-bank"></i> <span> Bank Account</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="@Url.Action("Index", "BankStatement", new { area = "Financial" })"><i class="fa fa-circle-o"></i> Account Statement</a></li>
+
+                        </ul>
+
+                    </li>*@
+            </ul>
+        </li>
+    }
+    @if (GeneralService.IsHostelEnabled() == true)
+    {
+        <li class="treeview">
+            <a href="#">
+                <i class="fa fa-hotel"></i> <span style="color:#e2a1a1;font-weight:900;">Accomodation</span>
+                <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </a>
+            <ul class="treeview-menu">
+
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-hotel"></i> <span> Hostel Management</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="@Url.Action("Index", "Hostels", new { area = "Accomodation" })"><i class="fa fa-hotel"></i> Hostels</a></li>
+                        <li><a href="@Url.Action("Index", "Rooms", new { area = "Accomodation" })"><i class="fa fa-home"></i> Rooms</a></li>
+                        <li><a href="@Url.Action("Index", "Beds", new { area = "Accomodation" })"><i class="fa fa-home"></i> Beds</a></li>
+                    </ul>
+
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-hotel"></i> <span> Hostel Allocation</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="@Url.Action("Accomodation", "Payment", new { area = "Financial" })"><i class="fa fa-circle-o"></i>Manage Allocation</a></li>
+                        <li><a href="@Url.Action("Index", "Allotment", new { area = "Accomodation" })"><i class="fa fa-users"></i>Allocated Student</a></li>
+                    </ul>
+
+                </li>
+            </ul>
+        </li>
+    }
+    <li class="treeview">
+        <a href="#">
+            <i class="fa fa-dot-circle-o"></i> <span> Document</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+            </span>
+        </a>
+        <ul class="treeview-menu">
+            <li><a href="@Url.Action("Index", "Doc", new { area="Content"})"><i class="fa fa-dashcube"></i> <span> @GeneralService.StudentorPupil() List</span></a></li>
+            <li><a href="@Url.Action("StaffList", "Doc", new { area="Content"})"><i class="fa fa-dashcube"></i> <span> Staff List</span></a></li>
+            <li><a href="@Url.Action("LessonNote", "Doc", new { area="Content"})"><i class="fa fa-book"></i> <span> Lesson Note</span></a></li>
+            <li><a href="@Url.Action("AllAssignments", "Panel", new { area="Staff"})"><i class="fa fa-book"></i> <span> Assignments</span></a></li>
+            <li><a href="@Url.Action("ResultSummary", "Doc", new { area="Content"})"><i class="fa fa-dashcube"></i> <span> Result Summary</span></a></li>
+            <li><a href="@Url.Action("StaffRegistrationLink", "Doc", new { area="Content"})"><i class="fa fa-users"></i> <span> Staff Registration Link</span></a></li>
+
+        </ul>
+    </li>
+    @if (GeneralService.IsPrintOutTwo() == true || GeneralService.IsPrintOutThree() == true)
+    {
+        <li class="treeview">
+            <a href="#">
+                <i class="fa fa-dot-circle-o"></i> <span> Finance</span>
+                <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </a>
+            <ul class="treeview-menu">
+                <li><a href="@Url.Action("Index", "SchoolAccounts", new { area="Admin"})"><i class="fa fa-id-card"></i> <span> School Bank Accounts  </span></a></li>
+                <li><a href="@Url.Action("Index", "SchoolFees", new { area="Admin"})"><i class="fa fa-id-card"></i> <span> School Fees  </span></a></li>
+
+            </ul>
+        </li>
+    }
+
+
+    <li class="treeview">
+        <a href="#">
+            <i class="fa fa-gear"></i> <span> Settings</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+            </span>
+        </a>
+        <ul class="treeview-menu">
+            <li><a href="@Url.Action("Index", "Settings", new { area="Admin"})"><i class="fa fa-gear"></i> <span> Portal Settings</span></a></li>
+            <li><a href="@Url.Action("Index", "Gradings", new { area="Admin"})"><i class="fa fa-book"></i> <span> Grading Settings</span></a></li>
+            <li><a href="@Url.Action("Index", "Syllables", new { area="Content"})"><i class="fa fa-book"></i> <span> Syllables</span></a></li>
+
+            <li><a href="@Url.Action("Index", "ImageSliders", new { area="Admin"})"><i class="fa fa-circle-o"></i> Sliders</a></li>
+            <li><a href="@Url.Action("Index", "ImageGalleries", new { area="Admin"})"><i class="fa fa-circle-o"></i>Galleries</a></li>
+            <li><a href="@Url.Action("SchoolStam", "Settings", new { area="Admin"})"><i class="fa fa-circle-o"></i> School Stamp</a></li>
+            <li><a href="@Url.Action("Index", "NotificationSettings", new { area="Admin"})"><i class="fa fa-newspaper-o"></i> <span> Notification Settings</span></a></li>
+            <li><a href="@Url.Action("CheckClassPublish", "ResultManagement", new { area = "Admin" })"><i class="fa fa-circle-o"></i> <span> Publish Status</span></a></li>
+
+        </ul>
+    </li>
+    <li class="treeview">
+        <a href="#">
+            <i class="fa fa-bookmark-o"></i> <span> Post | Content Management</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+            </span>
+        </a>
+        <ul class="treeview-menu">
+            <li><a href="@Url.Action("Index", "Posts", new { area="Content"})"><i class="fa fa-bookmark"></i> <span> Posts</span></a></li>
+
+        </ul>
+    </li>
+    <li class="treeview">
+        <a href="#">
+            <i class="fa fa-envelope-square"></i> <span> Bulk SMS</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+            </span>
+        </a>
+        <ul class="treeview-menu">
+            <li><a href="@Url.Action("Index", "Message", new { area="Content"})"><i class="fa fa-envelope-open"></i> Send Message</a></li>
+
+            <li><a href="@Url.Action("ComposeSms", "Message", new { area="Content"})"><i class="fa fa-envelope-open"></i> Compose Message</a></li>
+            <li><a href="@Url.Action("MessageHistory", "Message", new { area="Content"})"><i class="fa fa-envelope-square"></i> Message History</a></li>
+
+        </ul>
+    </li>
+    @if (GeneralService.CBTEnable() == true)
+    {
+        <li class="treeview">
+            <a href="#">
+                <i class="fa fa-certificate"></i> <span> Learning Aid </span> <span class="label label-danger">New</span>
+                <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </a>
+            <ul class="treeview-menu">
+
+                @if (User.IsInRole("Admin"))
+                {
+                    @*<li><a href="http://localhost:58920/?unixconverify=@User.Identity.Name&xgink=@GeneralService.PortalLink()&role=admin"><i class="fa fa-desktop"></i> CBT <span class="label label-danger">New</span> </a></li>*@
+                    <li><a href="http://cbt.iskools.com//?unixconverify=@User.Identity.Name&xgink=@GeneralService.PortalLink()&role=admin"><i class="fa fa-desktop"></i> CBT <span class="label label-danger">New</span> </a></li>
+
+                }
+                else if (User.IsInRole("SuperAdmin"))
+                {
+                    <li><a href="http://cbt.iskools.com/?unixconverify=@User.Identity.Name&xgink=@GeneralService.PortalLink()&role=superadmin"><i class="fa fa-desktop"></i> CBT <span class="label label-danger">New</span> </a></li>
+
+                }
+                else if (User.IsInRole("Student"))
+                {
+                    <li><a href="http://cbt.iskools.com/?unixconverify=@User.Identity.Name&xgink=@GeneralService.PortalLink()&role=student"><i class="fa fa-desktop"></i> CBT <span class="label label-danger">New</span> </a></li>
+
+                }
+                else if (User.IsInRole("Staff"))
+                {
+                    <li><a href="http://cbt.iskools.com/?unixconverify=@User.Identity.Name&xgink=@GeneralService.PortalLink()&role=staff"><i class="fa fa-desktop"></i> CBT <span class="label label-danger">New</span> </a></li>
+
+                }
+
+                <li><a href="http://iskools.com/ELibrary/Ebooks"><i class="fa fa-book"></i> E-Library <span class="label label-danger">New</span></a></li>
+                <li><a href="http://iskools.com/Simulations/Initializer"><i class="fa fa-play-circle-o"></i> Science Practical <span class="label label-danger">New</span></a></li>
+                <li><a href="http://iskools.com/Games/Initializer"><i class="fa fa-gamepad"></i> Games <span class="label label-danger">New</span></a></li>
+            </ul>
+        </li>
+
+
+
+
+        <li class="treeview">
+            <a href="#">
+                <i class="fa fa-desktop"></i> <span> CBT Management </span> <span class="label label-danger">New</span>
+                <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </a>
+            <ul class="treeview-menu">
+
+                @if (User.IsInRole("SuperAdmin"))
+                {
+                    @*<li><a href="http://localhost:61390/CBTExam/CBTQuestion?unixconverify=@User.Identity.Name&xgink=@GeneralService.PortalLink()&role=superadmin"><i class="fa fa-question"></i> Questions <span class="label label-danger">New</span> </a></li>*@
+                    <li><a href="http://@GeneralService.PortalLink()/CBTExam/CBTClass/Index?unixconverify=@User.Identity.Name&xgink=@GeneralService.PortalLink()&role=superadmin"><i class="fa fa-book"></i>CBT Class <span class="label label-danger">New</span> </a></li>
+                    @*<li><a href="http://@GeneralService.PortalLink()/CBTExam/CBTSubject/Index?unixconverify=@User.Identity.Name&xgink=@GeneralService.PortalLink()&role=superadmin"><i class="fa fa-book"></i>CBT Subject <span class="label label-danger">New</span> </a></li>*@
+                    <li><a href="http://@GeneralService.PortalLink()/CBTExam/CBTQuestion/Index?unixconverify=@User.Identity.Name&xgink=@GeneralService.PortalLink()&role=superadmin"><i class="fa fa-question-circle-o"></i> CBT Question <span class="label label-danger">New</span> </a></li>
+                    <li><a href="http://@GeneralService.PortalLink()/CBTExam/CBTExamBoard/Index?unixconverify=@User.Identity.Name&xgink=@GeneralService.PortalLink()&role=superadmin"><i class="fa fa-question-circle-o"></i> CBT Exam Setting <span class="label label-danger">New</span> </a></li>
+                    <li><a href="http://@GeneralService.PortalLink()/CBTExam/CBTExamResultManager/Index?unixconverify=@User.Identity.Name&xgink=@GeneralService.PortalLink()&role=superadmin"><i class="fa fa-question-circle-o"></i> CBT Result Manager <span class="label label-danger">New</span> </a></li>
+                    @*<li><a href="http://@GeneralService.PortalLink()/CBTExam/CBTOption?unixconverify=@User.Identity.Name&xgink=@GeneralService.PortalLink()&role=superadmin"><i class="fa fa-question"></i> Options <span class="label label-danger">New</span> </a></li>*@
+                }
+                @if (User.IsInRole("Admin"))
+                {
+                    <li><a href="http://@GeneralService.PortalLink()/CBTExam/CBTClass/Index?unixconverify=@User.Identity.Name&xgink=@GeneralService.PortalLink()&role=admin"><i class="fa fa-book"></i>CBT Class <span class="label label-danger">New</span> </a></li>
+                    @*<li><a href="http://@GeneralService.PortalLink()/CBTExam/CBTSubject/Index?unixconverify=@User.Identity.Name&xgink=@GeneralService.PortalLink()&role=admin"><i class="fa fa-book"></i>CBT Subject <span class="label label-danger">New</span> </a></li>*@
+                    <li><a href="http://@GeneralService.PortalLink()/CBTExam/CBTQuestion/Index?unixconverify=@User.Identity.Name&xgink=@GeneralService.PortalLink()&role=admin"><i class="fa fa-question-circle-o"></i> CBT Question <span class="label label-danger">New</span> </a></li>
+                    <li><a href="http://@GeneralService.PortalLink()/CBTExam/CBTExamBoard/Index?unixconverify=@User.Identity.Name&xgink=@GeneralService.PortalLink()&role=admin"><i class="fa fa-question-circle-o"></i> CBT Exam Setting <span class="label label-danger">New</span> </a></li>
+                    <li><a href="http://@GeneralService.PortalLink()/CBTExam/CBTExamResultManager/Index?unixconverify=@User.Identity.Name&xgink=@GeneralService.PortalLink()&role=admin"><i class="fa fa-question-circle-o"></i> CBT Result Manager <span class="label label-danger">New</span> </a></li>
+                    @*<li><a href="http://@GeneralService.PortalLink()/CBTExam/CBTOption?unixconverify=@User.Identity.Name&xgink=@GeneralService.PortalLink()&role=superadmin"><i class="fa fa-question"></i> Options <span class="label label-danger">New</span> </a></li>*@
+
+                }
+
+                else if (User.IsInRole("Staff"))
+                {
+                    <li><a href="http://@GeneralService.PortalLink()/CBTExam/CBTClass/Index?unixconverify=@User.Identity.Name&xgink=@GeneralService.PortalLink()&role=staff"><i class="fa fa-book"></i>CBT Class <span class="label label-danger">New</span> </a></li>
+                    @*<li><a href="http://@GeneralService.PortalLink()/CBTExam/CBTSubject/Index?unixconverify=@User.Identity.Name&xgink=@GeneralService.PortalLink()&role=staff"><i class="fa fa-book"></i>CBT Subject <span class="label label-danger">New</span> </a></li>*@
+                    <li><a href="http://@GeneralService.PortalLink()/CBTExam/CBTQuestion/Index?unixconverify=@User.Identity.Name&xgink=@GeneralService.PortalLink()&role=staff"><i class="fa fa-question"></i> CBT Question <span class="label label-danger">New</span> </a></li>
+                    @*<li><a href="http://@GeneralService.PortalLink()/CBTExam/CBTOption?unixconverify=@User.Identity.Name&xgink=@GeneralService.PortalLink()&role=superadmin"><i class="fa fa-question"></i> Options <span class="label label-danger">New</span> </a></li>*@
+
+                }
+            </ul>
+        </li>
+    }
+
+
+
+    @if (User.IsInRole("SuperAdmin"))
+    {
+        <li class="treeview">
+            <a href="#">
+                <i class="fa fa-bookmark-o"></i> <span> Admin Management</span>
+                <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </a>
+            <ul class="treeview-menu">
+                <li><a href="@Url.Action("Index", "Quotes", new { area = "Content" })"><i class="fa fa-bookmark"></i> <span> Quotes</span></a></li>
+                <li><a href="@Url.Action("Index", "Riddles", new { area = "Content" })"><i class="fa fa-bookmark"></i> <span> Riddles</span></a></li>
+
+
+            </ul>
+        </li>
+    }

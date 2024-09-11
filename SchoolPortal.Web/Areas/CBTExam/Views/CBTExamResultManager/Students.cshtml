@@ -1,0 +1,227 @@
+﻿@model IEnumerable<SchoolPortal.Web.Models.Dtos.EnrolledStudentsByClassDto>
+@using SchoolPortal.Web.Areas.Service
+@{
+    ViewBag.Title = @GeneralService.StudentorPupil() + "s";
+    int sn = 0;
+
+}
+
+<div class="row">
+    <div class="col-xs-12">
+
+        <div class="box">
+            <div class="box-header">
+                <span style="color:#337ab7;font-size:30px;"><i class="fa fa-fw fa-users" style="color:#337ab7;"></i> Class List </span>   <span style="font-size:15px;">@ViewBag.Session - @ViewBag.Class </span>
+                <h4>Form Teacher (@ViewBag.formteacher) (@Model.Count() @GeneralService.StudentorPupil()s)</h4>
+
+                <div class="pull-right">
+
+
+
+                    @using (Html.BeginForm("UpdateScore", "CBTExamResultManager", new { classId = ViewBag.ClassId, sessionId = ViewBag.sessionId }))
+                    {
+
+                        <input type="submit" value="Update CBT Result To School Result" class="btn btn-success" />
+                        @Html.ActionLink("Back To CBT Exam Result Management", "Index", null, new { @class = "btn btn-primary" })
+
+                    }
+
+                </div>
+            </div>
+            <div class="box-body">
+                @if (TempData["Report"] != null)
+                {
+                    <div class="alert alert-success alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <strong>@TempData["Report"]</strong>
+                    </div>
+                }
+                @if (TempData["Error"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <strong>@TempData["Error"]</strong>
+                    </div>
+                }
+                @if (TempData["success"] != null)
+                {
+                    <div class="alert alert-success alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <strong>@TempData["success"]</strong>
+                    </div>
+                }
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive">
+                <table class="table table-hover">
+
+                    <tr>
+                        <th>S/N</th>
+                        <th>
+                            @GeneralService.StudentorPupil() Name
+                        </th>
+                        <th>
+                            Reg. Number
+                        </th>
+
+                        <th>
+                            Average Score
+                        </th>
+
+                        @*<th>
+                                Cummulative Score
+                            </th>*@
+                        @if (ViewBag.showPosOnClassResult == true)
+                        {
+                            <th>Position</th>
+                        }
+                        else
+                        {
+
+                        }
+
+                        <th>
+                            Total Subjects
+                        </th>
+                        <th></th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            @{sn++;}
+                            <td>@sn</td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.StudentName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.StudentRegNumber)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AverageScore)
+                            </td>
+
+                            @*<td>
+                                    @Html.DisplayFor(modelItem => item.CummulativeAverageScore)
+                                </td>*@
+                            @if (ViewBag.showPosOnClassResult == true)
+                            {
+                                <td>
+                                    @PrintService.MasterListPosition(item.EnrollmentId)
+                                </td>
+                            }
+                            else
+                            {
+
+                            }
+                            <td>
+
+                                @* @Html.DisplayFor(modelItem => item.SubjectCount)*@
+                                @GeneralService.SubjectCountPerStudent(item.EnrollmentId)
+
+                            </td>
+                            <td>
+                                @if (ViewBag.Check == "Not Published")
+                                {
+
+                                    <div class="dropdown">
+                                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                                            Action
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li class="text-color-warning">
+                                                <a class="" href="http://@GeneralService.PortalLink()/CBTExam/CBTExamResultManager/StudentExam?examId=@item.Id&unixconverify=@User.Identity.Name&xgink=@GeneralService.PortalLink()&role=superadmin&regNumber=@item.StudentRegNumber&session=@item.SessionYear&term=@item.Term"><i class="fa fa-eye"></i>View Student Exams </a>
+                                            </li>
+
+                                        </ul>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <button class="btn btn-primary">Result Has been Published</button>
+                                }
+
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+    <!-- /.col -->
+</div>
+
+
+@section Scripts {
+    
+
+    <script>
+        //// Store
+        //localStorage.setItem("lastname", "Smith");
+        //// Retrieve
+        //document.getElementById("result").innerHTML = localStorage.getItem("lastname");
+
+        $("a[name=rem]").on("click", function () {
+            var a = $(this).attr("data-id");
+            var b = $(this).attr("data-sessid");
+            var c = $(this).attr("data-classid");
+            console.log(a, b, c)
+            localStorage.setItem("a1", a);
+            localStorage.setItem("a2", b);
+            localStorage.setItem("a3", c);
+
+        });
+
+         function RemarkUpdate(id) {
+
+          var d = document.getElementById("myremark").value;
+             var student = {};
+             student.EnrolId = localStorage.getItem("a1");
+             student.classId = localStorage.getItem("a2");
+             student.sessionId = localStorage.getItem("a3");
+             student.Remark = d;
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("UpdateResultRemarkbyEnrolment", "ResultManagement", new { area = "Admin" })",
+                data: JSON.stringify(student),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json"
+             });
+             $("#RemarkModal").modal("hide");
+             location.reload();
+             @*var reload = {};
+             reload.classId = localStorage.getItem("a2");
+             reload.sessionId = localStorage.getItem("a3");
+              $.ajax({
+                type: "POST",
+                url: "@Url.Action("Students", "ResultManagement", new { area = "Admin" })",
+                  data: JSON.stringify(reload),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json"
+             });
+
+
+             console.log(student)
+             console.log(reload)*@
+
+
+             @*location.href = '@Url.Action("", "ResultManagement")?sessId=' + localStorage.getItem("a3") + '&classId=' + localStorage.getItem("a2");
+             var sfd = '@Url.Action("Students", "ResultManagement")?sessId=' + localStorage.getItem("a3") + '&classId=' + localStorage.getItem("a2");
+             console.log(sfd)*@
+        }
+
+        //$(function () {
+        //    var a = ("#RemarkModal").data("id");
+        //    var b = ("#RemarkModal").data("sessid");
+        //    var c = ("#RemarkModal").data("classid");
+
+
+        //});
+    </script>
+}
+

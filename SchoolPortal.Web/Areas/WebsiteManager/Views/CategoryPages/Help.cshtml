@@ -1,0 +1,58 @@
+﻿@model IEnumerable<SchoolPortal.Web.Models.Entities.CategoryPage>
+@using SchoolPortal.Web.Areas.Service
+@{
+    ViewBag.Title = "PageLinks";
+    int sn = 0;
+    int dsn = 0;
+
+}
+@{
+    ViewBag.Title = "blogdesc";
+    Layout = "~/Areas/Admin/Views/Shared/_DescView.cshtml";
+}
+
+
+
+
+<div class="container">
+    HELPER MANAGER
+    <div class="row">
+        <div class="col-md-10">
+            <div style="padding:20px;word-wrap:break-word;">
+                <p><span style="font-style:italic;font-weight:900;">( 0 )</span> Blog >>>> link <a target="_blank" href="@Url.Action("Latest", "Blog", new { area = "WebsiteManager" })"> " @Url.Action("Latest", "Blog", new { area = "" }) "</a></p>
+            </div>
+            <span style="padding:20px;background-color:#62804e;color:#ffffff;">Above is the bloglink</span>
+            @foreach (var i in Model)
+            {
+                sn++;
+                <div style="padding:20px;word-wrap:break-word;">
+                    <p><span style="font-style:italic;font-weight:900;">( @sn )</span> @i.Title >>>> link <a target="_blank" href="@Url.Action("ContentPage", "Page", new { area = "WebsiteManager", id = i.Id, title = i.Title.ToSeoUrl() })"> "@Url.Action("ContentPage", "Page", new { area = "", id = i.Id, title = i.Title.ToSeoUrl() })"</a> ||| <a target="_blank" href="@Url.Action("ContentView", "Page", new { area = "WebsiteManager", id = i.Id, title = i.Title.ToSeoUrl() })"> Preview</a></p>
+                </div>
+                foreach (var menu in i.ContentPages)
+                {
+                    dsn++;
+                    <span>Sub</span>
+                    <div style="padding:20px;word-wrap:break-word;">
+                        <p><span style="font-style:italic;font-weight:900;padding-left:40px;">( @dsn )</span>@menu.Title >>>> link <a target="_blank" href="@Url.Action("itemPage", "Page", new { area = "WebsiteManager", id = menu.Id, title = menu.Title.ToSeoUrl() })"> " @Url.Action("itemPage", "Page", new { area = "", id = menu.Id, title = menu.Title.ToSeoUrl() })"</a><a target="_blank" href="@Url.Action("itemView", "Page", new { area = "WebsiteManager", id = menu.Id, title = menu.Title.ToSeoUrl() })"> Preview</a></p>
+                    </div>
+
+                }
+
+            }
+        </div>
+
+    </div>
+</div>
+@section HeadArea {
+
+    @Html.Raw(ViewBag.taghead)
+    @Html.Raw(ViewBag.styletag)
+
+}
+
+
+@section FooterArea {
+
+    @Html.Raw(ViewBag.jstag)
+
+}
